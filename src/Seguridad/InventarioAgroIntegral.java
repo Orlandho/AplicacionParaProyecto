@@ -62,6 +62,10 @@ public class InventarioAgroIntegral extends javax.swing.JFrame {
         lblLogin.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         lblLogin.setText("LOGIN");
 
+        txfUsuario.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+
+        txfContraseña.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+
         btnIngresar.setBackground(new java.awt.Color(51, 51, 51));
         btnIngresar.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         btnIngresar.setForeground(new java.awt.Color(255, 255, 255));
