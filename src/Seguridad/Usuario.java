@@ -43,6 +43,7 @@ public class Usuario {
 
     public void setContraseña(String contraseña) {
         this.contraseña = contraseña;
+        this.fechaUltimoCambio = LocalDate.now();
     }
 
     public String getRol() {

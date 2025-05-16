@@ -15,8 +15,9 @@ public class InventarioAgroIntegral extends javax.swing.JFrame {
     
     MantenimientoUsuario listaUsuarios;
     
-    private HashMap<String, Usuario> baseDatosUsuarios = new HashMap<>();
-    
+    private BaseDeDatos baseDeDatos= new BaseDeDatos();
+    //private int intentosFallidos = 0;
+    private boolean cuentaBloqueada = false;
     public InventarioAgroIntegral() {
         setTitle("Sistema de Inventario - Agro Integral");
         setSize(400, 250);
@@ -104,9 +105,9 @@ public class InventarioAgroIntegral extends javax.swing.JFrame {
         jPanelLoginHolder.add(jPanelLogin);
         jPanelLogin.setBounds(336, 19, 350, 400);
 
-        lblLogoEmpresa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/LogoEmpresa.jpeg"))); // NOI18N
+        lblLogoEmpresa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/LogoEmpresa removebg.png"))); // NOI18N
         jPanelLoginHolder.add(lblLogoEmpresa);
-        lblLogoEmpresa.setBounds(6, 112, 320, 220);
+        lblLogoEmpresa.setBounds(10, 100, 320, 220);
 
         getContentPane().add(jPanelLoginHolder);
         jPanelLoginHolder.setBounds(0, 0, 719, 472);
@@ -115,14 +116,61 @@ public class InventarioAgroIntegral extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void validarIngreso() {
+    
+
+    String usuarioIngresado = txfUsuario.getText().trim();
+    String contraseñaIngresada = txfContraseña.getText().trim();
+
+    if (!MantenimientoUsuario.esDniORucValido(usuarioIngresado)) {
+        JOptionPane.showMessageDialog(null,"Usuario debe ser DNI, RUC.");
+        return;
+    }
+
+    if (!MantenimientoUsuario.esContraseñaValida(contraseñaIngresada)) {
+        JOptionPane.showMessageDialog(null,"Contraseña debe contener solo letras y números.");
+        return;
+    }
+
+    if (!baseDeDatos.existeUsuario(usuarioIngresado)) {
+        JOptionPane.showMessageDialog(null,"El usuario no está registrado.");
+        return;
+    }
+
+    Usuario usuario = baseDeDatos.buscarUsuario(usuarioIngresado);
+    if (usuario.isCuentaBloqueada()) {
+            JOptionPane.showMessageDialog(null,"Cuenta bloqueada. Intenta más tarde.");
+            return;
+        }
+    if (!usuario.getContraseña().equals(contraseñaIngresada)) {
+        usuario.setIntentosFallidos(usuario.getIntentosFallidos()+1);
+        if (usuario.getIntentosFallidos() >= 5) {
+            usuario.setCuentaBloqueada(true) ;
+            JOptionPane.showMessageDialog(null,"Cuenta bloqueada por múltiples intentos fallidos.");
+        } else {
+            JOptionPane.showMessageDialog(null,"Contraseña incorrecta.");
+        }
+        return;
+    }
+
+    // Verificar cambio de contraseña
+    if (usuario.getRol().equalsIgnoreCase("administrador") && usuario.debeCambiarContraseña()) {
+        String nuevaContraseña=obligarCrearContraseña(usuario);
+        baseDeDatos.actualizarContraseña(usuario.getUsuario(), nuevaContraseña);
+    } else {
+        //intentosFallidos=0;
+        JOptionPane.showMessageDialog(null,"Bienvenido, " + usuario.getUsuario() + ".");
+    }
+}
+    
     //Regresa la contraseña creada
     private String obligarCrearContraseña(Usuario usuario)
     {
         String[] options={"OK"};
             JPanel pedirContraNueva=new JPanel();
-            JLabel lblCustom1 = new JLabel("Pasaron más de 60 días. Cree una nueva contraseña:");
+            JLabel lblPedirNuevaContraseña = new JLabel("Pasaron más de 60 días. Cree una nueva contraseña:");
             JTextField nuevaContra=new JTextField(15);
-            pedirContraNueva.add(lblCustom1);
+            pedirContraNueva.add(lblPedirNuevaContraseña);
             pedirContraNueva.add(nuevaContra);
             do{
             int opcionSeleccionada=JOptionPane.showOptionDialog(null, pedirContraNueva, "The Title", JOptionPane.NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options , options[0]);
@@ -140,28 +188,15 @@ public class InventarioAgroIntegral extends javax.swing.JFrame {
     
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
         // TODO add your handling code here:
-        String DNIoRUC=txfUsuario.getText(),contraseña=txfContraseña.getText();
-        
         //usuario de prueba
-        Usuario usuario=new Usuario("Orlando", "12345", "administrador", LocalDate.of(2025, 2, 15));
+        String DNIoRUC=txfUsuario.getText(),contraseña=txfContraseña.getText();
         
         if(!MantenimientoUsuario.esDniORucValido(DNIoRUC)||!MantenimientoUsuario.esContraseñaValida(contraseña))
         {
             JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos. Intente de nuevo");
             return;
         }
-        
-        //Verifica que el usuario haya cambiado su contraseña hace menos de 60 dias
-        if(MantenimientoUsuario.esContraseñaExpirada(usuario)){
-            String nuevaContraseña=obligarCrearContraseña(usuario);
-            //falta el codigo para subir la nueva contraseña a la base de datos del usuario
-            
-        }
-        
-        if(usuario.getIntentosFallidos()>5)
-        {
-            //Codigo para bloquear la cuenta del usuario
-        }
+        validarIngreso();
         
     }//GEN-LAST:event_btnIngresarActionPerformed
 

@@ -176,12 +176,12 @@
         <Component class="javax.swing.JLabel" name="lblLogoEmpresa">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/Imagenes/LogoEmpresa.jpeg"/>
+              <Image iconType="3" name="/Imagenes/LogoEmpresa removebg.png"/>
             </Property>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="6" y="112" width="320" height="220"/>
+              <AbsoluteConstraints x="10" y="100" width="320" height="220"/>
             </Constraint>
           </Constraints>
         </Component>
