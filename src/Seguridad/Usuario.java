@@ -15,7 +15,9 @@ public class Usuario {
     private String contraseña;
     private String rol;
     private LocalDate fechaUltimoCambio;
-    
+    private int intentosFallidos=0;
+    private String mensajeEstado;
+    private boolean cuentaBloqueada = false;
     //Constructor
 
     public Usuario(String usuario, String contraseña, String rol, LocalDate fechaUltimoCambio) {
@@ -58,6 +60,32 @@ public class Usuario {
     public void setFechaUltimoCambio(LocalDate fechaUltimoCambio) {
         this.fechaUltimoCambio = fechaUltimoCambio;
     }
+
+    public int getIntentosFallidos() {
+        return intentosFallidos;
+    }
+
+    public void setIntentosFallidos(int intentosFallidos) {
+        this.intentosFallidos = intentosFallidos;
+    }
+
+    public String getMensajeEstado() {
+        return mensajeEstado;
+    }
+
+    public void setMensajeEstado(String mensajeEstado) {
+        this.mensajeEstado = mensajeEstado;
+    }
+
+    public boolean isCuentaBloqueada() {
+        return cuentaBloqueada;
+    }
+
+    public void setCuentaBloqueada(boolean cuentaBloqueada) {
+        this.cuentaBloqueada = cuentaBloqueada;
+    }
+    
+    
 
     // Validación para cambio de contraseña obligatorio
     public boolean debeCambiarContraseña() {

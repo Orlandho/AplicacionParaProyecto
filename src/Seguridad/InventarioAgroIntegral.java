@@ -9,20 +9,13 @@ import java.awt.*;
 import java.awt.event.*;
 import java.time.LocalDate;
 import java.util.HashMap;
+import Seguridad.MantenimientoUsuario;
 
 public class InventarioAgroIntegral extends javax.swing.JFrame {
-
-    private JTextField campoUsuario;
-    private JPasswordField campoContraseña;
-    private JButton botonIngresar;
-    private JLabel mensajeEstado;
     
-    private int intentosFallidos = 0;
-    private boolean cuentaBloqueada = false;
+    MantenimientoUsuario listaUsuarios;
     
     private HashMap<String, Usuario> baseDatosUsuarios = new HashMap<>();
-    
-    //ImageIcon imageIconLogo = new ImageIcon(new ImageIcon("/Imagenes/LogoEmpresa.jpeg").getImage().getScaledInstance(lblLogoEmpresa.getWidth(), lblLogoEmpresa.getHeight(), Image.SCALE_DEFAULT));
     
     public InventarioAgroIntegral() {
         setTitle("Sistema de Inventario - Agro Integral");
@@ -30,6 +23,7 @@ public class InventarioAgroIntegral extends javax.swing.JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         initComponents();
+        listaUsuarios=new MantenimientoUsuario();
     }
 
     /**
@@ -47,125 +41,95 @@ public class InventarioAgroIntegral extends javax.swing.JFrame {
         txfUsuario = new javax.swing.JTextField();
         txfContraseña = new javax.swing.JTextField();
         btnIngresar = new javax.swing.JButton();
-        lblDecoracion1 = new javax.swing.JLabel();
         lblUsuario = new javax.swing.JLabel();
         lblContraseña = new javax.swing.JLabel();
+        lblDecoracion2 = new javax.swing.JLabel();
+        lblDecoracion1 = new javax.swing.JLabel();
         lblLogoEmpresa = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Login");
+        setTitle("Sistema de Inventario - Agro Integral");
         setBackground(new java.awt.Color(255, 255, 255));
         setResizable(false);
+        getContentPane().setLayout(null);
 
         jPanelLoginHolder.setBackground(new java.awt.Color(56, 141, 165));
+        jPanelLoginHolder.setLayout(null);
+
+        jPanelLogin.setLayout(null);
 
         lblLogin.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         lblLogin.setText("LOGIN");
+        jPanelLogin.add(lblLogin);
+        lblLogin.setBounds(33, 14, 65, 30);
 
         txfUsuario.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        jPanelLogin.add(txfUsuario);
+        txfUsuario.setBounds(102, 91, 220, 35);
 
         txfContraseña.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        jPanelLogin.add(txfContraseña);
+        txfContraseña.setBounds(102, 180, 220, 35);
 
         btnIngresar.setBackground(new java.awt.Color(51, 51, 51));
         btnIngresar.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         btnIngresar.setForeground(new java.awt.Color(255, 255, 255));
         btnIngresar.setText("INGRESAR");
-
-        lblDecoracion1.setText("________________________                     ________________________");
+        btnIngresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIngresarActionPerformed(evt);
+            }
+        });
+        jPanelLogin.add(btnIngresar);
+        btnIngresar.setBounds(19, 266, 303, 38);
 
         lblUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Usuario.png"))); // NOI18N
+        jPanelLogin.add(lblUsuario);
+        lblUsuario.setBounds(19, 79, 65, 47);
 
         lblContraseña.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/contraseña.png"))); // NOI18N
+        jPanelLogin.add(lblContraseña);
+        lblContraseña.setBounds(19, 153, 65, 73);
 
-        javax.swing.GroupLayout jPanelLoginLayout = new javax.swing.GroupLayout(jPanelLogin);
-        jPanelLogin.setLayout(jPanelLoginLayout);
-        jPanelLoginLayout.setHorizontalGroup(
-            jPanelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLoginLayout.createSequentialGroup()
-                .addContainerGap(25, Short.MAX_VALUE)
-                .addGroup(jPanelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblDecoracion1)
-                    .addGroup(jPanelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(btnIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanelLoginLayout.createSequentialGroup()
-                            .addGroup(jPanelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(lblUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE)
-                                .addComponent(lblContraseña, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGap(18, 18, 18)
-                            .addGroup(jPanelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(txfContraseña, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
-                                .addComponent(txfUsuario, javax.swing.GroupLayout.Alignment.TRAILING)))))
-                .addGap(22, 22, 22))
-            .addGroup(jPanelLoginLayout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addComponent(lblLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        jPanelLoginLayout.setVerticalGroup(
-            jPanelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelLoginLayout.createSequentialGroup()
-                .addGroup(jPanelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelLoginLayout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addComponent(lblLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
-                        .addComponent(txfUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanelLoginLayout.createSequentialGroup()
-                        .addGap(79, 79, 79)
-                        .addComponent(lblUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
-                .addGap(27, 27, 27)
-                .addGroup(jPanelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblContraseña)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLoginLayout.createSequentialGroup()
-                        .addComponent(txfContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(11, 11, 11)))
-                .addGap(40, 40, 40)
-                .addComponent(btnIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblDecoracion1)
-                .addGap(79, 79, 79))
-        );
+        lblDecoracion2.setFont(new java.awt.Font("SansSerif", 1, 13)); // NOI18N
+        lblDecoracion2.setText("_________________");
+        jPanelLogin.add(lblDecoracion2);
+        lblDecoracion2.setBounds(200, 310, 130, 16);
+
+        lblDecoracion1.setFont(new java.awt.Font("SansSerif", 1, 13)); // NOI18N
+        lblDecoracion1.setText("_________________");
+        jPanelLogin.add(lblDecoracion1);
+        lblDecoracion1.setBounds(20, 310, 130, 18);
+
+        jPanelLoginHolder.add(jPanelLogin);
+        jPanelLogin.setBounds(336, 19, 350, 400);
 
         lblLogoEmpresa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/LogoEmpresa.jpeg"))); // NOI18N
+        jPanelLoginHolder.add(lblLogoEmpresa);
+        lblLogoEmpresa.setBounds(6, 112, 320, 220);
 
-        javax.swing.GroupLayout jPanelLoginHolderLayout = new javax.swing.GroupLayout(jPanelLoginHolder);
-        jPanelLoginHolder.setLayout(jPanelLoginHolderLayout);
-        jPanelLoginHolderLayout.setHorizontalGroup(
-            jPanelLoginHolderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLoginHolderLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblLogoEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jPanelLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18))
-        );
-        jPanelLoginHolderLayout.setVerticalGroup(
-            jPanelLoginHolderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelLoginHolderLayout.createSequentialGroup()
-                .addContainerGap(19, Short.MAX_VALUE)
-                .addComponent(jPanelLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35))
-            .addGroup(jPanelLoginHolderLayout.createSequentialGroup()
-                .addGap(113, 113, 113)
-                .addComponent(lblLogoEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        getContentPane().add(jPanelLoginHolder);
+        jPanelLoginHolder.setBounds(0, 0, 719, 472);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanelLoginHolder, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanelLoginHolder, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-
-        setSize(new java.awt.Dimension(713, 468));
+        setSize(new java.awt.Dimension(735, 481));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
+        // TODO add your handling code here:
+        String usuario=txfUsuario.getText(),contraseña=txfContraseña.getText();
+        
+        if(!MantenimientoUsuario.esDniORucValido(usuario)||!MantenimientoUsuario.esContraseñaValida(contraseña))
+        {
+            JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos. Intente de nuevo");
+        }
+        
+        //Falta el codigo que se encarga de verificar que el usuario existe para determinar si abrir el menu de empleado o administrador
+        
+    }//GEN-LAST:event_btnIngresarActionPerformed
+
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -206,6 +170,7 @@ public class InventarioAgroIntegral extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelLoginHolder;
     private javax.swing.JLabel lblContraseña;
     private javax.swing.JLabel lblDecoracion1;
+    private javax.swing.JLabel lblDecoracion2;
     private javax.swing.JLabel lblLogin;
     private javax.swing.JLabel lblLogoEmpresa;
     private javax.swing.JLabel lblUsuario;
