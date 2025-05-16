@@ -115,16 +115,53 @@ public class InventarioAgroIntegral extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    //Regresa la contraseña creada
+    private String obligarCrearContraseña(Usuario usuario)
+    {
+        String[] options={"OK"};
+            JPanel pedirContraNueva=new JPanel();
+            JLabel lblCustom1 = new JLabel("Pasaron más de 60 días. Cree una nueva contraseña:");
+            JTextField nuevaContra=new JTextField(15);
+            pedirContraNueva.add(lblCustom1);
+            pedirContraNueva.add(nuevaContra);
+            do{
+            int opcionSeleccionada=JOptionPane.showOptionDialog(null, pedirContraNueva, "The Title", JOptionPane.NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options , options[0]);
+            if(nuevaContra.getText().equals(usuario.getContraseña()))
+            {
+                JOptionPane.showMessageDialog(null, "La contraseña debe ser distinta a la anterior.");
+            }
+            if(!MantenimientoUsuario.esContraseñaValida(nuevaContra.getText()))
+            {
+                JOptionPane.showMessageDialog(null, "Formato de contraseña incorrecto. Intente de nuevo");
+            }
+            }while (!MantenimientoUsuario.esContraseñaValida(nuevaContra.getText())||nuevaContra.getText().equals(usuario.getContraseña()));
+            return nuevaContra.getText();
+    }
+    
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
         // TODO add your handling code here:
-        String usuario=txfUsuario.getText(),contraseña=txfContraseña.getText();
+        String DNIoRUC=txfUsuario.getText(),contraseña=txfContraseña.getText();
         
-        if(!MantenimientoUsuario.esDniORucValido(usuario)||!MantenimientoUsuario.esContraseñaValida(contraseña))
+        //usuario de prueba
+        Usuario usuario=new Usuario("Orlando", "12345", "administrador", LocalDate.of(2025, 2, 15));
+        
+        if(!MantenimientoUsuario.esDniORucValido(DNIoRUC)||!MantenimientoUsuario.esContraseñaValida(contraseña))
         {
             JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos. Intente de nuevo");
+            return;
         }
         
-        //Falta el codigo que se encarga de verificar que el usuario existe para determinar si abrir el menu de empleado o administrador
+        //Verifica que el usuario haya cambiado su contraseña hace menos de 60 dias
+        if(MantenimientoUsuario.esContraseñaExpirada(usuario)){
+            String nuevaContraseña=obligarCrearContraseña(usuario);
+            //falta el codigo para subir la nueva contraseña a la base de datos del usuario
+            
+        }
+        
+        if(usuario.getIntentosFallidos()>5)
+        {
+            //Codigo para bloquear la cuenta del usuario
+        }
         
     }//GEN-LAST:event_btnIngresarActionPerformed
 

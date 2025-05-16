@@ -85,6 +85,9 @@ public class Usuario {
         this.cuentaBloqueada = cuentaBloqueada;
     }
     
+    public LocalDate getFechaLimite(){
+        return fechaUltimoCambio.plusDays(60);
+    }
     
 
     // Validación para cambio de contraseña obligatorio

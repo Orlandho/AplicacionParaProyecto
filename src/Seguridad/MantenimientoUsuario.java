@@ -4,6 +4,7 @@
  */
 package Seguridad;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
@@ -31,5 +32,10 @@ public class MantenimientoUsuario {
         return contraseña.matches("[A-Za-z0-9]+")&&esLargo;
     }
     
+    public static boolean esContraseñaExpirada(Usuario usuario)
+    {
+        LocalDate horaLocal=LocalDate.now();
+        return horaLocal.isAfter(usuario.getFechaLimite())&&usuario.getRol().toLowerCase().equals("administrador");
+    }
     
 }
