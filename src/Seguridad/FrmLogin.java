@@ -9,17 +9,17 @@ import java.awt.*;
 import java.awt.event.*;
 import java.time.LocalDate;
 import java.util.HashMap;
-import Seguridad.Verificar;
+import Seguridad.VerificacionServicio;
 import Seguridad.MenuDinamico;
 
-public class InventarioAgroIntegral extends javax.swing.JFrame {
+public class FrmLogin extends javax.swing.JFrame {
     Usuario usuario;
 
     private BaseDeDatos baseDeDatos = new BaseDeDatos();
     //private int intentosFallidos = 0;
     private boolean cuentaBloqueada = false;
 
-    public InventarioAgroIntegral() {
+    public FrmLogin() {
         setTitle("Sistema de Inventario - Agro Integral");
         setSize(400, 250);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -157,10 +157,10 @@ public class InventarioAgroIntegral extends javax.swing.JFrame {
             if (nuevaContra.getText().equals(usuario.getContraseña())) {
                 JOptionPane.showMessageDialog(null, "La contraseña debe ser distinta a la anterior.");
             }
-            if (!Verificar.esContraseñaValida(nuevaContra.getText())) {
+            if (!VerificacionServicio.esContraseñaValida(nuevaContra.getText())) {
                 JOptionPane.showMessageDialog(null, "Formato de contraseña incorrecto. Intente de nuevo");
             }
-        } while (!Verificar.esContraseñaValida(nuevaContra.getText()) || nuevaContra.getText().equals(usuario.getContraseña()));
+        } while (!VerificacionServicio.esContraseñaValida(nuevaContra.getText()) || nuevaContra.getText().equals(usuario.getContraseña()));
         return nuevaContra.getText();
     }
 
@@ -169,7 +169,7 @@ public class InventarioAgroIntegral extends javax.swing.JFrame {
         //usuario de prueba
         String DNIoRUC = txfUsuario.getText(), contraseña = txfContraseña.getText();
 
-        if (!Verificar.esDniORucValido(DNIoRUC) || !Verificar.esContraseñaValida(contraseña)) {
+        if (!VerificacionServicio.esDniORucValido(DNIoRUC) || !VerificacionServicio.esContraseñaValida(contraseña)) {
             JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos. Intente de nuevo");
             return;
         }
@@ -202,20 +202,21 @@ public class InventarioAgroIntegral extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(InventarioAgroIntegral.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(InventarioAgroIntegral.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(InventarioAgroIntegral.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(InventarioAgroIntegral.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new InventarioAgroIntegral().setVisible(true);
+                new FrmLogin().setVisible(true);
             }
         });
     }
