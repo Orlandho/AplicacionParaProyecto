@@ -11,17 +11,8 @@ import java.util.ArrayList;
  *
  * @author ORLANDO
  */
-public class MantenimientoUsuario {
-    ArrayList<Usuario> listaUsuarios;
+public class Verificar {
 
-    public MantenimientoUsuario() {
-        listaUsuarios=new ArrayList<>();
-    }
-    
-    public void agregarUsuario(Usuario nuevoUsuario){
-        listaUsuarios.add(nuevoUsuario);
-    }
-    
     //Devuelve true si el usuario cumple con el formato
     public static Boolean esDniORucValido(String usuario){
         return usuario.matches("\\d{8}")||usuario.matches("\\d{11}");

@@ -9,22 +9,22 @@ import java.awt.*;
 import java.awt.event.*;
 import java.time.LocalDate;
 import java.util.HashMap;
-import Seguridad.MantenimientoUsuario;
+import Seguridad.Verificar;
+import Seguridad.MenuDinamico;
 
 public class InventarioAgroIntegral extends javax.swing.JFrame {
-    
-    MantenimientoUsuario listaUsuarios;
-    
-    private BaseDeDatos baseDeDatos= new BaseDeDatos();
+    Usuario usuario;
+
+    private BaseDeDatos baseDeDatos = new BaseDeDatos();
     //private int intentosFallidos = 0;
     private boolean cuentaBloqueada = false;
+
     public InventarioAgroIntegral() {
         setTitle("Sistema de Inventario - Agro Integral");
         setSize(400, 250);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         initComponents();
-        listaUsuarios=new MantenimientoUsuario();
     }
 
     /**
@@ -116,92 +116,75 @@ public class InventarioAgroIntegral extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void validarIngreso() {
-    
+    private boolean validarIngreso(String usuarioIngresado, String contraseñaIngresada) {
 
-    String usuarioIngresado = txfUsuario.getText().trim();
-    String contraseñaIngresada = txfContraseña.getText().trim();
-
-    if (!MantenimientoUsuario.esDniORucValido(usuarioIngresado)) {
-        JOptionPane.showMessageDialog(null,"Usuario debe ser DNI, RUC.");
-        return;
-    }
-
-    if (!MantenimientoUsuario.esContraseñaValida(contraseñaIngresada)) {
-        JOptionPane.showMessageDialog(null,"Contraseña debe contener solo letras y números.");
-        return;
-    }
-
-    if (!baseDeDatos.existeUsuario(usuarioIngresado)) {
-        JOptionPane.showMessageDialog(null,"El usuario no está registrado.");
-        return;
-    }
-
-    Usuario usuario = baseDeDatos.buscarUsuario(usuarioIngresado);
-    if (usuario.isCuentaBloqueada()) {
-            JOptionPane.showMessageDialog(null,"Cuenta bloqueada. Intenta más tarde.");
-            return;
-        }
-    if (!usuario.getContraseña().equals(contraseñaIngresada)) {
-        usuario.setIntentosFallidos(usuario.getIntentosFallidos()+1);
-        if (usuario.getIntentosFallidos() >= 5) {
-            usuario.setCuentaBloqueada(true) ;
-            JOptionPane.showMessageDialog(null,"Cuenta bloqueada por múltiples intentos fallidos.");
+        if (!baseDeDatos.existeUsuario(usuarioIngresado)) {
+            JOptionPane.showMessageDialog(null, "El usuario no está registrado.");
         } else {
-            JOptionPane.showMessageDialog(null,"Contraseña incorrecta.");
+            usuario = baseDeDatos.buscarUsuario(usuarioIngresado);
+            if (usuario.isCuentaBloqueada()) {
+                JOptionPane.showMessageDialog(null, "Cuenta bloqueada. Intenta más tarde.");
+            } else if (!usuario.getContraseña().equals(contraseñaIngresada)) {
+                usuario.setIntentosFallidos(usuario.getIntentosFallidos() + 1);
+                if (usuario.getIntentosFallidos() >= 5) {
+                    usuario.setCuentaBloqueada(true);
+                    JOptionPane.showMessageDialog(null, "Cuenta bloqueada por múltiples intentos fallidos.");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Contraseña incorrecta.");
+                }
+            } else if (usuario.getRol().equalsIgnoreCase("administrador") && usuario.debeCambiarContraseña()) {
+                String nuevaContraseña = obligarCrearContraseña(usuario);
+                baseDeDatos.actualizarContraseña(usuario.getUsuario(), nuevaContraseña);
+                JOptionPane.showMessageDialog(null, "Inicie sesion con su nueva contraseña.");
+            } else {
+                JOptionPane.showMessageDialog(null, "Bienvenido, " + usuario.getUsuario() + ".");
+                return true;
+            }
         }
-        return;
+        return false;
     }
 
-    // Verificar cambio de contraseña
-    if (usuario.getRol().equalsIgnoreCase("administrador") && usuario.debeCambiarContraseña()) {
-        String nuevaContraseña=obligarCrearContraseña(usuario);
-        baseDeDatos.actualizarContraseña(usuario.getUsuario(), nuevaContraseña);
-    } else {
-        //intentosFallidos=0;
-        JOptionPane.showMessageDialog(null,"Bienvenido, " + usuario.getUsuario() + ".");
-    }
-}
-    
     //Regresa la contraseña creada
-    private String obligarCrearContraseña(Usuario usuario)
-    {
-        String[] options={"OK"};
-            JPanel pedirContraNueva=new JPanel();
-            JLabel lblPedirNuevaContraseña = new JLabel("Pasaron más de 60 días. Cree una nueva contraseña:");
-            JTextField nuevaContra=new JTextField(15);
-            pedirContraNueva.add(lblPedirNuevaContraseña);
-            pedirContraNueva.add(nuevaContra);
-            do{
-            int opcionSeleccionada=JOptionPane.showOptionDialog(null, pedirContraNueva, "The Title", JOptionPane.NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options , options[0]);
-            if(nuevaContra.getText().equals(usuario.getContraseña()))
-            {
+    private String obligarCrearContraseña(Usuario usuario) {
+        String[] options = {"OK"};
+        JPanel pedirContraNueva = new JPanel();
+        JLabel lblPedirNuevaContraseña = new JLabel("Pasaron más de 60 días. Cree una nueva contraseña:");
+        JTextField nuevaContra = new JTextField(15);
+        pedirContraNueva.add(lblPedirNuevaContraseña);
+        pedirContraNueva.add(nuevaContra);
+        do {
+            int opcionSeleccionada = JOptionPane.showOptionDialog(null, pedirContraNueva, "Creando contraseña", JOptionPane.NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+            if (nuevaContra.getText().equals(usuario.getContraseña())) {
                 JOptionPane.showMessageDialog(null, "La contraseña debe ser distinta a la anterior.");
             }
-            if(!MantenimientoUsuario.esContraseñaValida(nuevaContra.getText()))
-            {
+            if (!Verificar.esContraseñaValida(nuevaContra.getText())) {
                 JOptionPane.showMessageDialog(null, "Formato de contraseña incorrecto. Intente de nuevo");
             }
-            }while (!MantenimientoUsuario.esContraseñaValida(nuevaContra.getText())||nuevaContra.getText().equals(usuario.getContraseña()));
-            return nuevaContra.getText();
+        } while (!Verificar.esContraseñaValida(nuevaContra.getText()) || nuevaContra.getText().equals(usuario.getContraseña()));
+        return nuevaContra.getText();
     }
-    
+
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
         // TODO add your handling code here:
         //usuario de prueba
-        String DNIoRUC=txfUsuario.getText(),contraseña=txfContraseña.getText();
-        
-        if(!MantenimientoUsuario.esDniORucValido(DNIoRUC)||!MantenimientoUsuario.esContraseñaValida(contraseña))
-        {
+        String DNIoRUC = txfUsuario.getText(), contraseña = txfContraseña.getText();
+
+        if (!Verificar.esDniORucValido(DNIoRUC) || !Verificar.esContraseñaValida(contraseña)) {
             JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos. Intente de nuevo");
             return;
         }
-        validarIngreso();
-        
+
+        if (validarIngreso(DNIoRUC, contraseña)) {
+            dispose();
+            MenuDinamico menu = new MenuDinamico();
+            if(usuario.getRol().equals("administrador"))
+                menu.MostrarBotonesAdministrador();
+            menu.setVisible(true);
+            
+        }
+
     }//GEN-LAST:event_btnIngresarActionPerformed
 
-    
-    
     /**
      * @param args the command line arguments
      */
