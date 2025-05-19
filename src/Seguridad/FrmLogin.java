@@ -137,7 +137,7 @@ public class FrmLogin extends javax.swing.JFrame {
                 baseDeDatos.actualizarContraseña(usuario.getUsuario(), nuevaContraseña);
                 JOptionPane.showMessageDialog(null, "Inicie sesion con su nueva contraseña.");
             } else {
-                JOptionPane.showMessageDialog(null, "Bienvenido, " + usuario.getUsuario() + ".");
+                JOptionPane.showMessageDialog(null, "bienvenido \"Agro Integral del Perú\"");
                 return true;
             }
         }

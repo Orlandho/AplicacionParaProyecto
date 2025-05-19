@@ -14,10 +14,13 @@ public class MenuDinamico extends javax.swing.JFrame {
      */
     public MenuDinamico() {
         initComponents();
+        jpaneladmin.setVisible(false);
+        
     }
     public void MostrarBotonesAdministrador()
     {
-        
+        jpaneladmin.setVisible(true);
+        jpaneladmin.setEnabled(true);
     }
 
     /**
@@ -85,6 +88,7 @@ public class MenuDinamico extends javax.swing.JFrame {
         btncerrarsesion.setBounds(20, 460, 220, 50);
 
         jpaneladmin.setBackground(new java.awt.Color(64, 147, 164));
+        jpaneladmin.setEnabled(false);
         jpaneladmin.setLayout(null);
 
         btncaja.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/dinero.png"))); // NOI18N
