@@ -17,7 +17,7 @@ public class MenuDinamico extends javax.swing.JFrame {
     }
     public void MostrarBotonesAdministrador()
     {
-        lblRol.setText("Administrador");
+        
     }
 
     /**
@@ -29,45 +29,110 @@ public class MenuDinamico extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lblBienvenidaLOL = new javax.swing.JLabel();
-        lblMensaje = new javax.swing.JLabel();
+        jpanelgeneral = new javax.swing.JPanel();
+        btninicio = new javax.swing.JButton();
+        btnregistrodeventas = new javax.swing.JButton();
+        btnalmacen = new javax.swing.JButton();
+        btnregistrodecompras = new javax.swing.JButton();
+        jpaneladmin = new javax.swing.JPanel();
+        btncaja = new javax.swing.JButton();
+        btnajustes = new javax.swing.JButton();
+        btnregistrodeusuario = new javax.swing.JButton();
+        btnreportes = new javax.swing.JButton();
+        jpanelsuperior = new javax.swing.JPanel();
+        lblinventario = new javax.swing.JLabel();
+        lblimagen1 = new javax.swing.JLabel();
+        lblimagen2 = new javax.swing.JLabel();
+        lblRUC = new javax.swing.JLabel();
         lblRol = new javax.swing.JLabel();
+        btncerrarsesion = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(null);
 
-        lblBienvenidaLOL.setText("menu abierto SIUUUUUUUUUUUUUU");
+        jpanelgeneral.setBackground(new java.awt.Color(64, 147, 164));
+        jpanelgeneral.setLayout(null);
 
-        lblMensaje.setText("El usuario ingreso como:");
+        btninicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/casa.png"))); // NOI18N
+        btninicio.setText("INICIO");
+        jpanelgeneral.add(btninicio);
+        btninicio.setBounds(20, 10, 220, 40);
 
-        lblRol.setText("Empleado");
+        btnregistrodeventas.setIcon(new javax.swing.ImageIcon("C:\\Users\\ADMIN\\Desktop\\Sanchez\\AplicaciónParaProyecto\\src\\Imagenes\\tienda.png")); // NOI18N
+        btnregistrodeventas.setText("REGISTRO DE VENTAS");
+        jpanelgeneral.add(btnregistrodeventas);
+        btnregistrodeventas.setBounds(20, 170, 220, 50);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(54, 54, 54)
-                        .addComponent(lblMensaje)
-                        .addGap(18, 18, 18)
-                        .addComponent(lblRol))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(86, 86, 86)
-                        .addComponent(lblBienvenidaLOL)))
-                .addContainerGap(119, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addComponent(lblBienvenidaLOL)
-                .addGap(49, 49, 49)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblMensaje)
-                    .addComponent(lblRol))
-                .addContainerGap(186, Short.MAX_VALUE))
-        );
+        btnalmacen.setIcon(new javax.swing.ImageIcon("C:\\Users\\ADMIN\\Desktop\\Sanchez\\AplicaciónParaProyecto\\src\\Imagenes\\caja.png")); // NOI18N
+        btnalmacen.setText("ALMACEN");
+        jpanelgeneral.add(btnalmacen);
+        btnalmacen.setBounds(20, 60, 220, 50);
+
+        btnregistrodecompras.setIcon(new javax.swing.ImageIcon("C:\\Users\\ADMIN\\Desktop\\Sanchez\\AplicaciónParaProyecto\\src\\Imagenes\\camion.png")); // NOI18N
+        btnregistrodecompras.setText("REGISTRO DE COMPRAS");
+        jpanelgeneral.add(btnregistrodecompras);
+        btnregistrodecompras.setBounds(20, 120, 220, 40);
+
+        getContentPane().add(jpanelgeneral);
+        jpanelgeneral.setBounds(0, 80, 250, 230);
+
+        jpaneladmin.setBackground(new java.awt.Color(64, 147, 164));
+        jpaneladmin.setLayout(null);
+
+        btncaja.setIcon(new javax.swing.ImageIcon("C:\\Users\\ADMIN\\Desktop\\Sanchez\\AplicaciónParaProyecto\\src\\Imagenes\\dinero.png")); // NOI18N
+        btncaja.setText("CAJA");
+        jpaneladmin.add(btncaja);
+        btncaja.setBounds(20, 10, 220, 50);
+
+        btnajustes.setIcon(new javax.swing.ImageIcon("C:\\Users\\ADMIN\\Desktop\\Sanchez\\AplicaciónParaProyecto\\src\\Imagenes\\tuercas.png")); // NOI18N
+        btnajustes.setText("AJUSTES");
+        jpaneladmin.add(btnajustes);
+        btnajustes.setBounds(20, 190, 220, 50);
+
+        btnregistrodeusuario.setIcon(new javax.swing.ImageIcon("C:\\Users\\ADMIN\\Desktop\\Sanchez\\AplicaciónParaProyecto\\src\\Imagenes\\personas.png")); // NOI18N
+        btnregistrodeusuario.setText("REGISTRO DE USUARIOS");
+        jpaneladmin.add(btnregistrodeusuario);
+        btnregistrodeusuario.setBounds(20, 70, 220, 50);
+
+        btnreportes.setIcon(new javax.swing.ImageIcon("C:\\Users\\ADMIN\\Desktop\\Sanchez\\AplicaciónParaProyecto\\src\\Imagenes\\documento.png")); // NOI18N
+        btnreportes.setText("REPORTES");
+        jpaneladmin.add(btnreportes);
+        btnreportes.setBounds(20, 130, 220, 50);
+
+        getContentPane().add(jpaneladmin);
+        jpaneladmin.setBounds(0, 310, 250, 250);
+
+        jpanelsuperior.setBackground(new java.awt.Color(64, 147, 164));
+        jpanelsuperior.setLayout(null);
+
+        lblinventario.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        lblinventario.setText("INVENTARIO");
+        jpanelsuperior.add(lblinventario);
+        lblinventario.setBounds(20, 20, 160, 30);
+
+        lblimagen1.setIcon(new javax.swing.ImageIcon("C:\\Users\\ADMIN\\OneDrive\\Imágenes\\carretilla.png")); // NOI18N
+        jpanelsuperior.add(lblimagen1);
+        lblimagen1.setBounds(170, 20, 70, 47);
+
+        lblimagen2.setIcon(new javax.swing.ImageIcon("C:\\Users\\ADMIN\\OneDrive\\Imágenes\\usuariovl2.png")); // NOI18N
+        jpanelsuperior.add(lblimagen2);
+        lblimagen2.setBounds(810, 20, 50, 40);
+
+        lblRUC.setText("XXXXXXXXXXXXXXXXXXXXX");
+        jpanelsuperior.add(lblRUC);
+        lblRUC.setBounds(650, 20, 150, 16);
+
+        lblRol.setText("---------------------");
+        jpanelsuperior.add(lblRol);
+        lblRol.setBounds(650, 40, 150, 16);
+
+        getContentPane().add(jpanelsuperior);
+        jpanelsuperior.setBounds(0, 0, 880, 80);
+
+        btncerrarsesion.setIcon(new javax.swing.ImageIcon("C:\\Users\\ADMIN\\Desktop\\Sanchez\\AplicaciónParaProyecto\\src\\Imagenes\\puerta.png")); // NOI18N
+        btncerrarsesion.setText("CERRAR SESION");
+        getContentPane().add(btncerrarsesion);
+        btncerrarsesion.setBounds(20, 570, 220, 50);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -108,8 +173,22 @@ public class MenuDinamico extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel lblBienvenidaLOL;
-    private javax.swing.JLabel lblMensaje;
+    private javax.swing.JButton btnajustes;
+    private javax.swing.JButton btnalmacen;
+    private javax.swing.JButton btncaja;
+    private javax.swing.JButton btncerrarsesion;
+    private javax.swing.JButton btninicio;
+    private javax.swing.JButton btnregistrodecompras;
+    private javax.swing.JButton btnregistrodeusuario;
+    private javax.swing.JButton btnregistrodeventas;
+    private javax.swing.JButton btnreportes;
+    private javax.swing.JPanel jpaneladmin;
+    private javax.swing.JPanel jpanelgeneral;
+    private javax.swing.JPanel jpanelsuperior;
+    private javax.swing.JLabel lblRUC;
     private javax.swing.JLabel lblRol;
+    private javax.swing.JLabel lblimagen1;
+    private javax.swing.JLabel lblimagen2;
+    private javax.swing.JLabel lblinventario;
     // End of variables declaration//GEN-END:variables
 }
