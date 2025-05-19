@@ -2,15 +2,17 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package Seguridad;
+package Formularios;
 
+import Clases.Usuario;
+import Clases.BaseDeDatos;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.time.LocalDate;
 import java.util.HashMap;
-import Seguridad.VerificacionServicio;
-import Seguridad.MenuDinamico;
+import Clases.VerificacionServicio;
+import Formularios.MenuDinamico;
 
 public class FrmLogin extends javax.swing.JFrame {
     Usuario usuario;
