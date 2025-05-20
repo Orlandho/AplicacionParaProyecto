@@ -35,7 +35,7 @@ public class Usuario {
             System.arraycopy(preguntas, 0,this.preguntasSeguridad, 0,2);
             System.arraycopy(respuestas, 0,this.respuestasSeguridad, 0,2);
         }else
-            throw new IllegalArgumentException("Class Usuario: Constructor: array preguntas o respuesta exceden el tamaño");
+            throw new IllegalArgumentException("Class Usuario: Constructor: array preguntas o respuestas exceden el tamaño");
     }
 
     
