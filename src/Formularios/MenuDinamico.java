@@ -33,63 +33,53 @@ public class MenuDinamico extends javax.swing.JFrame {
     private void initComponents() {
 
         jpanelgeneral = new javax.swing.JPanel();
-        btncerrarsesion = new javax.swing.JButton();
         jpaneladmin = new javax.swing.JPanel();
-        btnajustes = new javax.swing.JButton();
-        btnregistrodeusuario = new javax.swing.JButton();
-        btnreportes = new javax.swing.JButton();
         btncaja = new javax.swing.JLabel();
+        btnregistrodeusuario = new javax.swing.JLabel();
+        btnreportes = new javax.swing.JLabel();
+        btnajustes = new javax.swing.JLabel();
         btninicio1 = new javax.swing.JLabel();
         btnAlmacen = new javax.swing.JLabel();
         btnregistrodecompras = new javax.swing.JLabel();
         btnregistrodeventas = new javax.swing.JLabel();
+        btncerrarsesion = new javax.swing.JLabel();
         jpanelsuperior = new javax.swing.JPanel();
         lblinventario = new javax.swing.JLabel();
         lblimagen1 = new javax.swing.JLabel();
         lblimagen2 = new javax.swing.JLabel();
         lblRUC = new javax.swing.JLabel();
         lblRol = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
         getContentPane().setLayout(null);
 
-        jpanelgeneral.setBackground(new java.awt.Color(64, 147, 164));
+        jpanelgeneral.setBackground(new java.awt.Color(0, 153, 153));
         jpanelgeneral.setLayout(null);
 
-        btncerrarsesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/puerta.png"))); // NOI18N
-        btncerrarsesion.setText("CERRAR SESION");
-        btncerrarsesion.setContentAreaFilled(false);
-        jpanelgeneral.add(btncerrarsesion);
-        btncerrarsesion.setBounds(20, 460, 220, 50);
-
-        jpaneladmin.setBackground(new java.awt.Color(64, 147, 164));
+        jpaneladmin.setBackground(new java.awt.Color(0, 153, 153));
         jpaneladmin.setEnabled(false);
         jpaneladmin.setLayout(null);
-
-        btnajustes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/tuercas.png"))); // NOI18N
-        btnajustes.setText("AJUSTES");
-        btnajustes.setContentAreaFilled(false);
-        jpaneladmin.add(btnajustes);
-        btnajustes.setBounds(20, 190, 220, 50);
-
-        btnregistrodeusuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/personas.png"))); // NOI18N
-        btnregistrodeusuario.setText("REGISTRO DE USUARIOS");
-        btnregistrodeusuario.setContentAreaFilled(false);
-        jpaneladmin.add(btnregistrodeusuario);
-        btnregistrodeusuario.setBounds(20, 70, 220, 50);
-
-        btnreportes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/documento.png"))); // NOI18N
-        btnreportes.setText("REPORTES");
-        btnreportes.setContentAreaFilled(false);
-        jpaneladmin.add(btnreportes);
-        btnreportes.setBounds(20, 130, 220, 50);
 
         btncaja.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/dinero.png"))); // NOI18N
         btncaja.setText("CAJA");
         jpaneladmin.add(btncaja);
         btncaja.setBounds(80, 10, 100, 50);
+
+        btnregistrodeusuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/personas.png"))); // NOI18N
+        btnregistrodeusuario.setText("REGISTRO DE USUARIOS");
+        jpaneladmin.add(btnregistrodeusuario);
+        btnregistrodeusuario.setBounds(30, 70, 210, 60);
+
+        btnreportes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/documento.png"))); // NOI18N
+        btnreportes.setText("REPORTES");
+        jpaneladmin.add(btnreportes);
+        btnreportes.setBounds(60, 130, 130, 50);
+
+        btnajustes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/tuercas.png"))); // NOI18N
+        btnajustes.setText("AJUSTES");
+        jpaneladmin.add(btnajustes);
+        btnajustes.setBounds(60, 180, 120, 50);
 
         jpanelgeneral.add(jpaneladmin);
         jpaneladmin.setBounds(0, 220, 250, 250);
@@ -102,7 +92,7 @@ public class MenuDinamico extends javax.swing.JFrame {
         btnAlmacen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/caja.png"))); // NOI18N
         btnAlmacen.setText("ALMACEN");
         jpanelgeneral.add(btnAlmacen);
-        btnAlmacen.setBounds(60, 60, 130, 40);
+        btnAlmacen.setBounds(60, 60, 130, 50);
 
         btnregistrodecompras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/camion.png"))); // NOI18N
         btnregistrodecompras.setText("REGISTRO DE COMPRAS");
@@ -114,26 +104,31 @@ public class MenuDinamico extends javax.swing.JFrame {
         jpanelgeneral.add(btnregistrodeventas);
         btnregistrodeventas.setBounds(40, 160, 190, 50);
 
+        btncerrarsesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/puerta.png"))); // NOI18N
+        btncerrarsesion.setText("CERRAR SESION");
+        jpanelgeneral.add(btncerrarsesion);
+        btncerrarsesion.setBounds(40, 460, 160, 50);
+
         getContentPane().add(jpanelgeneral);
         jpanelgeneral.setBounds(0, 90, 250, 520);
 
-        jpanelsuperior.setBackground(new java.awt.Color(64, 147, 164));
+        jpanelsuperior.setBackground(new java.awt.Color(0, 153, 153));
         jpanelsuperior.setLayout(null);
 
-        lblinventario.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        lblinventario.setFont(new java.awt.Font("Bookman Old Style", 1, 24)); // NOI18N
         lblinventario.setText("INVENTARIO");
         jpanelsuperior.add(lblinventario);
-        lblinventario.setBounds(20, 20, 160, 30);
+        lblinventario.setBounds(20, 20, 180, 30);
 
-        lblimagen1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/puerta.png"))); // NOI18N
+        lblimagen1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/carretilla.png"))); // NOI18N
         jpanelsuperior.add(lblimagen1);
-        lblimagen1.setBounds(170, 20, 70, 40);
+        lblimagen1.setBounds(190, 10, 70, 60);
 
         lblimagen2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/usuariovl2.png"))); // NOI18N
         jpanelsuperior.add(lblimagen2);
         lblimagen2.setBounds(810, 20, 50, 40);
 
-        lblRUC.setText("XXXXXXXXXXXXXXXXXXXXX");
+        lblRUC.setText("Agro Integral Perú");
         jpanelsuperior.add(lblRUC);
         lblRUC.setBounds(650, 20, 150, 16);
 
@@ -143,10 +138,6 @@ public class MenuDinamico extends javax.swing.JFrame {
 
         getContentPane().add(jpanelsuperior);
         jpanelsuperior.setBounds(0, 0, 880, 80);
-
-        jLabel1.setText("jLabel1");
-        getContentPane().add(jLabel1);
-        jLabel1.setBounds(380, 390, 90, 40);
 
         setSize(new java.awt.Dimension(894, 644));
         setLocationRelativeTo(null);
@@ -189,15 +180,14 @@ public class MenuDinamico extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnAlmacen;
-    private javax.swing.JButton btnajustes;
+    private javax.swing.JLabel btnajustes;
     private javax.swing.JLabel btncaja;
-    private javax.swing.JButton btncerrarsesion;
+    private javax.swing.JLabel btncerrarsesion;
     private javax.swing.JLabel btninicio1;
     private javax.swing.JLabel btnregistrodecompras;
-    private javax.swing.JButton btnregistrodeusuario;
+    private javax.swing.JLabel btnregistrodeusuario;
     private javax.swing.JLabel btnregistrodeventas;
-    private javax.swing.JButton btnreportes;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel btnreportes;
     private javax.swing.JPanel jpaneladmin;
     private javax.swing.JPanel jpanelgeneral;
     private javax.swing.JPanel jpanelsuperior;
