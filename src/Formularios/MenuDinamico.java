@@ -33,22 +33,23 @@ public class MenuDinamico extends javax.swing.JFrame {
     private void initComponents() {
 
         jpanelgeneral = new javax.swing.JPanel();
-        btninicio = new javax.swing.JButton();
-        btnregistrodeventas = new javax.swing.JButton();
-        btnalmacen = new javax.swing.JButton();
-        btnregistrodecompras = new javax.swing.JButton();
         btncerrarsesion = new javax.swing.JButton();
         jpaneladmin = new javax.swing.JPanel();
-        btncaja = new javax.swing.JButton();
         btnajustes = new javax.swing.JButton();
         btnregistrodeusuario = new javax.swing.JButton();
         btnreportes = new javax.swing.JButton();
+        btncaja = new javax.swing.JLabel();
+        btninicio1 = new javax.swing.JLabel();
+        btnAlmacen = new javax.swing.JLabel();
+        btnregistrodecompras = new javax.swing.JLabel();
+        btnregistrodeventas = new javax.swing.JLabel();
         jpanelsuperior = new javax.swing.JPanel();
         lblinventario = new javax.swing.JLabel();
         lblimagen1 = new javax.swing.JLabel();
         lblimagen2 = new javax.swing.JLabel();
         lblRUC = new javax.swing.JLabel();
         lblRol = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -56,30 +57,6 @@ public class MenuDinamico extends javax.swing.JFrame {
 
         jpanelgeneral.setBackground(new java.awt.Color(64, 147, 164));
         jpanelgeneral.setLayout(null);
-
-        btninicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/casa.png"))); // NOI18N
-        btninicio.setText("INICIO");
-        btninicio.setContentAreaFilled(false);
-        jpanelgeneral.add(btninicio);
-        btninicio.setBounds(20, 10, 220, 40);
-
-        btnregistrodeventas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/tienda.png"))); // NOI18N
-        btnregistrodeventas.setText("REGISTRO DE VENTAS");
-        btnregistrodeventas.setContentAreaFilled(false);
-        jpanelgeneral.add(btnregistrodeventas);
-        btnregistrodeventas.setBounds(20, 170, 220, 50);
-
-        btnalmacen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/caja.png"))); // NOI18N
-        btnalmacen.setText("ALMACEN");
-        btnalmacen.setContentAreaFilled(false);
-        jpanelgeneral.add(btnalmacen);
-        btnalmacen.setBounds(20, 60, 220, 50);
-
-        btnregistrodecompras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/camion.png"))); // NOI18N
-        btnregistrodecompras.setText("REGISTRO DE COMPRAS");
-        btnregistrodecompras.setContentAreaFilled(false);
-        jpanelgeneral.add(btnregistrodecompras);
-        btnregistrodecompras.setBounds(20, 120, 220, 40);
 
         btncerrarsesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/puerta.png"))); // NOI18N
         btncerrarsesion.setText("CERRAR SESION");
@@ -90,12 +67,6 @@ public class MenuDinamico extends javax.swing.JFrame {
         jpaneladmin.setBackground(new java.awt.Color(64, 147, 164));
         jpaneladmin.setEnabled(false);
         jpaneladmin.setLayout(null);
-
-        btncaja.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/dinero.png"))); // NOI18N
-        btncaja.setText("CAJA");
-        btncaja.setContentAreaFilled(false);
-        jpaneladmin.add(btncaja);
-        btncaja.setBounds(20, 10, 220, 50);
 
         btnajustes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/tuercas.png"))); // NOI18N
         btnajustes.setText("AJUSTES");
@@ -115,8 +86,33 @@ public class MenuDinamico extends javax.swing.JFrame {
         jpaneladmin.add(btnreportes);
         btnreportes.setBounds(20, 130, 220, 50);
 
+        btncaja.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/dinero.png"))); // NOI18N
+        btncaja.setText("CAJA");
+        jpaneladmin.add(btncaja);
+        btncaja.setBounds(80, 10, 100, 50);
+
         jpanelgeneral.add(jpaneladmin);
         jpaneladmin.setBounds(0, 220, 250, 250);
+
+        btninicio1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/casa.png"))); // NOI18N
+        btninicio1.setText("INICIO");
+        jpanelgeneral.add(btninicio1);
+        btninicio1.setBounds(70, 10, 110, 50);
+
+        btnAlmacen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/caja.png"))); // NOI18N
+        btnAlmacen.setText("ALMACEN");
+        jpanelgeneral.add(btnAlmacen);
+        btnAlmacen.setBounds(60, 60, 130, 40);
+
+        btnregistrodecompras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/camion.png"))); // NOI18N
+        btnregistrodecompras.setText("REGISTRO DE COMPRAS");
+        jpanelgeneral.add(btnregistrodecompras);
+        btnregistrodecompras.setBounds(30, 110, 190, 50);
+
+        btnregistrodeventas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/tienda.png"))); // NOI18N
+        btnregistrodeventas.setText("REGISTRO DE VENTAS");
+        jpanelgeneral.add(btnregistrodeventas);
+        btnregistrodeventas.setBounds(40, 160, 190, 50);
 
         getContentPane().add(jpanelgeneral);
         jpanelgeneral.setBounds(0, 90, 250, 520);
@@ -147,6 +143,10 @@ public class MenuDinamico extends javax.swing.JFrame {
 
         getContentPane().add(jpanelsuperior);
         jpanelsuperior.setBounds(0, 0, 880, 80);
+
+        jLabel1.setText("jLabel1");
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(380, 390, 90, 40);
 
         setSize(new java.awt.Dimension(894, 644));
         setLocationRelativeTo(null);
@@ -188,15 +188,16 @@ public class MenuDinamico extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel btnAlmacen;
     private javax.swing.JButton btnajustes;
-    private javax.swing.JButton btnalmacen;
-    private javax.swing.JButton btncaja;
+    private javax.swing.JLabel btncaja;
     private javax.swing.JButton btncerrarsesion;
-    private javax.swing.JButton btninicio;
-    private javax.swing.JButton btnregistrodecompras;
+    private javax.swing.JLabel btninicio1;
+    private javax.swing.JLabel btnregistrodecompras;
     private javax.swing.JButton btnregistrodeusuario;
-    private javax.swing.JButton btnregistrodeventas;
+    private javax.swing.JLabel btnregistrodeventas;
     private javax.swing.JButton btnreportes;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jpaneladmin;
     private javax.swing.JPanel jpanelgeneral;
     private javax.swing.JPanel jpanelsuperior;
