@@ -4,6 +4,10 @@
  */
 package Formularios;
 
+import java.awt.Component;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author ORLANDO
@@ -38,7 +42,7 @@ public class MenuDinamico extends javax.swing.JFrame {
         btnregistrodeusuario = new javax.swing.JLabel();
         btnreportes = new javax.swing.JLabel();
         btnajustes = new javax.swing.JLabel();
-        btninicio1 = new javax.swing.JLabel();
+        btninicio = new javax.swing.JLabel();
         btnAlmacen = new javax.swing.JLabel();
         btnregistrodecompras = new javax.swing.JLabel();
         btnregistrodeventas = new javax.swing.JLabel();
@@ -61,61 +65,115 @@ public class MenuDinamico extends javax.swing.JFrame {
         jpaneladmin.setEnabled(false);
         jpaneladmin.setLayout(null);
 
+        btncaja.setFont(new java.awt.Font("DialogInput", 0, 18)); // NOI18N
         btncaja.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/dinero.png"))); // NOI18N
         btncaja.setText("CAJA");
+        btncaja.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btncajaMouseClicked(evt);
+            }
+        });
         jpaneladmin.add(btncaja);
-        btncaja.setBounds(80, 10, 100, 50);
+        btncaja.setBounds(70, 10, 140, 50);
 
+        btnregistrodeusuario.setFont(new java.awt.Font("DialogInput", 0, 18)); // NOI18N
         btnregistrodeusuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/personas.png"))); // NOI18N
         btnregistrodeusuario.setText("REGISTRO DE USUARIOS");
+        btnregistrodeusuario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnregistrodeusuarioMouseClicked(evt);
+            }
+        });
         jpaneladmin.add(btnregistrodeusuario);
-        btnregistrodeusuario.setBounds(30, 70, 210, 60);
+        btnregistrodeusuario.setBounds(0, 70, 280, 60);
 
+        btnreportes.setFont(new java.awt.Font("DialogInput", 0, 18)); // NOI18N
         btnreportes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/documento.png"))); // NOI18N
         btnreportes.setText("REPORTES");
+        btnreportes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnreportesMouseClicked(evt);
+            }
+        });
         jpaneladmin.add(btnreportes);
-        btnreportes.setBounds(60, 130, 130, 50);
+        btnreportes.setBounds(60, 130, 170, 50);
 
+        btnajustes.setFont(new java.awt.Font("DialogInput", 0, 18)); // NOI18N
         btnajustes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/tuercas.png"))); // NOI18N
         btnajustes.setText("AJUSTES");
+        btnajustes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnajustesMouseClicked(evt);
+            }
+        });
         jpaneladmin.add(btnajustes);
-        btnajustes.setBounds(60, 180, 120, 50);
+        btnajustes.setBounds(60, 180, 170, 50);
 
         jpanelgeneral.add(jpaneladmin);
-        jpaneladmin.setBounds(0, 220, 250, 250);
+        jpaneladmin.setBounds(0, 220, 280, 250);
 
-        btninicio1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/casa.png"))); // NOI18N
-        btninicio1.setText("INICIO");
-        jpanelgeneral.add(btninicio1);
-        btninicio1.setBounds(70, 10, 110, 50);
+        btninicio.setFont(new java.awt.Font("DialogInput", 0, 18)); // NOI18N
+        btninicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/casa.png"))); // NOI18N
+        btninicio.setText("INICIO");
+        btninicio.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btninicioMouseClicked(evt);
+            }
+        });
+        jpanelgeneral.add(btninicio);
+        btninicio.setBounds(70, 10, 140, 50);
 
+        btnAlmacen.setFont(new java.awt.Font("DialogInput", 0, 18)); // NOI18N
         btnAlmacen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/caja.png"))); // NOI18N
         btnAlmacen.setText("ALMACEN");
+        btnAlmacen.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnAlmacenMouseClicked(evt);
+            }
+        });
         jpanelgeneral.add(btnAlmacen);
-        btnAlmacen.setBounds(60, 60, 130, 50);
+        btnAlmacen.setBounds(60, 60, 160, 50);
 
+        btnregistrodecompras.setFont(new java.awt.Font("DialogInput", 0, 18)); // NOI18N
         btnregistrodecompras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/camion.png"))); // NOI18N
         btnregistrodecompras.setText("REGISTRO DE COMPRAS");
+        btnregistrodecompras.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnregistrodecomprasMouseClicked(evt);
+            }
+        });
         jpanelgeneral.add(btnregistrodecompras);
-        btnregistrodecompras.setBounds(30, 110, 190, 50);
+        btnregistrodecompras.setBounds(10, 110, 280, 50);
 
+        btnregistrodeventas.setFont(new java.awt.Font("DialogInput", 0, 18)); // NOI18N
         btnregistrodeventas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/tienda.png"))); // NOI18N
         btnregistrodeventas.setText("REGISTRO DE VENTAS");
+        btnregistrodeventas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnregistrodeventasMouseClicked(evt);
+            }
+        });
         jpanelgeneral.add(btnregistrodeventas);
-        btnregistrodeventas.setBounds(40, 160, 190, 50);
+        btnregistrodeventas.setBounds(10, 160, 270, 50);
 
+        btncerrarsesion.setFont(new java.awt.Font("DialogInput", 0, 18)); // NOI18N
         btncerrarsesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/puerta.png"))); // NOI18N
         btncerrarsesion.setText("CERRAR SESION");
+        btncerrarsesion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btncerrarsesionMouseClicked(evt);
+            }
+        });
         jpanelgeneral.add(btncerrarsesion);
-        btncerrarsesion.setBounds(40, 460, 160, 50);
+        btncerrarsesion.setBounds(40, 460, 210, 50);
 
         getContentPane().add(jpanelgeneral);
-        jpanelgeneral.setBounds(0, 90, 250, 520);
+        jpanelgeneral.setBounds(0, 80, 280, 530);
 
         jpanelsuperior.setBackground(new java.awt.Color(0, 153, 153));
         jpanelsuperior.setLayout(null);
 
-        lblinventario.setFont(new java.awt.Font("Bookman Old Style", 1, 24)); // NOI18N
+        lblinventario.setFont(new java.awt.Font("Cooper Black", 1, 24)); // NOI18N
         lblinventario.setText("INVENTARIO");
         jpanelsuperior.add(lblinventario);
         lblinventario.setBounds(20, 20, 180, 30);
@@ -128,9 +186,10 @@ public class MenuDinamico extends javax.swing.JFrame {
         jpanelsuperior.add(lblimagen2);
         lblimagen2.setBounds(810, 20, 50, 40);
 
+        lblRUC.setFont(new java.awt.Font("Cartoon Fun", 0, 14)); // NOI18N
         lblRUC.setText("Agro Integral Perú");
         jpanelsuperior.add(lblRUC);
-        lblRUC.setBounds(650, 20, 150, 16);
+        lblRUC.setBounds(610, 10, 200, 24);
 
         lblRol.setText("---------------------");
         jpanelsuperior.add(lblRol);
@@ -142,6 +201,56 @@ public class MenuDinamico extends javax.swing.JFrame {
         setSize(new java.awt.Dimension(894, 644));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void mostrarNombre(JLabel label)
+    {
+        JOptionPane.showMessageDialog(this, "el boton"+label.getText()+" FUNCIONA!!!");
+    }
+    
+    private void btninicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btninicioMouseClicked
+        // TODO add your handling code here:
+        mostrarNombre(btninicio);
+    }//GEN-LAST:event_btninicioMouseClicked
+
+    private void btnAlmacenMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAlmacenMouseClicked
+        // TODO add your handling code here:
+        mostrarNombre(btnAlmacen);
+    }//GEN-LAST:event_btnAlmacenMouseClicked
+
+    private void btnregistrodecomprasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnregistrodecomprasMouseClicked
+        // TODO add your handling code here:
+        mostrarNombre(btnAlmacen);
+    }//GEN-LAST:event_btnregistrodecomprasMouseClicked
+
+    private void btnregistrodeventasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnregistrodeventasMouseClicked
+        // TODO add your handling code here:
+        mostrarNombre(btnregistrodeventas);
+    }//GEN-LAST:event_btnregistrodeventasMouseClicked
+
+    private void btncajaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btncajaMouseClicked
+        // TODO add your handling code here:
+        mostrarNombre(btncaja);
+    }//GEN-LAST:event_btncajaMouseClicked
+
+    private void btnregistrodeusuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnregistrodeusuarioMouseClicked
+        // TODO add your handling code here:
+        mostrarNombre(btnregistrodeusuario);
+    }//GEN-LAST:event_btnregistrodeusuarioMouseClicked
+
+    private void btnreportesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnreportesMouseClicked
+        // TODO add your handling code here:
+        mostrarNombre(btnreportes);
+    }//GEN-LAST:event_btnreportesMouseClicked
+
+    private void btnajustesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnajustesMouseClicked
+        // TODO add your handling code here:
+        mostrarNombre(btnajustes);
+    }//GEN-LAST:event_btnajustesMouseClicked
+
+    private void btncerrarsesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btncerrarsesionMouseClicked
+        // TODO add your handling code here:
+        mostrarNombre(btncerrarsesion);
+    }//GEN-LAST:event_btncerrarsesionMouseClicked
 
     /**
      * @param args the command line arguments
@@ -183,7 +292,7 @@ public class MenuDinamico extends javax.swing.JFrame {
     private javax.swing.JLabel btnajustes;
     private javax.swing.JLabel btncaja;
     private javax.swing.JLabel btncerrarsesion;
-    private javax.swing.JLabel btninicio1;
+    private javax.swing.JLabel btninicio;
     private javax.swing.JLabel btnregistrodecompras;
     private javax.swing.JLabel btnregistrodeusuario;
     private javax.swing.JLabel btnregistrodeventas;

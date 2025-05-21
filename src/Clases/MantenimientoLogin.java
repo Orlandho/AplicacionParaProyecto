@@ -11,7 +11,7 @@ import java.util.ArrayList;
  *
  * @author ORLANDO
  */
-public class VerificacionServicio {
+public class MantenimientoLogin {
 
     //Devuelve true si el usuario cumple con el formato
     public static Boolean esDniORucValido(String usuario){
