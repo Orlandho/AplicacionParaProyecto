@@ -124,7 +124,7 @@ public class FrmLogin extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "El usuario no está registrado.");
         } else {
             usuario = baseDeDatos.buscarUsuario(usuarioIngresado);
-            if (usuario.isCuentaBloqueada()) {
+            if (usuario.esCuentaBloqueada()) {
                 JOptionPane.showMessageDialog(null, "Cuenta bloqueada. Intenta más tarde.");
             } else if (!usuario.getContraseña().equals(contraseñaIngresada)) {
                 usuario.setIntentosFallidos(usuario.getIntentosFallidos() + 1);
@@ -136,7 +136,8 @@ public class FrmLogin extends javax.swing.JFrame {
                 }
             } else if (usuario.getRol().equalsIgnoreCase("administrador") && usuario.debeCambiarContraseña()) {
                 String nuevaContraseña = obligarCrearContraseña(usuario);
-                baseDeDatos.actualizarContraseña(usuario.getUsuario(), nuevaContraseña);
+                //cambio menor
+                baseDeDatos.actualizarContraseña(usuarioIngresado, contraseñaIngresada, nuevaContraseña);
                 JOptionPane.showMessageDialog(null, "Inicie sesion con su nueva contraseña.");
             } else {
                 JOptionPane.showMessageDialog(null, "bienvenido \"Agro Integral del Perú\"");
