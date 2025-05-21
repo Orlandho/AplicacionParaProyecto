@@ -126,13 +126,13 @@ public class FrmLogin extends javax.swing.JFrame {
         JPanelPedirContraNueva.add(txfNuevaContra);
         String contraseñaNueva;
         do {
-            
+
             JOptionPane.showOptionDialog(this, JPanelPedirContraNueva, "Creando contraseña", JOptionPane.NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
-            contraseñaNueva=txfNuevaContra.getText();
+            contraseñaNueva = txfNuevaContra.getText();
             if (!MantenimientoLogin.esContraseñaValida(txfNuevaContra.getText())) {
                 JOptionPane.showMessageDialog(this, "Formato de contraseña incorrecto. Intente de nuevo");
                 continue;
-            }else if (contraseñaAntigua.equals(contraseñaNueva)) {
+            } else if (contraseñaAntigua.equals(contraseñaNueva)) {
                 JOptionPane.showMessageDialog(this, "La contraseña debe ser distinta a la anterior.");
                 continue;
             }
@@ -150,7 +150,11 @@ public class FrmLogin extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Intento de Login, Error: Usuario bloqueado");
                 break;
             case BaseDeDatos.DEBE_CAMBIAR_CONTRASEÑA:
-                baseDeDatos.actualizarContraseña(txfUsuario.getText(), txfContraseña.getText(), obligarCrearContraseña(txfContraseña.getText()));
+                if (baseDeDatos.actualizarContraseña(txfUsuario.getText(), txfContraseña.getText(), obligarCrearContraseña(txfContraseña.getText()))) {
+                    JOptionPane.showMessageDialog(this, "La contraseña se cambio correctamente");
+                } else {
+                    JOptionPane.showMessageDialog(this, "No se pudo cambiar la contraseña");
+                }
                 break;
             default:
                 JOptionPane.showMessageDialog(this, "Intento de Login, Error: no definido");
@@ -169,14 +173,14 @@ public class FrmLogin extends javax.swing.JFrame {
         }
         Object[] respuestaDB = baseDeDatos.intentarLogin(DNIoRUC, contraseña);
 
-        if ((int)respuestaDB[0] == BaseDeDatos.PUEDE_INGRESAR) {
+        if ((int) respuestaDB[0] == BaseDeDatos.PUEDE_INGRESAR) {
             dispose();
             FrmMenuDinamico menu = new FrmMenuDinamico();
-            menu.modificarSegunRol((Usuario)respuestaDB[1]);
+            menu.modificarSegunRol((Usuario) respuestaDB[1]);
             menu.setVisible(true);
 
         } else {
-            interpretarRespuesta((int)respuestaDB[0]);
+            interpretarRespuesta((int) respuestaDB[0]);
         }
 
     }//GEN-LAST:event_btnIngresarActionPerformed
