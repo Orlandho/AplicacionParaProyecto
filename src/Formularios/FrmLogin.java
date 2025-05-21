@@ -11,7 +11,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.time.LocalDate;
 import java.util.HashMap;
-import Clases.VerificacionServicio;
+import Clases.MantenimientoLogin;
 import Formularios.MenuDinamico;
 
 public class FrmLogin extends javax.swing.JFrame {
@@ -159,10 +159,10 @@ public class FrmLogin extends javax.swing.JFrame {
             if (nuevaContra.getText().equals(usuario.getContraseña())) {
                 JOptionPane.showMessageDialog(null, "La contraseña debe ser distinta a la anterior.");
             }
-            if (!VerificacionServicio.esContraseñaValida(nuevaContra.getText())) {
+            if (!MantenimientoLogin.esContraseñaValida(nuevaContra.getText())) {
                 JOptionPane.showMessageDialog(null, "Formato de contraseña incorrecto. Intente de nuevo");
             }
-        } while (!VerificacionServicio.esContraseñaValida(nuevaContra.getText()) || nuevaContra.getText().equals(usuario.getContraseña()));
+        } while (!MantenimientoLogin.esContraseñaValida(nuevaContra.getText()) || nuevaContra.getText().equals(usuario.getContraseña()));
         return nuevaContra.getText();
     }
 
@@ -171,8 +171,8 @@ public class FrmLogin extends javax.swing.JFrame {
         //usuario de prueba
         String DNIoRUC = txfUsuario.getText(), contraseña = txfContraseña.getText();
 
-        if (!VerificacionServicio.esDniORucValido(DNIoRUC) || !VerificacionServicio.esContraseñaValida(contraseña)) {
-            JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos. Intente de nuevo");
+        if (!MantenimientoLogin.esDniORucValido(DNIoRUC) || !MantenimientoLogin.esContraseñaValida(contraseña)) {
+            JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos. Intente de nuevo");
             return;
         }
 
