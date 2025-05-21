@@ -170,17 +170,17 @@ public class FrmLogin extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos. Intente de nuevo");
             return;
         }
-        int respuestaDB = baseDeDatos.intentarLogin(DNIoRUC, contraseña);
+        Object[] respuestaDB = baseDeDatos.intentarLogin(DNIoRUC, contraseña);
 
-        if (respuestaDB == BaseDeDatos.PUEDE_INGRESAR) {
+        if ((int)respuestaDB[0] == BaseDeDatos.PUEDE_INGRESAR) {
             dispose();
-            usuario = baseDeDatos.buscarUsuario(DNIoRUC);
+            usuario = (Usuario)respuestaDB[1];
             FrmMenuDinamico menu = new FrmMenuDinamico();
             menu.modificarSegunRol(usuario);
             menu.setVisible(true);
 
         } else {
-            interpretarRespuesta(respuestaDB);
+            interpretarRespuesta((int)respuestaDB[0]);
         }
 
     }//GEN-LAST:event_btnIngresarActionPerformed

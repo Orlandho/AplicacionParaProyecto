@@ -37,7 +37,7 @@ public class BaseDeDatos {
         usuarios.put(usuario4.getUsuario(), usuario4);
     }
 
-    public Usuario buscarUsuario(String nombreUsuario) {
+    private Usuario buscarUsuario(String nombreUsuario) {
         return usuarios.get(nombreUsuario);
     }
 
@@ -78,21 +78,21 @@ public class BaseDeDatos {
         3 | Usuario se logueo correctamente
         4 | Usuario no existe
      */
-    public int intentarLogin(String usuarioIngresado, String contraseñaIngresada) {
+    public Object[] intentarLogin(String usuarioIngresado, String contraseñaIngresada) {
         if (!existeUsuario(usuarioIngresado)) {
-            return USUARIO_CONTRA_INCORRECTOS;
+            return new Object[]{USUARIO_CONTRA_INCORRECTOS};
         }
         Usuario usuario = buscarUsuario(usuarioIngresado);
         if (usuario.esCuentaBloqueada()) {
-            return USUARIO_BLOQUEADO;
+            return new Object[]{USUARIO_BLOQUEADO};
         }
         if (!esSuContraseña(usuario, contraseñaIngresada)) {
-            return USUARIO_CONTRA_INCORRECTOS;
+            return new Object[]{USUARIO_CONTRA_INCORRECTOS};
         }
         if (debeCambiarContraseña(usuario)) {
-            return DEBE_CAMBIAR_CONTRASEÑA;
+            return new Object[]{DEBE_CAMBIAR_CONTRASEÑA};
         }
-        return PUEDE_INGRESAR;
+        return new Object[]{PUEDE_INGRESAR,usuario};
     }
 
 }
