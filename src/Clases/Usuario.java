@@ -133,7 +133,7 @@ public class Usuario {
         this.respuestasSeguridad = respuestasSeguridad;
     }
 
-    public boolean isCuentaBloqueada() {
+    public boolean esCuentaBloqueada() {
         return cuentaBloqueada;
     }
 
