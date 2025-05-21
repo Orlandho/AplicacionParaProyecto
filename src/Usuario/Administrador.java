@@ -13,8 +13,8 @@ import java.time.LocalDate;
  */
 public class Administrador extends Usuario {
 
-    public Administrador(String usuario, String contraseña, String rol, LocalDate fechaUltimoCambio, String nombre, String apellido, String genero, String direccion, String[] preguntas, String[] respuestas) {
-        super(usuario, contraseña, rol, fechaUltimoCambio, nombre, apellido, genero, direccion, preguntas, respuestas);
+    public Administrador(Usuario usuario) {
+        super(usuario);
     }
     
 }

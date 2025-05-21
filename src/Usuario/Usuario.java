@@ -26,14 +26,33 @@ public class Usuario extends Persona{
         this.contraseña = contraseña;
         this.rol = rol;
         this.fechaUltimoCambio = fechaUltimoCambio;
-        if (preguntasSeguridad.length == 2 && respuestasSeguridad.length == 2) {
+        if (esTamañoCorrecto(preguntas,respuestas)) {
             System.arraycopy(preguntas, 0, this.preguntasSeguridad, 0, 2);
             System.arraycopy(respuestas, 0, this.respuestasSeguridad, 0, 2);
         } else {
             throw new IllegalArgumentException("Class Usuario: Constructor: array preguntas o respuestas exceden el tamaño");
         }
     }
+    public Usuario(Usuario usuario)
+    {
+        super(usuario.nombre,usuario.apellido,usuario.genero,usuario.direccion);
+        this.usuario=usuario.usuario;
+        this.contraseña = usuario.contraseña;
+        this.rol = usuario.rol;
+        this.fechaUltimoCambio = usuario.fechaUltimoCambio;
+        if (esTamañoCorrecto(usuario.preguntasSeguridad,usuario.respuestasSeguridad)) {
+        System.arraycopy(usuario.preguntasSeguridad, 0, this.preguntasSeguridad, 0, 2);
+        System.arraycopy(usuario.respuestasSeguridad, 0, this.respuestasSeguridad, 0, 2);
+        }else {
+            throw new IllegalArgumentException("Class Usuario: Constructor: array preguntas o respuestas exceden el tamaño");
+        }
+        
+    }
     
+    public boolean esTamañoCorrecto(String[] preguntas,String[] respuestas)
+    {
+        return preguntas.length==2&&respuestas.length==2;
+    }
 
     public String getUsuario() {
         return usuario;
