@@ -41,11 +41,11 @@ public class BaseDeDatos {
         return usuarios.get(nombreUsuario);
     }
 
-    public boolean existeUsuario(String nombreUsuario) {
+    private boolean existeUsuario(String nombreUsuario) {
         return usuarios.containsKey(nombreUsuario);
     }
 
-    public boolean esSuContraseña(Usuario usuarioEncontrado, String contraseña) {
+    private boolean esSuContraseña(Usuario usuarioEncontrado, String contraseña) {
         if (!usuarioEncontrado.getContraseña().equals(contraseña)) {
             usuarioEncontrado.setIntentosFallidos(usuarioEncontrado.getIntentosFallidos() + 1);
             if (usuarioEncontrado.getIntentosFallidos() >= 5) {
@@ -57,7 +57,7 @@ public class BaseDeDatos {
 
     }
 
-    public boolean debeCambiarContraseña(Usuario usuario) {
+    private boolean debeCambiarContraseña(Usuario usuario) {
         return (usuario.getRol().equalsIgnoreCase("administrador") && usuario.debeCambiarContraseña());
     }
 
