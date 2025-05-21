@@ -22,6 +22,4 @@ public class MantenimientoLogin {
         Boolean esLargo= contraseña.length()>4;
         return contraseña.matches("[A-Za-z0-9]+")&&esLargo;
     }
-    
-    
 }
