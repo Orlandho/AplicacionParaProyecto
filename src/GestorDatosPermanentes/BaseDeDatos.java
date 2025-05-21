@@ -19,8 +19,8 @@ public class BaseDeDatos {
     public static final int USUARIO_CONTRA_INCORRECTOS = 0, USUARIO_BLOQUEADO = 1, DEBE_CAMBIAR_CONTRASEÑA = 2, PUEDE_INGRESAR = 3;
 
     public BaseDeDatos() {
-        usuarios = new HashMap<>();
-        cargarUsuariosDePrueba();
+        usuarios = new HashMap<>(); //comentario1
+        cargarUsuariosDePrueba(); //comentario2
     }
 
     private void cargarUsuariosDePrueba() {
