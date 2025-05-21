@@ -16,11 +16,7 @@ import Formularios.FrmMenuDinamico;
 
 public class FrmLogin extends javax.swing.JFrame {
 
-    Usuario usuario;
-
-    private BaseDeDatos baseDeDatos = new BaseDeDatos();
-    //private int intentosFallidos = 0;
-    private boolean cuentaBloqueada = false;
+    private BaseDeDatos baseDeDatos;
 
     public FrmLogin() {
         setTitle("Sistema de Inventario - Agro Integral");
@@ -28,6 +24,7 @@ public class FrmLogin extends javax.swing.JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         initComponents();
+        baseDeDatos = new BaseDeDatos();
     }
 
     /**
@@ -174,9 +171,8 @@ public class FrmLogin extends javax.swing.JFrame {
 
         if ((int)respuestaDB[0] == BaseDeDatos.PUEDE_INGRESAR) {
             dispose();
-            usuario = (Usuario)respuestaDB[1];
             FrmMenuDinamico menu = new FrmMenuDinamico();
-            menu.modificarSegunRol(usuario);
+            menu.modificarSegunRol((Usuario)respuestaDB[1]);
             menu.setVisible(true);
 
         } else {
