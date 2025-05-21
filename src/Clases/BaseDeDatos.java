@@ -24,7 +24,6 @@ public class BaseDeDatos {
 
     private void cargarUsuariosDePrueba() {
         //usuario empleado de prueba
-        //(String usuario, String contraseña, String rol, LocalDate fechaUltimoCambio, String nombre, String apellido, String genero, String direccion,String[] preguntas,String[] respuestas) {
         Usuario usuario = new Usuario("73034581", "12345", "empleado", LocalDate.of(2025, 5, 16), "Orlando", "Dorival", "El Macho", "jr.Los Olivos En USA", new String[]{"¿Cuantos Años tienes?", "¿Donde vives?"}, new String[]{"20", "en mi casa"});
         //usuarios administradores de prueba
         Usuario usuario2 = new Usuario("20603299494", "12345", "administrador", LocalDate.of(2025, 5, 16), "Alicia", "Nuñez", "femenino", "jr.Simpatica En Algun Lugar", new String[]{"¿Cuanto mides?", "¿Donde vives?"}, new String[]{"155", "cerca de casa"});
@@ -62,7 +61,7 @@ public class BaseDeDatos {
     }
 
     public boolean actualizarContraseña(String nombreUsuario, String antiguaContraseña, String nuevaContraseña) {
-        if (existeUsuario(nombreUsuario) && esSuContraseña(buscarUsuario(nombreUsuario), antiguaContraseña)&&debeCambiarContraseña(buscarUsuario(nombreUsuario))) {
+        if (existeUsuario(nombreUsuario) && esSuContraseña(buscarUsuario(nombreUsuario), antiguaContraseña) && debeCambiarContraseña(buscarUsuario(nombreUsuario))) {
             usuarios.get(nombreUsuario).setContraseña(nuevaContraseña);
             return true;
         }
@@ -92,7 +91,7 @@ public class BaseDeDatos {
         if (debeCambiarContraseña(usuario)) {
             return new Object[]{DEBE_CAMBIAR_CONTRASEÑA};
         }
-        return new Object[]{PUEDE_INGRESAR,usuario};
+        return new Object[]{PUEDE_INGRESAR, usuario};
     }
 
 }

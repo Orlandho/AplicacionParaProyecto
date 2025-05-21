@@ -11,17 +11,17 @@ import java.time.LocalDate;
  * @author walri
  */
 public class Usuario {
+
     private String usuario;
     private String contraseña;
     private String rol;
     private LocalDate fechaUltimoCambio;
-    private int intentosFallidos=0;
+    private int intentosFallidos = 0;
     private boolean cuentaBloqueada = false;
-    private String nombre,apellido,genero,direccion;
-    private String[] preguntasSeguridad=new String[2],respuestasSeguridad=new String[2];
-    //Constructor
+    private String nombre, apellido, genero, direccion;
+    private String[] preguntasSeguridad = new String[2], respuestasSeguridad = new String[2];
 
-    public Usuario(String usuario, String contraseña, String rol, LocalDate fechaUltimoCambio, String nombre, String apellido, String genero, String direccion,String[] preguntas,String[] respuestas) {
+    public Usuario(String usuario, String contraseña, String rol, LocalDate fechaUltimoCambio, String nombre, String apellido, String genero, String direccion, String[] preguntas, String[] respuestas) {
         this.usuario = usuario;
         this.contraseña = contraseña;
         this.rol = rol;
@@ -30,19 +30,13 @@ public class Usuario {
         this.apellido = apellido;
         this.genero = genero;
         this.direccion = direccion;
-        if(preguntasSeguridad.length==2&&respuestasSeguridad.length==2)
-        {
-            System.arraycopy(preguntas, 0,this.preguntasSeguridad, 0,2);
-            System.arraycopy(respuestas, 0,this.respuestasSeguridad, 0,2);
-        }else
+        if (preguntasSeguridad.length == 2 && respuestasSeguridad.length == 2) {
+            System.arraycopy(preguntas, 0, this.preguntasSeguridad, 0, 2);
+            System.arraycopy(respuestas, 0, this.respuestasSeguridad, 0, 2);
+        } else {
             throw new IllegalArgumentException("Class Usuario: Constructor: array preguntas o respuestas exceden el tamaño");
+        }
     }
-
-    
-
-    
-    
-    //Metodos get y set
 
     public String getUsuario() {
         return usuario;
@@ -140,11 +134,10 @@ public class Usuario {
     public void setCuentaBloqueada(boolean cuentaBloqueada) {
         this.cuentaBloqueada = cuentaBloqueada;
     }
-    
-    public LocalDate getFechaLimite(){
+
+    public LocalDate getFechaLimite() {
         return fechaUltimoCambio.plusDays(60);
     }
-    
 
     // Validación para cambio de contraseña obligatorio
     public boolean debeCambiarContraseña() {
