@@ -4,6 +4,7 @@
  */
 package Formularios;
 
+import Clases.Usuario;
 import java.awt.Component;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -12,19 +13,23 @@ import javax.swing.JOptionPane;
  *
  * @author ORLANDO
  */
-public class MenuDinamico extends javax.swing.JFrame {
+public class FrmMenuDinamico extends javax.swing.JFrame {
+
     /**
      * Creates new form MenuDinamico
      */
-    public MenuDinamico() {
+    public FrmMenuDinamico() {
         initComponents();
         jpaneladmin.setVisible(false);
-        
+
     }
-    public void MostrarBotonesAdministrador()
-    {
-        jpaneladmin.setVisible(true);
-        jpaneladmin.setEnabled(true);
+
+    public void modificarSegunRol(Usuario usuario) {
+        if (usuario.getRol().equalsIgnoreCase("administrador")) {
+            jpaneladmin.setVisible(true);
+            jpaneladmin.setEnabled(true);
+        }
+        lblRol.setText(usuario.getRol());
     }
 
     /**
@@ -191,7 +196,7 @@ public class MenuDinamico extends javax.swing.JFrame {
         jpanelsuperior.add(lblRUC);
         lblRUC.setBounds(610, 10, 200, 24);
 
-        lblRol.setText("---------------------");
+        lblRol.setText("Empleado");
         jpanelsuperior.add(lblRol);
         lblRol.setBounds(650, 40, 150, 16);
 
@@ -202,11 +207,10 @@ public class MenuDinamico extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void mostrarNombre(JLabel label)
-    {
-        JOptionPane.showMessageDialog(this, "el boton"+label.getText()+" FUNCIONA!!!");
+    private void mostrarNombre(JLabel label) {
+        JOptionPane.showMessageDialog(this, "el boton" + label.getText() + " FUNCIONA!!!");
     }
-    
+
     private void btninicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btninicioMouseClicked
         // TODO add your handling code here:
         mostrarNombre(btninicio);
@@ -269,20 +273,21 @@ public class MenuDinamico extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MenuDinamico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmMenuDinamico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MenuDinamico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmMenuDinamico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MenuDinamico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmMenuDinamico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MenuDinamico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmMenuDinamico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MenuDinamico().setVisible(true);
+                new FrmMenuDinamico().setVisible(true);
             }
         });
     }

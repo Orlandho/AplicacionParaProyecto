@@ -15,6 +15,7 @@ import java.util.Map;
 public class BaseDeDatos {
 
     private Map<String, Usuario> usuarios;
+    public static final int USUARIO_CONTRA_INCORRECTOS = 0, USUARIO_BLOQUEADO = 1, DEBE_CAMBIAR_CONTRASEÑA = 2, PUEDE_INGRESAR = 3;
 
     public BaseDeDatos() {
         usuarios = new HashMap<>();
@@ -44,14 +45,15 @@ public class BaseDeDatos {
         return usuarios.containsKey(nombreUsuario);
     }
 
-    public boolean esContraseñaCorrecta(Usuario usuarioEncontrado, String contraseña) {
-        if (usuarioEncontrado.getContraseña().equals(contraseña)) {
-            return true;
+    public boolean esSuContraseña(Usuario usuarioEncontrado, String contraseña) {
+        if (!usuarioEncontrado.getContraseña().equals(contraseña)) {
+            usuarioEncontrado.setIntentosFallidos(usuarioEncontrado.getIntentosFallidos() + 1);
+            if (usuarioEncontrado.getIntentosFallidos() >= 5) {
+                usuarioEncontrado.setCuentaBloqueada(true);
+            }
+            return false;
         }
-        if (usuarioEncontrado.getIntentosFallidos() >= 5) {
-            usuarioEncontrado.setCuentaBloqueada(true);
-        }
-        return false;
+        return true;
 
     }
 
@@ -60,12 +62,11 @@ public class BaseDeDatos {
     }
 
     public boolean actualizarContraseña(String nombreUsuario, String antiguaContraseña, String nuevaContraseña) {
-        if (existeUsuario(nombreUsuario)&&esContraseñaCorrecta(buscarUsuario(nombreUsuario), antiguaContraseña)) {
+        if (existeUsuario(nombreUsuario) && esSuContraseña(buscarUsuario(nombreUsuario), antiguaContraseña)&&debeCambiarContraseña(buscarUsuario(nombreUsuario))) {
             usuarios.get(nombreUsuario).setContraseña(nuevaContraseña);
-            //se actualizo la contraseña correctamente
             return true;
         }
-        //no se pudo actualizar la contraseña
+        //Se ejecuta si el usuario cambio su contraseña hace menos de 60 dias
         return false;
     }
 
@@ -79,21 +80,19 @@ public class BaseDeDatos {
      */
     public int intentarLogin(String usuarioIngresado, String contraseñaIngresada) {
         if (!existeUsuario(usuarioIngresado)) {
-            return 0;
+            return USUARIO_CONTRA_INCORRECTOS;
         }
         Usuario usuario = buscarUsuario(usuarioIngresado);
         if (usuario.esCuentaBloqueada()) {
-            return 1;
+            return USUARIO_BLOQUEADO;
         }
-        if (!esContraseñaCorrecta(usuario, contraseñaIngresada)) {
-            return 0;
+        if (!esSuContraseña(usuario, contraseñaIngresada)) {
+            return USUARIO_CONTRA_INCORRECTOS;
         }
         if (debeCambiarContraseña(usuario)) {
-            return 2;
+            return DEBE_CAMBIAR_CONTRASEÑA;
         }
-        return 3;
+        return PUEDE_INGRESAR;
     }
-    
-    
-    
+
 }

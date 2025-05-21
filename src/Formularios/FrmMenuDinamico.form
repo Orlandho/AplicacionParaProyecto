@@ -303,7 +303,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="lblRol">
           <Properties>
-            <Property name="text" type="java.lang.String" value="---------------------"/>
+            <Property name="text" type="java.lang.String" value="Empleado"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
