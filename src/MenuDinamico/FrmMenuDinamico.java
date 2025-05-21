@@ -5,6 +5,8 @@
 package MenuDinamico;
 
 import Usuario.Usuario;
+import Usuario.Administrador;
+import Usuario.Empleado;
 import java.awt.Component;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -15,6 +17,7 @@ import javax.swing.JOptionPane;
  */
 public class FrmMenuDinamico extends javax.swing.JFrame {
 
+    Usuario usuario;
     /**
      * Creates new form MenuDinamico
      */
@@ -26,8 +29,12 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
 
     public void modificarSegunRol(Usuario usuario) {
         if (usuario.getRol().equalsIgnoreCase("administrador")) {
+            //se promociona a Administrador
+            this.usuario=new Administrador(usuario);
             jpaneladmin.setVisible(true);
             jpaneladmin.setEnabled(true);
+        }else{
+            this.usuario=new Empleado(usuario);
         }
         lblRol.setText(usuario.getRol());
     }
