@@ -11,6 +11,7 @@ import java.time.LocalDate;
  *
  * @author ORLANDO
  */
+//Hola
 public class Administrador extends Usuario {
 
     public Administrador(Usuario usuario) {
