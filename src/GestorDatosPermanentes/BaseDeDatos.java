@@ -9,7 +9,9 @@ package GestorDatosPermanentes;
  * @author ORLANDO
  */
 import Usuario.Usuario;
+import java.awt.List;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -78,21 +80,28 @@ public class BaseDeDatos {
         3 | Usuario se logueo correctamente
         4 | Usuario no existe
      */
-    public Object[] intentarLogin(String usuarioIngresado, String contraseñaIngresada) {
+    public ArrayList<Object> intentarLogin(String usuarioIngresado, String contraseñaIngresada) {
+        ArrayList<Object> respuesta= new ArrayList<>();
         if (!existeUsuario(usuarioIngresado)) {
-            return new Object[]{USUARIO_CONTRA_INCORRECTOS};
+            respuesta.add(USUARIO_CONTRA_INCORRECTOS);
+            return respuesta;
         }
         Usuario usuario = buscarUsuario(usuarioIngresado);
         if (usuario.esCuentaBloqueada()) {
-            return new Object[]{USUARIO_BLOQUEADO};
+            respuesta.add(USUARIO_BLOQUEADO);
+            return respuesta;
         }
         if (!esSuContraseña(usuario, contraseñaIngresada)) {
-            return new Object[]{USUARIO_CONTRA_INCORRECTOS};
+            respuesta.add(USUARIO_CONTRA_INCORRECTOS);
+            return respuesta;
         }
         if (debeCambiarContraseña(usuario)) {
-            return new Object[]{DEBE_CAMBIAR_CONTRASEÑA};
+            respuesta.add(DEBE_CAMBIAR_CONTRASEÑA);
+            return respuesta;
         }
-        return new Object[]{PUEDE_INGRESAR, usuario};
+        respuesta.add(PUEDE_INGRESAR);
+        respuesta.add(usuario);
+        return respuesta;
     }
 
 }

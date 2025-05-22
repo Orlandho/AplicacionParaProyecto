@@ -14,6 +14,7 @@ import java.util.HashMap;
 import Login.MantenimientoLogin;
 import MenuDinamico.FrmMenuDinamico;
 import MenuDinamico.FrmMenuDinamico;
+import java.util.ArrayList;
 
 public class FrmLogin extends javax.swing.JFrame {
 
@@ -172,16 +173,16 @@ public class FrmLogin extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos. Intente de nuevo");
             return;
         }
-        Object[] respuestaDB = baseDeDatos.intentarLogin(DNIoRUC, contraseña);
+        ArrayList<Object> respuestaDB= baseDeDatos.intentarLogin(DNIoRUC, contraseña);
 
-        if ((int) respuestaDB[0] == BaseDeDatos.PUEDE_INGRESAR) {
+        if ((int) respuestaDB.get(0) == BaseDeDatos.PUEDE_INGRESAR) {
             dispose();
             FrmMenuDinamico menu = new FrmMenuDinamico();
-            menu.modificarSegunRol((Usuario) respuestaDB[1]);
+            menu.modificarSegunRol((Usuario) respuestaDB.get(1));
             menu.setVisible(true);
 
         } else {
-            interpretarRespuesta((int) respuestaDB[0]);
+            interpretarRespuesta((int) respuestaDB.get(0));
         }
 
     }//GEN-LAST:event_btnIngresarActionPerformed
