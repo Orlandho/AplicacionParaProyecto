@@ -12,7 +12,8 @@ import java.time.LocalDate;
  */
 public class Usuario extends Persona{
 
-    private String usuario; //hola
+    //PROBANDO TERMINADO
+    private String usuario;
     private String contraseña;
     private String rol;
     private LocalDate fechaUltimoCambio;
