@@ -51,7 +51,7 @@ public class Usuario extends Persona{
     
     public boolean esTamañoCorrecto(String[] preguntas,String[] respuestas)
     {
-        return preguntas.length==2&&respuestas.length==2;
+        return preguntas.length==this.preguntasSeguridad.length&&respuestas.length==this.respuestasSeguridad.length;
     }
 
     public String getUsuario() {
