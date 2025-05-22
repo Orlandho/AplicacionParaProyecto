@@ -86,18 +86,18 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
             }
         });
         jpaneladmin.add(btncaja);
-        btncaja.setBounds(70, 10, 140, 50);
+        btncaja.setBounds(0, 0, 140, 50);
 
         btnregistrodeusuario.setFont(new java.awt.Font("DialogInput", 0, 18)); // NOI18N
         btnregistrodeusuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/personas.png"))); // NOI18N
-        btnregistrodeusuario.setText("REGISTRO DE USUARIOS");
+        btnregistrodeusuario.setText("<html>REGISTRO<br>DE USUARIOS</html>");
         btnregistrodeusuario.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnregistrodeusuarioMouseClicked(evt);
             }
         });
         jpaneladmin.add(btnregistrodeusuario);
-        btnregistrodeusuario.setBounds(0, 70, 280, 60);
+        btnregistrodeusuario.setBounds(0, 60, 190, 60);
 
         btnreportes.setFont(new java.awt.Font("DialogInput", 0, 18)); // NOI18N
         btnreportes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/documento.png"))); // NOI18N
@@ -108,7 +108,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
             }
         });
         jpaneladmin.add(btnreportes);
-        btnreportes.setBounds(60, 130, 170, 50);
+        btnreportes.setBounds(0, 130, 170, 50);
 
         btnajustes.setFont(new java.awt.Font("DialogInput", 0, 18)); // NOI18N
         btnajustes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/tuercas.png"))); // NOI18N
@@ -119,10 +119,10 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
             }
         });
         jpaneladmin.add(btnajustes);
-        btnajustes.setBounds(60, 180, 170, 50);
+        btnajustes.setBounds(0, 180, 170, 50);
 
         jpanelgeneral.add(jpaneladmin);
-        jpaneladmin.setBounds(0, 220, 280, 250);
+        jpaneladmin.setBounds(0, 220, 190, 250);
 
         btninicio.setFont(new java.awt.Font("DialogInput", 0, 18)); // NOI18N
         btninicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/casa.png"))); // NOI18N
@@ -133,7 +133,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
             }
         });
         jpanelgeneral.add(btninicio);
-        btninicio.setBounds(70, 10, 140, 50);
+        btninicio.setBounds(0, 0, 140, 50);
 
         btnAlmacen.setFont(new java.awt.Font("DialogInput", 0, 18)); // NOI18N
         btnAlmacen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/caja.png"))); // NOI18N
@@ -144,43 +144,43 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
             }
         });
         jpanelgeneral.add(btnAlmacen);
-        btnAlmacen.setBounds(60, 60, 160, 50);
+        btnAlmacen.setBounds(0, 50, 160, 50);
 
         btnregistrodecompras.setFont(new java.awt.Font("DialogInput", 0, 18)); // NOI18N
         btnregistrodecompras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/camion.png"))); // NOI18N
-        btnregistrodecompras.setText("REGISTRO DE COMPRAS");
+        btnregistrodecompras.setText("<html>REGISTRO<br>DE COMPRAS</html>");
         btnregistrodecompras.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnregistrodecomprasMouseClicked(evt);
             }
         });
         jpanelgeneral.add(btnregistrodecompras);
-        btnregistrodecompras.setBounds(10, 110, 280, 50);
+        btnregistrodecompras.setBounds(0, 100, 170, 50);
 
         btnregistrodeventas.setFont(new java.awt.Font("DialogInput", 0, 18)); // NOI18N
         btnregistrodeventas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/tienda.png"))); // NOI18N
-        btnregistrodeventas.setText("REGISTRO DE VENTAS");
+        btnregistrodeventas.setText("<html>REGISTRO<br>DE VENTAS</html>");
         btnregistrodeventas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnregistrodeventasMouseClicked(evt);
             }
         });
         jpanelgeneral.add(btnregistrodeventas);
-        btnregistrodeventas.setBounds(10, 160, 270, 50);
+        btnregistrodeventas.setBounds(0, 160, 170, 50);
 
         btncerrarsesion.setFont(new java.awt.Font("DialogInput", 0, 18)); // NOI18N
         btncerrarsesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/puerta.png"))); // NOI18N
-        btncerrarsesion.setText("CERRAR SESION");
+        btncerrarsesion.setText("SALIR");
         btncerrarsesion.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btncerrarsesionMouseClicked(evt);
             }
         });
         jpanelgeneral.add(btncerrarsesion);
-        btncerrarsesion.setBounds(40, 460, 210, 50);
+        btncerrarsesion.setBounds(10, 470, 130, 50);
 
         getContentPane().add(jpanelgeneral);
-        jpanelgeneral.setBounds(0, 80, 280, 530);
+        jpanelgeneral.setBounds(0, 80, 190, 530);
 
         jpanelsuperior.setBackground(new java.awt.Color(0, 153, 153));
         jpanelsuperior.setLayout(null);
