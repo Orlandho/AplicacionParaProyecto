@@ -35,7 +35,7 @@
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="0" y="80" width="280" height="530"/>
+          <AbsoluteConstraints x="0" y="80" width="190" height="530"/>
         </Constraint>
       </Constraints>
 
@@ -52,7 +52,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="0" y="220" width="280" height="250"/>
+              <AbsoluteConstraints x="0" y="220" width="190" height="250"/>
             </Constraint>
           </Constraints>
 
@@ -75,7 +75,7 @@
               </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="70" y="10" width="140" height="50"/>
+                  <AbsoluteConstraints x="0" y="0" width="140" height="50"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -87,14 +87,14 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/Imagenes/personas.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="REGISTRO DE USUARIOS"/>
+                <Property name="text" type="java.lang.String" value="&lt;html&gt;REGISTRO&lt;br&gt;DE USUARIOS&lt;/html&gt;"/>
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnregistrodeusuarioMouseClicked"/>
               </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="0" y="70" width="280" height="60"/>
+                  <AbsoluteConstraints x="0" y="60" width="190" height="60"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -113,7 +113,7 @@
               </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="60" y="130" width="170" height="50"/>
+                  <AbsoluteConstraints x="0" y="130" width="170" height="50"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -132,7 +132,7 @@
               </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="60" y="180" width="170" height="50"/>
+                  <AbsoluteConstraints x="0" y="180" width="170" height="50"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -153,7 +153,7 @@
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="70" y="10" width="140" height="50"/>
+              <AbsoluteConstraints x="0" y="0" width="140" height="50"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -172,7 +172,7 @@
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="60" y="60" width="160" height="50"/>
+              <AbsoluteConstraints x="0" y="50" width="160" height="50"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -184,14 +184,14 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/Imagenes/camion.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="REGISTRO DE COMPRAS"/>
+            <Property name="text" type="java.lang.String" value="&lt;html&gt;REGISTRO&lt;br&gt;DE COMPRAS&lt;/html&gt;"/>
           </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnregistrodecomprasMouseClicked"/>
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="10" y="110" width="280" height="50"/>
+              <AbsoluteConstraints x="0" y="100" width="170" height="50"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -203,14 +203,14 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/Imagenes/tienda.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="REGISTRO DE VENTAS"/>
+            <Property name="text" type="java.lang.String" value="&lt;html&gt;REGISTRO&lt;br&gt;DE VENTAS&lt;/html&gt;"/>
           </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnregistrodeventasMouseClicked"/>
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="10" y="160" width="270" height="50"/>
+              <AbsoluteConstraints x="0" y="160" width="170" height="50"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -222,14 +222,14 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/Imagenes/puerta.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="CERRAR SESION"/>
+            <Property name="text" type="java.lang.String" value="SALIR"/>
           </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btncerrarsesionMouseClicked"/>
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="40" y="460" width="210" height="50"/>
+              <AbsoluteConstraints x="10" y="470" width="130" height="50"/>
             </Constraint>
           </Constraints>
         </Component>
