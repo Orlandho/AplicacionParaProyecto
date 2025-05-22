@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class BaseDeDatos {
-
+//primer comentario
     private Map<String, Usuario> usuarios;
     public static final int USUARIO_CONTRA_INCORRECTOS = 0, USUARIO_BLOQUEADO = 1, DEBE_CAMBIAR_CONTRASEÑA = 2, PUEDE_INGRESAR = 3;
 
