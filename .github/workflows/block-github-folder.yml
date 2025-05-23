@@ -1,0 +1,33 @@
+# .github/workflows/block-github-folder.yml
+name: Bloquear cambios en .github/
+
+on:
+  pull_request:
+
+jobs:
+  block-github-folder:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Detectar cambios en la carpeta .github/
+        run: |
+          # Si el autor del PR es el owner, permitimos cambios
+          if [[ "${{ github.actor }}" == "Orlandho" ]]; then
+            echo "🛑 Cambios permitidos: Orlando es el único autorizado."
+            exit 0
+          fi
+
+          # Lista los ficheros cambiados entre la base y tu rama
+          CHANGED=$(git diff --name-only origin/${{ github.base_ref }}...HEAD)
+          echo "Archivos cambiados:"
+          echo "$CHANGED"
+
+          # Bloquea si hay cambios en .github/
+          if echo "$CHANGED" | grep -q '^\.github/'; then
+            echo "❌ No se permite modificar la carpeta .github/ para otros usuarios."
+            exit 1
+          else
+            echo "✅ No se detectaron cambios prohibidos en .github/."
+          fi
