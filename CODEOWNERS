@@ -1,6 +1,4 @@
 # CODEOWNERS
 # file/directory  @user
-#TEST
-#*	@UNWANTED-USER
 
 *      @Orlandho
