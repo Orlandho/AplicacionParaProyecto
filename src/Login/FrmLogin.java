@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package Login;
 
 import Usuario.Usuario;
@@ -118,7 +114,6 @@ public class FrmLogin extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    //Regresa la contraseña creada
     private String obligarCrearContraseña(String contraseñaAntigua) {
         String[] options = {"OK"};
         JPanel JPanelPedirContraNueva = new JPanel();
@@ -165,15 +160,13 @@ public class FrmLogin extends javax.swing.JFrame {
     }
 
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
-        // TODO add your handling code here:
-        //usuario de prueba
         String DNIoRUC = txfUsuario.getText(), contraseña = txfContraseña.getText();
 
         if (!MantenimientoLogin.esDniORucValido(DNIoRUC) || !MantenimientoLogin.esContraseñaValida(contraseña)) {
             JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos. Intente de nuevo");
             return;
         }
-        ArrayList<Object> respuestaDB= baseDeDatos.intentarLogin(DNIoRUC, contraseña);
+        ArrayList<Object> respuestaDB = baseDeDatos.intentarLogin(DNIoRUC, contraseña);
 
         if ((int) respuestaDB.get(0) == BaseDeDatos.PUEDE_INGRESAR) {
             dispose();

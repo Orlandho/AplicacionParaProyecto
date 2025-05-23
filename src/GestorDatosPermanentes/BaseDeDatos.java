@@ -1,13 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package GestorDatosPermanentes;
 
-/**
- *
- * @author ORLANDO
- */
 import Usuario.Usuario;
 import java.awt.List;
 import java.time.LocalDate;
@@ -26,12 +18,9 @@ public class BaseDeDatos {
     }
 
     private void cargarUsuariosDePrueba() {
-        //usuario empleado de prueba
         Usuario usuario = new Usuario("73034581", "12345", "empleado", LocalDate.of(2025, 5, 16), "Orlando", "Dorival", "El Macho", "jr.Los Olivos En USA", new String[]{"¿Cuantos Años tienes?", "¿Donde vives?"}, new String[]{"20", "en mi casa"});
-        //usuarios administradores de prueba
         Usuario usuario2 = new Usuario("20603299494", "12345", "administrador", LocalDate.of(2025, 5, 16), "Alicia", "Nuñez", "femenino", "jr.Simpatica En Algun Lugar", new String[]{"¿Cuanto mides?", "¿Donde vives?"}, new String[]{"155", "cerca de casa"});
         Usuario usuario3 = new Usuario("12345678", "12345", "administrador", LocalDate.of(2025, 5, 16), "Danna", "Huaman", "femenino", "jr.Casita En Casa", new String[]{"¿Qué estudias?", "¿Donde vives?"}, new String[]{"Ingenieria de Sistemas", "dentro de mi casa"});
-        //debe aparecerle la ventana para cambiar contraseña OBLIGATORIAMENTE
         Usuario usuario4 = new Usuario("98765432", "12345", "administrador", LocalDate.of(2025, 1, 16), "Luis", "Moreyra", "El Macho", "jr.Casita cerca de UPN", new String[]{"¿Qué juegas?", "¿Donde vives?"}, new String[]{"Pokemon TGCP", "cerca de UPN"});
         usuarios.put(usuario.getUsuario(), usuario);
         usuarios.put(usuario2.getUsuario(), usuario2);
@@ -68,7 +57,6 @@ public class BaseDeDatos {
             usuarios.get(nombreUsuario).setContraseña(nuevaContraseña);
             return true;
         }
-        //Se ejecuta si el usuario cambio su contraseña hace menos de 60 dias
         return false;
     }
 
@@ -81,7 +69,7 @@ public class BaseDeDatos {
         4 | Usuario no existe
      */
     public ArrayList<Object> intentarLogin(String usuarioIngresado, String contraseñaIngresada) {
-        ArrayList<Object> respuesta= new ArrayList<>();
+        ArrayList<Object> respuesta = new ArrayList<>();
         if (!existeUsuario(usuarioIngresado)) {
             respuesta.add(USUARIO_CONTRA_INCORRECTOS);
             return respuesta;

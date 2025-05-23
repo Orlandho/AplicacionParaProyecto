@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package MenuDinamico;
 
 import Usuario.Usuario;
@@ -11,13 +7,10 @@ import java.awt.Component;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author ORLANDO
- */
 public class FrmMenuDinamico extends javax.swing.JFrame {
 
     Usuario usuario;
+
     /**
      * Creates new form MenuDinamico
      */
@@ -29,12 +22,11 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
 
     public void modificarSegunRol(Usuario usuario) {
         if (usuario.getRol().equalsIgnoreCase("administrador")) {
-            //se promociona a Administrador
-            this.usuario=new Administrador(usuario);
+            this.usuario = new Administrador(usuario);
             jpaneladmin.setVisible(true);
             jpaneladmin.setEnabled(true);
-        }else{
-            this.usuario=new Empleado(usuario);
+        } else {
+            this.usuario = new Empleado(usuario);
         }
         lblRol.setText(usuario.getRol());
     }
@@ -219,47 +211,38 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     }
 
     private void btninicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btninicioMouseClicked
-        // TODO add your handling code here:
         mostrarNombre(btninicio);
     }//GEN-LAST:event_btninicioMouseClicked
 
     private void btnAlmacenMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAlmacenMouseClicked
-        // TODO add your handling code here:
         mostrarNombre(btnAlmacen);
     }//GEN-LAST:event_btnAlmacenMouseClicked
 
     private void btnregistrodecomprasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnregistrodecomprasMouseClicked
-        // TODO add your handling code here:
         mostrarNombre(btnAlmacen);
     }//GEN-LAST:event_btnregistrodecomprasMouseClicked
 
     private void btnregistrodeventasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnregistrodeventasMouseClicked
-        // TODO add your handling code here:
         mostrarNombre(btnregistrodeventas);
     }//GEN-LAST:event_btnregistrodeventasMouseClicked
 
     private void btncajaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btncajaMouseClicked
-        // TODO add your handling code here:
         mostrarNombre(btncaja);
     }//GEN-LAST:event_btncajaMouseClicked
 
     private void btnregistrodeusuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnregistrodeusuarioMouseClicked
-        // TODO add your handling code here:
         mostrarNombre(btnregistrodeusuario);
     }//GEN-LAST:event_btnregistrodeusuarioMouseClicked
 
     private void btnreportesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnreportesMouseClicked
-        // TODO add your handling code here:
         mostrarNombre(btnreportes);
     }//GEN-LAST:event_btnreportesMouseClicked
 
     private void btnajustesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnajustesMouseClicked
-        // TODO add your handling code here:
         mostrarNombre(btnajustes);
     }//GEN-LAST:event_btnajustesMouseClicked
 
     private void btncerrarsesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btncerrarsesionMouseClicked
-        // TODO add your handling code here:
         mostrarNombre(btncerrarsesion);
     }//GEN-LAST:event_btncerrarsesionMouseClicked
 

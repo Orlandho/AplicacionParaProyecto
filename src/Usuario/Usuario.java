@@ -1,18 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Usuario;
 
 import java.time.LocalDate;
 
-/**
- *
- * @author walri
- */
-public class Usuario extends Persona{
+public class Usuario extends Persona {
 
-    private String usuario; //hola
+    private String usuario;
     private String contraseña;
     private String rol;
     private LocalDate fechaUltimoCambio;
@@ -26,32 +18,31 @@ public class Usuario extends Persona{
         this.contraseña = contraseña;
         this.rol = rol;
         this.fechaUltimoCambio = fechaUltimoCambio;
-        if (esTamañoCorrecto(preguntas,respuestas)) {
+        if (esTamañoCorrecto(preguntas, respuestas)) {
             System.arraycopy(preguntas, 0, this.preguntasSeguridad, 0, 2);
             System.arraycopy(respuestas, 0, this.respuestasSeguridad, 0, 2);
         } else {
             throw new IllegalArgumentException("Class Usuario: Constructor: array preguntas o respuestas exceden el tamaño");
         }
     }
-    public Usuario(Usuario usuario)
-    {
-        super(usuario.nombre,usuario.apellido,usuario.genero,usuario.direccion);
-        this.usuario=usuario.usuario;
+
+    public Usuario(Usuario usuario) {
+        super(usuario.nombre, usuario.apellido, usuario.genero, usuario.direccion);
+        this.usuario = usuario.usuario;
         this.contraseña = usuario.contraseña;
         this.rol = usuario.rol;
         this.fechaUltimoCambio = usuario.fechaUltimoCambio;
-        if (esTamañoCorrecto(usuario.preguntasSeguridad,usuario.respuestasSeguridad)) {
-        System.arraycopy(usuario.preguntasSeguridad, 0, this.preguntasSeguridad, 0, 2);
-        System.arraycopy(usuario.respuestasSeguridad, 0, this.respuestasSeguridad, 0, 2);
-        }else {
+        if (esTamañoCorrecto(usuario.preguntasSeguridad, usuario.respuestasSeguridad)) {
+            System.arraycopy(usuario.preguntasSeguridad, 0, this.preguntasSeguridad, 0, 2);
+            System.arraycopy(usuario.respuestasSeguridad, 0, this.respuestasSeguridad, 0, 2);
+        } else {
             throw new IllegalArgumentException("Class Usuario: Constructor: array preguntas o respuestas exceden el tamaño");
         }
-        
+
     }
-    
-    public boolean esTamañoCorrecto(String[] preguntas,String[] respuestas)
-    {
-        return preguntas.length==this.preguntasSeguridad.length&&respuestas.length==this.respuestasSeguridad.length;
+
+    public boolean esTamañoCorrecto(String[] preguntas, String[] respuestas) {
+        return preguntas.length == this.preguntasSeguridad.length && respuestas.length == this.respuestasSeguridad.length;
     }
 
     public String getUsuario() {
@@ -129,6 +120,7 @@ public class Usuario extends Persona{
     public String getDireccion() {
         return direccion;
     }
+
     @Override
     public void setDireccion(String direccion) {
         this.direccion = direccion;
@@ -162,7 +154,6 @@ public class Usuario extends Persona{
         return fechaUltimoCambio.plusDays(60);
     }
 
-    // Validación para cambio de contraseña obligatorio
     public boolean debeCambiarContraseña() {
         return fechaUltimoCambio.plusDays(60).isBefore(LocalDate.now());
     }

@@ -1,15 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Usuario;
 
-/**
- *
- * @author ORLANDO
- */
 public abstract class Persona {
-    
+
     protected String nombre, apellido, genero, direccion;
 
     public Persona(String nombre, String apellido, String genero, String direccion) {
@@ -50,5 +42,5 @@ public abstract class Persona {
     public void setDireccion(String direccion) {
         this.direccion = direccion;
     }
-    
+
 }
