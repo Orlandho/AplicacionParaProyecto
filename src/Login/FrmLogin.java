@@ -52,9 +52,10 @@ public class FrmLogin extends javax.swing.JFrame {
         setResizable(false);
         getContentPane().setLayout(null);
 
-        jPanelLoginHolder.setBackground(new java.awt.Color(56, 141, 165));
+        jPanelLoginHolder.setBackground(new java.awt.Color(126, 176, 175));
         jPanelLoginHolder.setLayout(null);
 
+        jPanelLogin.setBackground(new java.awt.Color(0, 103, 102));
         jPanelLogin.setLayout(null);
 
         lblLogin.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
