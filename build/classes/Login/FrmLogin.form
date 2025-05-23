@@ -34,7 +34,7 @@
     <Container class="javax.swing.JPanel" name="jPanelLoginHolder">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="a5" green="8d" red="38" type="rgb"/>
+          <Color blue="af" green="b0" red="7e" type="rgb"/>
         </Property>
       </Properties>
       <Constraints>
@@ -48,6 +48,11 @@
       </Layout>
       <SubComponents>
         <Container class="javax.swing.JPanel" name="jPanelLogin">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="66" green="67" red="0" type="rgb"/>
+            </Property>
+          </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
               <AbsoluteConstraints x="336" y="19" width="350" height="400"/>
