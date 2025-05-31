@@ -57,6 +57,8 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         lblimagen2 = new javax.swing.JLabel();
         lblRUC = new javax.swing.JLabel();
         lblRol = new javax.swing.JLabel();
+        tpnMostrar = new javax.swing.JTabbedPane();
+        pnl1Inicio = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -202,6 +204,12 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         getContentPane().add(jpanelsuperior);
         jpanelsuperior.setBounds(0, 0, 880, 80);
 
+        tpnMostrar.setTabPlacement(javax.swing.JTabbedPane.BOTTOM);
+        tpnMostrar.addTab("pnl1Inicio", pnl1Inicio);
+
+        getContentPane().add(tpnMostrar);
+        tpnMostrar.setBounds(190, 80, 690, 560);
+
         setSize(new java.awt.Dimension(894, 644));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
@@ -212,6 +220,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
 
     private void btninicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btninicioMouseClicked
         mostrarNombre(btninicio);
+        
     }//GEN-LAST:event_btninicioMouseClicked
 
     private void btnAlmacenMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAlmacenMouseClicked
@@ -300,5 +309,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     private javax.swing.JLabel lblimagen1;
     private javax.swing.JLabel lblimagen2;
     private javax.swing.JLabel lblinventario;
+    private javax.swing.JPanel pnl1Inicio;
+    private javax.swing.JTabbedPane tpnMostrar;
     // End of variables declaration//GEN-END:variables
 }
