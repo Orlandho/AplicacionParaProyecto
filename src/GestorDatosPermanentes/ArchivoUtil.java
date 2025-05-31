@@ -5,20 +5,21 @@
 package GestorDatosPermanentes;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.io.IOException;
 
 public class ArchivoUtil {
     
-    public static List<String> leerArchivo(String ruta) {
-        List<String> lineas = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader(ruta))) {
-            String linea;
-            while ((linea = br.readLine()) != null) {
-                lineas.add(linea);
-            }
+    // Método estático para leer el archivo y retornar las líneas como una lista
+    public static ArrayList<String> leerArchivo(String nombreArchivo) {
+        ArrayList<String> lineas = new ArrayList<>();
+        try {
+            lineas = new ArrayList<>(Files.readAllLines(Paths.get(nombreArchivo)));
         } catch (IOException e) {
-            e.printStackTrace();
+            // Puedes manejar el error aquí si es necesario
         }
         return lineas;
     }
@@ -28,7 +29,7 @@ public class ArchivoUtil {
             bw.write(linea);
             bw.newLine();
         } catch (IOException e) {
-            e.printStackTrace();
+            // Ignorar errores para evitar mensajes emergentes
         }
     }
 }
