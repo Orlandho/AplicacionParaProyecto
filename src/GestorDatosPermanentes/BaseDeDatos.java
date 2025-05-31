@@ -14,18 +14,56 @@ public class BaseDeDatos {
 
     public BaseDeDatos() {
         usuarios = new HashMap<>();
-        cargarUsuariosDePrueba();
+        cargarUsuariosDeArchivo("Usuarios.txt");
     }
 
-    private void cargarUsuariosDePrueba() {
-        Usuario usuario = new Usuario("73034581", "12345", "empleado", LocalDate.of(2025, 5, 16), "Orlando", "Dorival", "El Macho", "jr.Los Olivos En USA", new String[]{"¿Cuantos Años tienes?", "¿Donde vives?"}, new String[]{"20", "en mi casa"});
-        Usuario usuario2 = new Usuario("20603299494", "12345", "administrador", LocalDate.of(2025, 5, 16), "Alicia", "Nuñez", "femenino", "jr.Simpatica En Algun Lugar", new String[]{"¿Cuanto mides?", "¿Donde vives?"}, new String[]{"155", "cerca de casa"});
-        Usuario usuario3 = new Usuario("12345678", "12345", "administrador", LocalDate.of(2025, 5, 16), "Danna", "Huaman", "femenino", "jr.Casita En Casa", new String[]{"¿Qué estudias?", "¿Donde vives?"}, new String[]{"Ingenieria de Sistemas", "dentro de mi casa"});
-        Usuario usuario4 = new Usuario("98765432", "12345", "administrador", LocalDate.of(2025, 1, 16), "Luis", "Moreyra", "El Macho", "jr.Casita cerca de UPN", new String[]{"¿Qué juegas?", "¿Donde vives?"}, new String[]{"Pokemon TGCP", "cerca de UPN"});
-        usuarios.put(usuario.getUsuario(), usuario);
-        usuarios.put(usuario2.getUsuario(), usuario2);
-        usuarios.put(usuario3.getUsuario(), usuario3);
-        usuarios.put(usuario4.getUsuario(), usuario4);
+    private void cargarUsuariosDeArchivo(String archivo) {
+        // Usar la clase ArchivoUtil para leer el archivo
+        ArrayList<String> lineas = ArchivoUtil.leerArchivo(archivo);
+        for (String linea : lineas) {
+            // Asumiendo que cada línea tiene los datos separados por comas
+            // "usuario,contraseña,rol,fechaUltimoCambio,nombre,apellido,genero,direccion,pregunta1,respuesta1,pregunta2,respuesta2"
+            String[] datos = linea.split(",");
+            if (datos.length >= 12) {
+                String usuario = datos[0];
+                String contraseña = datos[1];
+                String rol = datos[2];
+                LocalDate fechaUltimoCambio = LocalDate.parse(datos[3]);
+                String nombre = datos[4];
+                String apellido = datos[5];
+                String genero = datos[6];
+                String direccion = datos[7];
+                String[] preguntas = {datos[8], datos[10]};
+                String[] respuestas = {datos[9], datos[11]};
+
+                // Crear objeto Usuario
+                Usuario nuevoUsuario = new Usuario(usuario, contraseña, rol, fechaUltimoCambio, nombre, apellido, genero, direccion, preguntas, respuestas);
+                usuarios.put(usuario, nuevoUsuario);
+            }
+        }
+    }
+
+    public int validarLogin(String usuario, String contraseña) {
+        Usuario u = usuarios.get(usuario);
+        if (u == null) {
+            return USUARIO_CONTRA_INCORRECTOS; // Usuario no encontrado
+        }
+        if (u.esCuentaBloqueada()) {
+            return USUARIO_BLOQUEADO; // Cuenta bloqueada
+        }
+        if (u.debeCambiarContraseña()) {
+            return DEBE_CAMBIAR_CONTRASEÑA; // La contraseña debe ser cambiada
+        }
+        if (!u.getContraseña().equals(contraseña)) {
+            u.setIntentosFallidos(u.getIntentosFallidos() + 1);
+            if (u.getIntentosFallidos() >= 3) {
+                u.setCuentaBloqueada(true); // Bloquear cuenta después de 3 intentos fallidos
+            }
+            return USUARIO_CONTRA_INCORRECTOS; // Contraseña incorrecta
+        }
+        // Resetear intentos fallidos si el login es exitoso
+        u.setIntentosFallidos(0);
+        return PUEDE_INGRESAR; // Login exitoso
     }
 
     private Usuario buscarUsuario(String nombreUsuario) {
@@ -45,7 +83,6 @@ public class BaseDeDatos {
             return false;
         }
         return true;
-
     }
 
     private boolean debeCambiarContraseña(Usuario usuario) {
@@ -61,11 +98,11 @@ public class BaseDeDatos {
     }
 
     /*
-        Dicionario de codigos:
+        Diccionario de códigos:
         0 | Usuario o contraseña incorrectos
         1 | Usuario bloqueado
         2 | Usuario tiene que cambiar su contraseña
-        3 | Usuario se logueo correctamente
+        3 | Usuario se logueó correctamente
         4 | Usuario no existe
      */
     public ArrayList<Object> intentarLogin(String usuarioIngresado, String contraseñaIngresada) {
@@ -90,6 +127,22 @@ public class BaseDeDatos {
         respuesta.add(PUEDE_INGRESAR);
         respuesta.add(usuario);
         return respuesta;
+    }
+
+    // Métodos para agregar y eliminar usuarios
+
+    public Map<String, Usuario> getUsuarios() {
+        return usuarios;
+    }
+
+    public void agregarUsuario(Usuario nuevoUsuario) {
+        usuarios.put(nuevoUsuario.getUsuario(), nuevoUsuario);
+        // Aquí podrías agregar lógica para guardar los usuarios en el archivo de texto si es necesario
+    }
+
+    public void eliminarUsuario(String usuario) {
+        usuarios.remove(usuario);
+        // Aquí podrías agregar lógica para actualizar el archivo de texto si es necesario
     }
 
 }
