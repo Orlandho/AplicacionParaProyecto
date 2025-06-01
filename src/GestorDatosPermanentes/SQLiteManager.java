@@ -34,18 +34,20 @@ public class SQLiteManager {
     }
     private boolean actualizarUsuario(Usuario usuario)
     {
-        String comandoSQL = "UPDATE usuario SET usuario= ?,contraseña=?,rol= ?,fechaUltimoCambio= ?,nombre= ?,apellido= ?,genero= ?,direccion= ? WHERE usuario_id= ?";
+        String comandoSQL = "UPDATE usuario SET usuario= ?,contraseña=?,rol= ?,fechaUltimoCambio= ?,intentosFallidos= ?,cuentaBloqueada= ?,nombre= ?,apellido= ?,genero= ?,direccion= ? WHERE usuario_id= ?";
         try {
             PreparedStatement ingresarComando = conexionDB.prepareStatement(comandoSQL);
             ingresarComando.setString(1, usuario.getUsuario());
             ingresarComando.setString(2, usuario.getContraseña());
             ingresarComando.setString(3, usuario.getRol());
             ingresarComando.setString(4, usuario.getFechaUltimoCambio().toString());
-            ingresarComando.setString(5, usuario.getNombre());
-            ingresarComando.setString(6, usuario.getApellido());
-            ingresarComando.setString(7, usuario.getGenero());
-            ingresarComando.setString(8, usuario.getDireccion());
-            ingresarComando.setInt(9, usuario.getUsuario_id());
+            ingresarComando.setInt(5, usuario.getIntentosFallidos());
+            ingresarComando.setInt(6, traducirCuentaBloqueada(usuario.esCuentaBloqueada()));
+            ingresarComando.setString(7, usuario.getNombre());
+            ingresarComando.setString(8, usuario.getApellido());
+            ingresarComando.setString(9, usuario.getGenero());
+            ingresarComando.setString(10, usuario.getDireccion());
+            ingresarComando.setInt(11, usuario.getUsuario_id());
             int filasAfectadas = ingresarComando.executeUpdate();
             if (filasAfectadas>0) {
                 return true;
@@ -57,6 +59,15 @@ public class SQLiteManager {
         return false;
     }
 
+    private boolean traducirCuentaBloqueada(int cuentaBloqueada)
+    {
+        return cuentaBloqueada!=0;
+    }
+    private int traducirCuentaBloqueada(boolean cuentaBloqueada)
+    {
+        return cuentaBloqueada?1:0;
+    }
+    
     private Usuario buscarUsuario(String nombreUsuario) {
         String comandoSQL = "SELECT * FROM Usuario WHERE usuario= ?";
         try {
@@ -64,7 +75,8 @@ public class SQLiteManager {
             ingresarComando.setString(1, nombreUsuario);
             ResultSet datosObtenidos = ingresarComando.executeQuery();
             if (datosObtenidos.next()) {
-                return new Usuario(datosObtenidos.getInt("usuario_id"), datosObtenidos.getString("usuario"), datosObtenidos.getString("contraseña"), datosObtenidos.getString("rol"), LocalDate.parse(datosObtenidos.getString("fechaUltimoCambio")), datosObtenidos.getString("nombre"), datosObtenidos.getString("apellido"), datosObtenidos.getString("genero"), datosObtenidos.getString("direccion"));
+                //                                   int usuario_id, S                    tring usuario,                        String contraseña,             String rol, LocalDate                                          fechaUltimoCambio,                     int intentosFallidos,                                                boolean cuentaBloqueada,                       String nombre,                     String apellido,                      String genero,                       String direccion
+                return new Usuario(datosObtenidos.getInt("usuario_id"), datosObtenidos.getString("usuario"), datosObtenidos.getString("contraseña"), datosObtenidos.getString("rol"), LocalDate.parse(datosObtenidos.getString("fechaUltimoCambio")),datosObtenidos.getInt("intentosFallidos"),traducirCuentaBloqueada(datosObtenidos.getInt("cuentaBloqueada")) ,datosObtenidos.getString("nombre"), datosObtenidos.getString("apellido"), datosObtenidos.getString("genero"), datosObtenidos.getString("direccion"));
             }
         } catch (SQLException e) {
             throw new RuntimeException("Error al buscar usuario.\nMensaje de error:"+e.getMessage());
@@ -125,6 +137,10 @@ public class SQLiteManager {
         if (!esSuContraseña(usuario, contraseñaIngresada)) {
             respuesta.add(USUARIO_CONTRA_INCORRECTOS);
             return respuesta;
+        }else{
+            usuario=buscarUsuario(usuarioIngresado);
+            usuario.setIntentosFallidos(0);
+            actualizarUsuario(usuario);
         }
         if (debeCambiarContraseña(usuario)) {
             respuesta.add(DEBE_CAMBIAR_CONTRASEÑA);
