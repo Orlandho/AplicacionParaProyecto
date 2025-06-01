@@ -55,7 +55,7 @@ public class SQLiteManager {
         } catch (SQLException e) {
             throw new RuntimeException("Error al actualizar usuario.\nMensaje de error:"+e.getMessage());
         }
-        //actualizo correctamente
+        //actualizo incorrectamente
         return false;
     }
 
