@@ -25,10 +25,10 @@ public class SQLiteManager {
     }
 
     private void cargarUsuariosDePrueba() {
-        Usuario usuario = new Usuario("73034581", "12345", "empleado", LocalDate.of(2025, 5, 16), "Orlando", "Dorival", "El Macho", "jr.Los Olivos En USA", new String[]{"¿Cuantos Años tienes?", "¿Donde vives?"}, new String[]{"20", "en mi casa"});
-        Usuario usuario2 = new Usuario("20603299494", "12345", "administrador", LocalDate.of(2025, 5, 16), "Alicia", "Nuñez", "femenino", "jr.Simpatica En Algun Lugar", new String[]{"¿Cuanto mides?", "¿Donde vives?"}, new String[]{"155", "cerca de casa"});
-        Usuario usuario3 = new Usuario("12345678", "12345", "administrador", LocalDate.of(2025, 5, 16), "Danna", "Huaman", "femenino", "jr.Casita En Casa", new String[]{"¿Qué estudias?", "¿Donde vives?"}, new String[]{"Ingenieria de Sistemas", "dentro de mi casa"});
-        Usuario usuario4 = new Usuario("98765432", "12345", "administrador", LocalDate.of(2025, 1, 16), "Luis", "Moreyra", "El Macho", "jr.Casita cerca de UPN", new String[]{"¿Qué juegas?", "¿Donde vives?"}, new String[]{"Pokemon TGCP", "cerca de UPN"});
+        Usuario usuario = new Usuario("73034581", "12345", "empleado", LocalDate.of(2025, 5, 16), "Orlando", "Dorival", "El Macho", "jr.Los Olivos En USA");
+        Usuario usuario2 = new Usuario("20603299494", "12345", "administrador", LocalDate.of(2025, 5, 16), "Alicia", "Nuñez", "femenino", "jr.Simpatica En Algun Lugar");
+        Usuario usuario3 = new Usuario("12345678", "12345", "administrador", LocalDate.of(2025, 5, 16), "Danna", "Huaman", "femenino", "jr.Casita En Casa");
+        Usuario usuario4 = new Usuario("98765432", "12345", "administrador", LocalDate.of(2025, 1, 16), "Luis", "Moreyra", "El Macho", "jr.Casita cerca de UPN");
         usuarios.put(usuario.getUsuario(), usuario);
         usuarios.put(usuario2.getUsuario(), usuario2);
         usuarios.put(usuario3.getUsuario(), usuario3);
