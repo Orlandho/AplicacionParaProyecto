@@ -4,15 +4,22 @@ import Usuario.Usuario;
 import java.awt.List;
 import java.time.LocalDate;
 import java.util.ArrayList;
+//borrar librerias sin usar como HashMap y Map
 import java.util.HashMap;
 import java.util.Map;
+//librerias para SQL
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.DriverManager;
+import java.sql.Statement;
+import java.sql.ResultSet;
 
-public class BaseDeDatos {
+public class SQLiteManager {
 
     private Map<String, Usuario> usuarios;
     public static final int USUARIO_CONTRA_INCORRECTOS = 0, USUARIO_BLOQUEADO = 1, DEBE_CAMBIAR_CONTRASEÑA = 2, PUEDE_INGRESAR = 3;
 
-    public BaseDeDatos() {
+    public SQLiteManager() {
         usuarios = new HashMap<>();
         cargarUsuariosDePrueba();
     }
