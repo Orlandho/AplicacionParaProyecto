@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 public class Usuario extends Persona {
 
+    private int usuario_id;
     private String usuario;
     private String contraseña;
     private String rol;
@@ -11,8 +12,9 @@ public class Usuario extends Persona {
     private int intentosFallidos = 0;
     private boolean cuentaBloqueada = false;
 
-    public Usuario(String usuario, String contraseña, String rol, LocalDate fechaUltimoCambio, String nombre, String apellido, String genero, String direccion) {
+    public Usuario(int usuario_id,String usuario, String contraseña, String rol, LocalDate fechaUltimoCambio, String nombre, String apellido, String genero, String direccion) {
         super(nombre, apellido, genero, direccion);
+        this.usuario_id=usuario_id;
         this.usuario = usuario;
         this.contraseña = contraseña;
         this.rol = rol;
@@ -60,6 +62,16 @@ public class Usuario extends Persona {
     public void setFechaUltimoCambio(LocalDate fechaUltimoCambio) {
         this.fechaUltimoCambio = fechaUltimoCambio;
     }
+
+    public int getUsuario_id() {
+        return usuario_id;
+    }
+
+    public void setUsuario_id(int usuario_id) {
+        this.usuario_id = usuario_id;
+    }
+    
+    
 
     public int getIntentosFallidos() {
         return intentosFallidos;

@@ -5,10 +5,6 @@ import GestorDatosPermanentes.SQLiteManager;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.time.LocalDate;
-import java.util.HashMap;
-import Login.MantenimientoLogin;
-import MenuDinamico.FrmMenuDinamico;
 import MenuDinamico.FrmMenuDinamico;
 import java.util.ArrayList;
 
@@ -50,6 +46,11 @@ public class FrmLogin extends javax.swing.JFrame {
         setTitle("Sistema de Inventario - Agro Integral");
         setBackground(new java.awt.Color(255, 255, 255));
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
         getContentPane().setLayout(null);
 
         jPanelLoginHolder.setBackground(new java.awt.Color(126, 176, 175));
@@ -180,6 +181,11 @@ public class FrmLogin extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_btnIngresarActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+        baseDeDatos.cerrarConexion();
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments
