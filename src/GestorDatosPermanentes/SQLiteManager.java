@@ -27,7 +27,9 @@ public class SQLiteManager {
     public void cerrarConexion()
     {
         try{
-        conexionDB.close();
+        if (conexionDB != null && !conexionDB.isClosed()) {
+            conexionDB.close();
+        }
         }catch(SQLException e){
             throw new RuntimeException("Error al cerrar conexion.\nMensaje de error:"+e.getMessage());
         }
