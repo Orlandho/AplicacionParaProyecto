@@ -4,27 +4,26 @@ import java.time.LocalDate;
 
 public class Usuario extends Persona {
 
+    private int usuario_id;
     private String usuario;
     private String contraseña;
     private String rol;
     private LocalDate fechaUltimoCambio;
     private int intentosFallidos = 0;
     private boolean cuentaBloqueada = false;
-    private String[] preguntasSeguridad = new String[2], respuestasSeguridad = new String[2];
 
-    public Usuario(String usuario, String contraseña, String rol, LocalDate fechaUltimoCambio, String nombre, String apellido, String genero, String direccion, String[] preguntas, String[] respuestas) {
+    public Usuario(int usuario_id, String usuario, String contraseña, String rol, LocalDate fechaUltimoCambio,int intentosFallidos,boolean cuentaBloqueada, String nombre, String apellido, String genero, String direccion) {
         super(nombre, apellido, genero, direccion);
+        this.usuario_id = usuario_id;
         this.usuario = usuario;
         this.contraseña = contraseña;
         this.rol = rol;
         this.fechaUltimoCambio = fechaUltimoCambio;
-        if (esTamañoCorrecto(preguntas, respuestas)) {
-            System.arraycopy(preguntas, 0, this.preguntasSeguridad, 0, 2);
-            System.arraycopy(respuestas, 0, this.respuestasSeguridad, 0, 2);
-        } else {
-            throw new IllegalArgumentException("Class Usuario: Constructor: array preguntas o respuestas exceden el tamaño");
-        }
+        this.intentosFallidos=intentosFallidos;
+        this.cuentaBloqueada=cuentaBloqueada;
     }
+
+    
 
     public Usuario(Usuario usuario) {
         super(usuario.nombre, usuario.apellido, usuario.genero, usuario.direccion);
@@ -32,17 +31,7 @@ public class Usuario extends Persona {
         this.contraseña = usuario.contraseña;
         this.rol = usuario.rol;
         this.fechaUltimoCambio = usuario.fechaUltimoCambio;
-        if (esTamañoCorrecto(usuario.preguntasSeguridad, usuario.respuestasSeguridad)) {
-            System.arraycopy(usuario.preguntasSeguridad, 0, this.preguntasSeguridad, 0, 2);
-            System.arraycopy(usuario.respuestasSeguridad, 0, this.respuestasSeguridad, 0, 2);
-        } else {
-            throw new IllegalArgumentException("Class Usuario: Constructor: array preguntas o respuestas exceden el tamaño");
-        }
 
-    }
-
-    public boolean esTamañoCorrecto(String[] preguntas, String[] respuestas) {
-        return preguntas.length == this.preguntasSeguridad.length && respuestas.length == this.respuestasSeguridad.length;
     }
 
     public String getUsuario() {
@@ -77,6 +66,16 @@ public class Usuario extends Persona {
     public void setFechaUltimoCambio(LocalDate fechaUltimoCambio) {
         this.fechaUltimoCambio = fechaUltimoCambio;
     }
+
+    public int getUsuario_id() {
+        return usuario_id;
+    }
+
+    public void setUsuario_id(int usuario_id) {
+        this.usuario_id = usuario_id;
+    }
+    
+    
 
     public int getIntentosFallidos() {
         return intentosFallidos;
@@ -124,22 +123,6 @@ public class Usuario extends Persona {
     @Override
     public void setDireccion(String direccion) {
         this.direccion = direccion;
-    }
-
-    public String[] getPreguntasSeguridad() {
-        return preguntasSeguridad;
-    }
-
-    public void setPreguntasSeguridad(String[] preguntasSeguridad) {
-        this.preguntasSeguridad = preguntasSeguridad;
-    }
-
-    public String[] getRespuestasSeguridad() {
-        return respuestasSeguridad;
-    }
-
-    public void setRespuestasSeguridad(String[] respuestasSeguridad) {
-        this.respuestasSeguridad = respuestasSeguridad;
     }
 
     public boolean esCuentaBloqueada() {

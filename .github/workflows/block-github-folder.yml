@@ -1,33 +1,33 @@
-# .github/workflows/block-github-folder.yml
-name: Bloquear cambios en .github/
-
+# Se activa cuando alguien crea o actualiza un Pull Request hacia master
 on:
   pull_request:
+    branches:
+      - master
 
 jobs:
-  block-github-folder:
+  check-changes:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout
+      - name: 🛎️ Checkout completo del repositorio
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # Trae todo el historial, incluidas ramas remotas
 
-      - name: Detectar cambios en la carpeta .github/
+      - name: 🔍 Detectar cambios peligrosos
         run: |
-          # Si el autor del PR es el owner, permitimos cambios
-          if [[ "${{ github.actor }}" == "Orlandho" ]]; then
-            echo "🛑 Cambios permitidos: Orlando es el único autorizado."
-            exit 0
-          fi
+          # Compara lo que viene en el PR (HEAD) con la rama origin/master
+          CHANGED=$(git diff --name-only origin/master...HEAD)
+          echo "📂 Archivos modificados en este PR: $CHANGED"
 
-          # Lista los ficheros cambiados entre la base y tu rama
-          CHANGED=$(git diff --name-only origin/${{ github.base_ref }}...HEAD)
-          echo "Archivos cambiados:"
-          echo "$CHANGED"
-
-          # Bloquea si hay cambios en .github/
-          if echo "$CHANGED" | grep -q '^\.github/'; then
-            echo "❌ No se permite modificar la carpeta .github/ para otros usuarios."
-            exit 1
+          if [ "$CHANGED" ]; then
+            # Si alguno de los archivos modificados está en .github/, bloqueamos
+            if echo "$CHANGED" | grep -q '^\.github/'; then
+              echo "🚫 Oops… No se permite modificar la carpeta .github/ para otros usuarios."
+              exit 1
+            else
+              echo "✅ Todo en orden. No se detectaron cambios prohibidos en .github/."
+            fi
           else
-            echo "✅ No se detectaron cambios prohibidos en .github/."
+            echo "ℹ️ No se detectaron cambios (o es un PR vacío)."
           fi
