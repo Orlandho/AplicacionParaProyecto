@@ -34,18 +34,31 @@ public class SQLiteManager {
             throw new RuntimeException("Error al cerrar conexion.\nMensaje de error:"+e.getMessage());
         }
     }
-    private boolean actualizarUsuario(Usuario usuario) {
-        String comandoSQL = "UPDATE usuario SET contraseña = ?, fechaUltimoCambio = ? WHERE usuario_id = ?";
+    private boolean actualizarUsuario(Usuario usuario)
+    {
+        String comandoSQL = "UPDATE usuario SET usuario= ?,contraseña=?,rol= ?,fechaUltimoCambio= ?,intentosFallidos= ?,cuentaBloqueada= ?,nombre= ?,apellido= ?,genero= ?,direccion= ? WHERE usuario_id= ?";
         try {
             PreparedStatement ingresarComando = conexionDB.prepareStatement(comandoSQL);
-            ingresarComando.setString(1, usuario.getContraseña());
-            ingresarComando.setString(2, usuario.getFechaUltimoCambio().toString());
-            ingresarComando.setInt(3, usuario.getUsuario_id());
+            ingresarComando.setString(1, usuario.getUsuario());
+            ingresarComando.setString(2, usuario.getContraseña());
+            ingresarComando.setString(3, usuario.getRol());
+            ingresarComando.setString(4, usuario.getFechaUltimoCambio().toString());
+            ingresarComando.setInt(5, usuario.getIntentosFallidos());
+            ingresarComando.setInt(6, traducirCuentaBloqueada(usuario.esCuentaBloqueada()));
+            ingresarComando.setString(7, usuario.getNombre());
+            ingresarComando.setString(8, usuario.getApellido());
+            ingresarComando.setString(9, usuario.getGenero());
+            ingresarComando.setString(10, usuario.getDireccion());
+            ingresarComando.setInt(11, usuario.getUsuario_id());
             int filasAfectadas = ingresarComando.executeUpdate();
-            return filasAfectadas > 0;
+            if (filasAfectadas>0) {
+                return true;
+            }
         } catch (SQLException e) {
-            throw new RuntimeException("Error al actualizar usuario.\nMensaje de error:" + e.getMessage());
+            throw new RuntimeException("Error al actualizar usuario.\nMensaje de error:"+e.getMessage());
         }
+        //actualizo incorrectamente
+        return false;
     }
 
     private boolean traducirCuentaBloqueada(int cuentaBloqueada)
