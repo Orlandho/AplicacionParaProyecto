@@ -35,12 +35,13 @@ public class SQLiteManager {
         }
     }
     private boolean actualizarUsuario(Usuario usuario) {
-        String comandoSQL = "UPDATE usuario SET contraseña = ?, fechaUltimoCambio = ? WHERE usuario_id = ?";
+        String comandoSQL = "UPDATE usuario SET contraseña = ?, fechaUltimoCambio = ?, IntentosFallidos = ? WHERE usuario_id = ?";
         try {
             PreparedStatement ingresarComando = conexionDB.prepareStatement(comandoSQL);
             ingresarComando.setString(1, usuario.getContraseña());
             ingresarComando.setString(2, usuario.getFechaUltimoCambio().toString());
-            ingresarComando.setInt(3, usuario.getUsuario_id());
+            ingresarComando.setInt(3, usuario.getIntentosFallidos());
+            ingresarComando.setInt(4, usuario.getUsuario_id());
             int filasAfectadas = ingresarComando.executeUpdate();
             return filasAfectadas > 0;
         } catch (SQLException e) {
