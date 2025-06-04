@@ -59,6 +59,25 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         lblRol = new javax.swing.JLabel();
         tpnMostrar = new javax.swing.JTabbedPane();
         pnl1Inicio = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jTextField2 = new javax.swing.JTextField();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        jTextField12 = new javax.swing.JTextField();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        jTextField8 = new javax.swing.JTextField();
+        jPanel5 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        jTextField9 = new javax.swing.JTextField();
+        jPanel6 = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        jTextField10 = new javax.swing.JTextField();
+        jPanel7 = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        jTextField11 = new javax.swing.JTextField();
         pnlRegistroUsuAdminMain = new javax.swing.JPanel();
         btnEditar = new javax.swing.JButton();
         btnAgregarUsuario = new javax.swing.JButton();
@@ -212,6 +231,92 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         jpanelsuperior.setBounds(0, 0, 880, 80);
 
         tpnMostrar.setTabPlacement(javax.swing.JTabbedPane.BOTTOM);
+
+        pnl1Inicio.setLayout(null);
+
+        jLabel1.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
+        jLabel1.setText("RESUMEN DEL DÍA");
+        pnl1Inicio.add(jLabel1);
+        jLabel1.setBounds(30, 20, 160, 40);
+
+        jPanel2.setBackground(new java.awt.Color(216, 196, 244));
+        jPanel2.setLayout(null);
+
+        jLabel2.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
+        jLabel2.setText("PRODUCTOS");
+        jPanel2.add(jLabel2);
+        jLabel2.setBounds(60, 50, 75, 30);
+        jPanel2.add(jTextField2);
+        jTextField2.setBounds(20, 20, 150, 30);
+
+        pnl1Inicio.add(jPanel2);
+        jPanel2.setBounds(370, 360, 190, 90);
+
+        jPanel3.setBackground(new java.awt.Color(255, 212, 4));
+        jPanel3.setLayout(null);
+
+        jLabel4.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
+        jLabel4.setText("GANANCIAS");
+        jPanel3.add(jLabel4);
+        jLabel4.setBounds(60, 50, 80, 30);
+        jPanel3.add(jTextField12);
+        jTextField12.setBounds(20, 20, 150, 30);
+
+        pnl1Inicio.add(jPanel3);
+        jPanel3.setBounds(100, 100, 190, 90);
+
+        jPanel4.setBackground(new java.awt.Color(199, 180, 159));
+        jPanel4.setLayout(null);
+
+        jLabel3.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
+        jLabel3.setText("PROVEEDORES");
+        jPanel4.add(jLabel3);
+        jLabel3.setBounds(50, 50, 90, 30);
+        jPanel4.add(jTextField8);
+        jTextField8.setBounds(20, 20, 150, 30);
+
+        pnl1Inicio.add(jPanel4);
+        jPanel4.setBounds(370, 100, 190, 90);
+
+        jPanel5.setBackground(new java.awt.Color(248, 197, 200));
+        jPanel5.setLayout(null);
+
+        jLabel5.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
+        jLabel5.setText("COMPRA DEL MES");
+        jPanel5.add(jLabel5);
+        jLabel5.setBounds(40, 50, 120, 30);
+        jPanel5.add(jTextField9);
+        jTextField9.setBounds(20, 20, 150, 30);
+
+        pnl1Inicio.add(jPanel5);
+        jPanel5.setBounds(100, 230, 190, 90);
+
+        jPanel6.setBackground(new java.awt.Color(160, 204, 92));
+        jPanel6.setLayout(null);
+
+        jLabel6.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
+        jLabel6.setText("VENTAS DEL DIA");
+        jPanel6.add(jLabel6);
+        jLabel6.setBounds(40, 50, 110, 30);
+        jPanel6.add(jTextField10);
+        jTextField10.setBounds(20, 20, 150, 30);
+
+        pnl1Inicio.add(jPanel6);
+        jPanel6.setBounds(370, 230, 190, 90);
+
+        jPanel7.setBackground(new java.awt.Color(152, 180, 204));
+        jPanel7.setLayout(null);
+
+        jLabel7.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
+        jLabel7.setText("CLIENTES");
+        jPanel7.add(jLabel7);
+        jLabel7.setBounds(60, 50, 90, 30);
+        jPanel7.add(jTextField11);
+        jTextField11.setBounds(20, 20, 150, 30);
+
+        pnl1Inicio.add(jPanel7);
+        jPanel7.setBounds(100, 360, 190, 90);
+
         tpnMostrar.addTab("pnl1Inicio", pnl1Inicio);
 
         pnlRegistroUsuAdminMain.setLayout(null);
@@ -360,7 +465,26 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     private javax.swing.JLabel btnregistrodeusuario;
     private javax.swing.JLabel btnregistrodeventas;
     private javax.swing.JLabel btnreportes;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField jTextField10;
+    private javax.swing.JTextField jTextField11;
+    private javax.swing.JTextField jTextField12;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField8;
+    private javax.swing.JTextField jTextField9;
     private javax.swing.JPanel jpaneladmin;
     private javax.swing.JPanel jpanelgeneral;
     private javax.swing.JPanel jpanelsuperior;
