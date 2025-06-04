@@ -221,7 +221,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         lblRUC.setFont(new java.awt.Font("Cartoon Fun", 0, 14)); // NOI18N
         lblRUC.setText("Agro Integral Perú");
         jpanelsuperior.add(lblRUC);
-        lblRUC.setBounds(610, 10, 200, 19);
+        lblRUC.setBounds(610, 10, 200, 24);
 
         lblRol.setText("Empleado");
         jpanelsuperior.add(lblRol);
@@ -271,7 +271,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
         jLabel3.setText("PROVEEDORES");
         jPanel4.add(jLabel3);
-        jLabel3.setBounds(50, 50, 90, 30);
+        jLabel3.setBounds(50, 50, 110, 30);
         jPanel4.add(jTextField8);
         jTextField8.setBounds(20, 20, 150, 30);
 
