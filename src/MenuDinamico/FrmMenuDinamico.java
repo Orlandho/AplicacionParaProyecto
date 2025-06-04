@@ -59,6 +59,13 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         lblRol = new javax.swing.JLabel();
         tpnMostrar = new javax.swing.JTabbedPane();
         pnl1Inicio = new javax.swing.JPanel();
+        pnlRegistroUsuAdminMain = new javax.swing.JPanel();
+        btnEditar = new javax.swing.JButton();
+        btnAgregarUsuario = new javax.swing.JButton();
+        btnCrearUsuario = new javax.swing.JButton();
+        btnEliminar = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblRegistroUsuarios = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -195,7 +202,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         lblRUC.setFont(new java.awt.Font("Cartoon Fun", 0, 14)); // NOI18N
         lblRUC.setText("Agro Integral Perú");
         jpanelsuperior.add(lblRUC);
-        lblRUC.setBounds(610, 10, 200, 24);
+        lblRUC.setBounds(610, 10, 200, 19);
 
         lblRol.setText("Empleado");
         jpanelsuperior.add(lblRol);
@@ -206,6 +213,54 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
 
         tpnMostrar.setTabPlacement(javax.swing.JTabbedPane.BOTTOM);
         tpnMostrar.addTab("pnl1Inicio", pnl1Inicio);
+
+        pnlRegistroUsuAdminMain.setLayout(null);
+
+        btnEditar.setBackground(new java.awt.Color(226, 237, 241));
+        btnEditar.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
+        btnEditar.setText("Editar");
+        pnlRegistroUsuAdminMain.add(btnEditar);
+        btnEditar.setBounds(370, 420, 230, 40);
+
+        btnAgregarUsuario.setBackground(new java.awt.Color(226, 237, 241));
+        btnAgregarUsuario.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
+        btnAgregarUsuario.setText("Agregar Empleado");
+        pnlRegistroUsuAdminMain.add(btnAgregarUsuario);
+        btnAgregarUsuario.setBounds(60, 60, 230, 40);
+
+        btnCrearUsuario.setBackground(new java.awt.Color(202, 244, 250));
+        btnCrearUsuario.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
+        btnCrearUsuario.setText("Crear Usuario");
+        pnlRegistroUsuAdminMain.add(btnCrearUsuario);
+        btnCrearUsuario.setBounds(370, 60, 230, 40);
+
+        btnEliminar.setBackground(new java.awt.Color(202, 244, 250));
+        btnEliminar.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
+        btnEliminar.setText("Eliminar");
+        pnlRegistroUsuAdminMain.add(btnEliminar);
+        btnEliminar.setBounds(60, 420, 230, 40);
+
+        tblRegistroUsuarios.setBackground(new java.awt.Color(220, 235, 245));
+        tblRegistroUsuarios.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "Empleado", "Usuario", "Contraseña", "Tipo", "Telefono", "Estado"
+            }
+        ));
+        tblRegistroUsuarios.setGridColor(new java.awt.Color(255, 255, 255));
+        jScrollPane1.setViewportView(tblRegistroUsuarios);
+
+        pnlRegistroUsuAdminMain.add(jScrollPane1);
+        jScrollPane1.setBounds(30, 140, 630, 230);
+
+        tpnMostrar.addTab("Registro Administrador", pnlRegistroUsuAdminMain);
 
         getContentPane().add(tpnMostrar);
         tpnMostrar.setBounds(190, 80, 690, 560);
@@ -292,7 +347,11 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAgregarUsuario;
     private javax.swing.JLabel btnAlmacen;
+    private javax.swing.JButton btnCrearUsuario;
+    private javax.swing.JButton btnEditar;
+    private javax.swing.JButton btnEliminar;
     private javax.swing.JLabel btnajustes;
     private javax.swing.JLabel btncaja;
     private javax.swing.JLabel btncerrarsesion;
@@ -301,6 +360,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     private javax.swing.JLabel btnregistrodeusuario;
     private javax.swing.JLabel btnregistrodeventas;
     private javax.swing.JLabel btnreportes;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel jpaneladmin;
     private javax.swing.JPanel jpanelgeneral;
     private javax.swing.JPanel jpanelsuperior;
@@ -310,6 +370,8 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     private javax.swing.JLabel lblimagen2;
     private javax.swing.JLabel lblinventario;
     private javax.swing.JPanel pnl1Inicio;
+    private javax.swing.JPanel pnlRegistroUsuAdminMain;
+    private javax.swing.JTable tblRegistroUsuarios;
     private javax.swing.JTabbedPane tpnMostrar;
     // End of variables declaration//GEN-END:variables
 }
