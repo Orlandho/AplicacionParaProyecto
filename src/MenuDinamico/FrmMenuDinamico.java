@@ -59,6 +59,25 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         lblRol = new javax.swing.JLabel();
         tpnMostrar = new javax.swing.JTabbedPane();
         pnl1Inicio = new javax.swing.JPanel();
+        lblSubTitulo = new javax.swing.JLabel();
+        pnlProductos = new javax.swing.JPanel();
+        lblProductos = new javax.swing.JLabel();
+        txtProductos = new javax.swing.JTextField();
+        pnlGancias = new javax.swing.JPanel();
+        lblGanancias = new javax.swing.JLabel();
+        txtGanancias = new javax.swing.JTextField();
+        pnlProveedores = new javax.swing.JPanel();
+        lblProveedores = new javax.swing.JLabel();
+        txtProveedores = new javax.swing.JTextField();
+        pnlCompraDelMes = new javax.swing.JPanel();
+        lblCompraDelMes = new javax.swing.JLabel();
+        txtComprasDelMes = new javax.swing.JTextField();
+        pnlVentasDelDia = new javax.swing.JPanel();
+        lblVentasDelDia = new javax.swing.JLabel();
+        txtVentasDelDia = new javax.swing.JTextField();
+        pnlCientes = new javax.swing.JPanel();
+        lblClientes = new javax.swing.JLabel();
+        txtClientes = new javax.swing.JTextField();
         pnlRegistroUsuAdminMain = new javax.swing.JPanel();
         btnEditar = new javax.swing.JButton();
         btnAgregarUsuario = new javax.swing.JButton();
@@ -212,6 +231,92 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         jpanelsuperior.setBounds(0, 0, 880, 80);
 
         tpnMostrar.setTabPlacement(javax.swing.JTabbedPane.BOTTOM);
+
+        pnl1Inicio.setLayout(null);
+
+        lblSubTitulo.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
+        lblSubTitulo.setText("RESUMEN DEL DÍA");
+        pnl1Inicio.add(lblSubTitulo);
+        lblSubTitulo.setBounds(30, 20, 160, 40);
+
+        pnlProductos.setBackground(new java.awt.Color(216, 196, 244));
+        pnlProductos.setLayout(null);
+
+        lblProductos.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
+        lblProductos.setText("PRODUCTOS");
+        pnlProductos.add(lblProductos);
+        lblProductos.setBounds(60, 50, 75, 30);
+        pnlProductos.add(txtProductos);
+        txtProductos.setBounds(20, 20, 150, 30);
+
+        pnl1Inicio.add(pnlProductos);
+        pnlProductos.setBounds(370, 360, 190, 90);
+
+        pnlGancias.setBackground(new java.awt.Color(255, 212, 4));
+        pnlGancias.setLayout(null);
+
+        lblGanancias.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
+        lblGanancias.setText("GANANCIAS");
+        pnlGancias.add(lblGanancias);
+        lblGanancias.setBounds(60, 50, 80, 30);
+        pnlGancias.add(txtGanancias);
+        txtGanancias.setBounds(20, 20, 150, 30);
+
+        pnl1Inicio.add(pnlGancias);
+        pnlGancias.setBounds(100, 100, 190, 90);
+
+        pnlProveedores.setBackground(new java.awt.Color(199, 180, 159));
+        pnlProveedores.setLayout(null);
+
+        lblProveedores.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
+        lblProveedores.setText("PROVEEDORES");
+        pnlProveedores.add(lblProveedores);
+        lblProveedores.setBounds(50, 50, 110, 30);
+        pnlProveedores.add(txtProveedores);
+        txtProveedores.setBounds(20, 20, 150, 30);
+
+        pnl1Inicio.add(pnlProveedores);
+        pnlProveedores.setBounds(370, 100, 190, 90);
+
+        pnlCompraDelMes.setBackground(new java.awt.Color(248, 197, 200));
+        pnlCompraDelMes.setLayout(null);
+
+        lblCompraDelMes.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
+        lblCompraDelMes.setText("COMPRA DEL MES");
+        pnlCompraDelMes.add(lblCompraDelMes);
+        lblCompraDelMes.setBounds(40, 50, 120, 30);
+        pnlCompraDelMes.add(txtComprasDelMes);
+        txtComprasDelMes.setBounds(20, 20, 150, 30);
+
+        pnl1Inicio.add(pnlCompraDelMes);
+        pnlCompraDelMes.setBounds(100, 230, 190, 90);
+
+        pnlVentasDelDia.setBackground(new java.awt.Color(160, 204, 92));
+        pnlVentasDelDia.setLayout(null);
+
+        lblVentasDelDia.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
+        lblVentasDelDia.setText("VENTAS DEL DIA");
+        pnlVentasDelDia.add(lblVentasDelDia);
+        lblVentasDelDia.setBounds(40, 50, 110, 30);
+        pnlVentasDelDia.add(txtVentasDelDia);
+        txtVentasDelDia.setBounds(20, 20, 150, 30);
+
+        pnl1Inicio.add(pnlVentasDelDia);
+        pnlVentasDelDia.setBounds(370, 230, 190, 90);
+
+        pnlCientes.setBackground(new java.awt.Color(152, 180, 204));
+        pnlCientes.setLayout(null);
+
+        lblClientes.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
+        lblClientes.setText("CLIENTES");
+        pnlCientes.add(lblClientes);
+        lblClientes.setBounds(60, 50, 90, 30);
+        pnlCientes.add(txtClientes);
+        txtClientes.setBounds(20, 20, 150, 30);
+
+        pnl1Inicio.add(pnlCientes);
+        pnlCientes.setBounds(100, 360, 190, 90);
+
         tpnMostrar.addTab("pnl1Inicio", pnl1Inicio);
 
         pnlRegistroUsuAdminMain.setLayout(null);
@@ -364,14 +469,33 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     private javax.swing.JPanel jpaneladmin;
     private javax.swing.JPanel jpanelgeneral;
     private javax.swing.JPanel jpanelsuperior;
+    private javax.swing.JLabel lblClientes;
+    private javax.swing.JLabel lblCompraDelMes;
+    private javax.swing.JLabel lblGanancias;
+    private javax.swing.JLabel lblProductos;
+    private javax.swing.JLabel lblProveedores;
     private javax.swing.JLabel lblRUC;
     private javax.swing.JLabel lblRol;
+    private javax.swing.JLabel lblSubTitulo;
+    private javax.swing.JLabel lblVentasDelDia;
     private javax.swing.JLabel lblimagen1;
     private javax.swing.JLabel lblimagen2;
     private javax.swing.JLabel lblinventario;
     private javax.swing.JPanel pnl1Inicio;
+    private javax.swing.JPanel pnlCientes;
+    private javax.swing.JPanel pnlCompraDelMes;
+    private javax.swing.JPanel pnlGancias;
+    private javax.swing.JPanel pnlProductos;
+    private javax.swing.JPanel pnlProveedores;
     private javax.swing.JPanel pnlRegistroUsuAdminMain;
+    private javax.swing.JPanel pnlVentasDelDia;
     private javax.swing.JTable tblRegistroUsuarios;
     private javax.swing.JTabbedPane tpnMostrar;
+    private javax.swing.JTextField txtClientes;
+    private javax.swing.JTextField txtComprasDelMes;
+    private javax.swing.JTextField txtGanancias;
+    private javax.swing.JTextField txtProductos;
+    private javax.swing.JTextField txtProveedores;
+    private javax.swing.JTextField txtVentasDelDia;
     // End of variables declaration//GEN-END:variables
 }
