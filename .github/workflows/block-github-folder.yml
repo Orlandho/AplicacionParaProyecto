@@ -9,12 +9,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: 🛎️ Checkout completo del repositorio
+      - name: Checkout completo del repositorio
         uses: actions/checkout@v3
         with:
           fetch-depth: 0  # Trae todo el historial, incluidas ramas remotas
 
-      - name: 🔍 Detectar cambios peligrosos
+      - name: Detectar cambios peligrosos
         run: |
           # Compara lo que viene en el PR (HEAD) con la rama origin/master
           CHANGED=$(git diff --name-only origin/master...HEAD)
