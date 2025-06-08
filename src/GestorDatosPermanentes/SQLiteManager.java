@@ -11,7 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.sql.ResultSet;
 
-public class SQLiteManager {
+public class SQLiteManager {//comentario de prueba
     //comentario de prueba
     private Connection conexionDB;
     private final String nombreDB = "baseDeDatos.db";
