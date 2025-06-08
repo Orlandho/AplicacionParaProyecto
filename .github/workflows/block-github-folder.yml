@@ -6,6 +6,7 @@ on:
 
 jobs:
   check-changes:
+    name: Detectar cambios peligrosos
     runs-on: ubuntu-latest
 
     steps:
