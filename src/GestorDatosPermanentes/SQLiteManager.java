@@ -110,8 +110,8 @@ public class SQLiteManager {
     //Metodo para registrar empleados
     private ArrayList<Persona> listaEmpleados = new ArrayList<>();
     //esto hay que arregarlo
-    public void registrarEmpleado(int dni, int telefono,String nombre, String apellido) {
-        Usuario nuevoEmpleado = new Usuario(0, dni, "", "", null, 0, false, nombre, apellido);
+    public void registrarEmpleado(int dni, int telefono,String nombres, String apellidos) {
+        Usuario nuevoEmpleado = new Usuario(0, dni, "", "", null, 0, false, nombres, apellidos);
         listaEmpleados.add(nuevoEmpleado);
     }
     
