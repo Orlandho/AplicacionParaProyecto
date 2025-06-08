@@ -1,5 +1,6 @@
 package GestorDatosPermanentes;
 
+import Usuario.Persona;
 import Usuario.Usuario;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -104,7 +105,16 @@ public class SQLiteManager {
         }
         return false;
     }
-
+    
+    //Sprint 2
+    //Metodo para registrar empleados
+    private ArrayList<Persona> listaEmpleados = new ArrayList<>();
+    //esto hay que arregarlo
+    public void registrarEmpleado(String nombre, String apellido, String genero, String direccion) {
+        Usuario nuevoEmpleado = new Usuario(0, "", "", "", null, 0, false, nombre, apellido, genero, direccion);
+        listaEmpleados.add(nuevoEmpleado);
+    }
+    
     /*
         Dicionario de codigos:
         0 | Usuario o contraseña incorrectos
