@@ -2,37 +2,45 @@ package Usuario;
 
 public abstract class Persona {
 
-    protected String nombres, apellidos;
-    private int dni;
+    protected String nombre, apellido, genero, direccion;
 
-    public Persona(String nombres, String apellidos,int dni) {
-        this.nombres = nombres;
-        this.apellidos = apellidos;
-        this.dni=dni;
+    public Persona(String nombre, String apellido, String genero, String direccion) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.genero = genero;
+        this.direccion = direccion;
     }
 
-    public String getNombres() {
-        return nombres;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setNombres(String nombres) {
-        this.nombres = nombres;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
-    public String getApellidos() {
-        return apellidos;
+    public String getApellido() {
+        return apellido;
     }
 
-    public void setApellidos(String apellidos) {
-        this.apellidos = apellidos;
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
     }
 
-    public int getDni() {
-        return dni;
+    public String getGenero() {
+        return genero;
     }
 
-    public void setDni(int dni) {
-        this.dni = dni;
+    public void setGenero(String genero) {
+        this.genero = genero;
+    }
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
     }
 
 }
