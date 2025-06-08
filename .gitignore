@@ -1,3 +1,6 @@
+# ejecutable generado carpeta
+/dist/
+
 # Compiled class file
 *.class
 
