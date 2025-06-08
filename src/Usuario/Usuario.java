@@ -5,17 +5,17 @@ import java.time.LocalDate;
 public class Usuario extends Persona {
 
     private int usuario_id;
-    private String usuario;
+    private int usuarioDNI;
     private String contraseña;
     private String rol;
     private LocalDate fechaUltimoCambio;
     private int intentosFallidos = 0;
     private boolean cuentaBloqueada = false;
 
-    public Usuario(int usuario_id, String usuario, String contraseña, String rol, LocalDate fechaUltimoCambio,int intentosFallidos,boolean cuentaBloqueada, String nombre, String apellido, String genero, String direccion) {
-        super(nombre, apellido, genero, direccion);
+    public Usuario(int usuario_id, int dni, String contraseña, String rol, LocalDate fechaUltimoCambio,int intentosFallidos,boolean cuentaBloqueada, String nombres, String apellidos) {
+        super(nombres, apellidos,dni);
         this.usuario_id = usuario_id;
-        this.usuario = usuario;
+        this.usuarioDNI = dni;
         this.contraseña = contraseña;
         this.rol = rol;
         this.fechaUltimoCambio = fechaUltimoCambio;
@@ -26,20 +26,20 @@ public class Usuario extends Persona {
     
 
     public Usuario(Usuario usuario) {
-        super(usuario.nombre, usuario.apellido, usuario.genero, usuario.direccion);
-        this.usuario = usuario.usuario;
+        super(usuario.nombres, usuario.apellidos, usuario.usuarioDNI);
+        this.usuarioDNI = usuario.usuarioDNI;
         this.contraseña = usuario.contraseña;
         this.rol = usuario.rol;
         this.fechaUltimoCambio = usuario.fechaUltimoCambio;
 
     }
 
-    public String getUsuario() {
-        return usuario;
+    public int getUsuarioDNI() {
+        return usuarioDNI;
     }
 
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
+    public void setUsuarioDNI(int usuarioDNI) {
+        this.usuarioDNI = usuarioDNI;
     }
 
     public String getContraseña() {
@@ -83,46 +83,6 @@ public class Usuario extends Persona {
 
     public void setIntentosFallidos(int intentosFallidos) {
         this.intentosFallidos = intentosFallidos;
-    }
-
-    @Override
-    public String getNombre() {
-        return nombre;
-    }
-
-    @Override
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    @Override
-    public String getApellido() {
-        return apellido;
-    }
-
-    @Override
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
-
-    @Override
-    public String getGenero() {
-        return genero;
-    }
-
-    @Override
-    public void setGenero(String genero) {
-        this.genero = genero;
-    }
-
-    @Override
-    public String getDireccion() {
-        return direccion;
-    }
-
-    @Override
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
     }
 
     public boolean esCuentaBloqueada() {
