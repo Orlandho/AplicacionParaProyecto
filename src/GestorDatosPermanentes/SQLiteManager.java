@@ -12,7 +12,7 @@ import java.sql.Statement;
 import java.sql.ResultSet;
 
 public class SQLiteManager {
-
+    //comentario de prueba
     private Connection conexionDB;
     private final String nombreDB = "baseDeDatos.db";
     public static final int USUARIO_CONTRA_INCORRECTOS = 0, USUARIO_BLOQUEADO = 1, DEBE_CAMBIAR_CONTRASEÑA = 2, PUEDE_INGRESAR = 3;
