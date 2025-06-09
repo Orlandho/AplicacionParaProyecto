@@ -67,7 +67,14 @@ public class SQLiteManager {
             ResultSet datosObtenidos = ingresarComando.executeQuery();
             if (datosObtenidos.next()) {
                 //                                   int usuario_id, S                    tring usuario,                        String contraseña,             String rol, LocalDate                                          fechaUltimoCambio,                     int intentosFallidos,                                                boolean cuentaBloqueada,                       String nombre,                     String apellido,                      String genero,                       String direccion
-                return new Usuario(datosObtenidos.getInt("usuario_id"), datosObtenidos.getInt("usuarioDNI"), datosObtenidos.getString("contraseña"), datosObtenidos.getString("rol"), LocalDate.parse(datosObtenidos.getString("fechaUltimoCambio")),datosObtenidos.getInt("intentosFallidos"),traducirCuentaBloqueada(datosObtenidos.getInt("cuentaBloqueada")) ,datosObtenidos.getString("nombre"), datosObtenidos.getString("apellido"));
+                return new Usuario(datosObtenidos.getInt("usuario_id"), datosObtenidos.getInt("usuarioDNI"),
+                        datosObtenidos.getString("contraseña"),
+                        datosObtenidos.getString("rol"),
+                        LocalDate.parse(datosObtenidos.getString("fechaUltimoCambio")),
+                        datosObtenidos.getInt("intentosFallidos"),
+                        traducirCuentaBloqueada(datosObtenidos.getInt("cuentaBloqueada")) ,
+                        datosObtenidos.getString("nombre"), datosObtenidos.getString("apellido"),
+                        datosObtenidos.getInt("telefono"));
             }
         } catch (SQLException e) {
             throw new RuntimeException("Error al buscar usuario.\nMensaje de error:"+e.getMessage());
@@ -111,7 +118,7 @@ public class SQLiteManager {
     private ArrayList<Persona> listaEmpleados = new ArrayList<>();
     //esto hay que arregarlo
     public void registrarEmpleado(int dni, int telefono,String nombres, String apellidos) {
-        Usuario nuevoEmpleado = new Usuario(0, dni, "", "", null, 0, false, nombres, apellidos);
+        Usuario nuevoEmpleado = new Usuario(0, dni, "", "", null, 0, false, nombres, apellidos, telefono);
         listaEmpleados.add(nuevoEmpleado);
     }
     
