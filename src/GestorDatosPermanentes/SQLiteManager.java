@@ -11,6 +11,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.sql.ResultSet;
+import javax.swing.JOptionPane;
 
 public class SQLiteManager {
     //comentario de prueba
@@ -116,12 +117,52 @@ public class SQLiteManager {
     //Sprint 2
     //Metodo para registrar empleados
     private ArrayList<Persona> listaEmpleados = new ArrayList<>();
-    //esto hay que arregarlo
+    
     public void registrarEmpleado(int dni, int telefono,String nombres, String apellidos) {
         Usuario nuevoEmpleado = new Usuario(0, dni, "", "", null, 0, false, nombres, apellidos, telefono);
         listaEmpleados.add(nuevoEmpleado);
     }
     
+    //Metodo para crearCuenta a un empleado y asignar su rol
+    public boolean crearCuentaEmpleado(int dni, int telefono, String nombres, String apellidos, String contraseña, String rol) {
+        // Verificar si el empleado ya fue registrado
+        boolean empleadoRegistrado = false;
+        for (Persona empleado : listaEmpleados) {
+            if (empleado.getDni() == dni && empleado.getTelefono() == telefono && empleado.getNombres().equals(nombres) && empleado.getApellidos().equals(apellidos)) {
+                empleadoRegistrado = true;
+                break;
+            }
+        }
+
+        // Si los datos coinciden, proceder a crear la cuenta en la base de datos
+        if (empleadoRegistrado) {
+            String comandoSQL = "INSERT INTO Usuario (usuarioDNI, contraseña, rol, fechaUltimoCambio, intentosFallidos, cuentaBloqueada, nombre, apellido, telefono) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            try {
+                PreparedStatement ingresarComando = conexionDB.prepareStatement(comandoSQL);
+                // Asignamos los valores en el orden correspondiente
+                ingresarComando.setInt(1, dni);
+                ingresarComando.setString(2, contraseña);
+                ingresarComando.setString(3, rol);
+                ingresarComando.setString(4, LocalDate.now().toString());  // fechaUltimoCambio es la fecha actual
+                ingresarComando.setInt(5, 0);  // intentosFallidos por defecto en 0
+                ingresarComando.setInt(6, 0);  // cuentaBloqueada por defecto en 0
+                ingresarComando.setString(7, nombres);
+                ingresarComando.setString(8, apellidos);
+                ingresarComando.setInt(9, telefono);
+
+                int filasAfectadas = ingresarComando.executeUpdate();
+                return filasAfectadas > 0; // Si se insertó correctamente, retorna true
+            } catch (SQLException e) {
+                throw new RuntimeException("Error al intentar crear cuenta de usuario.\nMensaje de error: " + e.getMessage());
+            }
+        } else {
+            // Si no se encuentran datos, mostrar el mensaje de error
+            JOptionPane.showMessageDialog(null, "Intento de creación de cuenta, Error: no se encuentran datos");
+            return false;
+        }
+    }
+    
+    //
     /*
         Dicionario de codigos:
         0 | Usuario o contraseña incorrectos
