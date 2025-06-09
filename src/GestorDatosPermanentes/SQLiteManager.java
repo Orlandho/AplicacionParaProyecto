@@ -12,6 +12,9 @@ import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 public class SQLiteManager {
     //comentario de prueba
@@ -162,7 +165,77 @@ public class SQLiteManager {
         }
     }
     
-    //
+    //Metodos para crear la tabla
+    public void mostrarUsuarios() {
+        // Crear modelo de tabla con las columnas solicitadas
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("Empleado");
+        model.addColumn("Usuario");
+        model.addColumn("Contraseña");
+        model.addColumn("Rol");
+        model.addColumn("Estado");
+
+        // Establecer la consulta SQL para obtener los usuarios
+        String consultaSQL = "SELECT nombres, apellidos, usuarioDNI, contraseña, rol FROM Usuario";
+
+        try {
+            // Preparar la conexión a la base de datos
+            Statement stmt = conexionDB.createStatement();
+            ResultSet rs = stmt.executeQuery(consultaSQL);
+
+            // Recorrer el ResultSet para añadir los datos al modelo
+            while (rs.next()) {
+                String nombreCompleto = rs.getString("nombres") + " " + rs.getString("apellidos");
+                int dni = rs.getInt("usuarioDNI");
+                String contraseña = rs.getString("contraseña");
+                String rol = rs.getString("rol");
+
+                // Verificar el estado (Activo o Inactivo)
+                String estado = verificarEstado(dni, contraseña) ? "Activo" : "Inactivo";
+
+                // Agregar la fila con los datos del usuario
+                model.addRow(new Object[] {
+                    nombreCompleto, 
+                    dni, 
+                    contraseña, 
+                    rol, 
+                    estado
+                });
+            }
+
+            // Crear la JTable para mostrar los datos
+            JTable table = new JTable(model);
+
+            // Mostrar la tabla en un JScrollPane (esto permite scroll si hay muchos usuarios)
+            JScrollPane scrollPane = new JScrollPane(table);
+
+            // Establecer las propiedades de la tabla (por ejemplo, tamaño)
+            table.setFillsViewportHeight(true);
+
+            // Aquí debes integrar el JScrollPane en tu formulario o JFrame
+            // ejemplo: formulario.add(scrollPane);
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al recuperar los datos: " + e.getMessage());
+        }
+    }
+
+    private boolean verificarEstado(int dni, String contraseña) {
+        // Verificar si el DNI y la contraseña coinciden con un usuario activo
+        String consultaSQL = "SELECT * FROM Usuario WHERE usuarioDNI = ? AND contraseña = ?";
+
+        try (PreparedStatement stmt = conexionDB.prepareStatement(consultaSQL)) {
+            stmt.setInt(1, dni);
+            stmt.setString(2, contraseña);
+            ResultSet rs = stmt.executeQuery();
+
+            // Si existe un resultado, significa que el usuario y la contraseña son correctos
+            return rs.next();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al verificar el estado: " + e.getMessage());
+            return false;
+        }
+    }
     /*
         Dicionario de codigos:
         0 | Usuario o contraseña incorrectos
