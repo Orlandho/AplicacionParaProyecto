@@ -1,8 +1,5 @@
 # ejecutable generado carpeta
 /dist/
-<<<<<<< HEAD
-*.class
-=======
 
 # Compiled class file
 *.class
@@ -28,4 +25,3 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 replay_pid*
->>>>>>> fd0e8c1dfd863f199dc808acf7068a287c8147f5

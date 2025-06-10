@@ -79,12 +79,30 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         lblClientes = new javax.swing.JLabel();
         txtClientes = new javax.swing.JTextField();
         pnlRegistroUsuAdminMain = new javax.swing.JPanel();
-        btnEditar = new javax.swing.JButton();
         btnAgregarUsuario = new javax.swing.JButton();
         btnCrearUsuario = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblRegistroUsuarios = new javax.swing.JTable();
+        btnEditar = new javax.swing.JButton();
+        pnlRegistroUsuAdminMain1 = new javax.swing.JPanel();
+        lblAgregaryCrearUsuario = new javax.swing.JLabel();
+        lblSubTitulo1 = new javax.swing.JLabel();
+        lblNombres = new javax.swing.JLabel();
+        txtNombres = new javax.swing.JTextField();
+        lblApellidos = new javax.swing.JLabel();
+        txtApellidos = new javax.swing.JTextField();
+        lblTelefono = new javax.swing.JLabel();
+        txtTelefono = new javax.swing.JTextField();
+        lblDNIUsuario = new javax.swing.JLabel();
+        txtDNIUsuario = new javax.swing.JTextField();
+        lblContraseña = new javax.swing.JLabel();
+        txtContraseña = new javax.swing.JTextField();
+        lblTipoUsuario = new javax.swing.JLabel();
+        cbTipoUsuario = new javax.swing.JComboBox<>();
+        btnGuardaryAgregarDatos = new javax.swing.JButton();
+        rbtActivo = new javax.swing.JRadioButton();
+        rbtInactivo = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -321,12 +339,6 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
 
         pnlRegistroUsuAdminMain.setLayout(null);
 
-        btnEditar.setBackground(new java.awt.Color(226, 237, 241));
-        btnEditar.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
-        btnEditar.setText("Editar");
-        pnlRegistroUsuAdminMain.add(btnEditar);
-        btnEditar.setBounds(370, 420, 230, 40);
-
         btnAgregarUsuario.setBackground(new java.awt.Color(226, 237, 241));
         btnAgregarUsuario.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
         btnAgregarUsuario.setText("Agregar Empleado");
@@ -365,7 +377,88 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         pnlRegistroUsuAdminMain.add(jScrollPane1);
         jScrollPane1.setBounds(30, 140, 630, 230);
 
+        btnEditar.setBackground(new java.awt.Color(226, 237, 241));
+        btnEditar.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
+        btnEditar.setText("Editar");
+        pnlRegistroUsuAdminMain.add(btnEditar);
+        btnEditar.setBounds(370, 420, 230, 40);
+
         tpnMostrar.addTab("Registro Administrador", pnlRegistroUsuAdminMain);
+
+        pnlRegistroUsuAdminMain1.setLayout(null);
+
+        lblAgregaryCrearUsuario.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
+        lblAgregaryCrearUsuario.setText("AGREGAR Y CREAR USUARIO");
+        pnlRegistroUsuAdminMain1.add(lblAgregaryCrearUsuario);
+        lblAgregaryCrearUsuario.setBounds(50, 50, 220, 30);
+
+        lblSubTitulo1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblSubTitulo1.setText("• Creación de Usuario");
+        pnlRegistroUsuAdminMain1.add(lblSubTitulo1);
+        lblSubTitulo1.setBounds(70, 110, 150, 20);
+
+        lblNombres.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
+        lblNombres.setText("Nombres:");
+        pnlRegistroUsuAdminMain1.add(lblNombres);
+        lblNombres.setBounds(70, 160, 60, 30);
+        pnlRegistroUsuAdminMain1.add(txtNombres);
+        txtNombres.setBounds(130, 160, 190, 30);
+
+        lblApellidos.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
+        lblApellidos.setText("Apellidos:");
+        pnlRegistroUsuAdminMain1.add(lblApellidos);
+        lblApellidos.setBounds(330, 160, 60, 30);
+        pnlRegistroUsuAdminMain1.add(txtApellidos);
+        txtApellidos.setBounds(390, 160, 190, 30);
+
+        lblTelefono.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
+        lblTelefono.setText("Telefono:");
+        pnlRegistroUsuAdminMain1.add(lblTelefono);
+        lblTelefono.setBounds(70, 230, 60, 30);
+        pnlRegistroUsuAdminMain1.add(txtTelefono);
+        txtTelefono.setBounds(130, 230, 190, 30);
+
+        lblDNIUsuario.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
+        lblDNIUsuario.setText("DNI/Usuario:");
+        pnlRegistroUsuAdminMain1.add(lblDNIUsuario);
+        lblDNIUsuario.setBounds(330, 230, 80, 30);
+        pnlRegistroUsuAdminMain1.add(txtDNIUsuario);
+        txtDNIUsuario.setBounds(410, 230, 170, 30);
+
+        lblContraseña.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
+        lblContraseña.setText("Contraseña:");
+        pnlRegistroUsuAdminMain1.add(lblContraseña);
+        lblContraseña.setBounds(70, 300, 70, 30);
+        pnlRegistroUsuAdminMain1.add(txtContraseña);
+        txtContraseña.setBounds(140, 300, 180, 30);
+
+        lblTipoUsuario.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
+        lblTipoUsuario.setText("Tipo Usuario:");
+        pnlRegistroUsuAdminMain1.add(lblTipoUsuario);
+        lblTipoUsuario.setBounds(330, 300, 80, 30);
+
+        cbTipoUsuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "administrador", "empleado" }));
+        pnlRegistroUsuAdminMain1.add(cbTipoUsuario);
+        cbTipoUsuario.setBounds(410, 300, 170, 30);
+
+        btnGuardaryAgregarDatos.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
+        btnGuardaryAgregarDatos.setText("Guardar y Agregar Datos");
+        pnlRegistroUsuAdminMain1.add(btnGuardaryAgregarDatos);
+        btnGuardaryAgregarDatos.setBounds(320, 390, 300, 50);
+
+        rbtActivo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        rbtActivo.setForeground(new java.awt.Color(102, 153, 0));
+        rbtActivo.setText("ACTIVO");
+        pnlRegistroUsuAdminMain1.add(rbtActivo);
+        rbtActivo.setBounds(140, 390, 100, 20);
+
+        rbtInactivo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        rbtInactivo.setForeground(new java.awt.Color(204, 0, 0));
+        rbtInactivo.setText("INACTIVO");
+        pnlRegistroUsuAdminMain1.add(rbtInactivo);
+        rbtInactivo.setBounds(140, 420, 100, 20);
+
+        tpnMostrar.addTab("Registro Administrador 1", pnlRegistroUsuAdminMain1);
 
         getContentPane().add(tpnMostrar);
         tpnMostrar.setBounds(190, 80, 690, 560);
@@ -457,6 +550,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     private javax.swing.JButton btnCrearUsuario;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnGuardaryAgregarDatos;
     private javax.swing.JLabel btnajustes;
     private javax.swing.JLabel btncaja;
     private javax.swing.JLabel btncerrarsesion;
@@ -465,18 +559,27 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     private javax.swing.JLabel btnregistrodeusuario;
     private javax.swing.JLabel btnregistrodeventas;
     private javax.swing.JLabel btnreportes;
+    private javax.swing.JComboBox<String> cbTipoUsuario;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel jpaneladmin;
     private javax.swing.JPanel jpanelgeneral;
     private javax.swing.JPanel jpanelsuperior;
+    private javax.swing.JLabel lblAgregaryCrearUsuario;
+    private javax.swing.JLabel lblApellidos;
     private javax.swing.JLabel lblClientes;
     private javax.swing.JLabel lblCompraDelMes;
+    private javax.swing.JLabel lblContraseña;
+    private javax.swing.JLabel lblDNIUsuario;
     private javax.swing.JLabel lblGanancias;
+    private javax.swing.JLabel lblNombres;
     private javax.swing.JLabel lblProductos;
     private javax.swing.JLabel lblProveedores;
     private javax.swing.JLabel lblRUC;
     private javax.swing.JLabel lblRol;
     private javax.swing.JLabel lblSubTitulo;
+    private javax.swing.JLabel lblSubTitulo1;
+    private javax.swing.JLabel lblTelefono;
+    private javax.swing.JLabel lblTipoUsuario;
     private javax.swing.JLabel lblVentasDelDia;
     private javax.swing.JLabel lblimagen1;
     private javax.swing.JLabel lblimagen2;
@@ -488,14 +591,22 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     private javax.swing.JPanel pnlProductos;
     private javax.swing.JPanel pnlProveedores;
     private javax.swing.JPanel pnlRegistroUsuAdminMain;
+    private javax.swing.JPanel pnlRegistroUsuAdminMain1;
     private javax.swing.JPanel pnlVentasDelDia;
+    private javax.swing.JRadioButton rbtActivo;
+    private javax.swing.JRadioButton rbtInactivo;
     private javax.swing.JTable tblRegistroUsuarios;
     private javax.swing.JTabbedPane tpnMostrar;
+    private javax.swing.JTextField txtApellidos;
     private javax.swing.JTextField txtClientes;
     private javax.swing.JTextField txtComprasDelMes;
+    private javax.swing.JTextField txtContraseña;
+    private javax.swing.JTextField txtDNIUsuario;
     private javax.swing.JTextField txtGanancias;
+    private javax.swing.JTextField txtNombres;
     private javax.swing.JTextField txtProductos;
     private javax.swing.JTextField txtProveedores;
+    private javax.swing.JTextField txtTelefono;
     private javax.swing.JTextField txtVentasDelDia;
     // End of variables declaration//GEN-END:variables
 }
