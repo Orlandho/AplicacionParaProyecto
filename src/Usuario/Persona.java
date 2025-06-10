@@ -3,14 +3,25 @@ package Usuario;
 public abstract class Persona {
 
     protected String nombres, apellidos;
-    private int dni;
+    protected int dni,telefono;
 
-    public Persona(String nombres, String apellidos,int dni) {
+    public Persona(String nombres, String apellidos,int dni,int telefono) {
         this.nombres = nombres;
         this.apellidos = apellidos;
         this.dni=dni;
+        this.telefono=telefono;
     }
 
+    public int getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(int telefono) {
+        this.telefono = telefono;
+    }
+
+    
+    
     public String getNombres() {
         return nombres;
     }

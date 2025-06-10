@@ -12,8 +12,10 @@ public class Usuario extends Persona {
     private int intentosFallidos = 0;
     private boolean cuentaBloqueada = false;
 
-    public Usuario(int usuario_id, int dni, String contraseña, String rol, LocalDate fechaUltimoCambio,int intentosFallidos,boolean cuentaBloqueada, String nombres, String apellidos) {
-        super(nombres, apellidos,dni);
+    public Usuario(int usuario_id, int dni, String contraseña,
+            String rol, LocalDate fechaUltimoCambio,int intentosFallidos,boolean cuentaBloqueada,
+            String nombres, String apellidos,int telefono) {
+        super(nombres, apellidos,dni,telefono);
         this.usuario_id = usuario_id;
         this.usuarioDNI = dni;
         this.contraseña = contraseña;
@@ -26,7 +28,7 @@ public class Usuario extends Persona {
     
 
     public Usuario(Usuario usuario) {
-        super(usuario.nombres, usuario.apellidos, usuario.usuarioDNI);
+        super(usuario.nombres, usuario.apellidos, usuario.usuarioDNI,usuario.telefono);
         this.usuarioDNI = usuario.usuarioDNI;
         this.contraseña = usuario.contraseña;
         this.rol = usuario.rol;
