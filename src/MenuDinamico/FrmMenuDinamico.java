@@ -1,15 +1,21 @@
 package MenuDinamico;
 
 import Usuario.Usuario;
+import ServiciosUsuario.ConvertidorUsuario;
 import Usuario.Administrador;
 import Usuario.Empleado;
 import java.awt.Component;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import GestorDatosPermanentes.SQLiteManager;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
 
 public class FrmMenuDinamico extends javax.swing.JFrame {
 
     Usuario usuario;
+    SQLiteManager baseDeDatos;
+    DefaultTableModel modelo;
 
     /**
      * Creates new form MenuDinamico
@@ -17,7 +23,11 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     public FrmMenuDinamico() {
         initComponents();
         jpaneladmin.setVisible(false);
-
+        baseDeDatos=new SQLiteManager();
+        String[] columnas={"Empleado","Usuario","Contraseña","Tipo","Telefono","Estado"};
+        modelo= new DefaultTableModel(columnas,0);
+        tblRegistroUsuarios.setModel(modelo);
+        
     }
 
     public void modificarSegunRol(Usuario usuario) {
@@ -29,6 +39,19 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
             this.usuario = new Empleado(usuario);
         }
         lblRol.setText(usuario.getRol());
+    }
+    
+    private void actualizarTBLRegistroUsuarios(){
+        
+        modelo.setRowCount(0);
+        ArrayList<Usuario> lista=baseDeDatos.getUsuarios();
+        
+        for (Usuario usu : lista) {
+            //String[] columnas={"Empleado","Usuario","Contraseña","Tipo","Telefono","Estado"};
+            Object[] datoFila={usu.getNombres(),usu.getUsuarioDNI(),usu.getRol(),usu.getTelefono(),ConvertidorUsuario.parseEsCuentaBloqueada(usu.esCuentaBloqueada())};
+            modelo.addRow(datoFila);
+            
+        }
     }
 
     /**
@@ -79,7 +102,6 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         lblClientes = new javax.swing.JLabel();
         txtClientes = new javax.swing.JTextField();
         pnlRegistroUsuAdminMain = new javax.swing.JPanel();
-        btnAgregarUsuario = new javax.swing.JButton();
         btnCrearUsuario = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -239,7 +261,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         lblRUC.setFont(new java.awt.Font("Cartoon Fun", 0, 14)); // NOI18N
         lblRUC.setText("Agro Integral Perú");
         jpanelsuperior.add(lblRUC);
-        lblRUC.setBounds(610, 10, 200, 19);
+        lblRUC.setBounds(610, 10, 200, 24);
 
         lblRol.setText("Empleado");
         jpanelsuperior.add(lblRol);
@@ -339,17 +361,16 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
 
         pnlRegistroUsuAdminMain.setLayout(null);
 
-        btnAgregarUsuario.setBackground(new java.awt.Color(226, 237, 241));
-        btnAgregarUsuario.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
-        btnAgregarUsuario.setText("Agregar Empleado");
-        pnlRegistroUsuAdminMain.add(btnAgregarUsuario);
-        btnAgregarUsuario.setBounds(60, 60, 230, 40);
-
         btnCrearUsuario.setBackground(new java.awt.Color(202, 244, 250));
         btnCrearUsuario.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
         btnCrearUsuario.setText("Crear Usuario");
+        btnCrearUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCrearUsuarioActionPerformed(evt);
+            }
+        });
         pnlRegistroUsuAdminMain.add(btnCrearUsuario);
-        btnCrearUsuario.setBounds(370, 60, 230, 40);
+        btnCrearUsuario.setBounds(230, 60, 210, 40);
 
         btnEliminar.setBackground(new java.awt.Color(202, 244, 250));
         btnEliminar.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
@@ -443,18 +464,34 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
 
         btnGuardaryAgregarDatos.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
         btnGuardaryAgregarDatos.setText("Guardar y Agregar Datos");
+        btnGuardaryAgregarDatos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardaryAgregarDatosActionPerformed(evt);
+            }
+        });
         pnlRegistroUsuAdminMain1.add(btnGuardaryAgregarDatos);
         btnGuardaryAgregarDatos.setBounds(320, 390, 300, 50);
 
         rbtActivo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         rbtActivo.setForeground(new java.awt.Color(102, 153, 0));
+        rbtActivo.setSelected(true);
         rbtActivo.setText("ACTIVO");
+        rbtActivo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtActivoActionPerformed(evt);
+            }
+        });
         pnlRegistroUsuAdminMain1.add(rbtActivo);
         rbtActivo.setBounds(140, 390, 100, 20);
 
         rbtInactivo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         rbtInactivo.setForeground(new java.awt.Color(204, 0, 0));
         rbtInactivo.setText("INACTIVO");
+        rbtInactivo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtInactivoActionPerformed(evt);
+            }
+        });
         pnlRegistroUsuAdminMain1.add(rbtInactivo);
         rbtInactivo.setBounds(140, 420, 100, 20);
 
@@ -472,7 +509,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     }
 
     private void btninicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btninicioMouseClicked
-        mostrarNombre(btninicio);
+        tpnMostrar.setSelectedIndex(0);
         
     }//GEN-LAST:event_btninicioMouseClicked
 
@@ -493,7 +530,8 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     }//GEN-LAST:event_btncajaMouseClicked
 
     private void btnregistrodeusuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnregistrodeusuarioMouseClicked
-        mostrarNombre(btnregistrodeusuario);
+        actualizarTBLRegistroUsuarios();
+        tpnMostrar.setSelectedIndex(1);
     }//GEN-LAST:event_btnregistrodeusuarioMouseClicked
 
     private void btnreportesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnreportesMouseClicked
@@ -507,6 +545,43 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     private void btncerrarsesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btncerrarsesionMouseClicked
         mostrarNombre(btncerrarsesion);
     }//GEN-LAST:event_btncerrarsesionMouseClicked
+
+    private void btnCrearUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearUsuarioActionPerformed
+        // TODO add your handling code here:
+        tpnMostrar.setSelectedIndex(2);
+    }//GEN-LAST:event_btnCrearUsuarioActionPerformed
+
+    private void btnGuardaryAgregarDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardaryAgregarDatosActionPerformed
+        String errorMensaje="";
+        Integer telefono=ConvertidorUsuario.tryParseTelefono(txtTelefono.getText());
+        Integer usuarioDNI=ConvertidorUsuario.tryParseUsuarioDNI(txtDNIUsuario.getText());
+        if(telefono==null||usuarioDNI==null){
+            if(telefono==null){
+                errorMensaje+="Formato de telefono no valido.\n";
+            }
+            if(usuarioDNI==null){
+                errorMensaje+="Formato de DNI no valido.\n";
+            }
+            JOptionPane.showMessageDialog(this, errorMensaje);
+            return;
+        }
+        boolean esCuentaInactiva=rbtInactivo.isSelected();
+        
+        baseDeDatos.crearCuentaEmpleado(usuarioDNI, telefono, txtNombres.getText(), txtApellidos.getText(), txtContraseña.getText(), cbTipoUsuario.getSelectedItem().toString(),esCuentaInactiva);
+        actualizarTBLRegistroUsuarios();
+    }//GEN-LAST:event_btnGuardaryAgregarDatosActionPerformed
+
+    private void rbtActivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtActivoActionPerformed
+        rbtActivo.setSelected(true);
+        rbtInactivo.setSelected(false);
+        
+    }//GEN-LAST:event_rbtActivoActionPerformed
+
+    private void rbtInactivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtInactivoActionPerformed
+        rbtInactivo.setSelected(true);
+        rbtActivo.setSelected(false);
+        
+    }//GEN-LAST:event_rbtInactivoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -545,7 +620,6 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAgregarUsuario;
     private javax.swing.JLabel btnAlmacen;
     private javax.swing.JButton btnCrearUsuario;
     private javax.swing.JButton btnEditar;
