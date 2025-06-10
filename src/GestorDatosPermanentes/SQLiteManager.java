@@ -70,7 +70,7 @@ public class SQLiteManager {
             ingresarComando.setString(1, nombreUsuario);
             ResultSet datosObtenidos = ingresarComando.executeQuery();
             if (datosObtenidos.next()) {
-                //                                   int usuario_id, S                    tring usuario,                        String contraseña,             String rol, LocalDate                                          fechaUltimoCambio,                     int intentosFallidos,                                                boolean cuentaBloqueada,                       String nombre,                     String apellido,                      String genero,                       String direccion
+                //                                            
                 return new Usuario(datosObtenidos.getInt("usuario_id"), datosObtenidos.getInt("usuarioDNI"),
                         datosObtenidos.getString("contraseña"),
                         datosObtenidos.getString("rol"),
@@ -165,60 +165,36 @@ public class SQLiteManager {
         }
     }
     
-    //Metodos para crear la tabla
-    public void mostrarUsuarios() {
-        // Crear modelo de tabla con las columnas solicitadas
-        DefaultTableModel model = new DefaultTableModel();
-        model.addColumn("Empleado");
-        model.addColumn("Usuario");
-        model.addColumn("Contraseña");
-        model.addColumn("Rol");
-        model.addColumn("Estado");
+    //Metodos para obtener usuarios para la tabla
+    public ArrayList<String[]> obtenerUsuarios() {
+        ArrayList<String[]> usuarios = new ArrayList<>();
 
-        // Establecer la consulta SQL para obtener los usuarios
-        String consultaSQL = "SELECT nombres, apellidos, usuarioDNI, contraseña, rol FROM Usuario";
+        String sql = "SELECT nombres, apellidos, usuarioDNI, contraseña, rol FROM usuario";
 
-        try {
-            // Preparar la conexión a la base de datos
-            Statement stmt = conexionDB.createStatement();
-            ResultSet rs = stmt.executeQuery(consultaSQL);
+        try (Statement stmt = conexionDB.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
 
-            // Recorrer el ResultSet para añadir los datos al modelo
             while (rs.next()) {
-                String nombreCompleto = rs.getString("nombres") + " " + rs.getString("apellidos");
-                int dni = rs.getInt("usuarioDNI");
+                String empleado = rs.getString("nombres") + " " + rs.getString("apellidos");
+                int usuarioDNI = rs.getInt("usuarioDNI");
+                String usuario = String.valueOf(usuarioDNI);
                 String contraseña = rs.getString("contraseña");
                 String rol = rs.getString("rol");
 
-                // Verificar el estado (Activo o Inactivo)
-                String estado = verificarEstado(dni, contraseña) ? "Activo" : "Inactivo";
+                // Usando tu método auxiliar para determinar el estado
+                String estado = verificarEstado(usuarioDNI, contraseña) ? "Activo" : "Inactivo";
 
-                // Agregar la fila con los datos del usuario
-                model.addRow(new Object[] {
-                    nombreCompleto, 
-                    dni, 
-                    contraseña, 
-                    rol, 
-                    estado
-                });
+                String[] datosUsuario = { empleado, usuario, contraseña, rol, estado };
+                usuarios.add(datosUsuario);
             }
 
-            // Crear la JTable para mostrar los datos
-            JTable table = new JTable(model);
-
-            // Mostrar la tabla en un JScrollPane (esto permite scroll si hay muchos usuarios)
-            JScrollPane scrollPane = new JScrollPane(table);
-
-            // Establecer las propiedades de la tabla (por ejemplo, tamaño)
-            table.setFillsViewportHeight(true);
-
-            // Aquí debes integrar el JScrollPane en tu formulario o JFrame
-            // ejemplo: formulario.add(scrollPane);
-
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al recuperar los datos: " + e.getMessage());
+            System.out.println("Error al obtener los usuarios: " + e.getMessage());
         }
+
+        return usuarios;
     }
+
 
     private boolean verificarEstado(int dni, String contraseña) {
         // Verificar si el DNI y la contraseña coinciden con un usuario activo
