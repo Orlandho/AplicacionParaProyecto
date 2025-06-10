@@ -48,7 +48,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         
         for (Usuario usu : lista) {
             //String[] columnas={"Empleado","Usuario","Contraseña","Tipo","Telefono","Estado"};
-            Object[] datoFila={usu.getNombres(),usu.getUsuarioDNI(),usu.getRol(),usu.getTelefono(),ConvertidorUsuario.parseEsCuentaBloqueada(usu.esCuentaBloqueada())};
+            Object[] datoFila={usu.getNombres(),usu.getUsuarioDNI(),usu.getContraseña(),usu.getRol(),usu.getTelefono(),ConvertidorUsuario.parseEsCuentaBloqueada(usu.esCuentaBloqueada())};
             modelo.addRow(datoFila);
             
         }
