@@ -44,7 +44,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     private void actualizarTBLRegistroUsuarios(){
         
         modelo.setRowCount(0);
-        ArrayList<Usuario> lista=baseDeDatos.getUsuarios();
+        ArrayList<Usuario> lista=baseDeDatos.obtenerUsuarios();
         
         for (Usuario usu : lista) {
             //String[] columnas={"Empleado","Usuario","Contraseña","Tipo","Telefono","Estado"};
@@ -261,7 +261,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         lblRUC.setFont(new java.awt.Font("Cartoon Fun", 0, 14)); // NOI18N
         lblRUC.setText("Agro Integral Perú");
         jpanelsuperior.add(lblRUC);
-        lblRUC.setBounds(610, 10, 200, 24);
+        lblRUC.setBounds(610, 10, 200, 19);
 
         lblRol.setText("Empleado");
         jpanelsuperior.add(lblRol);
@@ -422,6 +422,12 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         lblNombres.setText("Nombres:");
         pnlRegistroUsuAdminMain1.add(lblNombres);
         lblNombres.setBounds(70, 160, 60, 30);
+
+        txtNombres.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNombresActionPerformed(evt);
+            }
+        });
         pnlRegistroUsuAdminMain1.add(txtNombres);
         txtNombres.setBounds(130, 160, 190, 30);
 
@@ -567,7 +573,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         }
         boolean esCuentaInactiva=rbtInactivo.isSelected();
         
-        baseDeDatos.crearCuentaEmpleado(usuarioDNI, telefono, txtNombres.getText(), txtApellidos.getText(), txtContraseña.getText(), cbTipoUsuario.getSelectedItem().toString(),esCuentaInactiva);
+        baseDeDatos.crearCuentaUsuario(usuarioDNI, txtNombres.getText(),txtApellidos.getText() , Integer.parseInt(txtTelefono.getText()), txtContraseña.getText(), cbTipoUsuario.getSelectedItem().toString(),esCuentaInactiva);
         actualizarTBLRegistroUsuarios();
     }//GEN-LAST:event_btnGuardaryAgregarDatosActionPerformed
 
@@ -582,6 +588,10 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         rbtActivo.setSelected(false);
         
     }//GEN-LAST:event_rbtInactivoActionPerformed
+
+    private void txtNombresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombresActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombresActionPerformed
 
     /**
      * @param args the command line arguments

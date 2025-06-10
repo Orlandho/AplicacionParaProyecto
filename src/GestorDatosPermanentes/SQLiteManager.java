@@ -64,20 +64,20 @@ public class SQLiteManager {
     }
     
     private Usuario buscarUsuario(String nombreUsuario) {
-        String comandoSQL = "SELECT * FROM Usuario WHERE usuario= ?";
+        String comandoSQL = "SELECT * FROM Usuario WHERE usuarioDNI= ?";
         try {
             PreparedStatement ingresarComando = conexionDB.prepareStatement(comandoSQL);
             ingresarComando.setString(1, nombreUsuario);
             ResultSet datosObtenidos = ingresarComando.executeQuery();
             if (datosObtenidos.next()) {
-                //                                   int usuario_id, S                    tring usuario,                        String contraseña,             String rol, LocalDate                                          fechaUltimoCambio,                     int intentosFallidos,                                                boolean cuentaBloqueada,                       String nombre,                     String apellido,                      String genero,                       String direccion
+                //                                            
                 return new Usuario(datosObtenidos.getInt("usuario_id"), datosObtenidos.getInt("usuarioDNI"),
                         datosObtenidos.getString("contraseña"),
                         datosObtenidos.getString("rol"),
                         LocalDate.parse(datosObtenidos.getString("fechaUltimoCambio")),
                         datosObtenidos.getInt("intentosFallidos"),
                         traducirCuentaBloqueada(datosObtenidos.getInt("cuentaBloqueada")) ,
-                        datosObtenidos.getString("nombre"), datosObtenidos.getString("apellido"),
+                        datosObtenidos.getString("nombres"), datosObtenidos.getString("apellidos"),
                         datosObtenidos.getInt("telefono"));
             }
         } catch (SQLException e) {
@@ -118,123 +118,70 @@ public class SQLiteManager {
     }
     
     //Sprint 2
-    //Metodo para registrar empleados
-    private ArrayList<Persona> listaEmpleados = new ArrayList<>();
-    
-    public void registrarEmpleado(int dni, int telefono,String nombres, String apellidos) {
-        Usuario nuevoEmpleado = new Usuario(0, dni, "", "", null, 0, false, nombres, apellidos, telefono);
-        listaEmpleados.add(nuevoEmpleado);
-    }
-    
-    //Metodo para crearCuenta a un empleado y asignar su rol
-    public boolean crearCuentaEmpleado(int dni, int telefono, String nombres, String apellidos, String contraseña, String rol) {
-        // Verificar si el empleado ya fue registrado
-        boolean empleadoRegistrado = false;
-        for (Persona empleado : listaEmpleados) {
-            if (empleado.getDni() == dni && empleado.getTelefono() == telefono && empleado.getNombres().equals(nombres) && empleado.getApellidos().equals(apellidos)) {
-                empleadoRegistrado = true;
-                break;
-            }
-        }
+    // Método para crear cuenta de usuario si el empleado existe en listaEmpleados
+    public void crearCuentaUsuario( int dni, String nombres, String apellidos, int telefono, String contraseña, String rol, boolean cuentaBloqueada) {
 
-        // Si los datos coinciden, proceder a crear la cuenta en la base de datos
-        if (empleadoRegistrado) {
-            String comandoSQL = "INSERT INTO Usuario (usuarioDNI, contraseña, rol, fechaUltimoCambio, intentosFallidos, cuentaBloqueada, nombre, apellido, telefono) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        // Verificar si los datos existen en listaEmpleados
+
+            String comandoSQL = "INSERT INTO Usuario ( usuarioDNI, contraseña, rol, fechaUltimoCambio, intentosFallidos, cuentaBloqueada, nombres, apellidos, telefono) " +
+                                "VALUES ( ?, ?, ?, date('now'), 0, ?, ?, ?, ?)";
+
             try {
                 PreparedStatement ingresarComando = conexionDB.prepareStatement(comandoSQL);
-                // Asignamos los valores en el orden correspondiente
                 ingresarComando.setInt(1, dni);
                 ingresarComando.setString(2, contraseña);
                 ingresarComando.setString(3, rol);
-                ingresarComando.setString(4, LocalDate.now().toString());  // fechaUltimoCambio es la fecha actual
-                ingresarComando.setInt(5, 0);  // intentosFallidos por defecto en 0
-                ingresarComando.setInt(6, 0);  // cuentaBloqueada por defecto en 0
-                ingresarComando.setString(7, nombres);
-                ingresarComando.setString(8, apellidos);
-                ingresarComando.setInt(9, telefono);
-
+                ingresarComando.setInt(4, cuentaBloqueada ? 1 : 0);
+                ingresarComando.setString(5, nombres);
+                ingresarComando.setString(6, apellidos);
+                ingresarComando.setInt(7, telefono);
+                
                 int filasAfectadas = ingresarComando.executeUpdate();
-                return filasAfectadas > 0; // Si se insertó correctamente, retorna true
+                if (filasAfectadas > 0) {
+                    JOptionPane.showMessageDialog(null, "Cuenta creada exitosamente.");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Error: no se pudo crear la cuenta.");
+                }
+
             } catch (SQLException e) {
-                throw new RuntimeException("Error al intentar crear cuenta de usuario.\nMensaje de error: " + e.getMessage());
-            }
-        } else {
-            // Si no se encuentran datos, mostrar el mensaje de error
-            JOptionPane.showMessageDialog(null, "Intento de creación de cuenta, Error: no se encuentran datos");
-            return false;
-        }
+                throw new RuntimeException("Error al crear usuario.\nMensaje de error: " + e.getMessage());
+            } 
     }
+
     
-    //Metodos para crear la tabla
-    public void mostrarUsuarios() {
-        // Crear modelo de tabla con las columnas solicitadas
-        DefaultTableModel model = new DefaultTableModel();
-        model.addColumn("Empleado");
-        model.addColumn("Usuario");
-        model.addColumn("Contraseña");
-        model.addColumn("Rol");
-        model.addColumn("Estado");
+    //Metodos para obtener usuarios para la tabla
+    public ArrayList<Usuario> obtenerUsuarios() {
+        ArrayList<Usuario> usuarios = new ArrayList<>();
 
-        // Establecer la consulta SQL para obtener los usuarios
-        String consultaSQL = "SELECT nombres, apellidos, usuarioDNI, contraseña, rol FROM Usuario";
+        String sql = "SELECT usuario_id, usuarioDNI,contraseña,rol, fechaUltimoCambio, intentosFallidos, cuentaBloqueada ,nombres, apellidos ,telefono FROM usuario";
 
-        try {
-            // Preparar la conexión a la base de datos
-            Statement stmt = conexionDB.createStatement();
-            ResultSet rs = stmt.executeQuery(consultaSQL);
+        try (Statement stmt = conexionDB.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
 
-            // Recorrer el ResultSet para añadir los datos al modelo
             while (rs.next()) {
-                String nombreCompleto = rs.getString("nombres") + " " + rs.getString("apellidos");
-                int dni = rs.getInt("usuarioDNI");
+                int usuario_id = rs.getInt("usuario_id");
+                int usuarioDNI = rs.getInt("usuarioDNI");
                 String contraseña = rs.getString("contraseña");
                 String rol = rs.getString("rol");
+                LocalDate fechaUltimoCambio = LocalDate.parse(rs.getString("fechaUltimoCambio"));
+                int intentosFallidos = rs.getInt("intentosFallidos");
+                boolean cuentaBloqueada = traducirCuentaBloqueada(rs.getInt("cuentaBloqueada"));
+                String nombres =rs.getString("nombres");
+                String apellidos =rs.getString("apellidos");
+                int telefono = rs.getInt("telefono");
 
-                // Verificar el estado (Activo o Inactivo)
-                String estado = verificarEstado(dni, contraseña) ? "Activo" : "Inactivo";
 
-                // Agregar la fila con los datos del usuario
-                model.addRow(new Object[] {
-                    nombreCompleto, 
-                    dni, 
-                    contraseña, 
-                    rol, 
-                    estado
-                });
+                Usuario datosUsuario = new Usuario(usuario_id, usuarioDNI, contraseña,
+                rol,fechaUltimoCambio,intentosFallidos,cuentaBloqueada,
+                nombres, apellidos,telefono);
+                usuarios.add(datosUsuario);
             }
 
-            // Crear la JTable para mostrar los datos
-            JTable table = new JTable(model);
-
-            // Mostrar la tabla en un JScrollPane (esto permite scroll si hay muchos usuarios)
-            JScrollPane scrollPane = new JScrollPane(table);
-
-            // Establecer las propiedades de la tabla (por ejemplo, tamaño)
-            table.setFillsViewportHeight(true);
-
-            // Aquí debes integrar el JScrollPane en tu formulario o JFrame
-            // ejemplo: formulario.add(scrollPane);
-
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al recuperar los datos: " + e.getMessage());
+            JOptionPane.showMessageDialog(null,"Error al obtener los usuarios: " + e.getMessage());
         }
-    }
 
-    private boolean verificarEstado(int dni, String contraseña) {
-        // Verificar si el DNI y la contraseña coinciden con un usuario activo
-        String consultaSQL = "SELECT * FROM Usuario WHERE usuarioDNI = ? AND contraseña = ?";
-
-        try (PreparedStatement stmt = conexionDB.prepareStatement(consultaSQL)) {
-            stmt.setInt(1, dni);
-            stmt.setString(2, contraseña);
-            ResultSet rs = stmt.executeQuery();
-
-            // Si existe un resultado, significa que el usuario y la contraseña son correctos
-            return rs.next();
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al verificar el estado: " + e.getMessage());
-            return false;
-        }
+        return usuarios;
     }
     /*
         Dicionario de codigos:
