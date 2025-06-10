@@ -1,6 +1,7 @@
 package Login;
 
 import Usuario.Usuario;
+import ServiciosUsuario.VerificadorUsuario;
 import GestorDatosPermanentes.SQLiteManager;
 import javax.swing.*;
 import java.awt.*;
@@ -128,7 +129,7 @@ public class FrmLogin extends javax.swing.JFrame {
 
             JOptionPane.showOptionDialog(this, JPanelPedirContraNueva, "Creando contraseña", JOptionPane.NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
             contraseñaNueva = txfNuevaContra.getText();
-            if (!MantenimientoLogin.esContraseñaValida(txfNuevaContra.getText())) {
+            if (!VerificadorUsuario.esContraseñaValida(txfNuevaContra.getText())) {
                 JOptionPane.showMessageDialog(this, "Formato de contraseña incorrecto. Intente de nuevo");
                 continue;
             } else if (contraseñaAntigua.equals(contraseñaNueva)) {
@@ -164,7 +165,7 @@ public class FrmLogin extends javax.swing.JFrame {
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
         String DNIoRUC = txfUsuario.getText(), contraseña = txfContraseña.getText();
 
-        if (!MantenimientoLogin.esDniORucValido(DNIoRUC) || !MantenimientoLogin.esContraseñaValida(contraseña)) {
+        if (!VerificadorUsuario.esDniORucValido(DNIoRUC) || !VerificadorUsuario.esContraseñaValida(contraseña)) {
             JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos. Intente de nuevo");
             return;
         }
@@ -172,6 +173,7 @@ public class FrmLogin extends javax.swing.JFrame {
 
         if ((int) respuestaDB.get(0) == SQLiteManager.PUEDE_INGRESAR) {
             dispose();
+            baseDeDatos.cerrarConexion();
             FrmMenuDinamico menu = new FrmMenuDinamico();
             menu.modificarSegunRol((Usuario) respuestaDB.get(1));
             menu.setVisible(true);
