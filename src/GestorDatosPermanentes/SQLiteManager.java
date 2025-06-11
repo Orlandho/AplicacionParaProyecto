@@ -275,6 +275,26 @@ public class SQLiteManager {
         }
         return productos;
     }
+    
+    public boolean crearProducto(Producto producto) {
+        boolean exito = false;
+        String sql = "INSERT INTO productos (tipoDocumento, producto, precioCompra, cantidad, stock) VALUES (?, ?, ?, ?, ?)";
+        try {
+            PreparedStatement statement = conexionDB.prepareStatement(sql);
+            statement.setString(1, producto.getTipoDocumento());
+            statement.setString(2, producto.getProducto());
+            statement.setDouble(3, producto.getPrecioCompra());
+            statement.setInt(4, producto.getCantidad());
+            statement.setString(5, producto.getStock());
+            int filasInsertadas = statement.executeUpdate();
+            if (filasInsertadas > 0) {
+                exito = true;
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al crear producto: " + e.getMessage());
+        }
+        return exito;
+    }
     /*
         Dicionario de codigos:
         0 | Usuario o contraseña incorrectos
