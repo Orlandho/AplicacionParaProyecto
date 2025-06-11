@@ -24,7 +24,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         initComponents();
         jpaneladmin.setVisible(false);
         baseDeDatos = new SQLiteManager();
-        String[] columnas = {"Empleado", "Usuario", "Contraseña", "Tipo", "Telefono", "Estado"};
+        String[] columnas = {"Usuario ID", "Empleado", "Usuario", "Contraseña", "Tipo", "Telefono", "Estado"};
         modelo = new DefaultTableModel(columnas, 0);
         tblRegistroUsuarios.setModel(modelo);
     }
@@ -45,9 +45,8 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
 
         for (Usuario usu : lista) {
             //String[] columnas={"Empleado","Usuario","Contraseña","Tipo","Telefono","Estado"};
-            Object[] datoFila = {usu.getNombres(), usu.getUsuarioDNIoRUC(), usu.getContraseña(), usu.getRol(), usu.getTelefono(), ConvertidorUsuario.parseEsCuentaBloqueada(usu.esCuentaBloqueada())};
+            Object[] datoFila = {usu.getUsuario_id(), usu.getNombres()+" "+usu.getApellidos(), usu.getUsuarioDNIoRUC(), usu.getContraseña(), usu.getRol(), usu.getTelefono(), ConvertidorUsuario.parseEsCuentaBloqueada(usu.esCuentaBloqueada())};
             modelo.addRow(datoFila);
-
         }
     }
 
@@ -377,32 +376,42 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         btnEliminar.setBackground(new java.awt.Color(202, 244, 250));
         btnEliminar.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
         btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
         pnlRegUsuMostrar.add(btnEliminar);
         btnEliminar.setBounds(60, 420, 230, 40);
 
         tblRegistroUsuarios.setBackground(new java.awt.Color(220, 235, 245));
         tblRegistroUsuarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Empleado", "Usuario", "Contraseña", "Tipo", "Telefono", "Estado"
+                "Usuario ID", "Empleado", "Usuario", "Contraseña", "Tipo", "Telefono", "Estado"
             }
         ));
         tblRegistroUsuarios.setGridColor(new java.awt.Color(255, 255, 255));
         jScrollPane1.setViewportView(tblRegistroUsuarios);
 
         pnlRegUsuMostrar.add(jScrollPane1);
-        jScrollPane1.setBounds(30, 140, 630, 230);
+        jScrollPane1.setBounds(20, 140, 660, 240);
 
         btnEditar.setBackground(new java.awt.Color(226, 237, 241));
         btnEditar.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
         btnEditar.setText("Editar");
+        btnEditar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnEditarMouseClicked(evt);
+            }
+        });
         pnlRegUsuMostrar.add(btnEditar);
         btnEditar.setBounds(370, 420, 230, 40);
 
@@ -618,6 +627,57 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
             System.exit(0);
         }
     }//GEN-LAST:event_formWindowClosing
+
+    private String[] separarNombresApellidos(String nombresApellidos){
+        int tamaño=nombresApellidos.length();
+        String[] nombre_apellido=new String[2];
+        int j=0;
+        for(int i=0;i<tamaño;i++){
+            char letra;
+            if(nombresApellidos.charAt(i)==' '){
+                j++;
+                continue;
+            }
+            nombre_apellido[j]+=nombresApellidos.charAt(i);
+        }
+        return nombre_apellido;
+    }
+    
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        int filaSeleccion = tblRegistroUsuarios.getSelectedRow();
+        if (filaSeleccion < 0) {
+            JOptionPane.showMessageDialog(this, "Seleccione una fila para eliminar");
+            return;
+        }
+        long usuario_id=Long.parseLong(modelo.getValueAt(filaSeleccion, 0).toString());
+        baseDeDatos.eliminar(usuario_id);
+        actualizarTBLRegistroUsuarios();
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnEditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditarMouseClicked
+        int filaSeleccion = tblRegistroUsuarios.getSelectedRow();
+        if (filaSeleccion < 0) {
+            JOptionPane.showMessageDialog(this, "Seleccione una fila para editar");
+            return;
+        }
+        //Empleado nombre String
+        String[] nombres_apellidos=separarNombresApellidos(modelo.getValueAt(filaSeleccion, 1).toString());
+        String nombre=nombres_apellidos[0];
+        String apellido=nombres_apellidos[1];
+        //UsuarioDNIoRUC Long
+        long usuarioDNI=Long.parseLong(modelo.getValueAt(filaSeleccion, 2).toString());
+        //Contraseña String
+        String contra=modelo.getValueAt(filaSeleccion, 3).toString();
+        //Tipo String
+        String rol=modelo.getValueAt(filaSeleccion, 4).toString();
+        //Telefono int
+        int fono=Integer.parseInt(modelo.getValueAt(filaSeleccion, 6).toString());
+        //Estado boolean
+        boolean esCuentaBloqueada=ConvertidorUsuario.parseEsCuentaBloqueada(modelo.getValueAt(filaSeleccion, 6).toString());
+        baseDeDatos.actualizarUsuario(nombre,apellidos,usuario_id);
+        actualizarTBLRegistroUsuarios();
+
+    }//GEN-LAST:event_btnEditarMouseClicked
 
     /**
      * @param args the command line arguments

@@ -35,4 +35,8 @@ public class ConvertidorUsuario {
     public static String parseEsCuentaBloqueada(boolean esCuentaBloqueada) {
         return esCuentaBloqueada ? "Inactivo" : "Activo";
     }
+    
+    public static boolean parseEsCuentaBloqueada(String esCuentaBloqueadaString) {
+        return !esCuentaBloqueadaString.equals("Inactivo");
+    }
 }
