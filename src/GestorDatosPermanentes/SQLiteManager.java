@@ -1,6 +1,6 @@
 package GestorDatosPermanentes;
 
-import Usuario.Persona;
+import Usuario.Producto;
 import Usuario.Usuario;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -229,6 +229,30 @@ public class SQLiteManager {
             JOptionPane.showMessageDialog(null, "Error al actualizar usuario: " + e.getMessage());
         }
     }
+    
+    //SPRINT 3
+    
+    public Producto buscarProducto(String producto) {
+        String comandoSQL ="SELECT * FROM Productos WHERE producto= ?";
+        try {
+            PreparedStatement ingresarComando = conexionDB.prepareStatement(comandoSQL);
+            ingresarComando.setString(1, producto);
+            ResultSet datosObtenidos = ingresarComando.executeQuery();
+
+            if (datosObtenidos.next()) {
+                return new Producto(
+                    datosObtenidos.getString("tipoDocumento"),
+                    datosObtenidos.getString("producto"),
+                    datosObtenidos.getDouble("precioCompra"),
+                    datosObtenidos.getInt("cantidad"),
+                    datosObtenidos.getString("stock")
+                );
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al buscar producto: " + e);
+        }
+        return null;
+    } 
     /*
         Dicionario de codigos:
         0 | Usuario o contraseña incorrectos
