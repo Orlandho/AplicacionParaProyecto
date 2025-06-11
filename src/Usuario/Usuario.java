@@ -98,4 +98,54 @@ public class Usuario extends Persona {
     public boolean debeCambiarContraseña() {
         return fechaUltimoCambio.plusDays(60).isBefore(LocalDate.now());
     }
+
+    public static Integer tryParseTelefono(String telefono) {
+        int resultado;
+        try {
+            resultado = Integer.parseInt(telefono);
+        } catch (NumberFormatException e) {
+            return null;
+        }
+        return esTelefonoValido(resultado) ? resultado : null;
+    }
+
+    public static Long tryParseUsuarioDNI(String usuarioDNI) {
+        long resultado;
+        try {
+            resultado = Long.parseLong(usuarioDNI);
+        } catch (NumberFormatException e) {
+            return null;
+        }
+        return esDniValido(usuarioDNI) ? resultado : null;
+    }
+
+    public static String parseEsCuentaBloqueada(boolean esCuentaBloqueada) {
+        return esCuentaBloqueada ? "Inactivo" : "Activo";
+    }
+
+    public static boolean parseEsCuentaBloqueada(String esCuentaBloqueadaString) {
+        return !esCuentaBloqueadaString.equals("Inactivo");
+    }
+
+    public static boolean esDniORucValido(String usuario) {
+        return usuario.matches("\\d{8}") || usuario.matches("\\d{11}");
+    }
+
+    public static boolean esDniValido(String dni) {
+        return dni.matches("\\d{8}");
+    }
+
+    public static boolean esContraseñaValida(String contraseña) {
+        Boolean esLargo = contraseña.length() > 4;
+        return contraseña.matches("[A-Za-z0-9]+") && esLargo && contraseña.length() < 31;
+    }
+
+    public static boolean esTelefonoValido(int telefono) {
+        String telefonoMatch = Integer.toString(telefono);
+        return telefonoMatch.matches("\\d{6}") || telefonoMatch.matches("\\d{9}");
+    }
+
+    public static boolean muyLargo(String texto) {
+        return texto.length() > 20;
+    }
 }
