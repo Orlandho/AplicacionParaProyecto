@@ -1,7 +1,7 @@
 
 package Usuario;
 
-class Producto {
+public class Producto {
     
     // Atributos
     private String tipoDocumento;
@@ -57,6 +57,4 @@ class Producto {
     public void setStock(String stock) {
         this.stock = stock;
     }
-    
-    
 }
