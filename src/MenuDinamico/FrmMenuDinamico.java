@@ -125,6 +125,24 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         btnGuardaryAgregarDatos = new javax.swing.JButton();
         rbtActivo = new javax.swing.JRadioButton();
         rbtInactivo = new javax.swing.JRadioButton();
+        pnl1Almacen = new javax.swing.JPanel();
+        lblSubtema2 = new javax.swing.JLabel();
+        cbTipoStock = new javax.swing.JComboBox<>();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblRegistroProductos = new javax.swing.JTable();
+        lblPreciodeProducto = new javax.swing.JLabel();
+        lblProducto = new javax.swing.JLabel();
+        lblCantidaddeProducto = new javax.swing.JLabel();
+        btnBuscarAlmacen = new javax.swing.JButton();
+        txtBuscar = new javax.swing.JTextField();
+        btnAgregarAlmacen = new javax.swing.JButton();
+        btnEliminarAlmacen = new javax.swing.JButton();
+        btnEditarAlmacen = new javax.swing.JButton();
+        txtPreciodeCompra = new javax.swing.JTextField();
+        txtProducto = new javax.swing.JTextField();
+        txtCantidaddeProducto = new javax.swing.JTextField();
+        btnFiltrarAlmacen = new javax.swing.JButton();
+        lblImagen1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setResizable(false);
@@ -266,7 +284,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         lblRUC.setFont(new java.awt.Font("Cartoon Fun", 0, 14)); // NOI18N
         lblRUC.setText("Agro Integral Perú");
         jpanelsuperior.add(lblRUC);
-        lblRUC.setBounds(610, 10, 200, 24);
+        lblRUC.setBounds(610, 10, 200, 19);
 
         lblRol.setText("Empleado");
         jpanelsuperior.add(lblRol);
@@ -526,6 +544,90 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
 
         tpnMostrar.addTab("pnlRegUsuIngresar", pnlRegUsuIngresar);
 
+        pnl1Almacen.setBackground(new java.awt.Color(216, 252, 156));
+        pnl1Almacen.setLayout(null);
+
+        lblSubtema2.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
+        lblSubtema2.setText("REGISTRO DE PRODUCTOS");
+        pnl1Almacen.add(lblSubtema2);
+        lblSubtema2.setBounds(40, 40, 230, 20);
+
+        cbTipoStock.setFont(new java.awt.Font("Courier New", 0, 12)); // NOI18N
+        cbTipoStock.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "• Stock de pescado", "• Con stock" }));
+        pnl1Almacen.add(cbTipoStock);
+        cbTipoStock.setBounds(360, 230, 170, 30);
+
+        tblRegistroProductos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Tipo de documento", "Producto", "Precio Compra", "Cantidad", "Stock"
+            }
+        ));
+        jScrollPane2.setViewportView(tblRegistroProductos);
+
+        pnl1Almacen.add(jScrollPane2);
+        jScrollPane2.setBounds(30, 300, 630, 190);
+
+        lblPreciodeProducto.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        lblPreciodeProducto.setText("Precio de compra:");
+        pnl1Almacen.add(lblPreciodeProducto);
+        lblPreciodeProducto.setBounds(40, 170, 150, 20);
+
+        lblProducto.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        lblProducto.setText("Producto: ");
+        pnl1Almacen.add(lblProducto);
+        lblProducto.setBounds(40, 90, 90, 20);
+
+        lblCantidaddeProducto.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        lblCantidaddeProducto.setText("Cantidad de productos: ");
+        pnl1Almacen.add(lblCantidaddeProducto);
+        lblCantidaddeProducto.setBounds(40, 130, 210, 20);
+
+        btnBuscarAlmacen.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        btnBuscarAlmacen.setText("Buscar");
+        pnl1Almacen.add(btnBuscarAlmacen);
+        btnBuscarAlmacen.setBounds(240, 210, 100, 30);
+        pnl1Almacen.add(txtBuscar);
+        txtBuscar.setBounds(70, 210, 160, 30);
+
+        btnAgregarAlmacen.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        btnAgregarAlmacen.setText("Agregar");
+        pnl1Almacen.add(btnAgregarAlmacen);
+        btnAgregarAlmacen.setBounds(510, 40, 120, 40);
+
+        btnEliminarAlmacen.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        btnEliminarAlmacen.setText("Eliminar");
+        pnl1Almacen.add(btnEliminarAlmacen);
+        btnEliminarAlmacen.setBounds(510, 100, 120, 40);
+
+        btnEditarAlmacen.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        btnEditarAlmacen.setText("Editar");
+        pnl1Almacen.add(btnEditarAlmacen);
+        btnEditarAlmacen.setBounds(510, 160, 120, 40);
+        pnl1Almacen.add(txtPreciodeCompra);
+        txtPreciodeCompra.setBounds(200, 160, 160, 30);
+        pnl1Almacen.add(txtProducto);
+        txtProducto.setBounds(130, 80, 160, 30);
+        pnl1Almacen.add(txtCantidaddeProducto);
+        txtCantidaddeProducto.setBounds(250, 120, 160, 30);
+
+        btnFiltrarAlmacen.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        btnFiltrarAlmacen.setText("Filtrar");
+        pnl1Almacen.add(btnFiltrarAlmacen);
+        btnFiltrarAlmacen.setBounds(540, 230, 100, 30);
+
+        lblImagen1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Lupa.png"))); // NOI18N
+        pnl1Almacen.add(lblImagen1);
+        lblImagen1.setBounds(40, 210, 30, 30);
+
+        tpnMostrar.addTab("pnl1Almacen", pnl1Almacen);
+
         getContentPane().add(tpnMostrar);
         tpnMostrar.setBounds(190, 80, 690, 560);
 
@@ -732,10 +834,15 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAgregarAlmacen;
     private javax.swing.JLabel btnAlmacen;
+    private javax.swing.JButton btnBuscarAlmacen;
     private javax.swing.JButton btnCrearUsuario;
     private javax.swing.JButton btnEditar;
+    private javax.swing.JButton btnEditarAlmacen;
     private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnEliminarAlmacen;
+    private javax.swing.JButton btnFiltrarAlmacen;
     private javax.swing.JButton btnGuardaryAgregarDatos;
     private javax.swing.JLabel btnajustes;
     private javax.swing.JLabel btncaja;
@@ -745,31 +852,39 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     private javax.swing.JLabel btnregistrodeusuario;
     private javax.swing.JLabel btnregistrodeventas;
     private javax.swing.JLabel btnreportes;
+    private javax.swing.JComboBox<String> cbTipoStock;
     private javax.swing.JComboBox<String> cbTipoUsuario;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPanel jpaneladmin;
     private javax.swing.JPanel jpanelgeneral;
     private javax.swing.JPanel jpanelsuperior;
     private javax.swing.JLabel lblAgregaryCrearUsuario;
     private javax.swing.JLabel lblApellidos;
+    private javax.swing.JLabel lblCantidaddeProducto;
     private javax.swing.JLabel lblClientes;
     private javax.swing.JLabel lblCompraDelMes;
     private javax.swing.JLabel lblContraseña;
     private javax.swing.JLabel lblDNIUsuario;
     private javax.swing.JLabel lblGanancias;
+    private javax.swing.JLabel lblImagen1;
     private javax.swing.JLabel lblNombres;
+    private javax.swing.JLabel lblPreciodeProducto;
+    private javax.swing.JLabel lblProducto;
     private javax.swing.JLabel lblProductos;
     private javax.swing.JLabel lblProveedores;
     private javax.swing.JLabel lblRUC;
     private javax.swing.JLabel lblRol;
     private javax.swing.JLabel lblSubTitulo;
     private javax.swing.JLabel lblSubTitulo1;
+    private javax.swing.JLabel lblSubtema2;
     private javax.swing.JLabel lblTelefono;
     private javax.swing.JLabel lblTipoUsuario;
     private javax.swing.JLabel lblVentasDelDia;
     private javax.swing.JLabel lblimagen1;
     private javax.swing.JLabel lblimagen2;
     private javax.swing.JLabel lblinventario;
+    private javax.swing.JPanel pnl1Almacen;
     private javax.swing.JPanel pnl1Inicio;
     private javax.swing.JPanel pnlCientes;
     private javax.swing.JPanel pnlCompraDelMes;
@@ -781,15 +896,20 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     private javax.swing.JPanel pnlVentasDelDia;
     private javax.swing.JRadioButton rbtActivo;
     private javax.swing.JRadioButton rbtInactivo;
+    private javax.swing.JTable tblRegistroProductos;
     private javax.swing.JTable tblRegistroUsuarios;
     private javax.swing.JTabbedPane tpnMostrar;
     private javax.swing.JTextField txtApellidos;
+    private javax.swing.JTextField txtBuscar;
+    private javax.swing.JTextField txtCantidaddeProducto;
     private javax.swing.JTextField txtClientes;
     private javax.swing.JTextField txtComprasDelMes;
     private javax.swing.JTextField txtContraseña;
     private javax.swing.JTextField txtDNIUsuario;
     private javax.swing.JTextField txtGanancias;
     private javax.swing.JTextField txtNombres;
+    private javax.swing.JTextField txtPreciodeCompra;
+    private javax.swing.JTextField txtProducto;
     private javax.swing.JTextField txtProductos;
     private javax.swing.JTextField txtProveedores;
     private javax.swing.JTextField txtTelefono;
