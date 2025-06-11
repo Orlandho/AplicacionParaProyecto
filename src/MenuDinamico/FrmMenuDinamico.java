@@ -1,15 +1,20 @@
 package MenuDinamico;
 
 import Usuario.Usuario;
-import Usuario.Administrador;
-import Usuario.Empleado;
 import java.awt.Component;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import GestorDatosPermanentes.SQLiteManager;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+import Login.FrmLogin;
+import java.time.LocalDate;
 
 public class FrmMenuDinamico extends javax.swing.JFrame {
 
     Usuario usuario;
+    SQLiteManager baseDeDatos;
+    DefaultTableModel modelo;
 
     /**
      * Creates new form MenuDinamico
@@ -17,18 +22,36 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     public FrmMenuDinamico() {
         initComponents();
         jpaneladmin.setVisible(false);
-
+        baseDeDatos = new SQLiteManager();
+        String[] columnas = {"Usuario ID", "Empleado", "Usuario", "Contraseña", "Tipo", "Telefono", "Estado"};
+        modelo = new DefaultTableModel(columnas, 0) {
+            @Override
+            public boolean isCellEditable(int row, int colum) {
+                return colum != 0;
+            }
+        };
+        tblRegistroUsuarios.setModel(modelo);
     }
 
     public void modificarSegunRol(Usuario usuario) {
-        if (usuario.getRol().equalsIgnoreCase("administrador")) {
-            this.usuario = new Administrador(usuario);
+        this.usuario = new Usuario(usuario);
+        if (this.usuario.getRol().equalsIgnoreCase("administrador")) {
             jpaneladmin.setVisible(true);
             jpaneladmin.setEnabled(true);
-        } else {
-            this.usuario = new Empleado(usuario);
         }
         lblRol.setText(usuario.getRol());
+    }
+
+    private void actualizarTBLRegistroUsuarios() {
+
+        modelo.setRowCount(0);
+        ArrayList<Usuario> lista = baseDeDatos.obtenerUsuarios();
+
+        for (Usuario usu : lista) {
+            //String[] columnas={"Empleado","Usuario","Contraseña","Tipo","Telefono","Estado"};
+            Object[] datoFila = {usu.getUsuario_id(), usu.getNombres() + " " + usu.getApellidos(), usu.getUsuarioDNIoRUC(), usu.getContraseña(), usu.getRol(), usu.getTelefono(), Usuario.parseEsCuentaBloqueada(usu.esCuentaBloqueada())};
+            modelo.addRow(datoFila);
+        }
     }
 
     /**
@@ -78,16 +101,38 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         pnlCientes = new javax.swing.JPanel();
         lblClientes = new javax.swing.JLabel();
         txtClientes = new javax.swing.JTextField();
-        pnlRegistroUsuAdminMain = new javax.swing.JPanel();
-        btnEditar = new javax.swing.JButton();
-        btnAgregarUsuario = new javax.swing.JButton();
+        pnlRegUsuMostrar = new javax.swing.JPanel();
         btnCrearUsuario = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblRegistroUsuarios = new javax.swing.JTable();
+        btnEditar = new javax.swing.JButton();
+        pnlRegUsuIngresar = new javax.swing.JPanel();
+        lblAgregaryCrearUsuario = new javax.swing.JLabel();
+        lblSubTitulo1 = new javax.swing.JLabel();
+        lblNombres = new javax.swing.JLabel();
+        txtNombres = new javax.swing.JTextField();
+        lblApellidos = new javax.swing.JLabel();
+        txtApellidos = new javax.swing.JTextField();
+        lblTelefono = new javax.swing.JLabel();
+        txtTelefono = new javax.swing.JTextField();
+        lblDNIUsuario = new javax.swing.JLabel();
+        txtDNIUsuario = new javax.swing.JTextField();
+        lblContraseña = new javax.swing.JLabel();
+        txtContraseña = new javax.swing.JTextField();
+        lblTipoUsuario = new javax.swing.JLabel();
+        cbTipoUsuario = new javax.swing.JComboBox<>();
+        btnGuardaryAgregarDatos = new javax.swing.JButton();
+        rbtActivo = new javax.swing.JRadioButton();
+        rbtInactivo = new javax.swing.JRadioButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
         getContentPane().setLayout(null);
 
         jpanelgeneral.setBackground(new java.awt.Color(0, 153, 153));
@@ -190,7 +235,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
 
         btncerrarsesion.setFont(new java.awt.Font("DialogInput", 0, 18)); // NOI18N
         btncerrarsesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/puerta.png"))); // NOI18N
-        btncerrarsesion.setText("SALIR");
+        btncerrarsesion.setText("<html>CERRAR<br>SESION</html>");
         btncerrarsesion.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btncerrarsesionMouseClicked(evt);
@@ -221,7 +266,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         lblRUC.setFont(new java.awt.Font("Cartoon Fun", 0, 14)); // NOI18N
         lblRUC.setText("Agro Integral Perú");
         jpanelsuperior.add(lblRUC);
-        lblRUC.setBounds(610, 10, 200, 19);
+        lblRUC.setBounds(610, 10, 200, 24);
 
         lblRol.setText("Empleado");
         jpanelsuperior.add(lblRol);
@@ -319,53 +364,167 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
 
         tpnMostrar.addTab("pnl1Inicio", pnl1Inicio);
 
-        pnlRegistroUsuAdminMain.setLayout(null);
-
-        btnEditar.setBackground(new java.awt.Color(226, 237, 241));
-        btnEditar.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
-        btnEditar.setText("Editar");
-        pnlRegistroUsuAdminMain.add(btnEditar);
-        btnEditar.setBounds(370, 420, 230, 40);
-
-        btnAgregarUsuario.setBackground(new java.awt.Color(226, 237, 241));
-        btnAgregarUsuario.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
-        btnAgregarUsuario.setText("Agregar Empleado");
-        pnlRegistroUsuAdminMain.add(btnAgregarUsuario);
-        btnAgregarUsuario.setBounds(60, 60, 230, 40);
+        pnlRegUsuMostrar.setLayout(null);
 
         btnCrearUsuario.setBackground(new java.awt.Color(202, 244, 250));
         btnCrearUsuario.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
         btnCrearUsuario.setText("Crear Usuario");
-        pnlRegistroUsuAdminMain.add(btnCrearUsuario);
-        btnCrearUsuario.setBounds(370, 60, 230, 40);
+        btnCrearUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCrearUsuarioActionPerformed(evt);
+            }
+        });
+        pnlRegUsuMostrar.add(btnCrearUsuario);
+        btnCrearUsuario.setBounds(230, 60, 210, 40);
 
         btnEliminar.setBackground(new java.awt.Color(202, 244, 250));
         btnEliminar.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
         btnEliminar.setText("Eliminar");
-        pnlRegistroUsuAdminMain.add(btnEliminar);
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
+        pnlRegUsuMostrar.add(btnEliminar);
         btnEliminar.setBounds(60, 420, 230, 40);
 
         tblRegistroUsuarios.setBackground(new java.awt.Color(220, 235, 245));
         tblRegistroUsuarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Empleado", "Usuario", "Contraseña", "Tipo", "Telefono", "Estado"
+                "Usuario ID", "Empleado", "Usuario", "Contraseña", "Tipo", "Telefono", "Estado"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, true, true, true, true, true, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tblRegistroUsuarios.setGridColor(new java.awt.Color(255, 255, 255));
         jScrollPane1.setViewportView(tblRegistroUsuarios);
 
-        pnlRegistroUsuAdminMain.add(jScrollPane1);
-        jScrollPane1.setBounds(30, 140, 630, 230);
+        pnlRegUsuMostrar.add(jScrollPane1);
+        jScrollPane1.setBounds(20, 140, 660, 240);
 
-        tpnMostrar.addTab("Registro Administrador", pnlRegistroUsuAdminMain);
+        btnEditar.setBackground(new java.awt.Color(226, 237, 241));
+        btnEditar.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
+        btnEditar.setText("Editar");
+        btnEditar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnEditarMouseClicked(evt);
+            }
+        });
+        pnlRegUsuMostrar.add(btnEditar);
+        btnEditar.setBounds(370, 420, 230, 40);
+
+        tpnMostrar.addTab("pnlRegUsuMostrar", pnlRegUsuMostrar);
+
+        pnlRegUsuIngresar.setLayout(null);
+
+        lblAgregaryCrearUsuario.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
+        lblAgregaryCrearUsuario.setText("AGREGAR Y CREAR USUARIO");
+        pnlRegUsuIngresar.add(lblAgregaryCrearUsuario);
+        lblAgregaryCrearUsuario.setBounds(50, 50, 220, 30);
+
+        lblSubTitulo1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblSubTitulo1.setText("• Creación de Usuario");
+        pnlRegUsuIngresar.add(lblSubTitulo1);
+        lblSubTitulo1.setBounds(70, 110, 150, 20);
+
+        lblNombres.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
+        lblNombres.setText("Nombres:");
+        pnlRegUsuIngresar.add(lblNombres);
+        lblNombres.setBounds(70, 160, 60, 30);
+
+        txtNombres.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNombresActionPerformed(evt);
+            }
+        });
+        pnlRegUsuIngresar.add(txtNombres);
+        txtNombres.setBounds(130, 160, 190, 30);
+
+        lblApellidos.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
+        lblApellidos.setText("Apellidos:");
+        pnlRegUsuIngresar.add(lblApellidos);
+        lblApellidos.setBounds(330, 160, 60, 30);
+        pnlRegUsuIngresar.add(txtApellidos);
+        txtApellidos.setBounds(390, 160, 190, 30);
+
+        lblTelefono.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
+        lblTelefono.setText("Telefono:");
+        pnlRegUsuIngresar.add(lblTelefono);
+        lblTelefono.setBounds(70, 230, 60, 30);
+        pnlRegUsuIngresar.add(txtTelefono);
+        txtTelefono.setBounds(130, 230, 190, 30);
+
+        lblDNIUsuario.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
+        lblDNIUsuario.setText("DNI/Usuario:");
+        pnlRegUsuIngresar.add(lblDNIUsuario);
+        lblDNIUsuario.setBounds(330, 230, 90, 30);
+        pnlRegUsuIngresar.add(txtDNIUsuario);
+        txtDNIUsuario.setBounds(420, 230, 180, 30);
+
+        lblContraseña.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
+        lblContraseña.setText("Contraseña:");
+        pnlRegUsuIngresar.add(lblContraseña);
+        lblContraseña.setBounds(70, 300, 70, 30);
+        pnlRegUsuIngresar.add(txtContraseña);
+        txtContraseña.setBounds(140, 300, 180, 30);
+
+        lblTipoUsuario.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
+        lblTipoUsuario.setText("Tipo Usuario:");
+        pnlRegUsuIngresar.add(lblTipoUsuario);
+        lblTipoUsuario.setBounds(330, 300, 80, 30);
+
+        cbTipoUsuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "administrador", "empleado" }));
+        pnlRegUsuIngresar.add(cbTipoUsuario);
+        cbTipoUsuario.setBounds(410, 300, 170, 30);
+
+        btnGuardaryAgregarDatos.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
+        btnGuardaryAgregarDatos.setText("Guardar y Agregar Datos");
+        btnGuardaryAgregarDatos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardaryAgregarDatosActionPerformed(evt);
+            }
+        });
+        pnlRegUsuIngresar.add(btnGuardaryAgregarDatos);
+        btnGuardaryAgregarDatos.setBounds(320, 390, 300, 50);
+
+        rbtActivo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        rbtActivo.setForeground(new java.awt.Color(102, 153, 0));
+        rbtActivo.setSelected(true);
+        rbtActivo.setText("ACTIVO");
+        rbtActivo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtActivoActionPerformed(evt);
+            }
+        });
+        pnlRegUsuIngresar.add(rbtActivo);
+        rbtActivo.setBounds(140, 390, 100, 20);
+
+        rbtInactivo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        rbtInactivo.setForeground(new java.awt.Color(204, 0, 0));
+        rbtInactivo.setText("INACTIVO");
+        rbtInactivo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtInactivoActionPerformed(evt);
+            }
+        });
+        pnlRegUsuIngresar.add(rbtInactivo);
+        rbtInactivo.setBounds(140, 420, 100, 20);
+
+        tpnMostrar.addTab("pnlRegUsuIngresar", pnlRegUsuIngresar);
 
         getContentPane().add(tpnMostrar);
         tpnMostrar.setBounds(190, 80, 690, 560);
@@ -374,46 +533,167 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void mostrarNombre(JLabel label) {
-        JOptionPane.showMessageDialog(this, "el boton" + label.getText() + " FUNCIONA!!!");
-    }
 
     private void btninicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btninicioMouseClicked
-        mostrarNombre(btninicio);
-        
+        tpnMostrar.setSelectedIndex(0);
     }//GEN-LAST:event_btninicioMouseClicked
 
     private void btnAlmacenMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAlmacenMouseClicked
-        mostrarNombre(btnAlmacen);
+
     }//GEN-LAST:event_btnAlmacenMouseClicked
 
     private void btnregistrodecomprasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnregistrodecomprasMouseClicked
-        mostrarNombre(btnAlmacen);
+
     }//GEN-LAST:event_btnregistrodecomprasMouseClicked
 
     private void btnregistrodeventasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnregistrodeventasMouseClicked
-        mostrarNombre(btnregistrodeventas);
+
     }//GEN-LAST:event_btnregistrodeventasMouseClicked
 
     private void btncajaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btncajaMouseClicked
-        mostrarNombre(btncaja);
+
     }//GEN-LAST:event_btncajaMouseClicked
 
     private void btnregistrodeusuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnregistrodeusuarioMouseClicked
-        mostrarNombre(btnregistrodeusuario);
+        actualizarTBLRegistroUsuarios();
+        tpnMostrar.setSelectedIndex(1);
     }//GEN-LAST:event_btnregistrodeusuarioMouseClicked
 
     private void btnreportesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnreportesMouseClicked
-        mostrarNombre(btnreportes);
+
     }//GEN-LAST:event_btnreportesMouseClicked
 
     private void btnajustesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnajustesMouseClicked
-        mostrarNombre(btnajustes);
+
     }//GEN-LAST:event_btnajustesMouseClicked
 
     private void btncerrarsesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btncerrarsesionMouseClicked
-        mostrarNombre(btncerrarsesion);
+        if (JOptionPane.showConfirmDialog(this, "¿Esta seguro de cerrar sesion?", "Lo extrañaremos ;)", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            dispose();
+            baseDeDatos.cerrarConexion();
+            FrmLogin login = new FrmLogin();
+            login.setVisible(true);
+        }
     }//GEN-LAST:event_btncerrarsesionMouseClicked
+
+    private void btnCrearUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearUsuarioActionPerformed
+        // TODO add your handling code here:
+        tpnMostrar.setSelectedIndex(2);
+    }//GEN-LAST:event_btnCrearUsuarioActionPerformed
+
+    private boolean faltanDatosUsuario() {
+        return txtNombres.getText().isBlank() || txtApellidos.getText().isBlank() || txtTelefono.getText().isBlank() || txtDNIUsuario.getText().isBlank() || txtContraseña.getText().isBlank();
+    }
+
+    private void btnGuardaryAgregarDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardaryAgregarDatosActionPerformed
+        String errorMensaje = "";
+        boolean noIngresar = false;
+        if (faltanDatosUsuario()) {
+            errorMensaje += "Error: Falta llenar datos";
+            noIngresar = true;
+        }
+
+        if (Usuario.muyLargo(txtNombres.getText()) || Usuario.muyLargo(txtApellidos.getText()) || Usuario.muyLargo(txtContraseña.getText())) {
+            errorMensaje += "Error: nombres o apellidos o contraseña muy largos.\n";
+            noIngresar = true;
+        }
+
+        Integer telefono = Usuario.tryParseTelefono(txtTelefono.getText());
+        Long usuarioDNI = Usuario.tryParseUsuarioDNI(txtDNIUsuario.getText());
+        if (telefono == null) {
+            errorMensaje += "Error: Formato de telefono no valido. Debe ser de 6 o 9 digitos\n";
+            noIngresar = true;
+        }
+        if (usuarioDNI == null) {
+            errorMensaje += "Error: Formato de DNI no valido.\n";
+            noIngresar = true;
+        }
+        if (noIngresar) {
+            JOptionPane.showMessageDialog(this, errorMensaje);
+            return;
+        }
+
+        boolean esCuentaInactiva = rbtInactivo.isSelected();
+        baseDeDatos.crearCuentaUsuario(usuarioDNI, txtNombres.getText(), txtApellidos.getText(), Integer.parseInt(txtTelefono.getText()), txtContraseña.getText(), cbTipoUsuario.getSelectedItem().toString(), esCuentaInactiva);
+        actualizarTBLRegistroUsuarios();
+    }//GEN-LAST:event_btnGuardaryAgregarDatosActionPerformed
+
+    private void rbtActivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtActivoActionPerformed
+        rbtActivo.setSelected(true);
+        rbtInactivo.setSelected(false);
+
+    }//GEN-LAST:event_rbtActivoActionPerformed
+
+    private void rbtInactivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtInactivoActionPerformed
+        rbtInactivo.setSelected(true);
+        rbtActivo.setSelected(false);
+
+    }//GEN-LAST:event_rbtInactivoActionPerformed
+
+    private void txtNombresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombresActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombresActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        if (JOptionPane.showConfirmDialog(this, "¿Esta seguro de salir? Su sesion se cerrará automaticamente.", "Lo extrañaremos ;)", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            baseDeDatos.cerrarConexion();
+            System.exit(0);
+        }
+    }//GEN-LAST:event_formWindowClosing
+
+    private String[] separarNombresApellidos(String nombresApellidos) {
+        int tamaño = nombresApellidos.length();
+        String[] nombre_apellido = new String[]{"", ""};
+        int j = 0;
+        for (int i = 0; i < tamaño; i++) {
+            if (nombresApellidos.charAt(i) == ' ' && j < nombre_apellido.length - 1) {
+                j++;
+                continue;
+            }
+            nombre_apellido[j] += nombresApellidos.charAt(i);
+        }
+        return nombre_apellido;
+    }
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        int filaSeleccion = tblRegistroUsuarios.getSelectedRow();
+        if (filaSeleccion < 0) {
+            JOptionPane.showMessageDialog(this, "Seleccione una fila para eliminar");
+            return;
+        }
+        int usuario_id = Integer.parseInt(modelo.getValueAt(filaSeleccion, 0).toString());
+        baseDeDatos.eliminarUsuario(usuario_id);
+        actualizarTBLRegistroUsuarios();
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnEditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditarMouseClicked
+        int filaSeleccion = tblRegistroUsuarios.getSelectedRow();
+        if (filaSeleccion < 0) {
+            JOptionPane.showMessageDialog(this, "Seleccione una fila para editar");
+            return;
+        }
+        int usuID = Integer.parseInt(modelo.getValueAt(filaSeleccion, 0).toString());
+        //Empleado nombre String
+        String[] nombres_apellidos = separarNombresApellidos(modelo.getValueAt(filaSeleccion, 1).toString());
+        String nombre = nombres_apellidos[0];
+        String apellido = nombres_apellidos[1];
+        //UsuarioDNIoRUC Long
+        long usuarioDNI = Long.parseLong(modelo.getValueAt(filaSeleccion, 2).toString());
+        //Contraseña String
+        String contra = modelo.getValueAt(filaSeleccion, 3).toString();
+        //Tipo String
+        String rol = modelo.getValueAt(filaSeleccion, 4).toString();
+        //Telefono int
+        int fono = Integer.parseInt(modelo.getValueAt(filaSeleccion, 5).toString());
+
+        //Estado boolean
+        boolean esCuentaBloqueada = Usuario.parseEsCuentaBloqueada(modelo.getValueAt(filaSeleccion, 6).toString());
+        esCuentaBloqueada = true;
+        //long usuarioDNI, String contraseña, String rol, LocalDate fechaUltimoCambio,int intentosFallidos, boolean cuentaBloqueada, String nombres, String apellidos, int telefono, int usuario_id
+        baseDeDatos.actualizarUsuario(usuarioDNI, contra, rol, LocalDate.now(), 0, esCuentaBloqueada, nombre, apellido, fono, usuID);
+        actualizarTBLRegistroUsuarios();
+
+    }//GEN-LAST:event_btnEditarMouseClicked
 
     /**
      * @param args the command line arguments
@@ -452,11 +732,11 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAgregarUsuario;
     private javax.swing.JLabel btnAlmacen;
     private javax.swing.JButton btnCrearUsuario;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnGuardaryAgregarDatos;
     private javax.swing.JLabel btnajustes;
     private javax.swing.JLabel btncaja;
     private javax.swing.JLabel btncerrarsesion;
@@ -465,18 +745,27 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     private javax.swing.JLabel btnregistrodeusuario;
     private javax.swing.JLabel btnregistrodeventas;
     private javax.swing.JLabel btnreportes;
+    private javax.swing.JComboBox<String> cbTipoUsuario;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel jpaneladmin;
     private javax.swing.JPanel jpanelgeneral;
     private javax.swing.JPanel jpanelsuperior;
+    private javax.swing.JLabel lblAgregaryCrearUsuario;
+    private javax.swing.JLabel lblApellidos;
     private javax.swing.JLabel lblClientes;
     private javax.swing.JLabel lblCompraDelMes;
+    private javax.swing.JLabel lblContraseña;
+    private javax.swing.JLabel lblDNIUsuario;
     private javax.swing.JLabel lblGanancias;
+    private javax.swing.JLabel lblNombres;
     private javax.swing.JLabel lblProductos;
     private javax.swing.JLabel lblProveedores;
     private javax.swing.JLabel lblRUC;
     private javax.swing.JLabel lblRol;
     private javax.swing.JLabel lblSubTitulo;
+    private javax.swing.JLabel lblSubTitulo1;
+    private javax.swing.JLabel lblTelefono;
+    private javax.swing.JLabel lblTipoUsuario;
     private javax.swing.JLabel lblVentasDelDia;
     private javax.swing.JLabel lblimagen1;
     private javax.swing.JLabel lblimagen2;
@@ -487,15 +776,23 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     private javax.swing.JPanel pnlGancias;
     private javax.swing.JPanel pnlProductos;
     private javax.swing.JPanel pnlProveedores;
-    private javax.swing.JPanel pnlRegistroUsuAdminMain;
+    private javax.swing.JPanel pnlRegUsuIngresar;
+    private javax.swing.JPanel pnlRegUsuMostrar;
     private javax.swing.JPanel pnlVentasDelDia;
+    private javax.swing.JRadioButton rbtActivo;
+    private javax.swing.JRadioButton rbtInactivo;
     private javax.swing.JTable tblRegistroUsuarios;
     private javax.swing.JTabbedPane tpnMostrar;
+    private javax.swing.JTextField txtApellidos;
     private javax.swing.JTextField txtClientes;
     private javax.swing.JTextField txtComprasDelMes;
+    private javax.swing.JTextField txtContraseña;
+    private javax.swing.JTextField txtDNIUsuario;
     private javax.swing.JTextField txtGanancias;
+    private javax.swing.JTextField txtNombres;
     private javax.swing.JTextField txtProductos;
     private javax.swing.JTextField txtProveedores;
+    private javax.swing.JTextField txtTelefono;
     private javax.swing.JTextField txtVentasDelDia;
     // End of variables declaration//GEN-END:variables
 }

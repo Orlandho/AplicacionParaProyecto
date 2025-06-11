@@ -42,7 +42,7 @@ public class FrmLogin extends javax.swing.JFrame {
         lblDecoracion1 = new javax.swing.JLabel();
         lblLogoEmpresa = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Sistema de Inventario - Agro Integral");
         setBackground(new java.awt.Color(255, 255, 255));
         setResizable(false);
@@ -128,7 +128,7 @@ public class FrmLogin extends javax.swing.JFrame {
 
             JOptionPane.showOptionDialog(this, JPanelPedirContraNueva, "Creando contraseña", JOptionPane.NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
             contraseñaNueva = txfNuevaContra.getText();
-            if (!MantenimientoLogin.esContraseñaValida(txfNuevaContra.getText())) {
+            if (!Usuario.esContraseñaValida(txfNuevaContra.getText())) {
                 JOptionPane.showMessageDialog(this, "Formato de contraseña incorrecto. Intente de nuevo");
                 continue;
             } else if (contraseñaAntigua.equals(contraseñaNueva)) {
@@ -164,7 +164,7 @@ public class FrmLogin extends javax.swing.JFrame {
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
         String DNIoRUC = txfUsuario.getText(), contraseña = txfContraseña.getText();
 
-        if (!MantenimientoLogin.esDniORucValido(DNIoRUC) || !MantenimientoLogin.esContraseñaValida(contraseña)) {
+        if (!Usuario.esDniORucValido(DNIoRUC) || !Usuario.esContraseñaValida(contraseña)) {
             JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos. Intente de nuevo");
             return;
         }
@@ -172,6 +172,7 @@ public class FrmLogin extends javax.swing.JFrame {
 
         if ((int) respuestaDB.get(0) == SQLiteManager.PUEDE_INGRESAR) {
             dispose();
+            baseDeDatos.cerrarConexion();
             FrmMenuDinamico menu = new FrmMenuDinamico();
             menu.modificarSegunRol((Usuario) respuestaDB.get(1));
             menu.setVisible(true);
@@ -184,7 +185,10 @@ public class FrmLogin extends javax.swing.JFrame {
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         // TODO add your handling code here:
-        baseDeDatos.cerrarConexion();
+        if (JOptionPane.showConfirmDialog(this, "¿Esta seguro de salir?", "Lo extrañaremos ;)", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            baseDeDatos.cerrarConexion();
+            System.exit(0);
+        }
     }//GEN-LAST:event_formWindowClosing
 
     /**

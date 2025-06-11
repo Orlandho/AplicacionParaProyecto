@@ -2,45 +2,47 @@ package Usuario;
 
 public abstract class Persona {
 
-    protected String nombre, apellido, genero, direccion;
+    protected String nombres, apellidos;
+    protected int telefono;
+    protected long DNIoRUC;
 
-    public Persona(String nombre, String apellido, String genero, String direccion) {
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.genero = genero;
-        this.direccion = direccion;
+    public Persona(String nombres, String apellidos, long DNIoRUC, int telefono) {
+        this.nombres = nombres;
+        this.apellidos = apellidos;
+        this.DNIoRUC = DNIoRUC;
+        this.telefono = telefono;
     }
 
-    public String getNombre() {
-        return nombre;
+    public int getTelefono() {
+        return telefono;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setTelefono(int telefono) {
+        this.telefono = telefono;
     }
 
-    public String getApellido() {
-        return apellido;
+    public String getNombres() {
+        return nombres;
     }
 
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
+    public void setNombres(String nombres) {
+        this.nombres = nombres;
     }
 
-    public String getGenero() {
-        return genero;
+    public String getApellidos() {
+        return apellidos;
     }
 
-    public void setGenero(String genero) {
-        this.genero = genero;
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
     }
 
-    public String getDireccion() {
-        return direccion;
+    public long getDNIoRUC() {
+        return DNIoRUC;
     }
 
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
+    public void setDNIoRUC(long DNIoRUC) {
+        this.DNIoRUC = DNIoRUC;
     }
 
 }
