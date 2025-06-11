@@ -2,6 +2,7 @@ package MenuDinamico;
 
 import Usuario.Usuario;
 import ServiciosUsuario.ConvertidorUsuario;
+import ServiciosUsuario.VerificadorUsuario;
 import java.awt.Component;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -563,6 +564,11 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
             return;
         }
         
+        if(VerificadorUsuario.muyLargo(txtNombres.getText())||VerificadorUsuario.muyLargo(txtApellidos.getText())||VerificadorUsuario.muyLargo(txtContraseña.getText())){
+            JOptionPane.showMessageDialog(this, "Error nombres o apellidos o contraseña muy largos.");
+            return;
+        }
+        
         String errorMensaje="";
         Integer telefono=ConvertidorUsuario.tryParseTelefono(txtTelefono.getText());
         Long usuarioDNI=ConvertidorUsuario.tryParseUsuarioDNI(txtDNIUsuario.getText());
@@ -576,6 +582,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, errorMensaje);
             return;
         }
+        
         boolean esCuentaInactiva=rbtInactivo.isSelected();
         
         baseDeDatos.crearCuentaUsuario(usuarioDNI, txtNombres.getText(),txtApellidos.getText() , Integer.parseInt(txtTelefono.getText()), txtContraseña.getText(), cbTipoUsuario.getSelectedItem().toString(),esCuentaInactiva);

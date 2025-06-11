@@ -23,5 +23,8 @@ public class VerificadorUsuario {
         return telefonoMatch.matches("\\d{6}")||telefonoMatch.matches("\\d{9}");
     }
     
+    public static boolean muyLargo(String texto){
+        return texto.length()>20;
+    }
     
 }
