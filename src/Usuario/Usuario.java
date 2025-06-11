@@ -13,22 +13,20 @@ public class Usuario extends Persona {
     private boolean cuentaBloqueada = false;
 
     public Usuario(int usuario_id, long DNIoRUC, String contraseña,
-            String rol, LocalDate fechaUltimoCambio,int intentosFallidos,boolean cuentaBloqueada,
-            String nombres, String apellidos,int telefono) {
-        super(nombres, apellidos,DNIoRUC,telefono);
+            String rol, LocalDate fechaUltimoCambio, int intentosFallidos, boolean cuentaBloqueada,
+            String nombres, String apellidos, int telefono) {
+        super(nombres, apellidos, DNIoRUC, telefono);
         this.usuario_id = usuario_id;
         this.usuarioDNIoRUC = DNIoRUC;
         this.contraseña = contraseña;
         this.rol = rol;
         this.fechaUltimoCambio = fechaUltimoCambio;
-        this.intentosFallidos=intentosFallidos;
-        this.cuentaBloqueada=cuentaBloqueada;
+        this.intentosFallidos = intentosFallidos;
+        this.cuentaBloqueada = cuentaBloqueada;
     }
 
-    
-
     public Usuario(Usuario usuario) {
-        super(usuario.nombres, usuario.apellidos, usuario.usuarioDNIoRUC,usuario.telefono);
+        super(usuario.nombres, usuario.apellidos, usuario.usuarioDNIoRUC, usuario.telefono);
         this.usuarioDNIoRUC = usuario.usuarioDNIoRUC;
         this.contraseña = usuario.contraseña;
         this.rol = usuario.rol;
@@ -43,7 +41,6 @@ public class Usuario extends Persona {
     public void setUsuarioDNIoRUC(long usuarioDNIoRUC) {
         this.usuarioDNIoRUC = usuarioDNIoRUC;
     }
-
 
     public String getContraseña() {
         return contraseña;
@@ -77,8 +74,6 @@ public class Usuario extends Persona {
     public void setUsuario_id(int usuario_id) {
         this.usuario_id = usuario_id;
     }
-    
-    
 
     public int getIntentosFallidos() {
         return intentosFallidos;

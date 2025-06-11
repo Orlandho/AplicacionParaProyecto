@@ -6,11 +6,11 @@ public abstract class Persona {
     protected int telefono;
     protected long DNIoRUC;
 
-    public Persona(String nombres, String apellidos,long DNIoRUC,int telefono) {
+    public Persona(String nombres, String apellidos, long DNIoRUC, int telefono) {
         this.nombres = nombres;
         this.apellidos = apellidos;
-        this.DNIoRUC=DNIoRUC;
-        this.telefono=telefono;
+        this.DNIoRUC = DNIoRUC;
+        this.telefono = telefono;
     }
 
     public int getTelefono() {
@@ -21,8 +21,6 @@ public abstract class Persona {
         this.telefono = telefono;
     }
 
-    
-    
     public String getNombres() {
         return nombres;
     }
@@ -46,6 +44,5 @@ public abstract class Persona {
     public void setDNIoRUC(long DNIoRUC) {
         this.DNIoRUC = DNIoRUC;
     }
-
 
 }

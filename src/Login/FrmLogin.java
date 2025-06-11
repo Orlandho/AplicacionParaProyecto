@@ -43,7 +43,7 @@ public class FrmLogin extends javax.swing.JFrame {
         lblDecoracion1 = new javax.swing.JLabel();
         lblLogoEmpresa = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Sistema de Inventario - Agro Integral");
         setBackground(new java.awt.Color(255, 255, 255));
         setResizable(false);
@@ -186,7 +186,10 @@ public class FrmLogin extends javax.swing.JFrame {
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         // TODO add your handling code here:
-        baseDeDatos.cerrarConexion();
+        if (JOptionPane.showConfirmDialog(this, "¿Esta seguro de salir?", "Lo extrañaremos ;)", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            baseDeDatos.cerrarConexion();
+            System.exit(0);
+        }
     }//GEN-LAST:event_formWindowClosing
 
     /**

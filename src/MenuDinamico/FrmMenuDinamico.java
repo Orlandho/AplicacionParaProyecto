@@ -2,12 +2,14 @@ package MenuDinamico;
 
 import Usuario.Usuario;
 import ServiciosUsuario.ConvertidorUsuario;
+import ServiciosUsuario.VerificadorUsuario;
 import java.awt.Component;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import GestorDatosPermanentes.SQLiteManager;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
+import Login.FrmLogin;
 
 public class FrmMenuDinamico extends javax.swing.JFrame {
 
@@ -21,31 +23,31 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     public FrmMenuDinamico() {
         initComponents();
         jpaneladmin.setVisible(false);
-        baseDeDatos=new SQLiteManager();
-        String[] columnas={"Empleado","Usuario","Contraseña","Tipo","Telefono","Estado"};
-        modelo= new DefaultTableModel(columnas,0);
+        baseDeDatos = new SQLiteManager();
+        String[] columnas = {"Empleado", "Usuario", "Contraseña", "Tipo", "Telefono", "Estado"};
+        modelo = new DefaultTableModel(columnas, 0);
         tblRegistroUsuarios.setModel(modelo);
     }
 
     public void modificarSegunRol(Usuario usuario) {
-        this.usuario= new Usuario(usuario);
+        this.usuario = new Usuario(usuario);
         if (this.usuario.getRol().equalsIgnoreCase("administrador")) {
             jpaneladmin.setVisible(true);
             jpaneladmin.setEnabled(true);
         }
         lblRol.setText(usuario.getRol());
     }
-    
-    private void actualizarTBLRegistroUsuarios(){
-        
+
+    private void actualizarTBLRegistroUsuarios() {
+
         modelo.setRowCount(0);
-        ArrayList<Usuario> lista=baseDeDatos.obtenerUsuarios();
-        
+        ArrayList<Usuario> lista = baseDeDatos.obtenerUsuarios();
+
         for (Usuario usu : lista) {
             //String[] columnas={"Empleado","Usuario","Contraseña","Tipo","Telefono","Estado"};
-            Object[] datoFila={usu.getNombres(),usu.getUsuarioDNIoRUC(),usu.getContraseña(),usu.getRol(),usu.getTelefono(),ConvertidorUsuario.parseEsCuentaBloqueada(usu.esCuentaBloqueada())};
+            Object[] datoFila = {usu.getNombres(), usu.getUsuarioDNIoRUC(), usu.getContraseña(), usu.getRol(), usu.getTelefono(), ConvertidorUsuario.parseEsCuentaBloqueada(usu.esCuentaBloqueada())};
             modelo.addRow(datoFila);
-            
+
         }
     }
 
@@ -121,8 +123,13 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         rbtActivo = new javax.swing.JRadioButton();
         rbtInactivo = new javax.swing.JRadioButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
         getContentPane().setLayout(null);
 
         jpanelgeneral.setBackground(new java.awt.Color(0, 153, 153));
@@ -225,7 +232,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
 
         btncerrarsesion.setFont(new java.awt.Font("DialogInput", 0, 18)); // NOI18N
         btncerrarsesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/puerta.png"))); // NOI18N
-        btncerrarsesion.setText("SALIR");
+        btncerrarsesion.setText("<html>CERRAR<br>SESION</html>");
         btncerrarsesion.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btncerrarsesionMouseClicked(evt);
@@ -505,29 +512,25 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void mostrarNombre(JLabel label) {
-        JOptionPane.showMessageDialog(this, "el boton" + label.getText() + " FUNCIONA!!!");
-    }
 
     private void btninicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btninicioMouseClicked
         tpnMostrar.setSelectedIndex(0);
-        
     }//GEN-LAST:event_btninicioMouseClicked
 
     private void btnAlmacenMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAlmacenMouseClicked
-        mostrarNombre(btnAlmacen);
+
     }//GEN-LAST:event_btnAlmacenMouseClicked
 
     private void btnregistrodecomprasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnregistrodecomprasMouseClicked
-        mostrarNombre(btnAlmacen);
+
     }//GEN-LAST:event_btnregistrodecomprasMouseClicked
 
     private void btnregistrodeventasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnregistrodeventasMouseClicked
-        mostrarNombre(btnregistrodeventas);
+
     }//GEN-LAST:event_btnregistrodeventasMouseClicked
 
     private void btncajaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btncajaMouseClicked
-        mostrarNombre(btncaja);
+
     }//GEN-LAST:event_btncajaMouseClicked
 
     private void btnregistrodeusuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnregistrodeusuarioMouseClicked
@@ -536,15 +539,20 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     }//GEN-LAST:event_btnregistrodeusuarioMouseClicked
 
     private void btnreportesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnreportesMouseClicked
-        mostrarNombre(btnreportes);
+
     }//GEN-LAST:event_btnreportesMouseClicked
 
     private void btnajustesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnajustesMouseClicked
-        mostrarNombre(btnajustes);
+
     }//GEN-LAST:event_btnajustesMouseClicked
 
     private void btncerrarsesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btncerrarsesionMouseClicked
-        mostrarNombre(btncerrarsesion);
+        if (JOptionPane.showConfirmDialog(this, "¿Esta seguro de cerrar sesion?", "Lo extrañaremos ;)", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            dispose();
+            baseDeDatos.cerrarConexion();
+            FrmLogin login = new FrmLogin();
+            login.setVisible(true);
+        }
     }//GEN-LAST:event_btncerrarsesionMouseClicked
 
     private void btnCrearUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearUsuarioActionPerformed
@@ -552,51 +560,64 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         tpnMostrar.setSelectedIndex(2);
     }//GEN-LAST:event_btnCrearUsuarioActionPerformed
 
-    private boolean faltanDatosUsuario(){
-        return txtNombres.getText().isBlank()||txtApellidos.getText().isBlank()||txtTelefono.getText().isBlank()||txtDNIUsuario.getText().isBlank()||txtContraseña.getText().isBlank();
+    private boolean faltanDatosUsuario() {
+        return txtNombres.getText().isBlank() || txtApellidos.getText().isBlank() || txtTelefono.getText().isBlank() || txtDNIUsuario.getText().isBlank() || txtContraseña.getText().isBlank();
     }
-    
+
     private void btnGuardaryAgregarDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardaryAgregarDatosActionPerformed
-        
-        if(faltanDatosUsuario()){
+
+        if (faltanDatosUsuario()) {
             JOptionPane.showMessageDialog(this, "Falta llenar datos");
             return;
         }
-        
-        String errorMensaje="";
-        Integer telefono=ConvertidorUsuario.tryParseTelefono(txtTelefono.getText());
-        Long usuarioDNI=ConvertidorUsuario.tryParseUsuarioDNI(txtDNIUsuario.getText());
-        if(telefono==null||usuarioDNI==null){
-            if(telefono==null){
-                errorMensaje+="Formato de telefono no valido. Debe ser de 6 o 9 digitos\n";
+
+        if (VerificadorUsuario.muyLargo(txtNombres.getText()) || VerificadorUsuario.muyLargo(txtApellidos.getText()) || VerificadorUsuario.muyLargo(txtContraseña.getText())) {
+            JOptionPane.showMessageDialog(this, "Error nombres o apellidos o contraseña muy largos.");
+            return;
+        }
+
+        String errorMensaje = "";
+        Integer telefono = ConvertidorUsuario.tryParseTelefono(txtTelefono.getText());
+        Long usuarioDNI = ConvertidorUsuario.tryParseUsuarioDNI(txtDNIUsuario.getText());
+        if (telefono == null || usuarioDNI == null) {
+            if (telefono == null) {
+                errorMensaje += "Formato de telefono no valido. Debe ser de 6 o 9 digitos\n";
             }
-            if(usuarioDNI==null){
-                errorMensaje+="Formato de DNI o RUC no valido.\n";
+            if (usuarioDNI == null) {
+                errorMensaje += "Formato de DNI o RUC no valido.\n";
             }
             JOptionPane.showMessageDialog(this, errorMensaje);
             return;
         }
-        boolean esCuentaInactiva=rbtInactivo.isSelected();
-        
-        baseDeDatos.crearCuentaUsuario(usuarioDNI, txtNombres.getText(),txtApellidos.getText() , Integer.parseInt(txtTelefono.getText()), txtContraseña.getText(), cbTipoUsuario.getSelectedItem().toString(),esCuentaInactiva);
+
+        boolean esCuentaInactiva = rbtInactivo.isSelected();
+
+        baseDeDatos.crearCuentaUsuario(usuarioDNI, txtNombres.getText(), txtApellidos.getText(), Integer.parseInt(txtTelefono.getText()), txtContraseña.getText(), cbTipoUsuario.getSelectedItem().toString(), esCuentaInactiva);
         actualizarTBLRegistroUsuarios();
     }//GEN-LAST:event_btnGuardaryAgregarDatosActionPerformed
 
     private void rbtActivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtActivoActionPerformed
         rbtActivo.setSelected(true);
         rbtInactivo.setSelected(false);
-        
+
     }//GEN-LAST:event_rbtActivoActionPerformed
 
     private void rbtInactivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtInactivoActionPerformed
         rbtInactivo.setSelected(true);
         rbtActivo.setSelected(false);
-        
+
     }//GEN-LAST:event_rbtInactivoActionPerformed
 
     private void txtNombresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombresActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNombresActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        if (JOptionPane.showConfirmDialog(this, "¿Esta seguro de salir? Su sesion se cerrará automaticamente.", "Lo extrañaremos ;)", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            baseDeDatos.cerrarConexion();
+            System.exit(0);
+        }
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments
