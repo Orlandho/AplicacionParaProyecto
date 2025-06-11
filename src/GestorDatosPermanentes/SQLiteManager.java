@@ -17,6 +17,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 public class SQLiteManager {
+
     //comentario de prueba
     private Connection conexionDB;
     private final String nombreDB = "baseDeDatos.db";
@@ -26,19 +27,20 @@ public class SQLiteManager {
         try {
             conexionDB = DriverManager.getConnection("jdbc:sqlite:" + nombreDB);
         } catch (SQLException e) {
-           throw new RuntimeException("Error al intentar conectar con la base de datos "+nombreDB+"\nMensaje de error: "+e.getMessage());
+            throw new RuntimeException("Error al intentar conectar con la base de datos " + nombreDB + "\nMensaje de error: " + e.getMessage());
         }
     }
-    public void cerrarConexion()
-    {
-        try{
-        if (conexionDB != null && !conexionDB.isClosed()) {
-            conexionDB.close();
-        }
-        }catch(SQLException e){
-            throw new RuntimeException("Error al cerrar conexion.\nMensaje de error:"+e.getMessage());
+
+    public void cerrarConexion() {
+        try {
+            if (conexionDB != null && !conexionDB.isClosed()) {
+                conexionDB.close();
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error al cerrar conexion.\nMensaje de error:" + e.getMessage());
         }
     }
+
     private boolean actualizarUsuarioContraseña(Usuario usuario) {
         String comandoSQL = "UPDATE usuario SET contraseña = ?, fechaUltimoCambio = ?, IntentosFallidos = ?, cuentaBloqueada=? WHERE usuario_id = ?";
         try {
@@ -46,7 +48,7 @@ public class SQLiteManager {
             ingresarComando.setString(1, usuario.getContraseña());
             ingresarComando.setString(2, usuario.getFechaUltimoCambio().toString());
             ingresarComando.setInt(3, usuario.getIntentosFallidos());
-            ingresarComando.setInt(4,traducirCuentaBloqueada(usuario.esCuentaBloqueada()));
+            ingresarComando.setInt(4, traducirCuentaBloqueada(usuario.esCuentaBloqueada()));
             ingresarComando.setInt(5, usuario.getUsuario_id());
             int filasAfectadas = ingresarComando.executeUpdate();
             return filasAfectadas > 0;
@@ -55,15 +57,14 @@ public class SQLiteManager {
         }
     }
 
-    private boolean traducirCuentaBloqueada(int cuentaBloqueada)
-    {
-        return cuentaBloqueada!=0;
+    private boolean traducirCuentaBloqueada(int cuentaBloqueada) {
+        return cuentaBloqueada != 0;
     }
-    private int traducirCuentaBloqueada(boolean cuentaBloqueada)
-    {
-        return cuentaBloqueada?1:0;
+
+    private int traducirCuentaBloqueada(boolean cuentaBloqueada) {
+        return cuentaBloqueada ? 1 : 0;
     }
-    
+
     private Usuario buscarUsuario(String nombreUsuario) {
         String comandoSQL = "SELECT * FROM Usuario WHERE usuarioDNIoRUC= ?";
         try {
@@ -77,18 +78,18 @@ public class SQLiteManager {
                         datosObtenidos.getString("rol"),
                         LocalDate.parse(datosObtenidos.getString("fechaUltimoCambio")),
                         datosObtenidos.getInt("intentosFallidos"),
-                        traducirCuentaBloqueada(datosObtenidos.getInt("cuentaBloqueada")) ,
+                        traducirCuentaBloqueada(datosObtenidos.getInt("cuentaBloqueada")),
                         datosObtenidos.getString("nombres"), datosObtenidos.getString("apellidos"),
                         datosObtenidos.getInt("telefono"));
             }
         } catch (SQLException e) {
-            throw new RuntimeException("Error al buscar usuario.\nMensaje de error:"+e.getMessage());
+            throw new RuntimeException("Error al buscar usuario.\nMensaje de error:" + e.getMessage());
         }
         return null;
     }
 
     private boolean existeUsuario(String nombreUsuario) {
-        return buscarUsuario(nombreUsuario)!=null;
+        return buscarUsuario(nombreUsuario) != null;
     }
 
     private boolean esSuContraseña(Usuario usuarioEncontrado, String contraseñaIngresada) {
@@ -110,54 +111,51 @@ public class SQLiteManager {
 
     public boolean actualizarContraseña(String nombreUsuario, String antiguaContraseña, String nuevaContraseña) {
         if (existeUsuario(nombreUsuario) && esSuContraseña(buscarUsuario(nombreUsuario), antiguaContraseña) && debeCambiarContraseña(buscarUsuario(nombreUsuario))) {
-            Usuario usuarioTemp=buscarUsuario(nombreUsuario);
+            Usuario usuarioTemp = buscarUsuario(nombreUsuario);
             usuarioTemp.setContraseña(nuevaContraseña);
             actualizarUsuarioContraseña(usuarioTemp);
             return true;
         }
         return false;
     }
-    
+
     //Sprint 2
     // Método para crear cuenta de usuario si el empleado existe en listaEmpleados
-    public void crearCuentaUsuario( long DNIoRUC, String nombres, String apellidos, int telefono, String contraseña, String rol, boolean cuentaBloqueada) {
+    public void crearCuentaUsuario(long DNIoRUC, String nombres, String apellidos, int telefono, String contraseña, String rol, boolean cuentaBloqueada) {
 
         // Verificar si los datos existen en listaEmpleados
+        String comandoSQL = "INSERT INTO Usuario ( usuarioDNIoRUC, contraseña, rol, fechaUltimoCambio, intentosFallidos, cuentaBloqueada, nombres, apellidos, telefono) "
+                + "VALUES ( ?, ?, ?, date('now'), 0, ?, ?, ?, ?)";
 
-            String comandoSQL = "INSERT INTO Usuario ( usuarioDNIoRUC, contraseña, rol, fechaUltimoCambio, intentosFallidos, cuentaBloqueada, nombres, apellidos, telefono) " +
-                                "VALUES ( ?, ?, ?, date('now'), 0, ?, ?, ?, ?)";
+        try {
+            PreparedStatement ingresarComando = conexionDB.prepareStatement(comandoSQL);
+            ingresarComando.setLong(1, DNIoRUC);
+            ingresarComando.setString(2, contraseña);
+            ingresarComando.setString(3, rol);
+            ingresarComando.setInt(4, cuentaBloqueada ? 1 : 0);
+            ingresarComando.setString(5, nombres);
+            ingresarComando.setString(6, apellidos);
+            ingresarComando.setInt(7, telefono);
 
-            try {
-                PreparedStatement ingresarComando = conexionDB.prepareStatement(comandoSQL);
-                ingresarComando.setLong(1, DNIoRUC);
-                ingresarComando.setString(2, contraseña);
-                ingresarComando.setString(3, rol);
-                ingresarComando.setInt(4, cuentaBloqueada ? 1 : 0);
-                ingresarComando.setString(5, nombres);
-                ingresarComando.setString(6, apellidos);
-                ingresarComando.setInt(7, telefono);
-                
-                int filasAfectadas = ingresarComando.executeUpdate();
-                if (filasAfectadas > 0) {
-                    JOptionPane.showMessageDialog(null, "Cuenta creada exitosamente.");
-                } else {
-                    JOptionPane.showMessageDialog(null, "Error: no se pudo crear la cuenta.");
-                }
+            int filasAfectadas = ingresarComando.executeUpdate();
+            if (filasAfectadas > 0) {
+                JOptionPane.showMessageDialog(null, "Cuenta creada exitosamente.");
+            } else {
+                JOptionPane.showMessageDialog(null, "Error: no se pudo crear la cuenta.");
+            }
 
-            } catch (SQLException e) {
-                throw new RuntimeException("Error al crear usuario.\nMensaje de error: " + e.getMessage());
-            } 
+        } catch (SQLException e) {
+            throw new RuntimeException("Error al crear usuario.\nMensaje de error: " + e.getMessage());
+        }
     }
 
-    
     //Metodos para obtener usuarios para la tabla
     public ArrayList<Usuario> obtenerUsuarios() {
         ArrayList<Usuario> usuarios = new ArrayList<>();
 
         String sql = "SELECT usuario_id, usuarioDNIoRUC,contraseña,rol, fechaUltimoCambio, intentosFallidos, cuentaBloqueada ,nombres, apellidos ,telefono FROM usuario";
 
-        try (Statement stmt = conexionDB.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
+        try (Statement stmt = conexionDB.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
 
             while (rs.next()) {
                 int usuario_id = rs.getInt("usuario_id");
@@ -167,23 +165,23 @@ public class SQLiteManager {
                 LocalDate fechaUltimoCambio = LocalDate.parse(rs.getString("fechaUltimoCambio"));
                 int intentosFallidos = rs.getInt("intentosFallidos");
                 boolean cuentaBloqueada = traducirCuentaBloqueada(rs.getInt("cuentaBloqueada"));
-                String nombres =rs.getString("nombres");
-                String apellidos =rs.getString("apellidos");
+                String nombres = rs.getString("nombres");
+                String apellidos = rs.getString("apellidos");
                 int telefono = rs.getInt("telefono");
 
-
                 Usuario datosUsuario = new Usuario(usuario_id, usuarioDNIoRUC, contraseña,
-                rol,fechaUltimoCambio,intentosFallidos,cuentaBloqueada,
-                nombres, apellidos,telefono);
+                        rol, fechaUltimoCambio, intentosFallidos, cuentaBloqueada,
+                        nombres, apellidos, telefono);
                 usuarios.add(datosUsuario);
             }
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null,"Error al obtener los usuarios: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al obtener los usuarios: " + e.getMessage());
         }
 
         return usuarios;
     }
+
     /*
         Dicionario de codigos:
         0 | Usuario o contraseña incorrectos
@@ -206,8 +204,8 @@ public class SQLiteManager {
         if (!esSuContraseña(usuario, contraseñaIngresada)) {
             respuesta.add(USUARIO_CONTRA_INCORRECTOS);
             return respuesta;
-        }else{
-            usuario=buscarUsuario(usuarioIngresado);
+        } else {
+            usuario = buscarUsuario(usuarioIngresado);
             usuario.setIntentosFallidos(0);
             actualizarUsuarioContraseña(usuario);
         }
