@@ -295,6 +295,22 @@ public class SQLiteManager {
         }
         return exito;
     }
+    
+    public boolean eliminarProducto(int producto_id) {
+        boolean exito = false;
+        String sql = "DELETE FROM productos WHERE producto_id = ?";
+        try {
+            PreparedStatement statement = conexionDB.prepareStatement(sql);
+            statement.setInt(1, producto_id);
+            int filasEliminadas = statement.executeUpdate();
+            if (filasEliminadas > 0) {
+                exito = true;
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al eliminar producto: " + e.getMessage());
+        }
+        return exito;
+    }
     /*
         Dicionario de codigos:
         0 | Usuario o contraseña incorrectos
