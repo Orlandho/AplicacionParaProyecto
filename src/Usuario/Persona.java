@@ -3,12 +3,13 @@ package Usuario;
 public abstract class Persona {
 
     protected String nombres, apellidos;
-    protected int dni,telefono;
+    protected int telefono;
+    protected long DNIoRUC;
 
-    public Persona(String nombres, String apellidos,int dni,int telefono) {
+    public Persona(String nombres, String apellidos,long DNIoRUC,int telefono) {
         this.nombres = nombres;
         this.apellidos = apellidos;
-        this.dni=dni;
+        this.DNIoRUC=DNIoRUC;
         this.telefono=telefono;
     }
 
@@ -38,12 +39,13 @@ public abstract class Persona {
         this.apellidos = apellidos;
     }
 
-    public int getDni() {
-        return dni;
+    public long getDNIoRUC() {
+        return DNIoRUC;
     }
 
-    public void setDni(int dni) {
-        this.dni = dni;
+    public void setDNIoRUC(long DNIoRUC) {
+        this.DNIoRUC = DNIoRUC;
     }
+
 
 }

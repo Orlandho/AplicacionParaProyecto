@@ -20,10 +20,10 @@ public class ConvertidorUsuario {
         return VerificadorUsuario.esTelefonoValido(resultado)?resultado:null;
     }
     
-    public static Integer tryParseUsuarioDNI(String usuarioDNI){
-        int resultado;
+    public static Long tryParseUsuarioDNI(String usuarioDNI){
+        long resultado;
         try{
-        resultado=Integer.parseInt(usuarioDNI);
+        resultado=Long.parseLong(usuarioDNI);
         }catch(NumberFormatException e){
             return null;
         }
