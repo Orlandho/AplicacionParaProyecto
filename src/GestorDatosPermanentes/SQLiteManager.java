@@ -199,20 +199,20 @@ public class SQLiteManager {
         }
     }
     
-    public void actualizarUsuario(int usuarioDNI, String contraseña, String rol, LocalDate fechaUltimoCambio,
+    public void actualizarUsuario(long usuarioDNI, String contraseña, String rol, LocalDate fechaUltimoCambio,
                               int intentosFallidos, boolean cuentaBloqueada,
                               String nombres, String apellidos, int telefono, int usuario_id) {
-        String sql = "UPDATE Usuario SET usuarioDNI = ?, contraseña = ?, rol = ?, fechaUltimoCambio = ?, " +
+        String sql = "UPDATE Usuario SET usuarioDNIoRUC = ?, contraseña = ?, rol = ?, fechaUltimoCambio = ?, " +
                      "intentosFallidos = ?, cuentaBloqueada = ?, nombres = ?, apellidos = ?, telefono = ? " +
                      "WHERE usuario_id = ?";
 
         try (PreparedStatement pstmt = conexionDB.prepareStatement(sql)) {
-            pstmt.setInt(1, usuarioDNI);
+            pstmt.setLong(1, usuarioDNI);
             pstmt.setString(2, contraseña);
             pstmt.setString(3, rol);
             pstmt.setString(4, fechaUltimoCambio.toString()); // Guardando LocalDate como String
             pstmt.setInt(5, intentosFallidos);
-            pstmt.setBoolean(6, cuentaBloqueada);
+            pstmt.setInt(6, traducirCuentaBloqueada(cuentaBloqueada));
             pstmt.setString(7, nombres);
             pstmt.setString(8, apellidos);
             pstmt.setInt(9, telefono);

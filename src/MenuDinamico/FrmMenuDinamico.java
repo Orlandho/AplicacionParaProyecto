@@ -10,6 +10,7 @@ import GestorDatosPermanentes.SQLiteManager;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 import Login.FrmLogin;
+import java.time.LocalDate;
 
 public class FrmMenuDinamico extends javax.swing.JFrame {
 
@@ -25,7 +26,12 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         jpaneladmin.setVisible(false);
         baseDeDatos = new SQLiteManager();
         String[] columnas = {"Usuario ID", "Empleado", "Usuario", "Contraseña", "Tipo", "Telefono", "Estado"};
-        modelo = new DefaultTableModel(columnas, 0);
+        modelo = new DefaultTableModel(columnas, 0){
+          @Override
+          public boolean isCellEditable(int row,int colum){
+              return colum!=0;
+          }
+        };
         tblRegistroUsuarios.setModel(modelo);
     }
 
@@ -397,7 +403,15 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
             new String [] {
                 "Usuario ID", "Empleado", "Usuario", "Contraseña", "Tipo", "Telefono", "Estado"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, true, true, true, true, true, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tblRegistroUsuarios.setGridColor(new java.awt.Color(255, 255, 255));
         jScrollPane1.setViewportView(tblRegistroUsuarios);
 
@@ -630,11 +644,10 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
 
     private String[] separarNombresApellidos(String nombresApellidos){
         int tamaño=nombresApellidos.length();
-        String[] nombre_apellido=new String[2];
+        String[] nombre_apellido=new String[]{"",""};
         int j=0;
         for(int i=0;i<tamaño;i++){
-            char letra;
-            if(nombresApellidos.charAt(i)==' '){
+            if(nombresApellidos.charAt(i)==' '&&j<nombre_apellido.length-1){
                 j++;
                 continue;
             }
@@ -649,8 +662,8 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Seleccione una fila para eliminar");
             return;
         }
-        long usuario_id=Long.parseLong(modelo.getValueAt(filaSeleccion, 0).toString());
-        baseDeDatos.eliminar(usuario_id);
+        int usuario_id=Integer.parseInt(modelo.getValueAt(filaSeleccion, 0).toString());
+        baseDeDatos.eliminarUsuario(usuario_id);
         actualizarTBLRegistroUsuarios();
     }//GEN-LAST:event_btnEliminarActionPerformed
 
@@ -660,6 +673,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Seleccione una fila para editar");
             return;
         }
+        int usuID=Integer.parseInt(modelo.getValueAt(filaSeleccion, 0).toString());
         //Empleado nombre String
         String[] nombres_apellidos=separarNombresApellidos(modelo.getValueAt(filaSeleccion, 1).toString());
         String nombre=nombres_apellidos[0];
@@ -671,10 +685,13 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         //Tipo String
         String rol=modelo.getValueAt(filaSeleccion, 4).toString();
         //Telefono int
-        int fono=Integer.parseInt(modelo.getValueAt(filaSeleccion, 6).toString());
+        int fono=Integer.parseInt(modelo.getValueAt(filaSeleccion, 5).toString());
+        
         //Estado boolean
         boolean esCuentaBloqueada=ConvertidorUsuario.parseEsCuentaBloqueada(modelo.getValueAt(filaSeleccion, 6).toString());
-        baseDeDatos.actualizarUsuario(nombre,apellidos,usuario_id);
+        esCuentaBloqueada=true;
+        //long usuarioDNI, String contraseña, String rol, LocalDate fechaUltimoCambio,int intentosFallidos, boolean cuentaBloqueada, String nombres, String apellidos, int telefono, int usuario_id
+        baseDeDatos.actualizarUsuario(usuarioDNI,contra,rol,LocalDate.now(),0,esCuentaBloqueada,nombre,apellido,fono,usuID);
         actualizarTBLRegistroUsuarios();
 
     }//GEN-LAST:event_btnEditarMouseClicked
