@@ -181,7 +181,54 @@ public class SQLiteManager {
 
         return usuarios;
     }
+    
+    public void eliminarUsuario(int usuario_id) {
+        String sql = "DELETE FROM Usuario WHERE usuario_id = ?";
 
+        try (PreparedStatement pstmt = conexionDB.prepareStatement(sql)) {
+            pstmt.setInt(1, usuario_id);
+            int filasAfectadas = pstmt.executeUpdate();
+
+            if (filasAfectadas > 0) {
+                JOptionPane.showMessageDialog(null, "Usuario eliminado exitosamente.");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontró un usuario con el ID especificado.");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al eliminar usuario: " + e.getMessage());
+        }
+    }
+    
+    public void actualizarUsuario(int usuarioDNI, String contraseña, String rol, LocalDate fechaUltimoCambio,
+                              int intentosFallidos, boolean cuentaBloqueada,
+                              String nombres, String apellidos, int telefono, int usuario_id) {
+        String sql = "UPDATE Usuario SET usuarioDNI = ?, contraseña = ?, rol = ?, fechaUltimoCambio = ?, " +
+                     "intentosFallidos = ?, cuentaBloqueada = ?, nombres = ?, apellidos = ?, telefono = ? " +
+                     "WHERE usuario_id = ?";
+
+        try (PreparedStatement pstmt = conexionDB.prepareStatement(sql)) {
+            pstmt.setInt(1, usuarioDNI);
+            pstmt.setString(2, contraseña);
+            pstmt.setString(3, rol);
+            pstmt.setString(4, fechaUltimoCambio.toString()); // Guardando LocalDate como String
+            pstmt.setInt(5, intentosFallidos);
+            pstmt.setBoolean(6, cuentaBloqueada);
+            pstmt.setString(7, nombres);
+            pstmt.setString(8, apellidos);
+            pstmt.setInt(9, telefono);
+            pstmt.setInt(10, usuario_id); // Este es el ID para filtrar
+
+            int filasAfectadas = pstmt.executeUpdate();
+
+            if (filasAfectadas > 0) {
+                JOptionPane.showMessageDialog(null, "Usuario actualizado exitosamente.");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontró un usuario con el ID especificado.");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al actualizar usuario: " + e.getMessage());
+        }
+    }
     /*
         Dicionario de codigos:
         0 | Usuario o contraseña incorrectos
