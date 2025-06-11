@@ -252,7 +252,29 @@ public class SQLiteManager {
             System.out.println("Error al buscar producto: " + e);
         }
         return null;
-    } 
+    }
+    
+    public ArrayList<Producto> obtenerProductos() {
+        ArrayList<Producto> productos = new ArrayList<>();
+        String sql = "SELECT * FROM productos";
+        try {
+            PreparedStatement statement = conexionDB.prepareStatement(sql);
+            ResultSet resultado = statement.executeQuery();
+            while (resultado.next()) {
+                Producto producto = new Producto(
+                    resultado.getString("tipoDocumento"),
+                    resultado.getString("producto"),
+                    resultado.getDouble("precioCompra"),
+                    resultado.getInt("cantidad"),
+                    resultado.getString("stock")
+                );
+                productos.add(producto);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al obtener productos: " + e.getMessage());
+        }
+        return productos;
+    }
     /*
         Dicionario de codigos:
         0 | Usuario o contraseña incorrectos
