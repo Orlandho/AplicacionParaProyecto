@@ -2,8 +2,6 @@ package MenuDinamico;
 
 import Usuario.Usuario;
 import ServiciosUsuario.ConvertidorUsuario;
-import Usuario.Administrador;
-import Usuario.Empleado;
 import java.awt.Component;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -30,12 +28,10 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     }
 
     public void modificarSegunRol(Usuario usuario) {
-        if (usuario.getRol().equalsIgnoreCase("administrador")) {
-            this.usuario = new Administrador(usuario);
+        this.usuario= new Usuario(usuario);
+        if (this.usuario.getRol().equalsIgnoreCase("administrador")) {
             jpaneladmin.setVisible(true);
             jpaneladmin.setEnabled(true);
-        } else {
-            this.usuario = new Empleado(usuario);
         }
         lblRol.setText(usuario.getRol());
     }
@@ -47,7 +43,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         
         for (Usuario usu : lista) {
             //String[] columnas={"Empleado","Usuario","Contraseña","Tipo","Telefono","Estado"};
-            Object[] datoFila={usu.getNombres(),usu.getUsuarioDNI(),usu.getContraseña(),usu.getRol(),usu.getTelefono(),ConvertidorUsuario.parseEsCuentaBloqueada(usu.esCuentaBloqueada())};
+            Object[] datoFila={usu.getNombres(),usu.getUsuarioDNIoRUC(),usu.getContraseña(),usu.getRol(),usu.getTelefono(),ConvertidorUsuario.parseEsCuentaBloqueada(usu.esCuentaBloqueada())};
             modelo.addRow(datoFila);
             
         }
@@ -569,7 +565,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         
         String errorMensaje="";
         Integer telefono=ConvertidorUsuario.tryParseTelefono(txtTelefono.getText());
-        Integer usuarioDNI=ConvertidorUsuario.tryParseUsuarioDNI(txtDNIUsuario.getText());
+        Long usuarioDNI=ConvertidorUsuario.tryParseUsuarioDNI(txtDNIUsuario.getText());
         if(telefono==null||usuarioDNI==null){
             if(telefono==null){
                 errorMensaje+="Formato de telefono no valido. Debe ser de 6 o 9 digitos\n";

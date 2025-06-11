@@ -39,7 +39,7 @@ public class SQLiteManager {
             throw new RuntimeException("Error al cerrar conexion.\nMensaje de error:"+e.getMessage());
         }
     }
-    private boolean actualizarUsuario(Usuario usuario) {
+    private boolean actualizarUsuarioContraseña(Usuario usuario) {
         String comandoSQL = "UPDATE usuario SET contraseña = ?, fechaUltimoCambio = ?, IntentosFallidos = ? WHERE usuario_id = ?";
         try {
             PreparedStatement ingresarComando = conexionDB.prepareStatement(comandoSQL);
@@ -50,7 +50,7 @@ public class SQLiteManager {
             int filasAfectadas = ingresarComando.executeUpdate();
             return filasAfectadas > 0;
         } catch (SQLException e) {
-            throw new RuntimeException("Error al actualizar usuario.\nMensaje de error:" + e.getMessage());
+            throw new RuntimeException("Error al actualizar la contraseña del usuario.\nMensaje de error:" + e.getMessage());
         }
     }
 
@@ -64,14 +64,14 @@ public class SQLiteManager {
     }
     
     private Usuario buscarUsuario(String nombreUsuario) {
-        String comandoSQL = "SELECT * FROM Usuario WHERE usuarioDNI= ?";
+        String comandoSQL = "SELECT * FROM Usuario WHERE usuarioDNIoRUC= ?";
         try {
             PreparedStatement ingresarComando = conexionDB.prepareStatement(comandoSQL);
-            ingresarComando.setString(1, nombreUsuario);
+            ingresarComando.setLong(1, Long.parseLong(nombreUsuario));
             ResultSet datosObtenidos = ingresarComando.executeQuery();
             if (datosObtenidos.next()) {
                 //                                            
-                return new Usuario(datosObtenidos.getInt("usuario_id"), datosObtenidos.getInt("usuarioDNI"),
+                return new Usuario(datosObtenidos.getInt("usuario_id"), datosObtenidos.getLong("usuarioDNIoRUC"),
                         datosObtenidos.getString("contraseña"),
                         datosObtenidos.getString("rol"),
                         LocalDate.parse(datosObtenidos.getString("fechaUltimoCambio")),
@@ -96,7 +96,7 @@ public class SQLiteManager {
             if (usuarioEncontrado.getIntentosFallidos() >= 5) {
                 usuarioEncontrado.setCuentaBloqueada(true);
             }
-            actualizarUsuario(usuarioEncontrado);
+            actualizarUsuarioContraseña(usuarioEncontrado);
             return false;
         }
         return true;
@@ -111,7 +111,7 @@ public class SQLiteManager {
         if (existeUsuario(nombreUsuario) && esSuContraseña(buscarUsuario(nombreUsuario), antiguaContraseña) && debeCambiarContraseña(buscarUsuario(nombreUsuario))) {
             Usuario usuarioTemp=buscarUsuario(nombreUsuario);
             usuarioTemp.setContraseña(nuevaContraseña);
-            actualizarUsuario(usuarioTemp);
+            actualizarUsuarioContraseña(usuarioTemp);
             return true;
         }
         return false;
@@ -119,16 +119,16 @@ public class SQLiteManager {
     
     //Sprint 2
     // Método para crear cuenta de usuario si el empleado existe en listaEmpleados
-    public void crearCuentaUsuario( int dni, String nombres, String apellidos, int telefono, String contraseña, String rol, boolean cuentaBloqueada) {
+    public void crearCuentaUsuario( long DNIoRUC, String nombres, String apellidos, int telefono, String contraseña, String rol, boolean cuentaBloqueada) {
 
         // Verificar si los datos existen en listaEmpleados
 
-            String comandoSQL = "INSERT INTO Usuario ( usuarioDNI, contraseña, rol, fechaUltimoCambio, intentosFallidos, cuentaBloqueada, nombres, apellidos, telefono) " +
+            String comandoSQL = "INSERT INTO Usuario ( usuarioDNIoRUC, contraseña, rol, fechaUltimoCambio, intentosFallidos, cuentaBloqueada, nombres, apellidos, telefono) " +
                                 "VALUES ( ?, ?, ?, date('now'), 0, ?, ?, ?, ?)";
 
             try {
                 PreparedStatement ingresarComando = conexionDB.prepareStatement(comandoSQL);
-                ingresarComando.setInt(1, dni);
+                ingresarComando.setLong(1, DNIoRUC);
                 ingresarComando.setString(2, contraseña);
                 ingresarComando.setString(3, rol);
                 ingresarComando.setInt(4, cuentaBloqueada ? 1 : 0);
@@ -153,14 +153,14 @@ public class SQLiteManager {
     public ArrayList<Usuario> obtenerUsuarios() {
         ArrayList<Usuario> usuarios = new ArrayList<>();
 
-        String sql = "SELECT usuario_id, usuarioDNI,contraseña,rol, fechaUltimoCambio, intentosFallidos, cuentaBloqueada ,nombres, apellidos ,telefono FROM usuario";
+        String sql = "SELECT usuario_id, usuarioDNIoRUC,contraseña,rol, fechaUltimoCambio, intentosFallidos, cuentaBloqueada ,nombres, apellidos ,telefono FROM usuario";
 
         try (Statement stmt = conexionDB.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
 
             while (rs.next()) {
                 int usuario_id = rs.getInt("usuario_id");
-                int usuarioDNI = rs.getInt("usuarioDNI");
+                long usuarioDNIoRUC = rs.getLong("usuarioDNIoRUC");
                 String contraseña = rs.getString("contraseña");
                 String rol = rs.getString("rol");
                 LocalDate fechaUltimoCambio = LocalDate.parse(rs.getString("fechaUltimoCambio"));
@@ -171,7 +171,7 @@ public class SQLiteManager {
                 int telefono = rs.getInt("telefono");
 
 
-                Usuario datosUsuario = new Usuario(usuario_id, usuarioDNI, contraseña,
+                Usuario datosUsuario = new Usuario(usuario_id, usuarioDNIoRUC, contraseña,
                 rol,fechaUltimoCambio,intentosFallidos,cuentaBloqueada,
                 nombres, apellidos,telefono);
                 usuarios.add(datosUsuario);
@@ -208,7 +208,7 @@ public class SQLiteManager {
         }else{
             usuario=buscarUsuario(usuarioIngresado);
             usuario.setIntentosFallidos(0);
-            actualizarUsuario(usuario);
+            actualizarUsuarioContraseña(usuario);
         }
         if (debeCambiarContraseña(usuario)) {
             respuesta.add(DEBE_CAMBIAR_CONTRASEÑA);

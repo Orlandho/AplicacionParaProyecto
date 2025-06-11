@@ -5,19 +5,19 @@ import java.time.LocalDate;
 public class Usuario extends Persona {
 
     private int usuario_id;
-    private int usuarioDNI;
+    private long usuarioDNIoRUC;
     private String contraseña;
     private String rol;
     private LocalDate fechaUltimoCambio;
     private int intentosFallidos = 0;
     private boolean cuentaBloqueada = false;
 
-    public Usuario(int usuario_id, int dni, String contraseña,
+    public Usuario(int usuario_id, long DNIoRUC, String contraseña,
             String rol, LocalDate fechaUltimoCambio,int intentosFallidos,boolean cuentaBloqueada,
             String nombres, String apellidos,int telefono) {
-        super(nombres, apellidos,dni,telefono);
+        super(nombres, apellidos,DNIoRUC,telefono);
         this.usuario_id = usuario_id;
-        this.usuarioDNI = dni;
+        this.usuarioDNIoRUC = DNIoRUC;
         this.contraseña = contraseña;
         this.rol = rol;
         this.fechaUltimoCambio = fechaUltimoCambio;
@@ -28,21 +28,22 @@ public class Usuario extends Persona {
     
 
     public Usuario(Usuario usuario) {
-        super(usuario.nombres, usuario.apellidos, usuario.usuarioDNI,usuario.telefono);
-        this.usuarioDNI = usuario.usuarioDNI;
+        super(usuario.nombres, usuario.apellidos, usuario.usuarioDNIoRUC,usuario.telefono);
+        this.usuarioDNIoRUC = usuario.usuarioDNIoRUC;
         this.contraseña = usuario.contraseña;
         this.rol = usuario.rol;
         this.fechaUltimoCambio = usuario.fechaUltimoCambio;
 
     }
 
-    public int getUsuarioDNI() {
-        return usuarioDNI;
+    public long getUsuarioDNIoRUC() {
+        return usuarioDNIoRUC;
     }
 
-    public void setUsuarioDNI(int usuarioDNI) {
-        this.usuarioDNI = usuarioDNI;
+    public void setUsuarioDNIoRUC(long usuarioDNIoRUC) {
+        this.usuarioDNIoRUC = usuarioDNIoRUC;
     }
+
 
     public String getContraseña() {
         return contraseña;
