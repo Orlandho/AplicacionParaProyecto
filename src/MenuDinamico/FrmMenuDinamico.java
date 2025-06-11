@@ -27,7 +27,6 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         String[] columnas={"Empleado","Usuario","Contraseña","Tipo","Telefono","Estado"};
         modelo= new DefaultTableModel(columnas,0);
         tblRegistroUsuarios.setModel(modelo);
-        
     }
 
     public void modificarSegunRol(Usuario usuario) {
@@ -101,13 +100,13 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         pnlCientes = new javax.swing.JPanel();
         lblClientes = new javax.swing.JLabel();
         txtClientes = new javax.swing.JTextField();
-        pnlRegistroUsuAdminMain = new javax.swing.JPanel();
+        pnlRegUsuMostrar = new javax.swing.JPanel();
         btnCrearUsuario = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblRegistroUsuarios = new javax.swing.JTable();
         btnEditar = new javax.swing.JButton();
-        pnlRegistroUsuAdminMain1 = new javax.swing.JPanel();
+        pnlRegUsuIngresar = new javax.swing.JPanel();
         lblAgregaryCrearUsuario = new javax.swing.JLabel();
         lblSubTitulo1 = new javax.swing.JLabel();
         lblNombres = new javax.swing.JLabel();
@@ -261,7 +260,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         lblRUC.setFont(new java.awt.Font("Cartoon Fun", 0, 14)); // NOI18N
         lblRUC.setText("Agro Integral Perú");
         jpanelsuperior.add(lblRUC);
-        lblRUC.setBounds(610, 10, 200, 19);
+        lblRUC.setBounds(610, 10, 200, 24);
 
         lblRol.setText("Empleado");
         jpanelsuperior.add(lblRol);
@@ -359,7 +358,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
 
         tpnMostrar.addTab("pnl1Inicio", pnl1Inicio);
 
-        pnlRegistroUsuAdminMain.setLayout(null);
+        pnlRegUsuMostrar.setLayout(null);
 
         btnCrearUsuario.setBackground(new java.awt.Color(202, 244, 250));
         btnCrearUsuario.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
@@ -369,13 +368,13 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
                 btnCrearUsuarioActionPerformed(evt);
             }
         });
-        pnlRegistroUsuAdminMain.add(btnCrearUsuario);
+        pnlRegUsuMostrar.add(btnCrearUsuario);
         btnCrearUsuario.setBounds(230, 60, 210, 40);
 
         btnEliminar.setBackground(new java.awt.Color(202, 244, 250));
         btnEliminar.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
         btnEliminar.setText("Eliminar");
-        pnlRegistroUsuAdminMain.add(btnEliminar);
+        pnlRegUsuMostrar.add(btnEliminar);
         btnEliminar.setBounds(60, 420, 230, 40);
 
         tblRegistroUsuarios.setBackground(new java.awt.Color(220, 235, 245));
@@ -395,32 +394,32 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         tblRegistroUsuarios.setGridColor(new java.awt.Color(255, 255, 255));
         jScrollPane1.setViewportView(tblRegistroUsuarios);
 
-        pnlRegistroUsuAdminMain.add(jScrollPane1);
+        pnlRegUsuMostrar.add(jScrollPane1);
         jScrollPane1.setBounds(30, 140, 630, 230);
 
         btnEditar.setBackground(new java.awt.Color(226, 237, 241));
         btnEditar.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
         btnEditar.setText("Editar");
-        pnlRegistroUsuAdminMain.add(btnEditar);
+        pnlRegUsuMostrar.add(btnEditar);
         btnEditar.setBounds(370, 420, 230, 40);
 
-        tpnMostrar.addTab("Registro Administrador", pnlRegistroUsuAdminMain);
+        tpnMostrar.addTab("pnlRegUsuMostrar", pnlRegUsuMostrar);
 
-        pnlRegistroUsuAdminMain1.setLayout(null);
+        pnlRegUsuIngresar.setLayout(null);
 
         lblAgregaryCrearUsuario.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
         lblAgregaryCrearUsuario.setText("AGREGAR Y CREAR USUARIO");
-        pnlRegistroUsuAdminMain1.add(lblAgregaryCrearUsuario);
+        pnlRegUsuIngresar.add(lblAgregaryCrearUsuario);
         lblAgregaryCrearUsuario.setBounds(50, 50, 220, 30);
 
         lblSubTitulo1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblSubTitulo1.setText("• Creación de Usuario");
-        pnlRegistroUsuAdminMain1.add(lblSubTitulo1);
+        pnlRegUsuIngresar.add(lblSubTitulo1);
         lblSubTitulo1.setBounds(70, 110, 150, 20);
 
         lblNombres.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
         lblNombres.setText("Nombres:");
-        pnlRegistroUsuAdminMain1.add(lblNombres);
+        pnlRegUsuIngresar.add(lblNombres);
         lblNombres.setBounds(70, 160, 60, 30);
 
         txtNombres.addActionListener(new java.awt.event.ActionListener() {
@@ -428,44 +427,44 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
                 txtNombresActionPerformed(evt);
             }
         });
-        pnlRegistroUsuAdminMain1.add(txtNombres);
+        pnlRegUsuIngresar.add(txtNombres);
         txtNombres.setBounds(130, 160, 190, 30);
 
         lblApellidos.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
         lblApellidos.setText("Apellidos:");
-        pnlRegistroUsuAdminMain1.add(lblApellidos);
+        pnlRegUsuIngresar.add(lblApellidos);
         lblApellidos.setBounds(330, 160, 60, 30);
-        pnlRegistroUsuAdminMain1.add(txtApellidos);
+        pnlRegUsuIngresar.add(txtApellidos);
         txtApellidos.setBounds(390, 160, 190, 30);
 
         lblTelefono.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
         lblTelefono.setText("Telefono:");
-        pnlRegistroUsuAdminMain1.add(lblTelefono);
+        pnlRegUsuIngresar.add(lblTelefono);
         lblTelefono.setBounds(70, 230, 60, 30);
-        pnlRegistroUsuAdminMain1.add(txtTelefono);
+        pnlRegUsuIngresar.add(txtTelefono);
         txtTelefono.setBounds(130, 230, 190, 30);
 
         lblDNIUsuario.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
         lblDNIUsuario.setText("DNI/Usuario:");
-        pnlRegistroUsuAdminMain1.add(lblDNIUsuario);
-        lblDNIUsuario.setBounds(330, 230, 80, 30);
-        pnlRegistroUsuAdminMain1.add(txtDNIUsuario);
-        txtDNIUsuario.setBounds(410, 230, 170, 30);
+        pnlRegUsuIngresar.add(lblDNIUsuario);
+        lblDNIUsuario.setBounds(330, 230, 90, 30);
+        pnlRegUsuIngresar.add(txtDNIUsuario);
+        txtDNIUsuario.setBounds(420, 230, 180, 30);
 
         lblContraseña.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
         lblContraseña.setText("Contraseña:");
-        pnlRegistroUsuAdminMain1.add(lblContraseña);
+        pnlRegUsuIngresar.add(lblContraseña);
         lblContraseña.setBounds(70, 300, 70, 30);
-        pnlRegistroUsuAdminMain1.add(txtContraseña);
+        pnlRegUsuIngresar.add(txtContraseña);
         txtContraseña.setBounds(140, 300, 180, 30);
 
         lblTipoUsuario.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
         lblTipoUsuario.setText("Tipo Usuario:");
-        pnlRegistroUsuAdminMain1.add(lblTipoUsuario);
+        pnlRegUsuIngresar.add(lblTipoUsuario);
         lblTipoUsuario.setBounds(330, 300, 80, 30);
 
         cbTipoUsuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "administrador", "empleado" }));
-        pnlRegistroUsuAdminMain1.add(cbTipoUsuario);
+        pnlRegUsuIngresar.add(cbTipoUsuario);
         cbTipoUsuario.setBounds(410, 300, 170, 30);
 
         btnGuardaryAgregarDatos.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
@@ -475,7 +474,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
                 btnGuardaryAgregarDatosActionPerformed(evt);
             }
         });
-        pnlRegistroUsuAdminMain1.add(btnGuardaryAgregarDatos);
+        pnlRegUsuIngresar.add(btnGuardaryAgregarDatos);
         btnGuardaryAgregarDatos.setBounds(320, 390, 300, 50);
 
         rbtActivo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -487,7 +486,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
                 rbtActivoActionPerformed(evt);
             }
         });
-        pnlRegistroUsuAdminMain1.add(rbtActivo);
+        pnlRegUsuIngresar.add(rbtActivo);
         rbtActivo.setBounds(140, 390, 100, 20);
 
         rbtInactivo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -498,10 +497,10 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
                 rbtInactivoActionPerformed(evt);
             }
         });
-        pnlRegistroUsuAdminMain1.add(rbtInactivo);
+        pnlRegUsuIngresar.add(rbtInactivo);
         rbtInactivo.setBounds(140, 420, 100, 20);
 
-        tpnMostrar.addTab("Registro Administrador 1", pnlRegistroUsuAdminMain1);
+        tpnMostrar.addTab("pnlRegUsuIngresar", pnlRegUsuIngresar);
 
         getContentPane().add(tpnMostrar);
         tpnMostrar.setBounds(190, 80, 690, 560);
@@ -557,16 +556,26 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         tpnMostrar.setSelectedIndex(2);
     }//GEN-LAST:event_btnCrearUsuarioActionPerformed
 
+    private boolean faltanDatosUsuario(){
+        return txtNombres.getText().isBlank()||txtApellidos.getText().isBlank()||txtTelefono.getText().isBlank()||txtDNIUsuario.getText().isBlank()||txtContraseña.getText().isBlank();
+    }
+    
     private void btnGuardaryAgregarDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardaryAgregarDatosActionPerformed
+        
+        if(faltanDatosUsuario()){
+            JOptionPane.showMessageDialog(this, "Falta llenar datos");
+            return;
+        }
+        
         String errorMensaje="";
         Integer telefono=ConvertidorUsuario.tryParseTelefono(txtTelefono.getText());
         Integer usuarioDNI=ConvertidorUsuario.tryParseUsuarioDNI(txtDNIUsuario.getText());
         if(telefono==null||usuarioDNI==null){
             if(telefono==null){
-                errorMensaje+="Formato de telefono no valido.\n";
+                errorMensaje+="Formato de telefono no valido. Debe ser de 6 o 9 digitos\n";
             }
             if(usuarioDNI==null){
-                errorMensaje+="Formato de DNI no valido.\n";
+                errorMensaje+="Formato de DNI o RUC no valido.\n";
             }
             JOptionPane.showMessageDialog(this, errorMensaje);
             return;
@@ -674,8 +683,8 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     private javax.swing.JPanel pnlGancias;
     private javax.swing.JPanel pnlProductos;
     private javax.swing.JPanel pnlProveedores;
-    private javax.swing.JPanel pnlRegistroUsuAdminMain;
-    private javax.swing.JPanel pnlRegistroUsuAdminMain1;
+    private javax.swing.JPanel pnlRegUsuIngresar;
+    private javax.swing.JPanel pnlRegUsuMostrar;
     private javax.swing.JPanel pnlVentasDelDia;
     private javax.swing.JRadioButton rbtActivo;
     private javax.swing.JRadioButton rbtInactivo;

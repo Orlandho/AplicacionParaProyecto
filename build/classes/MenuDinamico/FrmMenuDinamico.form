@@ -581,11 +581,11 @@
             </Container>
           </SubComponents>
         </Container>
-        <Container class="javax.swing.JPanel" name="pnlRegistroUsuAdminMain">
+        <Container class="javax.swing.JPanel" name="pnlRegUsuMostrar">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="Registro Administrador">
-                <Property name="tabTitle" type="java.lang.String" value="Registro Administrador"/>
+              <JTabbedPaneConstraints tabName="pnlRegUsuMostrar">
+                <Property name="tabTitle" type="java.lang.String" value="pnlRegUsuMostrar"/>
               </JTabbedPaneConstraints>
             </Constraint>
           </Constraints>
@@ -681,11 +681,11 @@
             </Component>
           </SubComponents>
         </Container>
-        <Container class="javax.swing.JPanel" name="pnlRegistroUsuAdminMain1">
+        <Container class="javax.swing.JPanel" name="pnlRegUsuIngresar">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="Registro Administrador 1">
-                <Property name="tabTitle" type="java.lang.String" value="Registro Administrador 1"/>
+              <JTabbedPaneConstraints tabName="pnlRegUsuIngresar">
+                <Property name="tabTitle" type="java.lang.String" value="pnlRegUsuIngresar"/>
               </JTabbedPaneConstraints>
             </Constraint>
           </Constraints>
@@ -792,14 +792,14 @@
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="330" y="230" width="80" height="30"/>
+                  <AbsoluteConstraints x="330" y="230" width="90" height="30"/>
                 </Constraint>
               </Constraints>
             </Component>
             <Component class="javax.swing.JTextField" name="txtDNIUsuario">
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="410" y="230" width="170" height="30"/>
+                  <AbsoluteConstraints x="420" y="230" width="180" height="30"/>
                 </Constraint>
               </Constraints>
             </Component>
