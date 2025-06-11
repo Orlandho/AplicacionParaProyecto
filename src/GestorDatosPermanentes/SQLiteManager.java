@@ -311,6 +311,28 @@ public class SQLiteManager {
         }
         return exito;
     }
+    
+    public boolean actualizarProducto(int producto_id, String nuevoTipoDocumento, String nuevoProducto,
+                                      double nuevoPrecioCompra, int nuevaCantidad, String nuevoStock) {
+        boolean exito = false;
+        String sql = "UPDATE productos SET tipoDocumento = ?, producto = ?, precioCompra = ?, cantidad = ?, stock = ? WHERE producto_id = ?";
+        try {
+            PreparedStatement statement = conexionDB.prepareStatement(sql);
+            statement.setString(1, nuevoTipoDocumento);
+            statement.setString(2, nuevoProducto);
+            statement.setDouble(3, nuevoPrecioCompra);
+            statement.setInt(4, nuevaCantidad);
+            statement.setString(5, nuevoStock);
+            statement.setInt(6, producto_id);
+            int filasActualizadas = statement.executeUpdate();
+            if (filasActualizadas > 0) {
+                exito = true;
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al actualizar producto: " + e.getMessage());
+        }
+        return exito;
+    }
     /*
         Dicionario de codigos:
         0 | Usuario o contraseña incorrectos
