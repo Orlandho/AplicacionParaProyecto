@@ -1,6 +1,6 @@
 package GestorDatosPermanentes;
 
-import Usuario.Producto;
+import Producto.Producto;
 import Usuario.Usuario;
 import java.time.LocalDate;
 import java.util.ArrayList;
