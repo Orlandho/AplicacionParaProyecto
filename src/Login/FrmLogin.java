@@ -129,7 +129,8 @@ public class FrmLogin extends javax.swing.JFrame {
 
             JOptionPane.showOptionDialog(this, JPanelPedirContraNueva, "Creando contraseña", JOptionPane.NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
             contraseñaNueva = txfNuevaContra.getText();
-            if (!VerificadorUsuario.esContraseñaValida(txfNuevaContra.getText())) {
+            
+            if (!Usuario.esContraseñaValida(txfNuevaContra.getText())) {
                 JOptionPane.showMessageDialog(this, "Formato de contraseña incorrecto. Intente de nuevo");
                 continue;
             } else if (contraseñaAntigua.equals(contraseñaNueva)) {
@@ -165,7 +166,7 @@ public class FrmLogin extends javax.swing.JFrame {
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
         String DNIoRUC = txfUsuario.getText(), contraseña = txfContraseña.getText();
 
-        if (!VerificadorUsuario.esDniORucValido(DNIoRUC) || !VerificadorUsuario.esContraseñaValida(contraseña)) {
+        if (!Usuario.esDniORucValido(DNIoRUC) || !Usuario.esContraseñaValida(contraseña)) {
             JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos. Intente de nuevo");
             return;
         }
