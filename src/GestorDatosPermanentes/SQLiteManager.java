@@ -1,6 +1,6 @@
 package GestorDatosPermanentes;
 
-import Usuario.Persona;
+import Producto.Producto;
 import Usuario.Usuario;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -181,7 +181,7 @@ public class SQLiteManager {
 
         return usuarios;
     }
-    
+
     public void eliminarUsuario(int usuario_id) {
         String sql = "DELETE FROM Usuario WHERE usuario_id = ?";
 
@@ -198,13 +198,13 @@ public class SQLiteManager {
             JOptionPane.showMessageDialog(null, "Error al eliminar usuario: " + e.getMessage());
         }
     }
-    
+
     public void actualizarUsuario(long usuarioDNI, String contraseña, String rol, LocalDate fechaUltimoCambio,
-                              int intentosFallidos, boolean cuentaBloqueada,
-                              String nombres, String apellidos, int telefono, int usuario_id) {
-        String sql = "UPDATE Usuario SET usuarioDNIoRUC = ?, contraseña = ?, rol = ?, fechaUltimoCambio = ?, " +
-                     "intentosFallidos = ?, cuentaBloqueada = ?, nombres = ?, apellidos = ?, telefono = ? " +
-                     "WHERE usuario_id = ?";
+            int intentosFallidos, boolean cuentaBloqueada,
+            String nombres, String apellidos, int telefono, int usuario_id) {
+        String sql = "UPDATE Usuario SET usuarioDNIoRUC = ?, contraseña = ?, rol = ?, fechaUltimoCambio = ?, "
+                + "intentosFallidos = ?, cuentaBloqueada = ?, nombres = ?, apellidos = ?, telefono = ? "
+                + "WHERE usuario_id = ?";
 
         try (PreparedStatement pstmt = conexionDB.prepareStatement(sql)) {
             pstmt.setLong(1, usuarioDNI);
@@ -229,6 +229,110 @@ public class SQLiteManager {
             JOptionPane.showMessageDialog(null, "Error al actualizar usuario: " + e.getMessage());
         }
     }
+    //SPRINT 3
+
+    public Producto buscarProducto(String producto) {
+        String comandoSQL = "SELECT * FROM Productos WHERE producto= ?";
+        try {
+            PreparedStatement ingresarComando = conexionDB.prepareStatement(comandoSQL);
+            ingresarComando.setString(1, producto);
+            ResultSet datosObtenidos = ingresarComando.executeQuery();
+
+            if (datosObtenidos.next()) {
+                return new Producto(
+                        datosObtenidos.getString("tipoDocumento"),
+                        datosObtenidos.getString("producto"),
+                        datosObtenidos.getDouble("precioCompra"),
+                        datosObtenidos.getInt("cantidad"),
+                        datosObtenidos.getString("stock")
+                );
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al buscar producto: " + e);
+        }
+        return null;
+    }
+
+    public ArrayList<Producto> obtenerProductos() {
+        ArrayList<Producto> productos = new ArrayList<>();
+        String sql = "SELECT * FROM productos";
+        try {
+            PreparedStatement statement = conexionDB.prepareStatement(sql);
+            ResultSet resultado = statement.executeQuery();
+            while (resultado.next()) {
+                Producto producto = new Producto(
+                        resultado.getString("tipoDocumento"),
+                        resultado.getString("producto"),
+                        resultado.getDouble("precioCompra"),
+                        resultado.getInt("cantidad"),
+                        resultado.getString("stock")
+                );
+                productos.add(producto);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al obtener productos: " + e.getMessage());
+        }
+        return productos;
+    }
+
+    public boolean crearProducto(Producto producto) {
+        boolean exito = false;
+        String sql = "INSERT INTO productos (tipoDocumento, producto, precioCompra, cantidad, stock) VALUES (?, ?, ?, ?, ?)";
+        try {
+            PreparedStatement statement = conexionDB.prepareStatement(sql);
+            statement.setString(1, producto.getTipoDocumento());
+            statement.setString(2, producto.getProducto());
+            statement.setDouble(3, producto.getPrecioCompra());
+            statement.setInt(4, producto.getCantidad());
+            statement.setString(5, producto.getStock());
+            int filasInsertadas = statement.executeUpdate();
+            if (filasInsertadas > 0) {
+                exito = true;
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al crear producto: " + e.getMessage());
+        }
+        return exito;
+    }
+
+    public boolean eliminarProducto(int producto_id) {
+        boolean exito = false;
+        String sql = "DELETE FROM productos WHERE producto_id = ?";
+        try {
+            PreparedStatement statement = conexionDB.prepareStatement(sql);
+            statement.setInt(1, producto_id);
+            int filasEliminadas = statement.executeUpdate();
+            if (filasEliminadas > 0) {
+                exito = true;
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al eliminar producto: " + e.getMessage());
+        }
+        return exito;
+    }
+
+    public boolean actualizarProducto(int producto_id, String nuevoTipoDocumento, String nuevoProducto,
+            double nuevoPrecioCompra, int nuevaCantidad, String nuevoStock) {
+        boolean exito = false;
+        String sql = "UPDATE productos SET tipoDocumento = ?, producto = ?, precioCompra = ?, cantidad = ?, stock = ? WHERE producto_id = ?";
+        try {
+            PreparedStatement statement = conexionDB.prepareStatement(sql);
+            statement.setString(1, nuevoTipoDocumento);
+            statement.setString(2, nuevoProducto);
+            statement.setDouble(3, nuevoPrecioCompra);
+            statement.setInt(4, nuevaCantidad);
+            statement.setString(5, nuevoStock);
+            statement.setInt(6, producto_id);
+            int filasActualizadas = statement.executeUpdate();
+            if (filasActualizadas > 0) {
+                exito = true;
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al actualizar producto: " + e.getMessage());
+        }
+        return exito;
+    }
+
     /*
         Dicionario de codigos:
         0 | Usuario o contraseña incorrectos
