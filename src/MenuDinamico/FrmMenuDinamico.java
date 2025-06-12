@@ -48,7 +48,6 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         ArrayList<Usuario> lista = baseDeDatos.obtenerUsuarios();
 
         for (Usuario usu : lista) {
-            //String[] columnas={"Empleado","Usuario","Contraseña","Tipo","Telefono","Estado"};
             Object[] datoFila = {usu.getUsuario_id(), usu.getNombres() + " " + usu.getApellidos(), usu.getUsuarioDNIoRUC(), usu.getContraseña(), usu.getRol(), usu.getTelefono(), Usuario.parseEsCuentaBloqueada(usu.esCuentaBloqueada())};
             modelo.addRow(datoFila);
         }
@@ -1031,7 +1030,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     }//GEN-LAST:event_btninicioMouseClicked
 
     private void btnAlmacenMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAlmacenMouseClicked
-
+        tpnMostrar.setSelectedIndex(3);
     }//GEN-LAST:event_btnAlmacenMouseClicked
 
     private void btnregistrodecomprasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnregistrodecomprasMouseClicked
@@ -1276,6 +1275,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     private javax.swing.JPanel jpanelsuperior;
     private javax.swing.JLabel lblAgregaryCrearUsuario;
     private javax.swing.JLabel lblApellidos;
+    private javax.swing.JLabel lblCantidaddeProducto;
     private javax.swing.JLabel lblClientes;
     private javax.swing.JLabel lblCompraDelMes;
     private javax.swing.JLabel lblContraseña;
@@ -1340,6 +1340,8 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     private javax.swing.JTable tblRegistrodeComprobantesEmitidos;
     private javax.swing.JTabbedPane tpnMostrar;
     private javax.swing.JTextField txtApellidos;
+    private javax.swing.JTextField txtBuscar;
+    private javax.swing.JTextField txtCantidaddeProducto;
     private javax.swing.JTextField txtClientes;
     private javax.swing.JTextField txtComprasDelMes;
     private javax.swing.JTextField txtContraseña;
