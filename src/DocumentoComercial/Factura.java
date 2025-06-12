@@ -1,0 +1,78 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package DocumentoComercial;
+
+/**
+ *
+ * @author ORLANDO
+ */
+public class Factura {
+    private int ID;
+    private long serie;
+    private long numero;
+    private String proveedor;
+    private String moneda;
+    private String responsable;
+
+    public Factura(int ID, long serie, long numero, String proveedor, String moneda, String responsable) {
+        this.ID = ID;
+        this.serie = serie;
+        this.numero = numero;
+        this.proveedor = proveedor;
+        this.moneda = moneda;
+        this.responsable = responsable;
+    }
+
+    public int getID() {
+        return ID;
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
+    }
+
+    public long getSerie() {
+        return serie;
+    }
+
+    public void setSerie(long serie) {
+        this.serie = serie;
+    }
+
+    public long getNumero() {
+        return numero;
+    }
+
+    public void setNumero(long numero) {
+        this.numero = numero;
+    }
+
+    public String getProveedor() {
+        return proveedor;
+    }
+
+    public void setProveedor(String proveedor) {
+        this.proveedor = proveedor;
+    }
+
+    public String getMoneda() {
+        return moneda;
+    }
+
+    public void setMoneda(String moneda) {
+        this.moneda = moneda;
+    }
+
+    public String getResponsable() {
+        return responsable;
+    }
+
+    public void setResponsable(String responsable) {
+        this.responsable = responsable;
+    }
+    
+    
+    
+}
