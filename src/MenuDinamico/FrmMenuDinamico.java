@@ -283,7 +283,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         lblRUC.setFont(new java.awt.Font("Cartoon Fun", 0, 14)); // NOI18N
         lblRUC.setText("Agro Integral Perú");
         jpanelsuperior.add(lblRUC);
-        lblRUC.setBounds(610, 10, 200, 19);
+        lblRUC.setBounds(610, 10, 200, 24);
 
         lblRol.setText("Empleado");
         jpanelsuperior.add(lblRol);
@@ -552,7 +552,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         lblSubtema2.setBounds(40, 40, 230, 20);
 
         cbTipoStock.setFont(new java.awt.Font("Courier New", 0, 12)); // NOI18N
-        cbTipoStock.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "• Stock de pescado", "• Con stock" }));
+        cbTipoStock.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "• Sin Filtro", "• Sin Stock", "• Con stock" }));
         pnl1Almacen.add(cbTipoStock);
         cbTipoStock.setBounds(360, 230, 170, 30);
 
@@ -640,7 +640,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     }//GEN-LAST:event_btninicioMouseClicked
 
     private void btnAlmacenMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAlmacenMouseClicked
-
+        tpnMostrar.setSelectedIndex(3);
     }//GEN-LAST:event_btnAlmacenMouseClicked
 
     private void btnregistrodecomprasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnregistrodecomprasMouseClicked

@@ -1000,9 +1000,10 @@
                   <Font name="Courier New" size="12" style="0"/>
                 </Property>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="2">
-                    <StringItem index="0" value="&#x2022; Stock de pescado"/>
-                    <StringItem index="1" value="&#x2022; Con stock"/>
+                  <StringArray count="3">
+                    <StringItem index="0" value="&#x2022; Sin Filtro"/>
+                    <StringItem index="1" value="&#x2022; Sin Stock"/>
+                    <StringItem index="2" value="&#x2022; Con stock"/>
                   </StringArray>
                 </Property>
               </Properties>
