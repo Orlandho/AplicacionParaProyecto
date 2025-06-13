@@ -15,7 +15,6 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
 
     private Usuario usuario;
     private SQLiteManager baseDeDatos;
-    private final int cantidadTablas=2;
     private DefaultTableModel[] listaModelos;
     private String[][] columnas;
     private String[][] listaCols;
@@ -30,11 +29,12 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         baseDeDatos = new SQLiteManager();
         listaCols=new String[][]{colsRegUsu,colsRegProd};
         tablas=new JTable[]{tblRegistroUsuarios,tblRegistroProductos};
+        listaModelos=new DefaultTableModel[tablas.length];
         inicializarModelos();
     }
     
     private void inicializarModelos(){
-        for (int i = 0; i < cantidadTablas; i++) {
+        for (int i = 0; i < listaModelos.length; i++) {
             listaModelos[i] = new DefaultTableModel(listaCols[i], 0) {
             @Override
             public boolean isCellEditable(int row, int colum) {
