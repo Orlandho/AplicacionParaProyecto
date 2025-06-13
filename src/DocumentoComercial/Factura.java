@@ -4,25 +4,31 @@
  */
 package DocumentoComercial;
 
+import java.util.ArrayList;
+import Producto.Producto;
+
 /**
  *
  * @author ORLANDO
  */
 public class Factura {
+
     private int ID;
     private long serie;
     private long numero;
     private String proveedor;
     private String moneda;
     private String responsable;
+    private ArrayList<Producto> listaProductos;
 
-    public Factura(int ID, long serie, long numero, String proveedor, String moneda, String responsable) {
+    public Factura(int ID, long serie, long numero, String proveedor, String moneda, String responsable, ArrayList<Producto> listaProductos) {
         this.ID = ID;
         this.serie = serie;
         this.numero = numero;
         this.proveedor = proveedor;
         this.moneda = moneda;
         this.responsable = responsable;
+        this.listaProductos = listaProductos;
     }
 
     public int getID() {
@@ -72,7 +78,9 @@ public class Factura {
     public void setResponsable(String responsable) {
         this.responsable = responsable;
     }
-    
-    
-    
+
+    public double getTotal() {
+        return 0;
+    }
+
 }

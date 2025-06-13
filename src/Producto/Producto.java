@@ -1,8 +1,7 @@
-
 package Producto;
 
 public class Producto {
-    
+
     // Atributos
     private String tipoDocumento;
     private String producto;
@@ -17,7 +16,7 @@ public class Producto {
         this.cantidad = cantidad;
         this.stock = stock;
     }
-    
+
     public String getTipoDocumento() {
         return tipoDocumento;
     }
@@ -57,4 +56,17 @@ public class Producto {
     public void setStock(String stock) {
         this.stock = stock;
     }
+
+    public double getIGV() {
+        return 0;
+    }
+
+    public double subTotal() {
+        return 0;
+    }
+
+    public double total() {
+        return 0;
+    }
+
 }
