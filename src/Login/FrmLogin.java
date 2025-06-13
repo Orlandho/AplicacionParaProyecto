@@ -1,7 +1,6 @@
 package Login;
 
 import Usuario.Usuario;
-import ServiciosUsuario.VerificadorUsuario;
 import GestorDatosPermanentes.SQLiteManager;
 import javax.swing.*;
 import java.awt.*;
