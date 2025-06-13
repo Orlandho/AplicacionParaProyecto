@@ -23,7 +23,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     private JTable[] tablas;
     private String[] colsRegUsu = {"Usuario ID", "Empleado", "Usuario", "Contraseña", "Tipo", "Telefono", "Estado"};
     private final int indiceRegUsu = 0;
-    private String[] colsRegProd = {"Producto ID", "Producto", "Precio Compra", "Cantidad", "Stock"};
+    private String[] colsRegProd = {"Producto ID", "Tipo de Documento", "Producto", "Precio Compra", "Cantidad", "Stock"};
     private final int indiceRegProd = 1;
 
     public FrmMenuDinamico() {
@@ -34,6 +34,15 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         tablas = new JTable[]{tblRegistroUsuarios, tblRegistroProductos};
         listaModelos = new DefaultTableModel[tablas.length];
         inicializarModelos();
+
+        //configuracion personalizada para tblRegistroProductos
+        listaModelos[indiceRegProd] = new DefaultTableModel(listaCols[indiceRegProd], 0) {
+            @Override
+            public boolean isCellEditable(int row, int colum) {
+                return colum != 0 && colum != 1 && colum != 5;
+            }
+        };
+        tablas[indiceRegProd].setModel(listaModelos[indiceRegProd]);
     }
 
     private void inicializarModelos() {
@@ -74,8 +83,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         ArrayList<Producto> lista = baseDeDatos.obtenerProductos();
 
         for (Producto pro : lista) {
-            //                  {"Producto ID", "Producto", "Precio Compra", "Cantidad", "Stock"};
-            Object[] datoFila = {pro.getID(), pro.getProducto(), pro.getPrecioCompra(), pro.getCantidad(), pro.getStock()};
+            Object[] datoFila = {pro.getID(), pro.getTipoDocumento(), pro.getProducto(), pro.getPrecioCompra(), pro.getCantidad(), pro.getStock()};
             listaModelos[indiceRegProd].addRow(datoFila);
         }
     }
@@ -739,6 +747,15 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         return false;
     }
 
+    private boolean faltanDatosEnTxt(String[] verificame) {
+        for (String txt : verificame) {
+            if (txt.isBlank()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private void btnGuardaryAgregarDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardaryAgregarDatosActionPerformed
         String errorMensaje = "";
         boolean noIngresar = false;
@@ -826,6 +843,12 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Seleccione una fila para editar");
             return;
         }
+
+        if (tieneCeldasVacias(listaModelos[indiceRegUsu], filaSeleccion)) {
+            JOptionPane.showMessageDialog(this, "Faltan datos en la fila");
+            return;
+        }
+
         int usuID = Integer.parseInt(listaModelos[indiceRegUsu].getValueAt(filaSeleccion, 0).toString());
         //Empleado nombre String
         String[] nombres_apellidos = separarNombresApellidos(listaModelos[indiceRegUsu].getValueAt(filaSeleccion, 1).toString());
@@ -876,10 +899,64 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAgregarAlmacenActionPerformed
 
     private void btnEliminarAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarAlmacenActionPerformed
+        int filaSeleccion = tblRegistroProductos.getSelectedRow();
+        if (filaSeleccion < 0) {
+            JOptionPane.showMessageDialog(this, "Seleccione una fila para eliminar");
+            return;
+        }
+        int producto_id = Integer.parseInt(listaModelos[indiceRegProd].getValueAt(filaSeleccion, 0).toString());
+        baseDeDatos.eliminarProducto(producto_id);
         actualizarTBLRegistroProductos();
     }//GEN-LAST:event_btnEliminarAlmacenActionPerformed
 
+    private boolean tieneCeldasVacias(DefaultTableModel modelo, int fila) {
+        for (int i = 0; i < modelo.getColumnCount(); i++) {
+            if (modelo.getValueAt(fila, i).toString().isBlank()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private void btnEditarAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarAlmacenActionPerformed
+        int filaSeleccion = tblRegistroProductos.getSelectedRow();
+        if (filaSeleccion < 0) {
+            JOptionPane.showMessageDialog(this, "Seleccione una fila para editar");
+            return;
+        }
+
+        //Revisar no espacios en blanco
+        if (tieneCeldasVacias(listaModelos[indiceRegProd], filaSeleccion)) {
+            JOptionPane.showMessageDialog(this, "Faltan datos en la fila");
+            return;
+        }
+
+        //formato correcto
+        String errorMensaje = "";
+        boolean noEntrar = false;
+        Integer producto_id = Integer.parseInt(listaModelos[indiceRegProd].getValueAt(filaSeleccion, 0).toString());
+        String tipoDoc = listaModelos[indiceRegProd].getValueAt(filaSeleccion, 1).toString();
+        String producto = listaModelos[indiceRegProd].getValueAt(filaSeleccion, 2).toString();
+        Double precio = Double.parseDouble(listaModelos[indiceRegProd].getValueAt(filaSeleccion, 3).toString());
+        if (precio == null) {
+            errorMensaje += "Formato de precio incorrecto. Ingrese un numero real.\n";
+            noEntrar = true;
+        }
+
+        Integer cantidad = Integer.parseInt(listaModelos[indiceRegProd].getValueAt(filaSeleccion, 4).toString());
+        if (cantidad == null) {
+            errorMensaje += "Formato de precio incorrecto. Ingrese un numero natural.\n";
+            noEntrar = true;
+        }
+
+        if (noEntrar) {
+            JOptionPane.showMessageDialog(this, errorMensaje);
+            return;
+        }
+
+        String stock = listaModelos[indiceRegProd].getValueAt(filaSeleccion, 5).toString();
+
+        baseDeDatos.actualizarProducto(producto_id, tipoDoc, producto, precio, cantidad, stock);
         actualizarTBLRegistroProductos();
     }//GEN-LAST:event_btnEditarAlmacenActionPerformed
 
