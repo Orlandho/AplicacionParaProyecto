@@ -240,6 +240,7 @@ public class SQLiteManager {
 
             if (datosObtenidos.next()) {
                 return new Producto(
+                        datosObtenidos.getInt("producto_id"),
                         datosObtenidos.getString("tipoDocumento"),
                         datosObtenidos.getString("producto"),
                         datosObtenidos.getDouble("precioCompra"),
@@ -261,6 +262,7 @@ public class SQLiteManager {
             ResultSet resultado = statement.executeQuery();
             while (resultado.next()) {
                 Producto producto = new Producto(
+                        resultado.getInt("producto_id"),
                         resultado.getString("tipoDocumento"),
                         resultado.getString("producto"),
                         resultado.getDouble("precioCompra"),
@@ -275,16 +277,16 @@ public class SQLiteManager {
         return productos;
     }
 
-    public boolean crearProducto(Producto producto) {
+    public boolean crearProducto(String tipoDoc,String producto,double precio,int cantidad,String stock) {
         boolean exito = false;
         String sql = "INSERT INTO productos (tipoDocumento, producto, precioCompra, cantidad, stock) VALUES (?, ?, ?, ?, ?)";
         try {
             PreparedStatement statement = conexionDB.prepareStatement(sql);
-            statement.setString(1, producto.getTipoDocumento());
-            statement.setString(2, producto.getProducto());
-            statement.setDouble(3, producto.getPrecioCompra());
-            statement.setInt(4, producto.getCantidad());
-            statement.setString(5, producto.getStock());
+            statement.setString(1, tipoDoc);
+            statement.setString(2, producto);
+            statement.setDouble(3, precio);
+            statement.setInt(4, cantidad);
+            statement.setString(5, stock);
             int filasInsertadas = statement.executeUpdate();
             if (filasInsertadas > 0) {
                 exito = true;

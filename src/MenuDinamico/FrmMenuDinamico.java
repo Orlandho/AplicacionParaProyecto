@@ -10,6 +10,8 @@ import javax.swing.table.DefaultTableModel;
 import Login.FrmLogin;
 import java.time.LocalDate;
 import javax.swing.JTable;
+import Producto.Producto;
+import javax.swing.JTextField;
 
 public class FrmMenuDinamico extends javax.swing.JFrame {
 
@@ -20,27 +22,28 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     private String[][] listaCols;
     private JTable[] tablas;
     private String[] colsRegUsu = {"Usuario ID", "Empleado", "Usuario", "Contraseña", "Tipo", "Telefono", "Estado"};
-    private final int indiceRegUsu=0;
+    private final int indiceRegUsu = 0;
     private String[] colsRegProd = {"Producto ID", "Producto", "Precio Compra", "Cantidad", "Stock"};
-    private final int indiceRegProd=1;
+    private final int indiceRegProd = 1;
+
     public FrmMenuDinamico() {
         initComponents();
         jpaneladmin.setVisible(false);
         baseDeDatos = new SQLiteManager();
-        listaCols=new String[][]{colsRegUsu,colsRegProd};
-        tablas=new JTable[]{tblRegistroUsuarios,tblRegistroProductos};
-        listaModelos=new DefaultTableModel[tablas.length];
+        listaCols = new String[][]{colsRegUsu, colsRegProd};
+        tablas = new JTable[]{tblRegistroUsuarios, tblRegistroProductos};
+        listaModelos = new DefaultTableModel[tablas.length];
         inicializarModelos();
     }
-    
-    private void inicializarModelos(){
+
+    private void inicializarModelos() {
         for (int i = 0; i < listaModelos.length; i++) {
             listaModelos[i] = new DefaultTableModel(listaCols[i], 0) {
-            @Override
-            public boolean isCellEditable(int row, int colum) {
-                return colum != 0;
-            }
-        };
+                @Override
+                public boolean isCellEditable(int row, int colum) {
+                    return colum != 0;
+                }
+            };
             tablas[i].setModel(listaModelos[i]);
         }
     }
@@ -62,6 +65,18 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         for (Usuario usu : lista) {
             Object[] datoFila = {usu.getUsuario_id(), usu.getNombres() + " " + usu.getApellidos(), usu.getUsuarioDNIoRUC(), usu.getContraseña(), usu.getRol(), usu.getTelefono(), Usuario.parseEsCuentaBloqueada(usu.esCuentaBloqueada())};
             listaModelos[indiceRegUsu].addRow(datoFila);
+        }
+    }
+
+    private void actualizarTBLRegistroProductos() {
+
+        listaModelos[indiceRegProd].setRowCount(0);
+        ArrayList<Producto> lista = baseDeDatos.obtenerProductos();
+
+        for (Producto pro : lista) {
+            //                  {"Producto ID", "Producto", "Precio Compra", "Cantidad", "Stock"};
+            Object[] datoFila = {pro.getID(), pro.getProducto(), pro.getPrecioCompra(), pro.getCantidad(), pro.getStock()};
+            listaModelos[indiceRegProd].addRow(datoFila);
         }
     }
 
@@ -609,16 +624,31 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
 
         btnAgregarAlmacen.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         btnAgregarAlmacen.setText("Agregar");
+        btnAgregarAlmacen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarAlmacenActionPerformed(evt);
+            }
+        });
         pnl1Almacen.add(btnAgregarAlmacen);
         btnAgregarAlmacen.setBounds(510, 40, 120, 40);
 
         btnEliminarAlmacen.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         btnEliminarAlmacen.setText("Eliminar");
+        btnEliminarAlmacen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarAlmacenActionPerformed(evt);
+            }
+        });
         pnl1Almacen.add(btnEliminarAlmacen);
         btnEliminarAlmacen.setBounds(510, 100, 120, 40);
 
         btnEditarAlmacen.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         btnEditarAlmacen.setText("Editar");
+        btnEditarAlmacen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarAlmacenActionPerformed(evt);
+            }
+        });
         pnl1Almacen.add(btnEditarAlmacen);
         btnEditarAlmacen.setBounds(510, 160, 120, 40);
         pnl1Almacen.add(txtPreciodeCompra);
@@ -630,6 +660,11 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
 
         btnFiltrarAlmacen.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         btnFiltrarAlmacen.setText("Filtrar");
+        btnFiltrarAlmacen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFiltrarAlmacenActionPerformed(evt);
+            }
+        });
         pnl1Almacen.add(btnFiltrarAlmacen);
         btnFiltrarAlmacen.setBounds(540, 230, 100, 30);
 
@@ -652,6 +687,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     }//GEN-LAST:event_btninicioMouseClicked
 
     private void btnAlmacenMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAlmacenMouseClicked
+        actualizarTBLRegistroProductos();
         tpnMostrar.setSelectedIndex(3);
     }//GEN-LAST:event_btnAlmacenMouseClicked
 
@@ -694,14 +730,19 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         tpnMostrar.setSelectedIndex(2);
     }//GEN-LAST:event_btnCrearUsuarioActionPerformed
 
-    private boolean faltanDatosUsuario() {
-        return txtNombres.getText().isBlank() || txtApellidos.getText().isBlank() || txtTelefono.getText().isBlank() || txtDNIUsuario.getText().isBlank() || txtContraseña.getText().isBlank();
+    private boolean faltanDatosEnTxt(JTextField[] verificame) {
+        for (JTextField txt : verificame) {
+            if (txt.getText().isBlank()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private void btnGuardaryAgregarDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardaryAgregarDatosActionPerformed
         String errorMensaje = "";
         boolean noIngresar = false;
-        if (faltanDatosUsuario()) {
+        if (faltanDatosEnTxt(new JTextField[]{txtNombres, txtApellidos, txtTelefono, txtDNIUsuario, txtContraseña})) {
             errorMensaje += "Error: Falta llenar datos";
             noIngresar = true;
         }
@@ -806,6 +847,45 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         actualizarTBLRegistroUsuarios();
 
     }//GEN-LAST:event_btnEditarMouseClicked
+
+    private void btnAgregarAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarAlmacenActionPerformed
+        String errorMensaje = "";
+        boolean noRegistrar = false;
+        if (faltanDatosEnTxt(new JTextField[]{txtProducto, txtCantidaddeProducto, txtPreciodeCompra})) {
+            JOptionPane.showMessageDialog(this, "Faltan ingresar datos de producto");
+            return;
+        }
+        Integer cantidadProducto = Producto.tryParseCantidad(txtCantidaddeProducto.getText());
+        Double precioCompra = Producto.tryParsePrecioCompra(txtPreciodeCompra.getText());
+        String producto = txtProducto.getText();
+        if (cantidadProducto == null) {
+            errorMensaje += "Formato de cantidad incorrecto. Debe ingresar un número natural.\n";
+            noRegistrar = true;
+        }
+        if (precioCompra == null) {
+            errorMensaje += "Formato de precio incorrecto. Debe ingresar un número real.\n";
+            noRegistrar = true;
+        }
+        if (noRegistrar) {
+            JOptionPane.showMessageDialog(this, errorMensaje);
+            return;
+        }
+        //                  (String tipoDoc,String producto,double precio,int cantidad,String stock) {
+        baseDeDatos.crearProducto("Sin documento", producto, precioCompra, cantidadProducto, Producto.calcularStock(cantidadProducto));
+        actualizarTBLRegistroProductos();
+    }//GEN-LAST:event_btnAgregarAlmacenActionPerformed
+
+    private void btnEliminarAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarAlmacenActionPerformed
+        actualizarTBLRegistroProductos();
+    }//GEN-LAST:event_btnEliminarAlmacenActionPerformed
+
+    private void btnEditarAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarAlmacenActionPerformed
+        actualizarTBLRegistroProductos();
+    }//GEN-LAST:event_btnEditarAlmacenActionPerformed
+
+    private void btnFiltrarAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFiltrarAlmacenActionPerformed
+        actualizarTBLRegistroProductos();
+    }//GEN-LAST:event_btnFiltrarAlmacenActionPerformed
 
     /**
      * @param args the command line arguments

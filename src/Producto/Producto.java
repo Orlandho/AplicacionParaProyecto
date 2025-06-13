@@ -4,19 +4,23 @@ package Producto;
 public class Producto {
     
     // Atributos
+    private int ID;
     private String tipoDocumento;
     private String producto;
     private double precioCompra;
     private int cantidad;
     private String stock;
 
-    public Producto(String tipoDocumento, String producto, double precioCompra, int cantidad, String stock) {
+    public Producto(int ID, String tipoDocumento, String producto, double precioCompra, int cantidad, String stock) {
+        this.ID = ID;
         this.tipoDocumento = tipoDocumento;
         this.producto = producto;
         this.precioCompra = precioCompra;
         this.cantidad = cantidad;
         this.stock = stock;
     }
+
+    
     
     public String getTipoDocumento() {
         return tipoDocumento;
@@ -50,11 +54,47 @@ public class Producto {
         this.cantidad = cantidad;
     }
 
-    public String getStock() {
-        return stock;
-    }
-
     public void setStock(String stock) {
         this.stock = stock;
+    }
+
+    public int getID() {
+        return ID;
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
+    }
+    
+    public static Integer tryParseCantidad(String txtCantidad){
+        int resultado;
+        try {
+            resultado = Integer.parseInt(txtCantidad);
+        } catch (NumberFormatException e) {
+            return null;
+        }
+        return resultado;
+    }
+    public static Double tryParsePrecioCompra(String txtPrecioCompra){
+        double resultado;
+        try {
+            resultado = Double.parseDouble(txtPrecioCompra);
+        } catch (NumberFormatException e) {
+            return null;
+        }
+        return resultado;
+    }
+    
+    public static String calcularStock(int cantidad){
+        if(cantidad<1){
+            return "Agotado";
+        }else if(cantidad<11){
+            return "Camino agotarse";
+        }
+        return "Disponible";
+    }
+    
+    public String getStock(){
+        return calcularStock(getCantidad());
     }
 }
