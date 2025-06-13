@@ -625,6 +625,11 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
 
         btnBuscarAlmacen.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         btnBuscarAlmacen.setText("Buscar");
+        btnBuscarAlmacen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarAlmacenActionPerformed(evt);
+            }
+        });
         pnl1Almacen.add(btnBuscarAlmacen);
         btnBuscarAlmacen.setBounds(240, 210, 100, 30);
         pnl1Almacen.add(txtBuscar);
@@ -963,6 +968,33 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     private void btnFiltrarAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFiltrarAlmacenActionPerformed
         actualizarTBLRegistroProductos();
     }//GEN-LAST:event_btnFiltrarAlmacenActionPerformed
+
+    
+    private static boolean coincideAlgo(String clave, String palabra){
+        int numCoinc;
+        for (int i = 0; i <= (palabra.length()-clave.length()); i++) {
+            numCoinc=0;
+            for (int j = 0; j < clave.length(); j++) {
+                if(palabra.charAt(i+j)==clave.charAt(j)){
+                    numCoinc++;
+                    continue;
+                }
+                break;
+            }
+            if(numCoinc==clave.length()){
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    private void btnBuscarAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarAlmacenActionPerformed
+        //revisar que no este en blanco
+        
+        //hacer el for para buscar y añadir a una lista
+        
+        //mostrar la lista en la tabla
+    }//GEN-LAST:event_btnBuscarAlmacenActionPerformed
 
     /**
      * @param args the command line arguments
