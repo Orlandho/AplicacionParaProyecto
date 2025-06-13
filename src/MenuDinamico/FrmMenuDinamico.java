@@ -9,28 +9,40 @@ import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 import Login.FrmLogin;
 import java.time.LocalDate;
+import javax.swing.JTable;
 
 public class FrmMenuDinamico extends javax.swing.JFrame {
 
-    Usuario usuario;
-    SQLiteManager baseDeDatos;
-    DefaultTableModel modelo;
-
-    /**
-     * Creates new form MenuDinamico
-     */
+    private Usuario usuario;
+    private SQLiteManager baseDeDatos;
+    private final int cantidadTablas=2;
+    private DefaultTableModel[] listaModelos;
+    private String[][] columnas;
+    private String[][] listaCols;
+    private JTable[] tablas;
+    private String[] colsRegUsu = {"Usuario ID", "Empleado", "Usuario", "Contraseña", "Tipo", "Telefono", "Estado"};
+    private final int indiceRegUsu=0;
+    private String[] colsRegProd = {"Producto ID", "Producto", "Precio Compra", "Cantidad", "Stock"};
+    private final int indiceRegProd=1;
     public FrmMenuDinamico() {
         initComponents();
         jpaneladmin.setVisible(false);
         baseDeDatos = new SQLiteManager();
-        String[] columnas = {"Usuario ID", "Empleado", "Usuario", "Contraseña", "Tipo", "Telefono", "Estado"};
-        modelo = new DefaultTableModel(columnas, 0) {
+        listaCols=new String[][]{colsRegUsu,colsRegProd};
+        tablas=new JTable[]{tblRegistroUsuarios,tblRegistroProductos};
+        inicializarModelos();
+    }
+    
+    private void inicializarModelos(){
+        for (int i = 0; i < cantidadTablas; i++) {
+            listaModelos[i] = new DefaultTableModel(listaCols[i], 0) {
             @Override
             public boolean isCellEditable(int row, int colum) {
                 return colum != 0;
             }
         };
-        tblRegistroUsuarios.setModel(modelo);
+            tablas[i].setModel(listaModelos[i]);
+        }
     }
 
     public void modificarSegunRol(Usuario usuario) {
@@ -44,12 +56,12 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
 
     private void actualizarTBLRegistroUsuarios() {
 
-        modelo.setRowCount(0);
+        listaModelos[indiceRegUsu].setRowCount(0);
         ArrayList<Usuario> lista = baseDeDatos.obtenerUsuarios();
 
         for (Usuario usu : lista) {
             Object[] datoFila = {usu.getUsuario_id(), usu.getNombres() + " " + usu.getApellidos(), usu.getUsuarioDNIoRUC(), usu.getContraseña(), usu.getRol(), usu.getTelefono(), Usuario.parseEsCuentaBloqueada(usu.esCuentaBloqueada())};
-            modelo.addRow(datoFila);
+            listaModelos[indiceRegUsu].addRow(datoFila);
         }
     }
 
@@ -762,7 +774,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Seleccione una fila para eliminar");
             return;
         }
-        int usuario_id = Integer.parseInt(modelo.getValueAt(filaSeleccion, 0).toString());
+        int usuario_id = Integer.parseInt(listaModelos[indiceRegUsu].getValueAt(filaSeleccion, 0).toString());
         baseDeDatos.eliminarUsuario(usuario_id);
         actualizarTBLRegistroUsuarios();
     }//GEN-LAST:event_btnEliminarActionPerformed
@@ -773,23 +785,22 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Seleccione una fila para editar");
             return;
         }
-        int usuID = Integer.parseInt(modelo.getValueAt(filaSeleccion, 0).toString());
+        int usuID = Integer.parseInt(listaModelos[indiceRegUsu].getValueAt(filaSeleccion, 0).toString());
         //Empleado nombre String
-        String[] nombres_apellidos = separarNombresApellidos(modelo.getValueAt(filaSeleccion, 1).toString());
+        String[] nombres_apellidos = separarNombresApellidos(listaModelos[indiceRegUsu].getValueAt(filaSeleccion, 1).toString());
         String nombre = nombres_apellidos[0];
         String apellido = nombres_apellidos[1];
         //UsuarioDNIoRUC Long
-        long usuarioDNI = Long.parseLong(modelo.getValueAt(filaSeleccion, 2).toString());
+        long usuarioDNI = Long.parseLong(listaModelos[indiceRegUsu].getValueAt(filaSeleccion, 2).toString());
         //Contraseña String
-        String contra = modelo.getValueAt(filaSeleccion, 3).toString();
+        String contra = listaModelos[indiceRegUsu].getValueAt(filaSeleccion, 3).toString();
         //Tipo String
-        String rol = modelo.getValueAt(filaSeleccion, 4).toString();
+        String rol = listaModelos[indiceRegUsu].getValueAt(filaSeleccion, 4).toString();
         //Telefono int
-        int fono = Integer.parseInt(modelo.getValueAt(filaSeleccion, 5).toString());
+        int fono = Integer.parseInt(listaModelos[indiceRegUsu].getValueAt(filaSeleccion, 5).toString());
 
         //Estado boolean
-        boolean esCuentaBloqueada = Usuario.parseEsCuentaBloqueada(modelo.getValueAt(filaSeleccion, 6).toString());
-        esCuentaBloqueada = true;
+        boolean esCuentaBloqueada = Usuario.parseEsCuentaBloqueada(listaModelos[indiceRegUsu].getValueAt(filaSeleccion, 6).toString());
         //long usuarioDNI, String contraseña, String rol, LocalDate fechaUltimoCambio,int intentosFallidos, boolean cuentaBloqueada, String nombres, String apellidos, int telefono, int usuario_id
         baseDeDatos.actualizarUsuario(usuarioDNI, contra, rol, LocalDate.now(), 0, esCuentaBloqueada, nombre, apellido, fono, usuID);
         actualizarTBLRegistroUsuarios();
