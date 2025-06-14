@@ -9,28 +9,52 @@ import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 import Login.FrmLogin;
 import java.time.LocalDate;
+import javax.swing.JTable;
+import Producto.Producto;
+import javax.swing.JTextField;
 
 public class FrmMenuDinamico extends javax.swing.JFrame {
 
-    Usuario usuario;
-    SQLiteManager baseDeDatos;
-    DefaultTableModel modelo;
+    private Usuario usuario;
+    private SQLiteManager baseDeDatos;
+    private DefaultTableModel[] listaModelos;
+    private String[][] columnas;
+    private String[][] listaCols;
+    private JTable[] tablas;
+    private String[] colsRegUsu = {"Usuario ID", "Empleado", "Usuario", "Contraseña", "Tipo", "Telefono", "Estado"};
+    private final int indiceRegUsu = 0;
+    private String[] colsRegProd = {"Producto ID", "Tipo de Documento", "Producto", "Precio Compra", "Cantidad", "Stock"};
+    private final int indiceRegProd = 1;
 
-    /**
-     * Creates new form MenuDinamico
-     */
     public FrmMenuDinamico() {
         initComponents();
         jpaneladmin.setVisible(false);
         baseDeDatos = new SQLiteManager();
-        String[] columnas = {"Usuario ID", "Empleado", "Usuario", "Contraseña", "Tipo", "Telefono", "Estado"};
-        modelo = new DefaultTableModel(columnas, 0) {
+        listaCols = new String[][]{colsRegUsu, colsRegProd};
+        tablas = new JTable[]{tblRegistroUsuarios, tblRegistroProductos};
+        listaModelos = new DefaultTableModel[tablas.length];
+        inicializarModelos();
+
+        //configuracion personalizada para tblRegistroProductos
+        listaModelos[indiceRegProd] = new DefaultTableModel(listaCols[indiceRegProd], 0) {
             @Override
             public boolean isCellEditable(int row, int colum) {
-                return colum != 0;
+                return colum != 0 && colum != 1 && colum != 5;
             }
         };
-        tblRegistroUsuarios.setModel(modelo);
+        tablas[indiceRegProd].setModel(listaModelos[indiceRegProd]);
+    }
+
+    private void inicializarModelos() {
+        for (int i = 0; i < listaModelos.length; i++) {
+            listaModelos[i] = new DefaultTableModel(listaCols[i], 0) {
+                @Override
+                public boolean isCellEditable(int row, int colum) {
+                    return colum != 0;
+                }
+            };
+            tablas[i].setModel(listaModelos[i]);
+        }
     }
 
     public void modificarSegunRol(Usuario usuario) {
@@ -44,13 +68,23 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
 
     private void actualizarTBLRegistroUsuarios() {
 
-        modelo.setRowCount(0);
+        listaModelos[indiceRegUsu].setRowCount(0);
         ArrayList<Usuario> lista = baseDeDatos.obtenerUsuarios();
 
         for (Usuario usu : lista) {
-            //String[] columnas={"Empleado","Usuario","Contraseña","Tipo","Telefono","Estado"};
             Object[] datoFila = {usu.getUsuario_id(), usu.getNombres() + " " + usu.getApellidos(), usu.getUsuarioDNIoRUC(), usu.getContraseña(), usu.getRol(), usu.getTelefono(), Usuario.parseEsCuentaBloqueada(usu.esCuentaBloqueada())};
-            modelo.addRow(datoFila);
+            listaModelos[indiceRegUsu].addRow(datoFila);
+        }
+    }
+
+    private void actualizarTBLRegistroProductos() {
+
+        listaModelos[indiceRegProd].setRowCount(0);
+        ArrayList<Producto> lista = baseDeDatos.obtenerProductos();
+
+        for (Producto pro : lista) {
+            Object[] datoFila = {pro.getID(), pro.getTipoDocumento(), pro.getProducto(), pro.getPrecioCompra(), pro.getCantidad(), pro.getStock()};
+            listaModelos[indiceRegProd].addRow(datoFila);
         }
     }
 
@@ -125,6 +159,24 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         btnGuardaryAgregarDatos = new javax.swing.JButton();
         rbtActivo = new javax.swing.JRadioButton();
         rbtInactivo = new javax.swing.JRadioButton();
+        pnl1Almacen = new javax.swing.JPanel();
+        lblSubtema2 = new javax.swing.JLabel();
+        cbTipoStock = new javax.swing.JComboBox<>();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblRegistroProductos = new javax.swing.JTable();
+        lblPreciodeProducto = new javax.swing.JLabel();
+        lblProducto = new javax.swing.JLabel();
+        lblCantidaddeProducto = new javax.swing.JLabel();
+        btnBuscarAlmacen = new javax.swing.JButton();
+        txtBuscar = new javax.swing.JTextField();
+        btnAgregarAlmacen = new javax.swing.JButton();
+        btnEliminarAlmacen = new javax.swing.JButton();
+        btnEditarAlmacen = new javax.swing.JButton();
+        txtPreciodeCompra = new javax.swing.JTextField();
+        txtProducto = new javax.swing.JTextField();
+        txtCantidaddeProducto = new javax.swing.JTextField();
+        btnFiltrarAlmacen = new javax.swing.JButton();
+        lblImagen1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setResizable(false);
@@ -526,6 +578,115 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
 
         tpnMostrar.addTab("pnlRegUsuIngresar", pnlRegUsuIngresar);
 
+        pnl1Almacen.setBackground(new java.awt.Color(216, 252, 156));
+        pnl1Almacen.setLayout(null);
+
+        lblSubtema2.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
+        lblSubtema2.setText("REGISTRO DE PRODUCTOS");
+        pnl1Almacen.add(lblSubtema2);
+        lblSubtema2.setBounds(40, 40, 230, 20);
+
+        cbTipoStock.setFont(new java.awt.Font("Courier New", 0, 12)); // NOI18N
+        cbTipoStock.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "• Sin Filtro", "• Sin Stock", "• Con stock" }));
+        pnl1Almacen.add(cbTipoStock);
+        cbTipoStock.setBounds(360, 230, 170, 30);
+
+        tblRegistroProductos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Tipo de documento", "Producto", "Precio Compra", "Cantidad", "Stock"
+            }
+        ));
+        jScrollPane2.setViewportView(tblRegistroProductos);
+
+        pnl1Almacen.add(jScrollPane2);
+        jScrollPane2.setBounds(30, 300, 630, 190);
+
+        lblPreciodeProducto.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        lblPreciodeProducto.setText("Precio de compra:");
+        pnl1Almacen.add(lblPreciodeProducto);
+        lblPreciodeProducto.setBounds(40, 170, 150, 20);
+
+        lblProducto.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        lblProducto.setText("Producto: ");
+        pnl1Almacen.add(lblProducto);
+        lblProducto.setBounds(40, 90, 90, 20);
+
+        lblCantidaddeProducto.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        lblCantidaddeProducto.setText("Cantidad de productos: ");
+        pnl1Almacen.add(lblCantidaddeProducto);
+        lblCantidaddeProducto.setBounds(40, 130, 210, 20);
+
+        btnBuscarAlmacen.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        btnBuscarAlmacen.setText("Buscar");
+        btnBuscarAlmacen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarAlmacenActionPerformed(evt);
+            }
+        });
+        pnl1Almacen.add(btnBuscarAlmacen);
+        btnBuscarAlmacen.setBounds(240, 210, 100, 30);
+        pnl1Almacen.add(txtBuscar);
+        txtBuscar.setBounds(70, 210, 160, 30);
+
+        btnAgregarAlmacen.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        btnAgregarAlmacen.setText("Agregar");
+        btnAgregarAlmacen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarAlmacenActionPerformed(evt);
+            }
+        });
+        pnl1Almacen.add(btnAgregarAlmacen);
+        btnAgregarAlmacen.setBounds(510, 40, 120, 40);
+
+        btnEliminarAlmacen.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        btnEliminarAlmacen.setText("Eliminar");
+        btnEliminarAlmacen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarAlmacenActionPerformed(evt);
+            }
+        });
+        pnl1Almacen.add(btnEliminarAlmacen);
+        btnEliminarAlmacen.setBounds(510, 100, 120, 40);
+
+        btnEditarAlmacen.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        btnEditarAlmacen.setText("Editar");
+        btnEditarAlmacen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarAlmacenActionPerformed(evt);
+            }
+        });
+        pnl1Almacen.add(btnEditarAlmacen);
+        btnEditarAlmacen.setBounds(510, 160, 120, 40);
+        pnl1Almacen.add(txtPreciodeCompra);
+        txtPreciodeCompra.setBounds(200, 160, 160, 30);
+        pnl1Almacen.add(txtProducto);
+        txtProducto.setBounds(130, 80, 160, 30);
+        pnl1Almacen.add(txtCantidaddeProducto);
+        txtCantidaddeProducto.setBounds(250, 120, 160, 30);
+
+        btnFiltrarAlmacen.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        btnFiltrarAlmacen.setText("Filtrar");
+        btnFiltrarAlmacen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFiltrarAlmacenActionPerformed(evt);
+            }
+        });
+        pnl1Almacen.add(btnFiltrarAlmacen);
+        btnFiltrarAlmacen.setBounds(540, 230, 100, 30);
+
+        lblImagen1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Lupa.png"))); // NOI18N
+        pnl1Almacen.add(lblImagen1);
+        lblImagen1.setBounds(40, 210, 30, 30);
+
+        tpnMostrar.addTab("pnl1Almacen", pnl1Almacen);
+
         getContentPane().add(tpnMostrar);
         tpnMostrar.setBounds(190, 80, 690, 560);
 
@@ -539,7 +700,8 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     }//GEN-LAST:event_btninicioMouseClicked
 
     private void btnAlmacenMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAlmacenMouseClicked
-
+        actualizarTBLRegistroProductos();
+        tpnMostrar.setSelectedIndex(3);
     }//GEN-LAST:event_btnAlmacenMouseClicked
 
     private void btnregistrodecomprasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnregistrodecomprasMouseClicked
@@ -581,14 +743,28 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         tpnMostrar.setSelectedIndex(2);
     }//GEN-LAST:event_btnCrearUsuarioActionPerformed
 
-    private boolean faltanDatosUsuario() {
-        return txtNombres.getText().isBlank() || txtApellidos.getText().isBlank() || txtTelefono.getText().isBlank() || txtDNIUsuario.getText().isBlank() || txtContraseña.getText().isBlank();
+    private boolean faltanDatosEnTxt(JTextField... verificame) {
+        for (JTextField txt : verificame) {
+            if (txt.getText().isBlank()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean faltanDatosEnTxt(String[] verificame) {
+        for (String txt : verificame) {
+            if (txt.isBlank()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private void btnGuardaryAgregarDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardaryAgregarDatosActionPerformed
         String errorMensaje = "";
         boolean noIngresar = false;
-        if (faltanDatosUsuario()) {
+        if (faltanDatosEnTxt(txtNombres, txtApellidos, txtTelefono, txtDNIUsuario, txtContraseña)) {
             errorMensaje += "Error: Falta llenar datos";
             noIngresar = true;
         }
@@ -661,7 +837,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Seleccione una fila para eliminar");
             return;
         }
-        int usuario_id = Integer.parseInt(modelo.getValueAt(filaSeleccion, 0).toString());
+        int usuario_id = Integer.parseInt(listaModelos[indiceRegUsu].getValueAt(filaSeleccion, 0).toString());
         baseDeDatos.eliminarUsuario(usuario_id);
         actualizarTBLRegistroUsuarios();
     }//GEN-LAST:event_btnEliminarActionPerformed
@@ -672,28 +848,182 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Seleccione una fila para editar");
             return;
         }
-        int usuID = Integer.parseInt(modelo.getValueAt(filaSeleccion, 0).toString());
+
+        if (tieneCeldasVacias(listaModelos[indiceRegUsu], filaSeleccion)) {
+            JOptionPane.showMessageDialog(this, "Faltan datos en la fila");
+            return;
+        }
+
+        int usuID = Integer.parseInt(listaModelos[indiceRegUsu].getValueAt(filaSeleccion, 0).toString());
         //Empleado nombre String
-        String[] nombres_apellidos = separarNombresApellidos(modelo.getValueAt(filaSeleccion, 1).toString());
+        String[] nombres_apellidos = separarNombresApellidos(listaModelos[indiceRegUsu].getValueAt(filaSeleccion, 1).toString());
         String nombre = nombres_apellidos[0];
         String apellido = nombres_apellidos[1];
         //UsuarioDNIoRUC Long
-        long usuarioDNI = Long.parseLong(modelo.getValueAt(filaSeleccion, 2).toString());
+        long usuarioDNI = Long.parseLong(listaModelos[indiceRegUsu].getValueAt(filaSeleccion, 2).toString());
         //Contraseña String
-        String contra = modelo.getValueAt(filaSeleccion, 3).toString();
+        String contra = listaModelos[indiceRegUsu].getValueAt(filaSeleccion, 3).toString();
         //Tipo String
-        String rol = modelo.getValueAt(filaSeleccion, 4).toString();
+        String rol = listaModelos[indiceRegUsu].getValueAt(filaSeleccion, 4).toString();
         //Telefono int
-        int fono = Integer.parseInt(modelo.getValueAt(filaSeleccion, 5).toString());
+        int fono = Integer.parseInt(listaModelos[indiceRegUsu].getValueAt(filaSeleccion, 5).toString());
 
         //Estado boolean
-        boolean esCuentaBloqueada = Usuario.parseEsCuentaBloqueada(modelo.getValueAt(filaSeleccion, 6).toString());
-        esCuentaBloqueada = true;
+        boolean esCuentaBloqueada = Usuario.parseEsCuentaBloqueada(listaModelos[indiceRegUsu].getValueAt(filaSeleccion, 6).toString());
         //long usuarioDNI, String contraseña, String rol, LocalDate fechaUltimoCambio,int intentosFallidos, boolean cuentaBloqueada, String nombres, String apellidos, int telefono, int usuario_id
         baseDeDatos.actualizarUsuario(usuarioDNI, contra, rol, LocalDate.now(), 0, esCuentaBloqueada, nombre, apellido, fono, usuID);
         actualizarTBLRegistroUsuarios();
 
     }//GEN-LAST:event_btnEditarMouseClicked
+
+    private void btnAgregarAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarAlmacenActionPerformed
+        String errorMensaje = "";
+        boolean noRegistrar = false;
+        if (faltanDatosEnTxt(txtProducto, txtCantidaddeProducto, txtPreciodeCompra)) {
+            JOptionPane.showMessageDialog(this, "Faltan ingresar datos de producto");
+            return;
+        }
+        Integer cantidadProducto = Producto.tryParseCantidad(txtCantidaddeProducto.getText());
+        Double precioCompra = Producto.tryParsePrecioCompra(txtPreciodeCompra.getText());
+        String producto = txtProducto.getText();
+        if (cantidadProducto == null) {
+            errorMensaje += "Formato de cantidad incorrecto. Debe ingresar un número natural.\n";
+            noRegistrar = true;
+        }
+        if (precioCompra == null) {
+            errorMensaje += "Formato de precio incorrecto. Debe ingresar un número real.\n";
+            noRegistrar = true;
+        }
+        if (noRegistrar) {
+            JOptionPane.showMessageDialog(this, errorMensaje);
+            return;
+        }
+        //                  (String tipoDoc,String producto,double precio,int cantidad,String stock) {
+        baseDeDatos.crearProducto("Sin documento", producto, precioCompra, cantidadProducto, Producto.calcularStock(cantidadProducto));
+        actualizarTBLRegistroProductos();
+    }//GEN-LAST:event_btnAgregarAlmacenActionPerformed
+
+    private void btnEliminarAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarAlmacenActionPerformed
+        int filaSeleccion = tblRegistroProductos.getSelectedRow();
+        if (filaSeleccion < 0) {
+            JOptionPane.showMessageDialog(this, "Seleccione una fila para eliminar");
+            return;
+        }
+        int producto_id = Integer.parseInt(listaModelos[indiceRegProd].getValueAt(filaSeleccion, 0).toString());
+        baseDeDatos.eliminarProducto(producto_id);
+        actualizarTBLRegistroProductos();
+    }//GEN-LAST:event_btnEliminarAlmacenActionPerformed
+
+    private boolean tieneCeldasVacias(DefaultTableModel modelo, int fila) {
+        for (int i = 0; i < modelo.getColumnCount(); i++) {
+            if (modelo.getValueAt(fila, i).toString().isBlank()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void btnEditarAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarAlmacenActionPerformed
+        int filaSeleccion = tblRegistroProductos.getSelectedRow();
+        if (filaSeleccion < 0) {
+            JOptionPane.showMessageDialog(this, "Seleccione una fila para editar");
+            return;
+        }
+
+        //Revisar no espacios en blanco
+        if (tieneCeldasVacias(listaModelos[indiceRegProd], filaSeleccion)) {
+            JOptionPane.showMessageDialog(this, "Faltan datos en la fila");
+            return;
+        }
+
+        //formato correcto
+        String errorMensaje = "";
+        boolean noEntrar = false;
+        Integer producto_id = Integer.parseInt(listaModelos[indiceRegProd].getValueAt(filaSeleccion, 0).toString());
+        String tipoDoc = listaModelos[indiceRegProd].getValueAt(filaSeleccion, 1).toString();
+        String producto = listaModelos[indiceRegProd].getValueAt(filaSeleccion, 2).toString();
+        Double precio = Double.parseDouble(listaModelos[indiceRegProd].getValueAt(filaSeleccion, 3).toString());
+        if (precio == null) {
+            errorMensaje += "Formato de precio incorrecto. Ingrese un numero real.\n";
+            noEntrar = true;
+        }
+
+        Integer cantidad = Integer.parseInt(listaModelos[indiceRegProd].getValueAt(filaSeleccion, 4).toString());
+        if (cantidad == null) {
+            errorMensaje += "Formato de precio incorrecto. Ingrese un numero natural.\n";
+            noEntrar = true;
+        }
+
+        if (noEntrar) {
+            JOptionPane.showMessageDialog(this, errorMensaje);
+            return;
+        }
+
+        String stock = listaModelos[indiceRegProd].getValueAt(filaSeleccion, 5).toString();
+
+        baseDeDatos.actualizarProducto(producto_id, tipoDoc, producto, precio, cantidad, stock);
+        actualizarTBLRegistroProductos();
+    }//GEN-LAST:event_btnEditarAlmacenActionPerformed
+
+    private void btnFiltrarAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFiltrarAlmacenActionPerformed
+        actualizarTBLRegistroProductos();
+        if (cbTipoStock.getSelectedIndex()==1) {
+            //sin stock
+            for (int i = 0; i < listaModelos[indiceRegProd].getRowCount(); i++) {
+                if (listaModelos[indiceRegProd].getValueAt(i, 5).toString().equals("Disponible") || listaModelos[indiceRegProd].getValueAt(i, 5).toString().equals("Camino agotarse")) {
+                    listaModelos[indiceRegProd].removeRow(i);
+                    i--;
+                }
+            }
+        } else if (cbTipoStock.getSelectedIndex()==2) {
+            //con stock
+            for (int i = 0; i < listaModelos[indiceRegProd].getRowCount(); i++) {
+                if (listaModelos[indiceRegProd].getValueAt(i, 5).toString().equals("Agotado")) {
+                    listaModelos[indiceRegProd].removeRow(i);
+                    i--;
+                }
+            }
+        }
+    }//GEN-LAST:event_btnFiltrarAlmacenActionPerformed
+
+    private static boolean coincideAlgo(String clave, String palabra) {
+        int numCoinc;
+        for (int i = 0; i <= (palabra.length() - clave.length()); i++) {
+            numCoinc = 0;
+            for (int j = 0; j < clave.length(); j++) {
+                if (palabra.toLowerCase().charAt(i + j) == clave.toLowerCase().charAt(j)) {
+                    numCoinc++;
+                    continue;
+                }
+                break;
+            }
+            if (numCoinc == clave.length()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void btnBuscarAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarAlmacenActionPerformed
+        //revisar que no este en blanco
+        if (faltanDatosEnTxt(txtBuscar)&&!txtBuscar.getText().equals(" ")||btnBuscarAlmacen.getText().equals("Revertir")) {
+            actualizarTBLRegistroProductos();
+            btnBuscarAlmacen.setText("Buscar");
+            txtBuscar.setEnabled(true);
+            return;
+        }
+
+        for (int i = 0; i < listaModelos[indiceRegProd].getRowCount(); i++) {
+            if (!coincideAlgo(txtBuscar.getText(), listaModelos[indiceRegProd].getValueAt(i, 2).toString())) {
+                listaModelos[indiceRegProd].removeRow(i);
+                i--;
+            }
+        }
+        btnBuscarAlmacen.setText("Revertir");
+        txtBuscar.setEnabled(false);
+
+
+    }//GEN-LAST:event_btnBuscarAlmacenActionPerformed
 
     /**
      * @param args the command line arguments
@@ -732,10 +1062,15 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAgregarAlmacen;
     private javax.swing.JLabel btnAlmacen;
+    private javax.swing.JButton btnBuscarAlmacen;
     private javax.swing.JButton btnCrearUsuario;
     private javax.swing.JButton btnEditar;
+    private javax.swing.JButton btnEditarAlmacen;
     private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnEliminarAlmacen;
+    private javax.swing.JButton btnFiltrarAlmacen;
     private javax.swing.JButton btnGuardaryAgregarDatos;
     private javax.swing.JLabel btnajustes;
     private javax.swing.JLabel btncaja;
@@ -745,31 +1080,39 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     private javax.swing.JLabel btnregistrodeusuario;
     private javax.swing.JLabel btnregistrodeventas;
     private javax.swing.JLabel btnreportes;
+    private javax.swing.JComboBox<String> cbTipoStock;
     private javax.swing.JComboBox<String> cbTipoUsuario;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPanel jpaneladmin;
     private javax.swing.JPanel jpanelgeneral;
     private javax.swing.JPanel jpanelsuperior;
     private javax.swing.JLabel lblAgregaryCrearUsuario;
     private javax.swing.JLabel lblApellidos;
+    private javax.swing.JLabel lblCantidaddeProducto;
     private javax.swing.JLabel lblClientes;
     private javax.swing.JLabel lblCompraDelMes;
     private javax.swing.JLabel lblContraseña;
     private javax.swing.JLabel lblDNIUsuario;
     private javax.swing.JLabel lblGanancias;
+    private javax.swing.JLabel lblImagen1;
     private javax.swing.JLabel lblNombres;
+    private javax.swing.JLabel lblPreciodeProducto;
+    private javax.swing.JLabel lblProducto;
     private javax.swing.JLabel lblProductos;
     private javax.swing.JLabel lblProveedores;
     private javax.swing.JLabel lblRUC;
     private javax.swing.JLabel lblRol;
     private javax.swing.JLabel lblSubTitulo;
     private javax.swing.JLabel lblSubTitulo1;
+    private javax.swing.JLabel lblSubtema2;
     private javax.swing.JLabel lblTelefono;
     private javax.swing.JLabel lblTipoUsuario;
     private javax.swing.JLabel lblVentasDelDia;
     private javax.swing.JLabel lblimagen1;
     private javax.swing.JLabel lblimagen2;
     private javax.swing.JLabel lblinventario;
+    private javax.swing.JPanel pnl1Almacen;
     private javax.swing.JPanel pnl1Inicio;
     private javax.swing.JPanel pnlCientes;
     private javax.swing.JPanel pnlCompraDelMes;
@@ -781,15 +1124,20 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     private javax.swing.JPanel pnlVentasDelDia;
     private javax.swing.JRadioButton rbtActivo;
     private javax.swing.JRadioButton rbtInactivo;
+    private javax.swing.JTable tblRegistroProductos;
     private javax.swing.JTable tblRegistroUsuarios;
     private javax.swing.JTabbedPane tpnMostrar;
     private javax.swing.JTextField txtApellidos;
+    private javax.swing.JTextField txtBuscar;
+    private javax.swing.JTextField txtCantidaddeProducto;
     private javax.swing.JTextField txtClientes;
     private javax.swing.JTextField txtComprasDelMes;
     private javax.swing.JTextField txtContraseña;
     private javax.swing.JTextField txtDNIUsuario;
     private javax.swing.JTextField txtGanancias;
     private javax.swing.JTextField txtNombres;
+    private javax.swing.JTextField txtPreciodeCompra;
+    private javax.swing.JTextField txtProducto;
     private javax.swing.JTextField txtProductos;
     private javax.swing.JTextField txtProveedores;
     private javax.swing.JTextField txtTelefono;
