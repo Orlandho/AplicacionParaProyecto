@@ -966,15 +966,16 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEditarAlmacenActionPerformed
 
     private void btnFiltrarAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFiltrarAlmacenActionPerformed
-        if (cbTipoStock.getSelectedItem().equals("• Sin Stock")) {
+        actualizarTBLRegistroProductos();
+        if (cbTipoStock.getSelectedIndex()==1) {
             //sin stock
             for (int i = 0; i < listaModelos[indiceRegProd].getRowCount(); i++) {
-                if (listaModelos[indiceRegProd].getValueAt(i, 5).toString().equals("Disponible") || listaModelos[indiceRegProd].getValueAt(i, 2).toString().equals("Camino agotarse")) {
+                if (listaModelos[indiceRegProd].getValueAt(i, 5).toString().equals("Disponible") || listaModelos[indiceRegProd].getValueAt(i, 5).toString().equals("Camino agotarse")) {
                     listaModelos[indiceRegProd].removeRow(i);
                     i--;
                 }
             }
-        } else if (cbTipoStock.getSelectedItem().equals("• Con Stock")) {
+        } else if (cbTipoStock.getSelectedIndex()==2) {
             //con stock
             for (int i = 0; i < listaModelos[indiceRegProd].getRowCount(); i++) {
                 if (listaModelos[indiceRegProd].getValueAt(i, 5).toString().equals("Agotado")) {
@@ -982,8 +983,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
                     i--;
                 }
             }
-        }else
-            actualizarTBLRegistroProductos();
+        }
     }//GEN-LAST:event_btnFiltrarAlmacenActionPerformed
 
     private static boolean coincideAlgo(String clave, String palabra) {
@@ -1006,8 +1006,10 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
 
     private void btnBuscarAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarAlmacenActionPerformed
         //revisar que no este en blanco
-        if (faltanDatosEnTxt(txtBuscar)) {
+        if (faltanDatosEnTxt(txtBuscar)&&!txtBuscar.getText().equals(" ")||btnBuscarAlmacen.getText().equals("Revertir")) {
             actualizarTBLRegistroProductos();
+            btnBuscarAlmacen.setText("Buscar");
+            txtBuscar.setEnabled(true);
             return;
         }
 
@@ -1017,6 +1019,8 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
                 i--;
             }
         }
+        btnBuscarAlmacen.setText("Revertir");
+        txtBuscar.setEnabled(false);
 
 
     }//GEN-LAST:event_btnBuscarAlmacenActionPerformed
