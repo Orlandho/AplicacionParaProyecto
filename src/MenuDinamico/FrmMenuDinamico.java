@@ -743,7 +743,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         tpnMostrar.setSelectedIndex(2);
     }//GEN-LAST:event_btnCrearUsuarioActionPerformed
 
-    private boolean faltanDatosEnTxt(JTextField[] verificame) {
+    private boolean faltanDatosEnTxt(JTextField... verificame) {
         for (JTextField txt : verificame) {
             if (txt.getText().isBlank()) {
                 return true;
@@ -764,7 +764,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     private void btnGuardaryAgregarDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardaryAgregarDatosActionPerformed
         String errorMensaje = "";
         boolean noIngresar = false;
-        if (faltanDatosEnTxt(new JTextField[]{txtNombres, txtApellidos, txtTelefono, txtDNIUsuario, txtContraseña})) {
+        if (faltanDatosEnTxt(txtNombres, txtApellidos, txtTelefono, txtDNIUsuario, txtContraseña)) {
             errorMensaje += "Error: Falta llenar datos";
             noIngresar = true;
         }
@@ -879,7 +879,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     private void btnAgregarAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarAlmacenActionPerformed
         String errorMensaje = "";
         boolean noRegistrar = false;
-        if (faltanDatosEnTxt(new JTextField[]{txtProducto, txtCantidaddeProducto, txtPreciodeCompra})) {
+        if (faltanDatosEnTxt(txtProducto, txtCantidaddeProducto, txtPreciodeCompra)) {
             JOptionPane.showMessageDialog(this, "Faltan ingresar datos de producto");
             return;
         }
@@ -966,34 +966,59 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEditarAlmacenActionPerformed
 
     private void btnFiltrarAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFiltrarAlmacenActionPerformed
-        actualizarTBLRegistroProductos();
+        if (cbTipoStock.getSelectedItem().equals("• Sin Stock")) {
+            //sin stock
+            for (int i = 0; i < listaModelos[indiceRegProd].getRowCount(); i++) {
+                if (listaModelos[indiceRegProd].getValueAt(i, 5).toString().equals("Disponible") || listaModelos[indiceRegProd].getValueAt(i, 2).toString().equals("Camino agotarse")) {
+                    listaModelos[indiceRegProd].removeRow(i);
+                    i--;
+                }
+            }
+        } else if (cbTipoStock.getSelectedItem().equals("• Con Stock")) {
+            //con stock
+            for (int i = 0; i < listaModelos[indiceRegProd].getRowCount(); i++) {
+                if (listaModelos[indiceRegProd].getValueAt(i, 5).toString().equals("Agotado")) {
+                    listaModelos[indiceRegProd].removeRow(i);
+                    i--;
+                }
+            }
+        }else
+            actualizarTBLRegistroProductos();
     }//GEN-LAST:event_btnFiltrarAlmacenActionPerformed
 
-    
-    private static boolean coincideAlgo(String clave, String palabra){
+    private static boolean coincideAlgo(String clave, String palabra) {
         int numCoinc;
-        for (int i = 0; i <= (palabra.length()-clave.length()); i++) {
-            numCoinc=0;
+        for (int i = 0; i <= (palabra.length() - clave.length()); i++) {
+            numCoinc = 0;
             for (int j = 0; j < clave.length(); j++) {
-                if(palabra.charAt(i+j)==clave.charAt(j)){
+                if (palabra.toLowerCase().charAt(i + j) == clave.toLowerCase().charAt(j)) {
                     numCoinc++;
                     continue;
                 }
                 break;
             }
-            if(numCoinc==clave.length()){
+            if (numCoinc == clave.length()) {
                 return true;
             }
         }
         return false;
     }
-    
+
     private void btnBuscarAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarAlmacenActionPerformed
         //revisar que no este en blanco
-        
-        //hacer el for para buscar y añadir a una lista
-        
-        //mostrar la lista en la tabla
+        if (faltanDatosEnTxt(txtBuscar)) {
+            actualizarTBLRegistroProductos();
+            return;
+        }
+
+        for (int i = 0; i < listaModelos[indiceRegProd].getRowCount(); i++) {
+            if (!coincideAlgo(txtBuscar.getText(), listaModelos[indiceRegProd].getValueAt(i, 2).toString())) {
+                listaModelos[indiceRegProd].removeRow(i);
+                i--;
+            }
+        }
+
+
     }//GEN-LAST:event_btnBuscarAlmacenActionPerformed
 
     /**
