@@ -118,8 +118,8 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         btnregistrodecompras = new javax.swing.JLabel();
         btnregistrodeventas = new javax.swing.JLabel();
         btncerrarsesion = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        lblRegCompras = new javax.swing.JLabel();
+        lblRegVentas = new javax.swing.JLabel();
         jpanelsuperior = new javax.swing.JPanel();
         lblinventario = new javax.swing.JLabel();
         lblimagen1 = new javax.swing.JLabel();
@@ -290,6 +290,11 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         cbTipoProductosRegVen = new javax.swing.JComboBox<>();
 
         jmFACTURASRegCom.setText("FACTURAS");
+        jmFACTURASRegCom.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmFACTURASRegComActionPerformed(evt);
+            }
+        });
         RegistroDeCompra.add(jmFACTURASRegCom);
 
         jmBOLETASRegCom.setText("BOLETAS");
@@ -431,13 +436,15 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         jpanelgeneral.add(btncerrarsesion);
         btncerrarsesion.setBounds(10, 470, 130, 50);
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/signoMas.png"))); // NOI18N
-        jpanelgeneral.add(jLabel2);
-        jLabel2.setBounds(160, 110, 20, 20);
+        lblRegCompras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/signoMas.png"))); // NOI18N
+        lblRegCompras.setComponentPopupMenu(RegistroDeCompra);
+        jpanelgeneral.add(lblRegCompras);
+        lblRegCompras.setBounds(160, 110, 20, 20);
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/signoMas.png"))); // NOI18N
-        jpanelgeneral.add(jLabel3);
-        jLabel3.setBounds(160, 170, 20, 20);
+        lblRegVentas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/signoMas.png"))); // NOI18N
+        lblRegVentas.setComponentPopupMenu(RegistroDeVenta);
+        jpanelgeneral.add(lblRegVentas);
+        lblRegVentas.setBounds(160, 170, 20, 20);
 
         getContentPane().add(jpanelgeneral);
         jpanelgeneral.setBounds(0, 80, 190, 530);
@@ -1651,6 +1658,11 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnBuscarAlmacenActionPerformed
 
+    private void jmFACTURASRegComActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmFACTURASRegComActionPerformed
+        
+        
+    }//GEN-LAST:event_jmFACTURASRegComActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1737,8 +1749,6 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cbTipoStock;
     private javax.swing.JComboBox<String> cbTipoUsuario;
     private javax.swing.JComboBox<String> cbTipodeBusquedaComprobantesEmitidos;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -1789,6 +1799,8 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     private javax.swing.JLabel lblProveedorFactura;
     private javax.swing.JLabel lblProveedores;
     private javax.swing.JLabel lblRUC;
+    private javax.swing.JLabel lblRegCompras;
+    private javax.swing.JLabel lblRegVentas;
     private javax.swing.JLabel lblRegistrodeProductosRegCom;
     private javax.swing.JLabel lblResponsableBoleta;
     private javax.swing.JLabel lblResponsableFactura;
