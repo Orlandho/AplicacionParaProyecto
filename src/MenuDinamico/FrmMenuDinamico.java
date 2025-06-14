@@ -1314,7 +1314,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         tpnMostrar.addTab("pnlRegVenAgregarProducto", pnlRegVenAgregarProducto);
 
         getContentPane().add(tpnMostrar);
-        tpnMostrar.setBounds(190, 80, 690, 560);
+        tpnMostrar.setBounds(190, 80, 690, 610);
 
         setSize(new java.awt.Dimension(894, 644));
         setLocationRelativeTo(null);
