@@ -253,6 +253,29 @@ public class SQLiteManager {
         }
         return null;
     }
+    
+    public Producto buscarProducto(int ID) {
+        String comandoSQL = "SELECT * FROM Productos WHERE producto_id= ?";
+        try {
+            PreparedStatement ingresarComando = conexionDB.prepareStatement(comandoSQL);
+            ingresarComando.setInt(1, ID);
+            ResultSet datosObtenidos = ingresarComando.executeQuery();
+
+            if (datosObtenidos.next()) {
+                return new Producto(
+                        datosObtenidos.getInt("producto_id"),
+                        datosObtenidos.getString("tipoDocumento"),
+                        datosObtenidos.getString("producto"),
+                        datosObtenidos.getDouble("precioCompra"),
+                        datosObtenidos.getInt("cantidad"),
+                        datosObtenidos.getString("stock")
+                );
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al buscar producto: " + e);
+        }
+        return null;
+    }
 
     public ArrayList<Producto> obtenerProductos() {
         ArrayList<Producto> productos = new ArrayList<>();
