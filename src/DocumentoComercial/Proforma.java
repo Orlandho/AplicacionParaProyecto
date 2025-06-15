@@ -18,13 +18,15 @@ public class Proforma {
     private String moneda;
     String fecha;
     private ArrayList<Producto> listaProductos;
+    private double total;
 
-    public Proforma(String nombres, String responsable, String moneda, String fecha, ArrayList<Producto> listaProductos) {
+    public Proforma(String nombres, String responsable, String moneda, String fecha, ArrayList<Producto> listaProductos,double total) {
         this.nombres = nombres;
         this.responsable = responsable;
         this.moneda = moneda;
         this.fecha = fecha;
         this.listaProductos = listaProductos;
+        this.total=total;
     }
 
     public String getNombres() {
@@ -68,6 +70,12 @@ public class Proforma {
     }
 
     public double getTotal() {
-        return 0;
+        return total;
     }
+
+    public void setTotal(double total) {
+        this.total = total;
+    }
+    
+    
 }

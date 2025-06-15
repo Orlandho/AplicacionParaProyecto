@@ -96,7 +96,7 @@ public class Producto {
         }
         return resultado;
     }
-    public static Double tryParsePrecioCompra(String txtPrecioCompra){
+    public static Double tryParsePrecio(String txtPrecioCompra){
         double resultado;
         try {
             resultado = Double.parseDouble(txtPrecioCompra);

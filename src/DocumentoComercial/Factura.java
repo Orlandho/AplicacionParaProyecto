@@ -20,8 +20,9 @@ public class Factura {
     private String moneda;
     private String responsable;
     private ArrayList<Producto> listaProductos;
+    private double total;
 
-    public Factura(int ID, long serie, long numero, String proveedor, String moneda, String responsable, ArrayList<Producto> listaProductos) {
+    public Factura(int ID, long serie, long numero, String proveedor, String moneda, String responsable, ArrayList<Producto> listaProductos,double total) {
         this.ID = ID;
         this.serie = serie;
         this.numero = numero;
@@ -29,6 +30,7 @@ public class Factura {
         this.moneda = moneda;
         this.responsable = responsable;
         this.listaProductos = listaProductos;
+        this.total=total;
     }
 
     public int getID() {
@@ -80,7 +82,13 @@ public class Factura {
     }
 
     public double getTotal() {
-        return 0;
+        return total;
     }
+
+    public void setTotal(double total) {
+        this.total = total;
+    }
+    
+    
 
 }
