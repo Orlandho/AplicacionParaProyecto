@@ -20,16 +20,25 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="BOLETAS"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmBOLETASRegComActionPerformed"/>
+          </Events>
         </MenuItem>
         <MenuItem class="javax.swing.JMenuItem" name="jmOTROSRegCom">
           <Properties>
             <Property name="text" type="java.lang.String" value="OTROS"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmOTROSRegComActionPerformed"/>
+          </Events>
         </MenuItem>
         <MenuItem class="javax.swing.JMenuItem" name="jmCOMPROBATESEMITIDOSRegCom">
           <Properties>
             <Property name="text" type="java.lang.String" value="COMPROBATES EMITIDOS"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmCOMPROBATESEMITIDOSRegComActionPerformed"/>
+          </Events>
         </MenuItem>
       </SubComponents>
     </Container>
