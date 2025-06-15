@@ -1335,6 +1335,13 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     private void btnAlmacenMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAlmacenMouseClicked
         actualizarTBLRegistroProductos();
         tpnMostrar.setSelectedIndex(3);
+        for (int i = 0; i < listaModelos[indiceRegProd].getRowCount(); i++) {
+                if (listaModelos[indiceRegProd].getValueAt(i, 5).toString().equals("Agotado")) {
+                    Producto agotado=baseDeDatos.buscarProducto(Integer.parseInt(listaModelos[indiceRegProd].getValueAt(i, 0).toString()));
+                    JOptionPane.showMessageDialog(this,"Se encontro un producto agotado: \nNombre:"+agotado.getProducto()+"\nTipo de documento: "+agotado.getTipoDocumento()+"\nPrecio de Compra: "+agotado.getPrecioCompra());
+                }
+            }
+        
     }//GEN-LAST:event_btnAlmacenMouseClicked
 
     private void btnregistrodecomprasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnregistrodecomprasMouseClicked
@@ -1352,6 +1359,8 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     private void btnregistrodeusuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnregistrodeusuarioMouseClicked
         actualizarTBLRegistroUsuarios();
         tpnMostrar.setSelectedIndex(1);
+        
+        
     }//GEN-LAST:event_btnregistrodeusuarioMouseClicked
 
     private void btnreportesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnreportesMouseClicked
