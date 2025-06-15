@@ -1920,6 +1920,22 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         return rpta;
     }
     
+    private ArrayList<Producto> identificarLista(int tblPadre){
+        ArrayList<Producto> rpta=new ArrayList<>();
+        switch(tblPadre){
+            case indiceRegFact:
+                rpta=tempListFact;
+                break;
+            case indiceRegBole:
+                rpta=tempListBole;
+                break;
+            case indiceRegProf:
+                rpta=tempListProf;
+                break;
+        }
+        return rpta;
+    }
+    
     private void btnAgregarProductoRegComActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarProductoRegComActionPerformed
         if(faltanDatosEnTxt(txtProductoRegCom,txtPreciioUnitarioRegCom,txtCantidadRegCom)){
             JOptionPane.showMessageDialog(this,"Faltan datos de producto");
@@ -1947,9 +1963,12 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         String tipoDoc=calcularTipoDoc(pnlPadreComVenProd);
         JTextField txtTotal=IdentificarTxt(pnlPadreComVenProd);
         Producto prod=new Producto(tipoDoc, txtProductoRegCom.getText(), cantidad, precio);
-        tempListFact.add(prod);
-        actualizarTBLRegistroFactBoleProf(tblPadreComVenProd,tempListFact,txtTotal);
+        
+        ArrayList<Producto> listaTemp=identificarLista(tblPadreComVenProd);
+        listaTemp.add(prod);
+        actualizarTBLRegistroFactBoleProf(tblPadreComVenProd,listaTemp,txtTotal);
         tpnMostrar.setSelectedIndex(pnlPadreComVenProd);
+        System.err.println("tblPadreComVenProd: "+tblPadreComVenProd+"\n");
     }//GEN-LAST:event_btnAgregarProductoRegComActionPerformed
 
     private void btnCancelarRegVenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarRegVenActionPerformed
