@@ -1339,6 +1339,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
                 if (listaModelos[indiceRegProd].getValueAt(i, 5).toString().equals("Agotado")) {
                     Producto agotado=baseDeDatos.buscarProducto(Integer.parseInt(listaModelos[indiceRegProd].getValueAt(i, 0).toString()));
                     JOptionPane.showMessageDialog(this,"Se encontro un producto agotado: \nNombre:"+agotado.getProducto()+"\nTipo de documento: "+agotado.getTipoDocumento()+"\nPrecio de Compra: "+agotado.getPrecioCompra());
+                    return;
                 }
             }
         
