@@ -298,12 +298,27 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         RegistroDeCompra.add(jmFACTURASRegCom);
 
         jmBOLETASRegCom.setText("BOLETAS");
+        jmBOLETASRegCom.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmBOLETASRegComActionPerformed(evt);
+            }
+        });
         RegistroDeCompra.add(jmBOLETASRegCom);
 
         jmOTROSRegCom.setText("OTROS");
+        jmOTROSRegCom.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmOTROSRegComActionPerformed(evt);
+            }
+        });
         RegistroDeCompra.add(jmOTROSRegCom);
 
         jmCOMPROBATESEMITIDOSRegCom.setText("COMPROBATES EMITIDOS");
+        jmCOMPROBATESEMITIDOSRegCom.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmCOMPROBATESEMITIDOSRegComActionPerformed(evt);
+            }
+        });
         RegistroDeCompra.add(jmCOMPROBATESEMITIDOSRegCom);
 
         jmFACTURASRegVen.setText("FACTURAS");
@@ -1339,6 +1354,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
                 if (listaModelos[indiceRegProd].getValueAt(i, 5).toString().equals("Agotado")) {
                     Producto agotado=baseDeDatos.buscarProducto(Integer.parseInt(listaModelos[indiceRegProd].getValueAt(i, 0).toString()));
                     JOptionPane.showMessageDialog(this,"Se encontro un producto agotado: \nNombre:"+agotado.getProducto()+"\nTipo de documento: "+agotado.getTipoDocumento()+"\nPrecio de Compra: "+agotado.getPrecioCompra());
+                    return;
                 }
             }
         
@@ -1668,9 +1684,24 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBuscarAlmacenActionPerformed
 
     private void jmFACTURASRegComActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmFACTURASRegComActionPerformed
+        //actualizar tabla
         
+        //cambiar al panel
+        tpnMostrar.setSelectedIndex(4);
         
     }//GEN-LAST:event_jmFACTURASRegComActionPerformed
+
+    private void jmBOLETASRegComActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmBOLETASRegComActionPerformed
+        tpnMostrar.setSelectedIndex(5);
+    }//GEN-LAST:event_jmBOLETASRegComActionPerformed
+
+    private void jmOTROSRegComActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmOTROSRegComActionPerformed
+        tpnMostrar.setSelectedIndex(6);
+    }//GEN-LAST:event_jmOTROSRegComActionPerformed
+
+    private void jmCOMPROBATESEMITIDOSRegComActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmCOMPROBATESEMITIDOSRegComActionPerformed
+        tpnMostrar.setSelectedIndex(7);
+    }//GEN-LAST:event_jmCOMPROBATESEMITIDOSRegComActionPerformed
 
     /**
      * @param args the command line arguments
