@@ -10,6 +10,7 @@ public class Producto {
     private double precioCompra;
     private int cantidad;
     private String stock;
+    private double precioUnitario;
 
     public Producto(int ID, String tipoDocumento, String producto, double precioCompra, int cantidad, String stock) {
         this.ID = ID;
@@ -20,7 +21,12 @@ public class Producto {
         this.stock = stock;
     }
 
-    
+    public Producto(String tipoDocumento, String producto, int cantidad, double precioUnitario) {
+        this.tipoDocumento = tipoDocumento;
+        this.producto = producto;
+        this.cantidad = cantidad;
+        this.precioUnitario = precioUnitario;
+    }
     
     public String getTipoDocumento() {
         return tipoDocumento;
@@ -39,6 +45,9 @@ public class Producto {
     }
 
     public double getPrecioCompra() {
+        if(precioCompra==0&&precioUnitario!=0){
+            return precioUnitario*cantidad;
+        }
         return precioCompra;
     }
 
@@ -65,6 +74,18 @@ public class Producto {
     public void setID(int ID) {
         this.ID = ID;
     }
+
+    public double getPrecioUnitario() {
+        if(precioUnitario==0&&precioCompra!=0)
+            return precioCompra/cantidad;
+        return precioUnitario;
+    }
+
+    public void setPrecioUnitario(double precioUnitario) {
+        this.precioUnitario = precioUnitario;
+    }
+    
+    
     
     public static Integer tryParseCantidad(String txtCantidad){
         int resultado;
@@ -96,5 +117,17 @@ public class Producto {
     
     public String getStock(){
         return calcularStock(getCantidad());
+    }
+    
+    public double getSubTotal(){
+        return getPrecioCompra()*1.18;
+    }
+    
+    public double getIGV(){
+        return getSubTotal()*0.18;
+    }
+    
+    public double getTotal(){
+        return getSubTotal()+getIGV();
     }
 }

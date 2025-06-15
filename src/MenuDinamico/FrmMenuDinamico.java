@@ -25,13 +25,20 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     private final int indiceRegUsu = 0;
     private String[] colsRegProd = {"Producto ID", "Tipo de Documento", "Producto", "Precio Compra", "Cantidad", "Stock"};
     private final int indiceRegProd = 1;
+    private String[] colsRegFactBoleProf = {"ID", "Producto", "Cantidad", "Precio Unit.", "Sub. Total", "I.G.V.","Total"};
+    private final int indiceRegFact=2;
+    private ArrayList<Producto> tempListFact;
+    private final int indiceRegBole=3;
+    private ArrayList<Producto> tempListBole;
+    private final int indiceRegProf=4;
+    private ArrayList<Producto> tempListProf;
 
     public FrmMenuDinamico() {
         initComponents();
         jpaneladmin.setVisible(false);
         baseDeDatos = new SQLiteManager();
-        listaCols = new String[][]{colsRegUsu, colsRegProd};
-        tablas = new JTable[]{tblRegistroUsuarios, tblRegistroProductos};
+        listaCols = new String[][]{colsRegUsu, colsRegProd,colsRegFactBoleProf,colsRegFactBoleProf,colsRegFactBoleProf};
+        tablas = new JTable[]{tblRegistroUsuarios, tblRegistroProductos,tblRegistroFactura,tblRegistroBoleta,tblRegistroProforma};
         listaModelos = new DefaultTableModel[tablas.length];
         inicializarModelos();
 
@@ -43,6 +50,9 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
             }
         };
         tablas[indiceRegProd].setModel(listaModelos[indiceRegProd]);
+        tempListFact=new ArrayList<>();
+        tempListBole=new ArrayList<>();
+        tempListProf=new ArrayList<>();
     }
 
     private void inicializarModelos() {
@@ -85,6 +95,17 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         for (Producto pro : lista) {
             Object[] datoFila = {pro.getID(), pro.getTipoDocumento(), pro.getProducto(), pro.getPrecioCompra(), pro.getCantidad(), pro.getStock()};
             listaModelos[indiceRegProd].addRow(datoFila);
+        }
+    }
+    
+    private void actualizarTBLRegistroFactBoleProf(int indiceRegFact,ArrayList<Producto> tempList) {
+
+        listaModelos[indiceRegFact].setRowCount(0);
+
+        for (int i=0;i<tempList.size();i++) {
+            Producto pro=tempList.get(i);
+            Object[] datoFila = {i, pro.getProducto(), pro.getCantidad(), pro.getPrecioUnitario(), pro.getSubTotal(),pro.getIGV(),pro.getTotal()};
+            listaModelos[indiceRegFact].addRow(datoFila);
         }
     }
 
