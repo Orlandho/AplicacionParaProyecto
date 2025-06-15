@@ -1968,7 +1968,6 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         listaTemp.add(prod);
         actualizarTBLRegistroFactBoleProf(tblPadreComVenProd,listaTemp,txtTotal);
         tpnMostrar.setSelectedIndex(pnlPadreComVenProd);
-        System.err.println("tblPadreComVenProd: "+tblPadreComVenProd+"\n");
     }//GEN-LAST:event_btnAgregarProductoRegComActionPerformed
 
     private void btnCancelarRegVenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarRegVenActionPerformed
