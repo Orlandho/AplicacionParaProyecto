@@ -948,21 +948,41 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
 
         btnEditarRegComFactura.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         btnEditarRegComFactura.setText("Editar");
+        btnEditarRegComFactura.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarRegComFacturaActionPerformed(evt);
+            }
+        });
         pnlRegComFactura.add(btnEditarRegComFactura);
         btnEditarRegComFactura.setBounds(420, 470, 100, 30);
 
         btnGuardarRegComFactura.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         btnGuardarRegComFactura.setText("Guardar");
+        btnGuardarRegComFactura.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarRegComFacturaActionPerformed(evt);
+            }
+        });
         pnlRegComFactura.add(btnGuardarRegComFactura);
         btnGuardarRegComFactura.setBounds(60, 470, 100, 30);
 
         btnAgregarRegComFactura.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         btnAgregarRegComFactura.setText("Agregar");
+        btnAgregarRegComFactura.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarRegComFacturaActionPerformed(evt);
+            }
+        });
         pnlRegComFactura.add(btnAgregarRegComFactura);
         btnAgregarRegComFactura.setBounds(180, 470, 100, 30);
 
         btnEliminarRegComFactura.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         btnEliminarRegComFactura.setText("Eliminar");
+        btnEliminarRegComFactura.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarRegComFacturaActionPerformed(evt);
+            }
+        });
         pnlRegComFactura.add(btnEliminarRegComFactura);
         btnEliminarRegComFactura.setBounds(300, 470, 110, 30);
 
@@ -1064,21 +1084,41 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
 
         btnEditarRegComBoleta.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         btnEditarRegComBoleta.setText("Editar");
+        btnEditarRegComBoleta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarRegComBoletaActionPerformed(evt);
+            }
+        });
         pnlRegComBoleta.add(btnEditarRegComBoleta);
         btnEditarRegComBoleta.setBounds(420, 470, 100, 30);
 
         btnGuardarRegComBoleta.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         btnGuardarRegComBoleta.setText("Guardar");
+        btnGuardarRegComBoleta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarRegComBoletaActionPerformed(evt);
+            }
+        });
         pnlRegComBoleta.add(btnGuardarRegComBoleta);
         btnGuardarRegComBoleta.setBounds(60, 470, 100, 30);
 
         btnAgregarRegComBoleta.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         btnAgregarRegComBoleta.setText("Agregar");
+        btnAgregarRegComBoleta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarRegComBoletaActionPerformed(evt);
+            }
+        });
         pnlRegComBoleta.add(btnAgregarRegComBoleta);
         btnAgregarRegComBoleta.setBounds(180, 470, 100, 30);
 
         btnEliminarRegComBoleta.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         btnEliminarRegComBoleta.setText("Eliminar");
+        btnEliminarRegComBoleta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarRegComBoletaActionPerformed(evt);
+            }
+        });
         pnlRegComBoleta.add(btnEliminarRegComBoleta);
         btnEliminarRegComBoleta.setBounds(300, 470, 110, 30);
 
@@ -1164,21 +1204,41 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
 
         btnEditarRegComProforma.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         btnEditarRegComProforma.setText("Editar");
+        btnEditarRegComProforma.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarRegComProformaActionPerformed(evt);
+            }
+        });
         pnlRegComProforma.add(btnEditarRegComProforma);
         btnEditarRegComProforma.setBounds(420, 470, 100, 30);
 
         btnGuardarRegComProforma.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         btnGuardarRegComProforma.setText("Guardar");
+        btnGuardarRegComProforma.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarRegComProformaActionPerformed(evt);
+            }
+        });
         pnlRegComProforma.add(btnGuardarRegComProforma);
         btnGuardarRegComProforma.setBounds(60, 470, 100, 30);
 
         btnAgregarRegComProforma.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         btnAgregarRegComProforma.setText("Agregar");
+        btnAgregarRegComProforma.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarRegComProformaActionPerformed(evt);
+            }
+        });
         pnlRegComProforma.add(btnAgregarRegComProforma);
         btnAgregarRegComProforma.setBounds(180, 470, 100, 30);
 
         btnEliminarRegComProforma.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         btnEliminarRegComProforma.setText("Eliminar");
+        btnEliminarRegComProforma.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarRegComProformaActionPerformed(evt);
+            }
+        });
         pnlRegComProforma.add(btnEliminarRegComProforma);
         btnEliminarRegComProforma.setBounds(300, 470, 110, 30);
         pnlRegComProforma.add(txtNombresProforma);
@@ -1702,6 +1762,63 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     private void jmCOMPROBATESEMITIDOSRegComActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmCOMPROBATESEMITIDOSRegComActionPerformed
         tpnMostrar.setSelectedIndex(7);
     }//GEN-LAST:event_jmCOMPROBATESEMITIDOSRegComActionPerformed
+
+    private void btnGuardarRegComFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarRegComFacturaActionPerformed
+        if(faltanDatosEnTxt(txtSerieFactura,txtNumeroFactura,txtProveedorFactura,txtFechaFactura)||tblRegistroFactura.getRowCount()<=0){
+            JOptionPane.showMessageDialog(this,"Faltan datos de factura y/o productos.");
+            return;
+        }
+    }//GEN-LAST:event_btnGuardarRegComFacturaActionPerformed
+
+    private void btnGuardarRegComBoletaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarRegComBoletaActionPerformed
+        if(faltanDatosEnTxt(txtSerieBoleta,txtNumeroBoleta,txtProveedorBoleta,txtFechaBoleta)||tblRegistroFactura.getRowCount()<=0){
+            JOptionPane.showMessageDialog(this,"Faltan datos de boleta y/o productos.");
+            return;
+        }
+    }//GEN-LAST:event_btnGuardarRegComBoletaActionPerformed
+
+    private void btnGuardarRegComProformaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarRegComProformaActionPerformed
+        if(faltanDatosEnTxt(txtNombresProforma,txtFechaProforma)||tblRegistroProforma.getRowCount()<=0){
+            JOptionPane.showMessageDialog(this,"Faltan datos de proforma y/o productos.");
+            return;
+        }
+    }//GEN-LAST:event_btnGuardarRegComProformaActionPerformed
+
+    private void btnAgregarRegComFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarRegComFacturaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAgregarRegComFacturaActionPerformed
+
+    private void btnAgregarRegComBoletaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarRegComBoletaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAgregarRegComBoletaActionPerformed
+
+    private void btnAgregarRegComProformaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarRegComProformaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAgregarRegComProformaActionPerformed
+
+    private void btnEliminarRegComFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarRegComFacturaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnEliminarRegComFacturaActionPerformed
+
+    private void btnEliminarRegComBoletaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarRegComBoletaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnEliminarRegComBoletaActionPerformed
+
+    private void btnEliminarRegComProformaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarRegComProformaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnEliminarRegComProformaActionPerformed
+
+    private void btnEditarRegComFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarRegComFacturaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnEditarRegComFacturaActionPerformed
+
+    private void btnEditarRegComBoletaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarRegComBoletaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnEditarRegComBoletaActionPerformed
+
+    private void btnEditarRegComProformaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarRegComProformaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnEditarRegComProformaActionPerformed
 
     /**
      * @param args the command line arguments
