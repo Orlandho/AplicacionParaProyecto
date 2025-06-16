@@ -134,7 +134,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
             listaModelos[indiceRegTbl].addRow(datoFila);
             acumulador+=pro.getTotal();
         }
-        total.setText(Double.toString(acumulador));
+        total.setText(String.format("%.2f", acumulador));
     }
     private void actualizarTBLComprEmit(int indiceRegTbl,ArrayList<ComprobanteEmitido> tempList) {
 
