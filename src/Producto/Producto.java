@@ -1,6 +1,9 @@
 
 package Producto;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 public class Producto {
     
     // Atributos
@@ -46,9 +49,9 @@ public class Producto {
 
     public double getPrecioCompra() {
         if(precioCompra==0&&precioUnitario!=0){
-            return precioUnitario*cantidad;
+            return redondear2Decimales(precioUnitario*cantidad);
         }
-        return precioCompra;
+        return redondear2Decimales(precioCompra);
     }
 
     public void setPrecioCompra(double precioCompra) {
@@ -77,12 +80,12 @@ public class Producto {
 
     public double getPrecioUnitario() {
         if(precioUnitario==0&&precioCompra!=0)
-            return precioCompra/cantidad;
-        return precioUnitario;
+            return redondear2Decimales(precioCompra/cantidad);
+        return redondear2Decimales(precioUnitario);
     }
 
     public void setPrecioUnitario(double precioUnitario) {
-        this.precioUnitario = precioUnitario;
+        this.precioUnitario = redondear2Decimales(precioUnitario);
     }
     
     
@@ -120,14 +123,18 @@ public class Producto {
     }
     
     public double getSubTotal(){
-        return getPrecioCompra()*1.18;
+        return redondear2Decimales(getPrecioCompra()*1.18);
     }
     
     public double getIGV(){
-        return getSubTotal()*0.18;
+        return redondear2Decimales(getSubTotal()*0.18);
     }
     
     public double getTotal(){
-        return getSubTotal()+getIGV();
+        return redondear2Decimales(getSubTotal()+getIGV());
+    }
+    
+    public double redondear2Decimales(double precio){
+        return ((new BigDecimal(precio)).setScale(2, RoundingMode.HALF_UP)).doubleValue();
     }
 }
