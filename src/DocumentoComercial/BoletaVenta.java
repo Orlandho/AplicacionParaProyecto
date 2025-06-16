@@ -20,8 +20,9 @@ public class BoletaVenta {
     private String moneda;
     private String responsable;
     private ArrayList<Producto> listaProductos;
+    private double total;
 
-    public BoletaVenta(int ID, long serie, long numero, String proveedor, String moneda, String responsable, ArrayList<Producto> listaProductos) {
+    public BoletaVenta(int ID, long serie, long numero, String proveedor, String moneda, String responsable, ArrayList<Producto> listaProductos,double total) {
         this.ID = ID;
         this.serie = serie;
         this.numero = numero;
@@ -29,7 +30,11 @@ public class BoletaVenta {
         this.moneda = moneda;
         this.responsable = responsable;
         this.listaProductos = listaProductos;
+        this.total=total;
     }
+    
+    
+    
 
     public int getID() {
         return ID;
@@ -80,7 +85,11 @@ public class BoletaVenta {
     }
 
     public double getTotal() {
-        return 0;
+        return total;
+    }
+
+    public void setTotal(double total) {
+        this.total = total;
     }
 
 }
