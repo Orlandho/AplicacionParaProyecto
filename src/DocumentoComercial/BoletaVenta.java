@@ -13,7 +13,7 @@ import Producto.Producto;
  */
 public class BoletaVenta {
 
-    private int ID;
+    private int id;
     private long serie;
     private long numero;
     private String proveedor;
@@ -22,26 +22,31 @@ public class BoletaVenta {
     private ArrayList<Producto> listaProductos;
     private double total;
 
-    public BoletaVenta(int ID, long serie, long numero, String proveedor, String moneda, String responsable, ArrayList<Producto> listaProductos,double total) {
-        this.ID = ID;
+    public BoletaVenta(int ID, long serie, long numero, String proveedor, String moneda, String responsable, ArrayList<Producto> listaProductos, double total) {
+        this.id = ID;
         this.serie = serie;
         this.numero = numero;
         this.proveedor = proveedor;
         this.moneda = moneda;
         this.responsable = responsable;
         this.listaProductos = listaProductos;
-        this.total=total;
-    }
-    
-    
-    
-
-    public int getID() {
-        return ID;
+        this.total = total;
     }
 
-    public void setID(int ID) {
-        this.ID = ID;
+    public ArrayList<Producto> getListaProductos() {
+        return listaProductos;
+    }
+
+    public void setListaProductos(ArrayList<Producto> listaProductos) {
+        this.listaProductos = listaProductos;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public long getSerie() {

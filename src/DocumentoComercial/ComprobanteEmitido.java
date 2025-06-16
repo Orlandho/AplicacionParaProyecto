@@ -9,6 +9,7 @@ package DocumentoComercial;
  * @author ORLANDO
  */
 public class ComprobanteEmitido {
+
     private int id;
     private String fechaRegistro;
     private String tipoComprobante;
@@ -35,8 +36,6 @@ public class ComprobanteEmitido {
         this.numero = numero;
     }
 
-    
-
     public int getId() {
         return id;
     }
@@ -44,8 +43,6 @@ public class ComprobanteEmitido {
     public void setId(int id) {
         this.id = id;
     }
-
-    
 
     public String getFechaRegistro() {
         return fechaRegistro;
@@ -86,8 +83,5 @@ public class ComprobanteEmitido {
     public void setTotal(double total) {
         this.total = total;
     }
-    
-    
-    
-    
+
 }

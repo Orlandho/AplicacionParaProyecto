@@ -13,6 +13,7 @@ import java.util.ArrayList;
  */
 public class Proforma {
 
+    private int id;
     private String nombres;
     private String responsable;
     private String moneda;
@@ -20,13 +21,22 @@ public class Proforma {
     private ArrayList<Producto> listaProductos;
     private double total;
 
-    public Proforma(String nombres, String responsable, String moneda, String fecha, ArrayList<Producto> listaProductos,double total) {
+    public Proforma(int id, String nombres, String responsable, String moneda, String fecha, ArrayList<Producto> listaProductos, double total) {
+        this.id = id;
         this.nombres = nombres;
         this.responsable = responsable;
         this.moneda = moneda;
         this.fecha = fecha;
         this.listaProductos = listaProductos;
-        this.total=total;
+        this.total = total;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNombres() {
@@ -76,6 +86,5 @@ public class Proforma {
     public void setTotal(double total) {
         this.total = total;
     }
-    
-    
+
 }

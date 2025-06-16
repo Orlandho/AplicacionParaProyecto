@@ -128,7 +128,7 @@ public class FrmLogin extends javax.swing.JFrame {
 
             JOptionPane.showOptionDialog(this, JPanelPedirContraNueva, "Creando contraseña", JOptionPane.NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
             contraseñaNueva = txfNuevaContra.getText();
-            
+
             if (!Usuario.esContraseñaValida(txfNuevaContra.getText())) {
                 JOptionPane.showMessageDialog(this, "Formato de contraseña incorrecto. Intente de nuevo");
                 continue;
