@@ -694,9 +694,9 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         btnEditar.setBackground(new java.awt.Color(226, 237, 241));
         btnEditar.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
         btnEditar.setText("Editar");
-        btnEditar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnEditarMouseClicked(evt);
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
             }
         });
         pnlRegUsuMostrar.add(btnEditar);
@@ -1324,6 +1324,11 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
 
         btnAnularComprobantesEmitidos.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         btnAnularComprobantesEmitidos.setText("Anular");
+        btnAnularComprobantesEmitidos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAnularComprobantesEmitidosActionPerformed(evt);
+            }
+        });
         pnlRegComCompromantesEmitidos.add(btnAnularComprobantesEmitidos);
         btnAnularComprobantesEmitidos.setBounds(570, 140, 100, 30);
 
@@ -1626,51 +1631,34 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         }
         return nombre_apellido;
     }
-
-    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        int filaSeleccion = tblRegistroUsuarios.getSelectedRow();
+    
+    private Integer getSeleccionEliminar(JTable objetivo){
+        int filaSeleccion = objetivo.getSelectedRow();
         if (filaSeleccion < 0) {
             JOptionPane.showMessageDialog(this, "Seleccione una fila para eliminar");
-            return;
+            return null;
         }
+        return filaSeleccion;
+    }
+    
+    private boolean confirmarEliminacion(){
+        if (JOptionPane.showConfirmDialog(this, "¿Esta seguro de eliminar la fila seleccionada?", "Ya fue, no habrá vuelta atras :,v", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            return true;
+        }
+        return false;
+    }
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        if(confirmarEliminacion())
+            return;
+        
+        Integer filaSeleccion = getSeleccionEliminar(tblRegistroUsuarios);
+        if(filaSeleccion==null)
+            return;
         int usuario_id = Integer.parseInt(listaModelos[indiceRegUsu].getValueAt(filaSeleccion, 0).toString());
         baseDeDatos.eliminarUsuario(usuario_id);
         actualizarTBLRegistroUsuarios();
     }//GEN-LAST:event_btnEliminarActionPerformed
-
-    private void btnEditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditarMouseClicked
-        int filaSeleccion = tblRegistroUsuarios.getSelectedRow();
-        if (filaSeleccion < 0) {
-            JOptionPane.showMessageDialog(this, "Seleccione una fila para editar");
-            return;
-        }
-
-        if (tieneCeldasVacias(listaModelos[indiceRegUsu], filaSeleccion)) {
-            JOptionPane.showMessageDialog(this, "Faltan datos en la fila");
-            return;
-        }
-
-        int usuID = Integer.parseInt(listaModelos[indiceRegUsu].getValueAt(filaSeleccion, 0).toString());
-        //Empleado nombre String
-        String[] nombres_apellidos = separarNombresApellidos(listaModelos[indiceRegUsu].getValueAt(filaSeleccion, 1).toString());
-        String nombre = nombres_apellidos[0];
-        String apellido = nombres_apellidos[1];
-        //UsuarioDNIoRUC Long
-        long usuarioDNI = Long.parseLong(listaModelos[indiceRegUsu].getValueAt(filaSeleccion, 2).toString());
-        //Contraseña String
-        String contra = listaModelos[indiceRegUsu].getValueAt(filaSeleccion, 3).toString();
-        //Tipo String
-        String rol = listaModelos[indiceRegUsu].getValueAt(filaSeleccion, 4).toString();
-        //Telefono int
-        int fono = Integer.parseInt(listaModelos[indiceRegUsu].getValueAt(filaSeleccion, 5).toString());
-
-        //Estado boolean
-        boolean esCuentaBloqueada = Usuario.parseEsCuentaBloqueada(listaModelos[indiceRegUsu].getValueAt(filaSeleccion, 6).toString());
-        //long usuarioDNI, String contraseña, String rol, LocalDate fechaUltimoCambio,int intentosFallidos, boolean cuentaBloqueada, String nombres, String apellidos, int telefono, int usuario_id
-        baseDeDatos.actualizarUsuario(usuarioDNI, contra, rol, LocalDate.now(), 0, esCuentaBloqueada, nombre, apellido, fono, usuID);
-        actualizarTBLRegistroUsuarios();
-
-    }//GEN-LAST:event_btnEditarMouseClicked
 
     private void btnAgregarAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarAlmacenActionPerformed
         String errorMensaje = "";
@@ -1700,11 +1688,11 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAgregarAlmacenActionPerformed
 
     private void btnEliminarAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarAlmacenActionPerformed
-        int filaSeleccion = tblRegistroProductos.getSelectedRow();
-        if (filaSeleccion < 0) {
-            JOptionPane.showMessageDialog(this, "Seleccione una fila para eliminar");
+        if(confirmarEliminacion())
             return;
-        }
+        Integer filaSeleccion = getSeleccionEliminar(tblRegistroProductos);
+        if(filaSeleccion==null)
+            return;
         int producto_id = Integer.parseInt(listaModelos[indiceRegProd].getValueAt(filaSeleccion, 0).toString());
         baseDeDatos.eliminarProducto(producto_id);
         actualizarTBLRegistroProductos();
@@ -1720,9 +1708,8 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     }
 
     private void btnEditarAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarAlmacenActionPerformed
-        int filaSeleccion = tblRegistroProductos.getSelectedRow();
-        if (filaSeleccion < 0) {
-            JOptionPane.showMessageDialog(this, "Seleccione una fila para editar");
+        Integer filaSeleccion = getSeleccionEditar(tblRegistroProductos);
+        if (filaSeleccion == null) {
             return;
         }
 
@@ -1883,27 +1870,60 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAgregarRegComProformaActionPerformed
 
     private void btnEliminarRegComFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarRegComFacturaActionPerformed
-        // TODO add your handling code here:
+        if(confirmarEliminacion())
+            return;
+        Integer filaSeleccion = getSeleccionEliminar(tblRegistroFactura);
+        if(filaSeleccion==null)
+            return;
     }//GEN-LAST:event_btnEliminarRegComFacturaActionPerformed
 
     private void btnEliminarRegComBoletaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarRegComBoletaActionPerformed
-        // TODO add your handling code here:
+        if(confirmarEliminacion())
+            return;
+        Integer filaSeleccion = getSeleccionEliminar(tblRegistroBoleta);
+        if(filaSeleccion==null)
+            return;
     }//GEN-LAST:event_btnEliminarRegComBoletaActionPerformed
 
     private void btnEliminarRegComProformaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarRegComProformaActionPerformed
-        // TODO add your handling code here:
+        if(confirmarEliminacion())
+            return;
+        Integer filaSeleccion = getSeleccionEliminar(tblRegistroProforma);
+        if(filaSeleccion==null)
+            return;
     }//GEN-LAST:event_btnEliminarRegComProformaActionPerformed
 
     private void btnEditarRegComFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarRegComFacturaActionPerformed
-        // TODO add your handling code here:
+        Integer filaSeleccion = getSeleccionEditar(tblRegistroFactura);
+        if (filaSeleccion == null) {
+            return;
+        }
+        if (tieneCeldasVacias(listaModelos[indiceRegFact], filaSeleccion)) {
+            JOptionPane.showMessageDialog(this, "Faltan datos en la fila");
+            return;
+        }
     }//GEN-LAST:event_btnEditarRegComFacturaActionPerformed
 
     private void btnEditarRegComBoletaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarRegComBoletaActionPerformed
-        // TODO add your handling code here:
+        Integer filaSeleccion = getSeleccionEditar(tblRegistroBoleta);
+        if (filaSeleccion == null) {
+            return;
+        }
+        if (tieneCeldasVacias(listaModelos[indiceRegBole], filaSeleccion)) {
+            JOptionPane.showMessageDialog(this, "Faltan datos en la fila");
+            return;
+        }
     }//GEN-LAST:event_btnEditarRegComBoletaActionPerformed
 
     private void btnEditarRegComProformaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarRegComProformaActionPerformed
-        // TODO add your handling code here:
+        Integer filaSeleccion = getSeleccionEditar(tblRegistroProforma);
+        if (filaSeleccion == null) {
+            return;
+        }
+        if (tieneCeldasVacias(listaModelos[indiceRegProf], filaSeleccion)) {
+            JOptionPane.showMessageDialog(this, "Faltan datos en la fila");
+            return;
+        }
     }//GEN-LAST:event_btnEditarRegComProformaActionPerformed
 
     private void btnCancelarRegComActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarRegComActionPerformed
@@ -2004,6 +2024,56 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
             return;
         }
     }//GEN-LAST:event_btnAgregarProductoRegVenActionPerformed
+
+    private void btnAnularComprobantesEmitidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnularComprobantesEmitidosActionPerformed
+        if(confirmarEliminacion())
+            return;
+        Integer filaSeleccion = getSeleccionEliminar(tblRegistrodeComprobantesEmitidos);
+        if(filaSeleccion==null)
+            return;
+    }//GEN-LAST:event_btnAnularComprobantesEmitidosActionPerformed
+
+    public Integer getSeleccionEditar(JTable editame){
+        int filaSeleccion = editame.getSelectedRow();
+        if (filaSeleccion < 0) {
+            JOptionPane.showMessageDialog(this, "Seleccione una fila para editar");
+            return null;
+        }
+        return filaSeleccion;
+    }
+    
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        Integer filaSeleccion = getSeleccionEditar(tblRegistroUsuarios);
+        if (filaSeleccion == null) {
+            return;
+        }
+
+        if (tieneCeldasVacias(listaModelos[indiceRegUsu], filaSeleccion)) {
+            JOptionPane.showMessageDialog(this, "Faltan datos en la fila");
+            return;
+        }
+
+        int usuID = Integer.parseInt(listaModelos[indiceRegUsu].getValueAt(filaSeleccion, 0).toString());
+        //Empleado nombre String
+        String[] nombres_apellidos = separarNombresApellidos(listaModelos[indiceRegUsu].getValueAt(filaSeleccion, 1).toString());
+        String nombre = nombres_apellidos[0];
+        String apellido = nombres_apellidos[1];
+        //UsuarioDNIoRUC Long
+        long usuarioDNI = Long.parseLong(listaModelos[indiceRegUsu].getValueAt(filaSeleccion, 2).toString());
+        //Contraseña String
+        String contra = listaModelos[indiceRegUsu].getValueAt(filaSeleccion, 3).toString();
+        //Tipo String
+        String rol = listaModelos[indiceRegUsu].getValueAt(filaSeleccion, 4).toString();
+        //Telefono int
+        int fono = Integer.parseInt(listaModelos[indiceRegUsu].getValueAt(filaSeleccion, 5).toString());
+
+        //Estado boolean
+        boolean esCuentaBloqueada = Usuario.parseEsCuentaBloqueada(listaModelos[indiceRegUsu].getValueAt(filaSeleccion, 6).toString());
+        //long usuarioDNI, String contraseña, String rol, LocalDate fechaUltimoCambio,int intentosFallidos, boolean cuentaBloqueada, String nombres, String apellidos, int telefono, int usuario_id
+        baseDeDatos.actualizarUsuario(usuarioDNI, contra, rol, LocalDate.now(), 0, esCuentaBloqueada, nombre, apellido, fono, usuID);
+        actualizarTBLRegistroUsuarios();
+
+    }//GEN-LAST:event_btnEditarActionPerformed
 
     /**
      * @param args the command line arguments
