@@ -150,11 +150,15 @@ public class FrmLogin extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Intento de Login, Error: Usuario bloqueado");
                 break;
             case SQLiteManager.DEBE_CAMBIAR_CONTRASEÑA:
+                txfUsuario.setEnabled(false);
+                txfContraseña.setEnabled(false);
                 if (baseDeDatos.actualizarContraseña(txfUsuario.getText(), txfContraseña.getText(), obligarCrearContraseña(txfContraseña.getText()))) {
                     JOptionPane.showMessageDialog(this, "La contraseña se cambio correctamente");
                 } else {
                     JOptionPane.showMessageDialog(this, "No se pudo cambiar la contraseña");
                 }
+                txfUsuario.setEnabled(true);
+                txfContraseña.setEnabled(true);
                 break;
             default:
                 JOptionPane.showMessageDialog(this, "Intento de Login, Error: no definido");
