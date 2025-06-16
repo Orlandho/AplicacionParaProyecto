@@ -13,7 +13,7 @@ import Producto.Producto;
  */
 public class Factura {
 
-    private int ID;
+    private int id;
     private long serie;
     private long numero;
     private String proveedor;
@@ -22,23 +22,23 @@ public class Factura {
     private ArrayList<Producto> listaProductos;
     private double total;
 
-    public Factura(int ID, long serie, long numero, String proveedor, String moneda, String responsable, ArrayList<Producto> listaProductos,double total) {
-        this.ID = ID;
+    public Factura(int ID, long serie, long numero, String proveedor, String moneda, String responsable, ArrayList<Producto> listaProductos, double total) {
+        this.id = ID;
         this.serie = serie;
         this.numero = numero;
         this.proveedor = proveedor;
         this.moneda = moneda;
         this.responsable = responsable;
         this.listaProductos = listaProductos;
-        this.total=total;
+        this.total = total;
     }
 
-    public int getID() {
-        return ID;
+    public int getId() {
+        return id;
     }
 
-    public void setID(int ID) {
-        this.ID = ID;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public long getSerie() {
@@ -88,7 +88,13 @@ public class Factura {
     public void setTotal(double total) {
         this.total = total;
     }
-    
-    
+
+    public ArrayList<Producto> getListaProductos() {
+        return listaProductos;
+    }
+
+    public void setListaProductos(ArrayList<Producto> listaProductos) {
+        this.listaProductos = listaProductos;
+    }
 
 }

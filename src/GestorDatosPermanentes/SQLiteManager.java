@@ -253,7 +253,7 @@ public class SQLiteManager {
         }
         return null;
     }
-    
+
     public Producto buscarProducto(int ID) {
         String comandoSQL = "SELECT * FROM Productos WHERE producto_id= ?";
         try {
@@ -300,7 +300,7 @@ public class SQLiteManager {
         return productos;
     }
 
-    public boolean crearProducto(String tipoDoc,String producto,double precio,int cantidad,String stock) {
+    public boolean crearProducto(String tipoDoc, String producto, double precio, int cantidad, String stock) {
         boolean exito = false;
         String sql = "INSERT INTO productos (tipoDocumento, producto, precioCompra, cantidad, stock) VALUES (?, ?, ?, ?, ?)";
         try {
