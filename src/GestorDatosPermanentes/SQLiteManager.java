@@ -362,7 +362,7 @@ public class SQLiteManager {
     //SPRINT 4: Comprobantes y ajustes
     
     public ComprobanteEmitido buscarComprobante(int id) {
-        String comandoSQL = "SELECT * FROM comprobantesEmitidos WHERE comprobante_id= ?";
+        String comandoSQL = "SELECT * FROM comprobantesEmitidosCompra WHERE comprobante_id= ?";
         try {
             PreparedStatement ingresarComando = conexionDB.prepareStatement(comandoSQL);
             ingresarComando.setInt(1, id);
@@ -387,7 +387,7 @@ public class SQLiteManager {
 
     public ArrayList<ComprobanteEmitido> obtenerComprobantes() {
         ArrayList<ComprobanteEmitido> comprobantes = new ArrayList<>();
-        String sql = "SELECT * FROM comprobantesEmitidos";
+        String sql = "SELECT * FROM comprobantesEmitidosCompra";
         try {
             PreparedStatement statement = conexionDB.prepareStatement(sql);
             ResultSet resultado = statement.executeQuery();
@@ -411,7 +411,7 @@ public class SQLiteManager {
 
     public boolean crearComprobante(String fechaRegistro, String tipoComprobante, int serie, int numero, String proveedor, double total) {
         boolean exito = false;
-        String sql = "INSERT INTO comprobantesEmitidos (fechaRegistro,tipoComprobante,serie,numero,proveedor,total) VALUES (date('now'), ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO comprobantesEmitidosCompra (fechaRegistro,tipoComprobante,serie,numero,proveedor,total) VALUES (date('now'), ?, ?, ?, ?, ?)";
         try {
             PreparedStatement statement = conexionDB.prepareStatement(sql);
             statement.setString(1, tipoComprobante);
@@ -431,7 +431,7 @@ public class SQLiteManager {
     
     public boolean eliminarComprobante(int comprobante_id) {
         boolean exito = false;
-        String sql = "DELETE FROM comprobantesEmitidos WHERE comprobante_id = ?";
+        String sql = "DELETE FROM comprobantesEmitidosCompra WHERE comprobante_id = ?";
         try {
             PreparedStatement statement = conexionDB.prepareStatement(sql);
             statement.setInt(1, comprobante_id);
@@ -448,7 +448,7 @@ public class SQLiteManager {
     public boolean actualizarComprobante(int comprobante_id, LocalDate fechaRegistro, String tipoComprobante,
             int serie, int numero, String proveedor, double total) {
         boolean exito = false;
-        String sql = "UPDATE comprobantesEmitidos SET fechaRegistro = ?, tipoComprobante = ?, serie = ?, numero = ?, proveedor = ?, total  = ? WHERE comprobante_id = ?";
+        String sql = "UPDATE comprobantesEmitidosCompra SET fechaRegistro = ?, tipoComprobante = ?, serie = ?, numero = ?, proveedor = ?, total  = ? WHERE comprobante_id = ?";
         try {
             PreparedStatement statement = conexionDB.prepareStatement(sql);
             statement.setString(1, fechaRegistro.toString());
