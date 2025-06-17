@@ -4,6 +4,8 @@
  */
 package DocumentoComercial;
 
+import java.time.LocalDate;
+
 /**
  *
  * @author ORLANDO
@@ -11,14 +13,14 @@ package DocumentoComercial;
 public class ComprobanteEmitido {
 
     private int id;
-    private String fechaRegistro;
+    private LocalDate fechaRegistro;
     private String tipoComprobante;
     private long serie;
     private int numero;
     private String proveedor;
     private double total;
 
-    public ComprobanteEmitido(int id, String fechaRegistro, String tipoComprobante, long serie, int numero, String proveedor, double total) {
+    public ComprobanteEmitido(int id, LocalDate fechaRegistro, String tipoComprobante, long serie, int numero, String proveedor, double total) {
         this.id = id;
         this.fechaRegistro = fechaRegistro;
         this.tipoComprobante = tipoComprobante;
@@ -26,14 +28,6 @@ public class ComprobanteEmitido {
         this.numero = numero;
         this.proveedor = proveedor;
         this.total = total;
-    }
-
-    public int getNumero() {
-        return numero;
-    }
-
-    public void setNumero(int numero) {
-        this.numero = numero;
     }
 
     public int getId() {
@@ -44,11 +38,11 @@ public class ComprobanteEmitido {
         this.id = id;
     }
 
-    public String getFechaRegistro() {
+    public LocalDate getFechaRegistro() {
         return fechaRegistro;
     }
 
-    public void setFechaRegistro(String fechaRegistro) {
+    public void setFechaRegistro(LocalDate fechaRegistro) {
         this.fechaRegistro = fechaRegistro;
     }
 
@@ -66,6 +60,14 @@ public class ComprobanteEmitido {
 
     public void setSerie(long serie) {
         this.serie = serie;
+    }
+
+    public int getNumero() {
+        return numero;
+    }
+
+    public void setNumero(int numero) {
+        this.numero = numero;
     }
 
     public String getProveedor() {
