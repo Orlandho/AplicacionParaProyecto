@@ -327,6 +327,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         tblRegistrodeComprobantesEmitidos = new javax.swing.JTable();
         lblimagen1ComprobantesEmitidos = new javax.swing.JLabel();
         cbTipodeBusquedaComprobantesEmitidos = new javax.swing.JComboBox<>();
+        txtBuscarComprobantesEmitidos = new javax.swing.JTextField();
         pnlRegComAgregarProducto = new javax.swing.JPanel();
         lblSubtemaAgregarProductoRegCom = new javax.swing.JLabel();
         lblRegistrodeProductosRegCom = new javax.swing.JLabel();
@@ -544,7 +545,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         lblRUC.setFont(new java.awt.Font("Cartoon Fun", 0, 14)); // NOI18N
         lblRUC.setText("Agro Integral Perú");
         jpanelsuperior.add(lblRUC);
-        lblRUC.setBounds(610, 10, 200, 24);
+        lblRUC.setBounds(610, 10, 200, 19);
 
         lblRol.setText("Empleado");
         jpanelsuperior.add(lblRol);
@@ -1250,6 +1251,8 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         txtDecoracion1Proforma.setEditable(false);
         pnlInternoRegComProforma.add(txtDecoracion1Proforma);
         txtDecoracion1Proforma.setBounds(0, 0, 90, 30);
+
+        txtTotalProforma.setEnabled(false);
         pnlInternoRegComProforma.add(txtTotalProforma);
         txtTotalProforma.setBounds(440, 210, 80, 30);
 
@@ -1362,9 +1365,11 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         pnlRegComCompromantesEmitidos.add(lblimagen1ComprobantesEmitidos);
         lblimagen1ComprobantesEmitidos.setBounds(40, 90, 40, 30);
 
-        cbTipodeBusquedaComprobantesEmitidos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Buscar", " Buscar por", "     Numero", "     Serie", "     Proveedor", " " }));
+        cbTipodeBusquedaComprobantesEmitidos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "   Numero", "   Serie ", "   Proveedor", " " }));
         pnlRegComCompromantesEmitidos.add(cbTipodeBusquedaComprobantesEmitidos);
-        cbTipodeBusquedaComprobantesEmitidos.setBounds(70, 90, 470, 30);
+        cbTipodeBusquedaComprobantesEmitidos.setBounds(70, 120, 470, 30);
+        pnlRegComCompromantesEmitidos.add(txtBuscarComprobantesEmitidos);
+        txtBuscarComprobantesEmitidos.setBounds(70, 90, 470, 30);
 
         tpnMostrar.addTab("pnlRegComCompromantesEmitidos", pnlRegComCompromantesEmitidos);
 
@@ -2277,6 +2282,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     private javax.swing.JTabbedPane tpnMostrar;
     private javax.swing.JTextField txtApellidos;
     private javax.swing.JTextField txtBuscar;
+    private javax.swing.JTextField txtBuscarComprobantesEmitidos;
     private javax.swing.JTextField txtCantidadRegCom;
     private javax.swing.JTextField txtCantidadRegVen;
     private javax.swing.JTextField txtCantidaddeProducto;
