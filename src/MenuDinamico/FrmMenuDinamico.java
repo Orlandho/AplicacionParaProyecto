@@ -1644,15 +1644,15 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         return filaSeleccion;
     }
 
-    private boolean confirmarEliminacion() {
+    private boolean cancelarEliminacion() {
         if (JOptionPane.showConfirmDialog(this, "¿Esta seguro de eliminar la fila seleccionada?", "Ya fue, no habrá vuelta atras :,v", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-            return true;
+            return false;
         }
-        return false;
+        return true;
     }
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        if (confirmarEliminacion()) {
+        if (cancelarEliminacion()) {
             return;
         }
 
@@ -1693,7 +1693,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAgregarAlmacenActionPerformed
 
     private void btnEliminarAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarAlmacenActionPerformed
-        if (confirmarEliminacion()) {
+        if (cancelarEliminacion()) {
             return;
         }
         Integer filaSeleccion = getSeleccionEliminar(tblRegistroProductos);
@@ -1877,7 +1877,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAgregarRegComProformaActionPerformed
 
     private void btnEliminarRegComFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarRegComFacturaActionPerformed
-        if (confirmarEliminacion()) {
+        if (cancelarEliminacion()) {
             return;
         }
         Integer filaSeleccion = getSeleccionEliminar(tblRegistroFactura);
@@ -1886,7 +1886,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEliminarRegComFacturaActionPerformed
 
     private void btnEliminarRegComBoletaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarRegComBoletaActionPerformed
-        if (confirmarEliminacion()) {
+        if (cancelarEliminacion()) {
             return;
         }
         Integer filaSeleccion = getSeleccionEliminar(tblRegistroBoleta);
@@ -1895,7 +1895,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEliminarRegComBoletaActionPerformed
 
     private void btnEliminarRegComProformaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarRegComProformaActionPerformed
-        if (confirmarEliminacion()) {
+        if (cancelarEliminacion()) {
             return;
         }
         Integer filaSeleccion = getSeleccionEliminar(tblRegistroProforma);
@@ -2036,7 +2036,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAgregarProductoRegVenActionPerformed
 
     private void btnAnularComprobantesEmitidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnularComprobantesEmitidosActionPerformed
-        if (confirmarEliminacion()) {
+        if (cancelarEliminacion()) {
             return;
         }
         Integer filaSeleccion = getSeleccionEliminar(tblRegistrodeComprobantesEmitidos);
