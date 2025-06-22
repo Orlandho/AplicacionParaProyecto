@@ -13,8 +13,6 @@ import Producto.Producto;
  * @author ORLANDO
  */
 public class EstructuraModeloProducto {
-    private String[] columnas;
-    private DefaultTableModel modelo;
     private ArrayList<Producto> registros;
 
     public EstructuraModeloProducto(String[] columnas, DefaultTableModel modelo, ArrayList<Producto> registros) {
@@ -33,22 +31,6 @@ public class EstructuraModeloProducto {
                 }
             };
     }
-    public String[] getColumnas() {
-        return columnas;
-    }
-
-    public void setColumnas(String[] columnas) {
-        this.columnas = columnas;
-    }
-
-    public DefaultTableModel getModelo() {
-        return modelo;
-    }
-
-    public void setModelo(DefaultTableModel modelo) {
-        this.modelo = modelo;
-    }
-
     public ArrayList<Producto> getRegistros() {
         return registros;
     }
