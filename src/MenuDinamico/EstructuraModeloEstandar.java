@@ -12,30 +12,28 @@ import javax.swing.table.DefaultTableModel;
  * @author ORLANDO
  */
 public abstract class EstructuraModeloEstandar<T> {
+
     private String[] columnas;
     private DefaultTableModel modelo;
 
-    
-
-    public EstructuraModeloEstandar(String[] columnas,int[] columnasProhibidas) {
+    public EstructuraModeloEstandar(String[] columnas, int[] columnasProhibidas) {
         this.columnas = columnas;
-        this.modelo=new DefaultTableModel(columnas, 0) {
-                @Override
-                public boolean isCellEditable(int row, int colum) {
-                    return esColumnaEditable(colum,columnasProhibidas);
-                }
-            };
-    }
-    
-
-    private boolean esColumnaEditable(int columna,int[] columnasProhibidas){
-            for (int columnaProhibida : columnasProhibidas) {
-                if(columna==columnaProhibida){
-                    return false;
-                }
+        this.modelo = new DefaultTableModel(columnas, 0) {
+            @Override
+            public boolean isCellEditable(int row, int colum) {
+                return esColumnaEditable(colum, columnasProhibidas);
             }
-            return true;
+        };
+    }
+
+    private boolean esColumnaEditable(int columna, int[] columnasProhibidas) {
+        for (int columnaProhibida : columnasProhibidas) {
+            if (columna == columnaProhibida) {
+                return false;
+            }
         }
+        return true;
+    }
 
     public String[] getColumnas() {
         return columnas;
@@ -52,6 +50,8 @@ public abstract class EstructuraModeloEstandar<T> {
     public void setModelo(DefaultTableModel modelo) {
         this.modelo = modelo;
     }
+
     protected abstract ArrayList<T> obtenerRegistros();
+
     protected abstract ArrayList<T> buscarCoincidencias(String clave);
 }
