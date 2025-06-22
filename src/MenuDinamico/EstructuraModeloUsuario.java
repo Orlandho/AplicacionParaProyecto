@@ -13,7 +13,5 @@ import Usuario.Usuario;
  * @author ORLANDO
  */
 public class EstructuraModeloUsuario {
-    private String[] columnas;
-    private DefaultTableModel modelo;
     private ArrayList<Usuario> registros;
 }

@@ -15,22 +15,8 @@ import Producto.Producto;
 public class EstructuraModeloProducto {
     private ArrayList<Producto> registros;
 
-    public EstructuraModeloProducto(String[] columnas, DefaultTableModel modelo, ArrayList<Producto> registros) {
-        this.columnas = columnas;
-        this.modelo = modelo;
-        this.registros = registros;
-    }
-
-    public EstructuraModeloProducto(String[] columnas, ArrayList<Producto> registros,int[] columnasProhibidas) {
-        this.columnas = columnas;
-        this.registros = registros;
-        this.modelo=new DefaultTableModel(columnas, 0) {
-                @Override
-                public boolean isCellEditable(int row, int colum) {
-                    return esColumnaEditable(colum,columnasProhibidas);
-                }
-            };
-    }
+    
+    
     public ArrayList<Producto> getRegistros() {
         return registros;
     }
@@ -39,13 +25,5 @@ public class EstructuraModeloProducto {
         this.registros = registros;
     }
     
-    private boolean esColumnaEditable(int columna,int[] columnasProhibidas){
-        for (int columnaProhibida : columnasProhibidas) {
-            if(columna==columnaProhibida){
-                return false;
-            }
-        }
-        return true;
-    }
     
 }
