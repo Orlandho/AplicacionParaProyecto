@@ -268,8 +268,8 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         tblRegistroFactura = new javax.swing.JTable();
         txtDecoracion1Factura = new javax.swing.JTextField();
-        txtTotalFactura = new javax.swing.JTextField();
         txtDecoracion2Factura = new javax.swing.JTextField();
+        txtTotalFactura = new javax.swing.JTextField();
         btnEditarRegComFactura = new javax.swing.JButton();
         btnGuardarRegComFactura = new javax.swing.JButton();
         btnAgregarRegComFactura = new javax.swing.JButton();
@@ -327,6 +327,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         tblRegistrodeComprobantesEmitidos = new javax.swing.JTable();
         lblimagen1ComprobantesEmitidos = new javax.swing.JLabel();
         cbTipodeBusquedaComprobantesEmitidos = new javax.swing.JComboBox<>();
+        txtBuscarComprobantesEmitidos = new javax.swing.JTextField();
         pnlRegComAgregarProducto = new javax.swing.JPanel();
         lblSubtemaAgregarProductoRegCom = new javax.swing.JLabel();
         lblRegistrodeProductosRegCom = new javax.swing.JLabel();
@@ -544,7 +545,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         lblRUC.setFont(new java.awt.Font("Cartoon Fun", 0, 14)); // NOI18N
         lblRUC.setText("Agro Integral Perú");
         jpanelsuperior.add(lblRUC);
-        lblRUC.setBounds(610, 10, 200, 24);
+        lblRUC.setBounds(610, 10, 200, 19);
 
         lblRol.setText("Empleado");
         jpanelsuperior.add(lblRol);
@@ -992,17 +993,21 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         jScrollPane3.setBounds(0, 30, 530, 170);
 
         txtDecoracion1Factura.setEditable(false);
+        txtDecoracion1Factura.setBackground(new java.awt.Color(255, 255, 255));
         pnlInternRegComFactura.add(txtDecoracion1Factura);
         txtDecoracion1Factura.setBounds(0, 0, 90, 30);
-        pnlInternRegComFactura.add(txtTotalFactura);
-        txtTotalFactura.setBounds(440, 210, 80, 30);
 
         txtDecoracion2Factura.setEditable(false);
+        txtDecoracion2Factura.setBackground(new java.awt.Color(255, 255, 255));
         txtDecoracion2Factura.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         txtDecoracion2Factura.setForeground(new java.awt.Color(255, 51, 51));
         txtDecoracion2Factura.setText("TOTAL");
         pnlInternRegComFactura.add(txtDecoracion2Factura);
         txtDecoracion2Factura.setBounds(360, 210, 80, 30);
+
+        txtTotalFactura.setEnabled(false);
+        pnlInternRegComFactura.add(txtTotalFactura);
+        txtTotalFactura.setBounds(440, 210, 80, 30);
 
         pnlRegComFactura.add(pnlInternRegComFactura);
         pnlInternRegComFactura.setBounds(60, 210, 530, 250);
@@ -1128,12 +1133,16 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         jScrollPane4.setBounds(0, 30, 530, 170);
 
         txtDecoracion1Boleta.setEditable(false);
+        txtDecoracion1Boleta.setBackground(new java.awt.Color(255, 255, 255));
         pnlInternoRegComBoleta.add(txtDecoracion1Boleta);
         txtDecoracion1Boleta.setBounds(0, 0, 90, 30);
+
+        txtTotalBoleta.setEnabled(false);
         pnlInternoRegComBoleta.add(txtTotalBoleta);
         txtTotalBoleta.setBounds(440, 210, 80, 30);
 
         txtDecoracion2Boleta.setEditable(false);
+        txtDecoracion2Boleta.setBackground(new java.awt.Color(255, 255, 255));
         txtDecoracion2Boleta.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         txtDecoracion2Boleta.setForeground(new java.awt.Color(255, 51, 51));
         txtDecoracion2Boleta.setText("TOTAL");
@@ -1248,12 +1257,16 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         jScrollPane5.setBounds(0, 30, 530, 170);
 
         txtDecoracion1Proforma.setEditable(false);
+        txtDecoracion1Proforma.setBackground(new java.awt.Color(255, 255, 255));
         pnlInternoRegComProforma.add(txtDecoracion1Proforma);
         txtDecoracion1Proforma.setBounds(0, 0, 90, 30);
+
+        txtTotalProforma.setEnabled(false);
         pnlInternoRegComProforma.add(txtTotalProforma);
         txtTotalProforma.setBounds(440, 210, 80, 30);
 
         txtDecoracion2Proforma.setEditable(false);
+        txtDecoracion2Proforma.setBackground(new java.awt.Color(255, 255, 255));
         txtDecoracion2Proforma.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         txtDecoracion2Proforma.setForeground(new java.awt.Color(255, 51, 51));
         txtDecoracion2Proforma.setText("TOTAL");
@@ -1362,9 +1375,11 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         pnlRegComCompromantesEmitidos.add(lblimagen1ComprobantesEmitidos);
         lblimagen1ComprobantesEmitidos.setBounds(40, 90, 40, 30);
 
-        cbTipodeBusquedaComprobantesEmitidos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Buscar", " Buscar por", "     Numero", "     Serie", "     Proveedor", " " }));
+        cbTipodeBusquedaComprobantesEmitidos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "   Numero", "   Serie ", "   Proveedor", " " }));
         pnlRegComCompromantesEmitidos.add(cbTipodeBusquedaComprobantesEmitidos);
-        cbTipodeBusquedaComprobantesEmitidos.setBounds(70, 90, 470, 30);
+        cbTipodeBusquedaComprobantesEmitidos.setBounds(70, 120, 470, 30);
+        pnlRegComCompromantesEmitidos.add(txtBuscarComprobantesEmitidos);
+        txtBuscarComprobantesEmitidos.setBounds(70, 90, 470, 30);
 
         tpnMostrar.addTab("pnlRegComCompromantesEmitidos", pnlRegComCompromantesEmitidos);
 
@@ -2277,6 +2292,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     private javax.swing.JTabbedPane tpnMostrar;
     private javax.swing.JTextField txtApellidos;
     private javax.swing.JTextField txtBuscar;
+    private javax.swing.JTextField txtBuscarComprobantesEmitidos;
     private javax.swing.JTextField txtCantidadRegCom;
     private javax.swing.JTextField txtCantidadRegVen;
     private javax.swing.JTextField txtCantidaddeProducto;
