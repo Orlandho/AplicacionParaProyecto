@@ -4,10 +4,12 @@
  */
 package MenuDinamico;
 
+import DocumentoComercial.ComprobanteEmitido;
 import GestorDatosPermanentes.SQLiteManager;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 import Producto.Producto;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 
 /**
@@ -25,25 +27,60 @@ public class ModeloProducto extends EstructuraModeloEstandar<Producto> {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
-    public void actualizarRegistros(ArrayList<Producto> tempList,JTextField total){
-        super.getModelo().setRowCount(0);
+    public static void actualizarRegsCompVen(ArrayList<Producto> tempList,DefaultTableModel mdl,JTextField total){
+        mdl.setRowCount(0);
         double acumulador = 0;
         for (int i = 0; i < tempList.size(); i++) {
             Producto pro = tempList.get(i);
             Object[] datoFila = {i, pro.getProducto(), pro.getCantidad(), pro.getPrecioUnitario(), pro.getSubTotal(), pro.getIGV(), pro.getTotal()};
-            super.getModelo().addRow(datoFila);
+            mdl.addRow(datoFila);
             acumulador += pro.getTotal();
         }
         total.setText(String.format("%.2f", acumulador));
     }
     
-    public void actualizarRegsAlmacen(SQLiteManager bd){
-        super.getModelo().setRowCount(0);
-        ArrayList<Producto> lista = bd.obtenerProductos();
+    public static void actualizarRegsAlmacen(DefaultTableModel mdl,ArrayList<Producto> tempList){
+        mdl.setRowCount(0);
 
-        for (Producto pro : lista) {
+        for (Producto pro : tempList) {
             Object[] datoFila = {pro.getID(), pro.getTipoDocumento(), pro.getProducto(), pro.getPrecioCompra(), pro.getCantidad(), pro.getStock()};
-            super.getModelo().addRow(datoFila);
+            mdl.addRow(datoFila);
+        }
+    }
+    
+    private static boolean coincideAlgo(String clave, String palabra) {
+        int numCoinc;
+        for (int i = 0; i <= (palabra.length() - clave.length()); i++) {
+            numCoinc = 0;
+            for (int j = 0; j < clave.length(); j++) {
+                if (palabra.toLowerCase().charAt(i + j) == clave.toLowerCase().charAt(j)) {
+                    numCoinc++;
+                    continue;
+                }
+                break;
+            }
+            if (numCoinc == clave.length()) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public static void buscarProductoAlm(DefaultTableModel mdl,String txtBuscar){
+        for (int i = 0; i < mdl.getRowCount(); i++) {
+            if (!coincideAlgo(txtBuscar, mdl.getValueAt(i, 2).toString())) {
+                mdl.removeRow(i);
+                i--;
+            }
+        }
+    }
+    
+    public static void actualizarCompEmit(DefaultTableModel mdl,ArrayList<ComprobanteEmitido> tempList){
+        mdl.setRowCount(0);
+        for (int i = 0; i < tempList.size(); i++) {
+            ComprobanteEmitido com = tempList.get(i);
+            Object[] datoFila = {i, com.getId(), com.getFechaRegistro(), com.getTipoComprobante(), com.getSerie(), com.getNumero(), com.getProveedor(), com.getTotal()};
+            mdl.addRow(datoFila);
         }
     }
 }

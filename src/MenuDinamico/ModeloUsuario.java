@@ -19,13 +19,17 @@ public class ModeloUsuario extends EstructuraModeloEstandar<Usuario> {
     public ModeloUsuario(String[] columnas, int[] columnasProhibidas) {
         super(columnas, columnasProhibidas);
     }
-    
+
     @Override
-    public void actualizarRegistros(ArrayList<Usuario> lista) {
-        super.getModelo().setRowCount(0);
+    protected void actualizarRegistros(ArrayList<Usuario> tempList) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+    
+    public static void actualizarRegistros(ArrayList<Usuario> lista,DefaultTableModel mdl) {
+        mdl.setRowCount(0);
         for (Usuario usu : lista) {
             Object[] datoFila = {usu.getUsuario_id(), usu.getNombres() + " " + usu.getApellidos(), usu.getUsuarioDNIoRUC(), usu.getContraseña(), usu.getRol(), usu.getTelefono(), Usuario.parseEsCuentaBloqueada(usu.esCuentaBloqueada())};
-            super.getModelo().addRow(datoFila);
+            mdl.addRow(datoFila);
         }
     }
     

@@ -14,27 +14,13 @@ import java.time.LocalDate;
 import javax.swing.JTable;
 import Producto.Producto;
 import javax.swing.JTextField;
+import MenuDinamico.GestorModelos;
 
 public class FrmMenuDinamico extends javax.swing.JFrame {
 
     private Usuario usuario;
     private SQLiteManager baseDeDatos;
-    private DefaultTableModel[] listaModelos;
-    private String[][] listaCols;
-    private JTable[] tablas;
 
-    private final int pnlInicio = 0;
-    private final int pnlRegUsu = 1;
-    private final int pnlCrearUsu = 2;
-    private final int pnlAlmac = 3;
-    private final int pnlFact = 4;
-    private final int pnlBole = 5;
-    private final int pnlProf = 6;
-    private final int pnlCompEmit = 7;
-    private final int pnlAgrComProd = 8;
-    private final int pnlAgrVenProd = 9;
-
-    private String[] colsRegUsu = {"Usuario ID", "Empleado", "Usuario", "Contraseña", "Tipo", "Telefono", "Estado"};
     private final int indiceRegUsu = 0;
     private String[] colsRegProd = {"Producto ID", "Tipo de Documento", "Producto", "Precio Compra", "Cantidad", "Stock"};
     private final int indiceRegProd = 1;
@@ -54,44 +40,20 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     public FrmMenuDinamico() {
         initComponents();
         jpaneladmin.setVisible(false);
-        baseDeDatos = new SQLiteManager();
-        listaCols = new String[][]{colsRegUsu, colsRegProd, colsRegFactBoleProf, colsRegFactBoleProf, colsRegFactBoleProf, colsRegCompComprEmitid};
-        tablas = new JTable[]{tblRegistroUsuarios, tblRegistroProductos, tblRegistroFactura, tblRegistroBoleta, tblRegistroProforma, tblRegistrodeComprobantesEmitidos};
-        listaModelos = new DefaultTableModel[tablas.length];
-        inicializarModelos();
+        baseDeDatos = new SQLiteManager();GestorModelos.añadirTblUsuario(tblRegistroUsuarios);
         //configuracion personalizada para tblRegistroProductos
-        listaModelos[indiceRegProd] = new DefaultTableModel(listaCols[indiceRegProd], 0) {
-            @Override
-            public boolean isCellEditable(int row, int colum) {
-                return colum != 0 && colum != 1 && colum != 5;
-            }
-        };
+        GestorModelos.añadirTblProducto(tblRegistroProductos, colsRegProd, new int[]{0,1,5});
+        GestorModelos.añadirTblProducto(tblRegistroFactura);
+        GestorModelos.añadirTblProducto(tblRegistroFactura);
+        GestorModelos.añadirTblProducto(tblRegistroBoleta);
+        GestorModelos.añadirTblProducto(tblRegistroProforma);
         //configuracion personalizada para tblRegistrodeComprobantesEmitidos
-        listaModelos[indiceRegCompComprEmitid] = new DefaultTableModel(listaCols[indiceRegCompComprEmitid], 0) {
-            @Override
-            public boolean isCellEditable(int row, int colum) {
-                return true;
-            }
-        };
+        GestorModelos.añadirTblProducto(tblRegistrodeComprobantesEmitidos, colsRegCompComprEmitid, new int[]{0,1,2,3,4,5,6,7});
 
-        tablas[indiceRegProd].setModel(listaModelos[indiceRegProd]);
-        tablas[indiceRegCompComprEmitid].setModel(listaModelos[indiceRegCompComprEmitid]);
         tempListFact = new ArrayList<>();
         tempListBole = new ArrayList<>();
         tempListProf = new ArrayList<>();
         tempListComprEmitid = new ArrayList<>();
-    }
-
-    private void inicializarModelos() {
-        for (int i = 0; i < listaModelos.length; i++) {
-            listaModelos[i] = new DefaultTableModel(listaCols[i], 0) {
-                @Override
-                public boolean isCellEditable(int row, int colum) {
-                    return colum != 0;
-                }
-            };
-            tablas[i].setModel(listaModelos[i]);
-        }
     }
 
     public void modificarSegunRol(Usuario usuario) {
@@ -101,51 +63,6 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
             jpaneladmin.setEnabled(true);
         }
         lblRol.setText(usuario.getRol());
-    }
-
-    private void actualizarTBLRegistroUsuarios() {
-
-        listaModelos[indiceRegUsu].setRowCount(0);
-        ArrayList<Usuario> lista = baseDeDatos.obtenerUsuarios();
-
-        for (Usuario usu : lista) {
-            Object[] datoFila = {usu.getUsuario_id(), usu.getNombres() + " " + usu.getApellidos(), usu.getUsuarioDNIoRUC(), usu.getContraseña(), usu.getRol(), usu.getTelefono(), Usuario.parseEsCuentaBloqueada(usu.esCuentaBloqueada())};
-            listaModelos[indiceRegUsu].addRow(datoFila);
-        }
-    }
-
-    private void actualizarTBLRegistroProductos() {
-
-        listaModelos[indiceRegProd].setRowCount(0);
-        ArrayList<Producto> lista = baseDeDatos.obtenerProductos();
-
-        for (Producto pro : lista) {
-            Object[] datoFila = {pro.getID(), pro.getTipoDocumento(), pro.getProducto(), pro.getPrecioCompra(), pro.getCantidad(), pro.getStock()};
-            listaModelos[indiceRegProd].addRow(datoFila);
-        }
-    }
-
-    private void actualizarTBLRegistroFactBoleProf(int indiceRegTbl, ArrayList<Producto> tempList, JTextField total) {
-
-        listaModelos[indiceRegTbl].setRowCount(0);
-        double acumulador = 0;
-        for (int i = 0; i < tempList.size(); i++) {
-            Producto pro = tempList.get(i);
-            Object[] datoFila = {i, pro.getProducto(), pro.getCantidad(), pro.getPrecioUnitario(), pro.getSubTotal(), pro.getIGV(), pro.getTotal()};
-            listaModelos[indiceRegTbl].addRow(datoFila);
-            acumulador += pro.getTotal();
-        }
-        total.setText(String.format("%.2f", acumulador));
-    }
-
-    private void actualizarTBLComprEmit(int indiceRegTbl, ArrayList<ComprobanteEmitido> tempList) {
-
-        listaModelos[indiceRegTbl].setRowCount(0);
-        for (int i = 0; i < tempList.size(); i++) {
-            ComprobanteEmitido com = tempList.get(i);
-            Object[] datoFila = {i, com.getId(), com.getFechaRegistro(), com.getTipoComprobante(), com.getSerie(), com.getNumero(), com.getProveedor(), com.getTotal()};
-            listaModelos[indiceRegTbl].addRow(datoFila);
-        }
     }
 
     /**
