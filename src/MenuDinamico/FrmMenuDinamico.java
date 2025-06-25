@@ -1256,6 +1256,11 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
 
         btnBuscarComprobantesEmitidos.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         btnBuscarComprobantesEmitidos.setText("Buscar");
+        btnBuscarComprobantesEmitidos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarComprobantesEmitidosActionPerformed(evt);
+            }
+        });
         pnlRegComCompromantesEmitidos.add(btnBuscarComprobantesEmitidos);
         btnBuscarComprobantesEmitidos.setBounds(570, 60, 100, 30);
 
@@ -1301,7 +1306,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         pnlRegComCompromantesEmitidos.add(lblimagen1ComprobantesEmitidos);
         lblimagen1ComprobantesEmitidos.setBounds(40, 90, 40, 30);
 
-        cbTipodeBusquedaComprobantesEmitidos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "   Numero", "   Serie ", "   Proveedor", " " }));
+        cbTipodeBusquedaComprobantesEmitidos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "   Numero", "   Serie ", "   Proveedor" }));
         pnlRegComCompromantesEmitidos.add(cbTipodeBusquedaComprobantesEmitidos);
         cbTipodeBusquedaComprobantesEmitidos.setBounds(70, 120, 470, 30);
         pnlRegComCompromantesEmitidos.add(txtBuscarComprobantesEmitidos);
@@ -2033,6 +2038,28 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         GestorModelos.actualizarUsuarios(tblRegistroUsuarios, baseDeDatos.obtenerUsuarios());
 
     }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void btnBuscarComprobantesEmitidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarComprobantesEmitidosActionPerformed
+        //revisar que no este en blanco
+        if (faltanDatosEnTxt(txtBuscarComprobantesEmitidos) && !txtBuscarComprobantesEmitidos.getText().equals(" ") || btnBuscarComprobantesEmitidos.getText().equals("Revertir")) {
+            GestorModelos.actualizarCompEmit(tblRegistrodeComprobantesEmitidos, baseDeDatos.obtenerComprobantes());
+            btnBuscarComprobantesEmitidos.setText("Buscar");
+            txtBuscarComprobantesEmitidos.setEnabled(true);
+            return;
+        }
+        int indice=0;
+        String seleccion=cbTipodeBusquedaComprobantesEmitidos.getSelectedItem().toString();
+        if(seleccion.equals("   Numero")){
+            indice=5;
+        }else if(seleccion.equals("   Serie ")){
+            indice=4;
+        }else if(seleccion.equals("   Proveedor")){
+            indice=6;
+        }
+        GestorModelos.buscarCompEmit(tblRegistrodeComprobantesEmitidos, txtBuscarComprobantesEmitidos.getText(),indice);
+        btnBuscarComprobantesEmitidos.setText("Revertir");
+        txtBuscarComprobantesEmitidos.setEnabled(false);
+    }//GEN-LAST:event_btnBuscarComprobantesEmitidosActionPerformed
 
     /**
      * @param args the command line arguments

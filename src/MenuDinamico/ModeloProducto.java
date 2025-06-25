@@ -75,6 +75,15 @@ public class ModeloProducto extends EstructuraModeloEstandar<Producto> {
         }
     }
     
+    public static void buscarCompEmit(DefaultTableModel mdl,String txtBuscar,int col){
+        for (int i = 0; i < mdl.getRowCount(); i++) {
+            if (!coincideAlgo(txtBuscar, mdl.getValueAt(i, col).toString())) {
+                mdl.removeRow(i);
+                i--;
+            }
+        }
+    }
+    
     public static void actualizarCompEmit(DefaultTableModel mdl,ArrayList<ComprobanteEmitido> tempList){
         mdl.setRowCount(0);
         for (int i = 0; i < tempList.size(); i++) {
