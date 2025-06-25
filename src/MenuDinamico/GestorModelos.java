@@ -23,22 +23,24 @@ import javax.swing.table.DefaultTableModel;
  * @author ORLANDO
  */
 public class GestorModelos {
-    private static HashMap<JTable, EstructuraModeloEstandar> tablaModelo;
-
-    public GestorModelos() {
-        this.tablaModelo = new HashMap<>();
-    }
+    private static HashMap<JTable, EstructuraModeloEstandar> tablaModelo=new HashMap<>();
 
     public static void añadirTblUsuario(JTable tablaGUI){
-        tablaModelo.put(tablaGUI, new ModeloUsuario(new String[]{"Usuario ID", "Empleado", "Usuario", "Contraseña", "Tipo", "Telefono", "Estado"}, new int[]{0}));
+        ModeloUsuario mdl=new ModeloUsuario(new String[]{"Usuario ID", "Empleado", "Usuario", "Contraseña", "Tipo", "Telefono", "Estado"}, new int[]{0});
+        tablaGUI.setModel(mdl.getModelo());
+        tablaModelo.put(tablaGUI,mdl );
     }
     
     public static void añadirTblProducto(JTable tablaGUI){
-        tablaModelo.put(tablaGUI,new ModeloProducto(new String[]{"ID", "Producto", "Cantidad", "Precio Unit.", "Sub. Total", "I.G.V.", "Total"}, new int[]{0,1,2,3,4,5,6}));
+        ModeloProducto mdl=new ModeloProducto(new String[]{"ID", "Producto", "Cantidad", "Precio Unit.", "Sub. Total", "I.G.V.", "Total"}, new int[]{0,1,2,3,4,5,6});
+        tablaGUI.setModel(mdl.getModelo());
+        tablaModelo.put(tablaGUI,mdl);
     }
     
     public static void añadirTblProducto(JTable tablaGUI,String[] columnas, int[] columnasProhibidas){
-        tablaModelo.put(tablaGUI,new ModeloProducto(columnas,columnasProhibidas));
+        ModeloProducto mdl=new ModeloProducto(columnas,columnasProhibidas);
+        tablaGUI.setModel(mdl.getModelo());
+        tablaModelo.put(tablaGUI,mdl);
     }
     
     public static void actualizarTblAlmacen(JTable tblAlmacen, ArrayList<Producto> listaP){

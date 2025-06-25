@@ -42,7 +42,6 @@ public class ModeloProducto extends EstructuraModeloEstandar<Producto> {
     
     public static void actualizarRegsAlmacen(DefaultTableModel mdl,ArrayList<Producto> tempList){
         mdl.setRowCount(0);
-
         for (Producto pro : tempList) {
             Object[] datoFila = {pro.getID(), pro.getTipoDocumento(), pro.getProducto(), pro.getPrecioCompra(), pro.getCantidad(), pro.getStock()};
             mdl.addRow(datoFila);

@@ -46,7 +46,9 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     public FrmMenuDinamico() {
         initComponents();
         jpaneladmin.setVisible(false);
-        baseDeDatos = new SQLiteManager();GestorModelos.añadirTblUsuario(tblRegistroUsuarios);
+        baseDeDatos = new SQLiteManager();
+        
+        GestorModelos.añadirTblUsuario(tblRegistroUsuarios);
         //configuracion personalizada para tblRegistroProductos
         GestorModelos.añadirTblProducto(tblRegistroProductos, colsRegProd, new int[]{0,1,5});
         GestorModelos.añadirTblProducto(tblRegistroFactura);
