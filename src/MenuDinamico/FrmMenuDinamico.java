@@ -1723,11 +1723,15 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         tpnMostrar.setSelectedIndex(pnlCompEmit);
     }//GEN-LAST:event_jmCOMPROBATESEMITIDOSRegComActionPerformed
 
+    
+    
     private void btnGuardarRegComFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarRegComFacturaActionPerformed
         if (faltanDatosEnTxt(txtSerieFactura, txtNumeroFactura, txtProveedorFactura, txtFechaFactura) || tblRegistroFactura.getRowCount() <= 0) {
             JOptionPane.showMessageDialog(this, "Faltan datos de factura y/o productos.");
             return;
         }
+        
+        
     }//GEN-LAST:event_btnGuardarRegComFacturaActionPerformed
 
     private void btnGuardarRegComBoletaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarRegComBoletaActionPerformed
@@ -1762,6 +1766,12 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         tpnMostrar.setSelectedIndex(pnlAgrComProd);
     }//GEN-LAST:event_btnAgregarRegComProformaActionPerformed
 
+    private void btnElimAccion(JTable tbl, int filaSeleccion, ArrayList<Producto> list,JTextField txtf){
+        int prodId=GestorModelos.getProductoID(tbl, filaSeleccion);
+        list.remove(prodId);
+        GestorModelos.actualizarRegsCompVenProd(tbl, list, txtf);
+    }
+    
     private void btnEliminarRegComFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarRegComFacturaActionPerformed
         if (cancelarEliminacion()) {
             return;
@@ -1769,6 +1779,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         Integer filaSeleccion = getSeleccionEliminar(tblRegistroFactura);
         if (filaSeleccion == null)
             return;
+        btnElimAccion(tblRegistroFactura,filaSeleccion,tempListFact,txtTotalFactura);
     }//GEN-LAST:event_btnEliminarRegComFacturaActionPerformed
 
     private void btnEliminarRegComBoletaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarRegComBoletaActionPerformed
@@ -1778,6 +1789,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         Integer filaSeleccion = getSeleccionEliminar(tblRegistroBoleta);
         if (filaSeleccion == null)
             return;
+        btnElimAccion(tblRegistroBoleta,filaSeleccion,tempListBole,txtTotalBoleta);
     }//GEN-LAST:event_btnEliminarRegComBoletaActionPerformed
 
     private void btnEliminarRegComProformaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarRegComProformaActionPerformed
@@ -1787,8 +1799,18 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         Integer filaSeleccion = getSeleccionEliminar(tblRegistroProforma);
         if (filaSeleccion == null)
             return;
+        btnElimAccion(tblRegistroProforma,filaSeleccion,tempListProf,txtTotalProforma);
     }//GEN-LAST:event_btnEliminarRegComProformaActionPerformed
 
+    private void btnEditarAccion(String tipoDoc,JTable tbl, int filaSeleccion, ArrayList<Producto> tempList){
+        Integer idLista= Integer.parseInt(GestorModelos.getValueAt(tbl, filaSeleccion, 0).toString());
+        String producto=GestorModelos.getValueAt(tbl, filaSeleccion, 1).toString();
+        Integer cantidad=Integer.parseInt(GestorModelos.getValueAt(tbl, filaSeleccion, 2).toString());
+        Double precioUni=Double.parseDouble(GestorModelos.getValueAt(tbl, filaSeleccion, 3).toString());
+        Producto editado=new Producto(tipoDoc, producto, cantidad, precioUni);
+        tempList.set(idLista, editado);
+    }
+    
     private void btnEditarRegComFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarRegComFacturaActionPerformed
         Integer filaSeleccion = getSeleccionEditar(tblRegistroFactura);
         if (filaSeleccion == null) {
@@ -1798,6 +1820,8 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Faltan datos en la fila");
             return;
         }
+        btnEditarAccion("Factura",tblRegistroFactura,filaSeleccion,tempListFact);
+        GestorModelos.actualizarRegsCompVenProd(tblRegistroFactura, tempListFact, txtTotalFactura);
     }//GEN-LAST:event_btnEditarRegComFacturaActionPerformed
 
     private void btnEditarRegComBoletaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarRegComBoletaActionPerformed
@@ -1809,6 +1833,8 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Faltan datos en la fila");
             return;
         }
+        btnEditarAccion("Boleta", tblRegistroBoleta, filaSeleccion, tempListBole);
+        GestorModelos.actualizarRegsCompVenProd(tblRegistroBoleta, tempListBole, txtTotalBoleta);
     }//GEN-LAST:event_btnEditarRegComBoletaActionPerformed
 
     private void btnEditarRegComProformaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarRegComProformaActionPerformed
@@ -1820,6 +1846,8 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Faltan datos en la fila");
             return;
         }
+        btnEditarAccion("Proforma", tblRegistroProforma, filaSeleccion, tempListProf);
+        GestorModelos.actualizarRegsCompVenProd(tblRegistroProforma, tempListProf, txtTotalProforma);
     }//GEN-LAST:event_btnEditarRegComProformaActionPerformed
 
     private void btnCancelarRegComActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarRegComActionPerformed
