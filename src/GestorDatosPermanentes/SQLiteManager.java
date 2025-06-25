@@ -409,14 +409,14 @@ public class SQLiteManager {
         return comprobantes;
     }
 
-    public boolean crearComprobante(String fechaRegistro, String tipoComprobante, int serie, int numero, String proveedor, double total) {
+    public boolean crearComprobante(String fechaRegistro, String tipoComprobante, long serie, long numero, String proveedor, double total) {
         boolean exito = false;
         String sql = "INSERT INTO comprobantesEmitidosCompra (fechaRegistro,tipoComprobante,serie,numero,proveedor,total) VALUES (date('now'), ?, ?, ?, ?, ?)";
         try {
             PreparedStatement statement = conexionDB.prepareStatement(sql);
             statement.setString(1, tipoComprobante);
-            statement.setInt(2, serie);
-            statement.setInt(3, numero);
+            statement.setLong(2, serie);
+            statement.setLong(3, numero);
             statement.setString(4, proveedor);
             statement.setDouble(5, total);
             int filasInsertadas = statement.executeUpdate();

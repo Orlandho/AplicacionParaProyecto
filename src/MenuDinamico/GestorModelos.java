@@ -63,6 +63,10 @@ public class GestorModelos {
         ModeloProducto.buscarProductoAlm(tablaModelo.get(tbl).getModelo(), txtBuscar);
     }
     
+    public static void buscarCompEmit(JTable tbl, String txtBuscar,int col){
+        ModeloProducto.buscarCompEmit(tablaModelo.get(tbl).getModelo(), txtBuscar,col);
+    }
+    
     public static void buscarProductoAgotado(JTable tbl,SQLiteManager bd){
         ModeloProducto.buscarProductoAgotado(tablaModelo.get(tbl).getModelo(), bd);
     }
