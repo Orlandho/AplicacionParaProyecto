@@ -21,21 +21,27 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     private Usuario usuario;
     private SQLiteManager baseDeDatos;
 
-    private final int indiceRegUsu = 0;
+    private final int pnlInicio = 0;
+    private final int pnlRegUsu = 1;
+    private final int pnlCrearUsu = 2;
+    private final int pnlAlmac = 3;
+    private final int pnlFact = 4;
+    private final int pnlBole = 5;
+    private final int pnlProf = 6;
+    private final int pnlCompEmit = 7;
+    private final int pnlAgrComProd = 8;
+    private final int pnlAgrVenProd = 9;
+    
     private String[] colsRegProd = {"Producto ID", "Tipo de Documento", "Producto", "Precio Compra", "Cantidad", "Stock"};
-    private final int indiceRegProd = 1;
     private String[] colsRegFactBoleProf = {"ID", "Producto", "Cantidad", "Precio Unit.", "Sub. Total", "I.G.V.", "Total"};
-    private final int indiceRegFact = 2;
     private ArrayList<Producto> tempListFact;
-    private final int indiceRegBole = 3;
     private ArrayList<Producto> tempListBole;
-    private final int indiceRegProf = 4;
     private ArrayList<Producto> tempListProf;
-    private int indiceTblPadreComVenProd;
     private int pnlPadreComVenProd;
     private String[] colsRegCompComprEmitid = {"ID", "Fecha de registro", "Tipo de comprobante", "Serie", "Número", "Proveedor", "Total"};
     private int indiceRegCompComprEmitid = 5;
     private ArrayList<ComprobanteEmitido> tempListComprEmitid;
+    private JTable tblPadre;
 
     public FrmMenuDinamico() {
         initComponents();
@@ -54,6 +60,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         tempListBole = new ArrayList<>();
         tempListProf = new ArrayList<>();
         tempListComprEmitid = new ArrayList<>();
+        tblPadre=null;
     }
 
     public void modificarSegunRol(Usuario usuario) {
@@ -1411,15 +1418,9 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     }//GEN-LAST:event_btninicioMouseClicked
 
     private void btnAlmacenMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAlmacenMouseClicked
-        actualizarTBLRegistroProductos();
+        GestorModelos.actualizarTblAlmacen(tblRegistroProductos, baseDeDatos.obtenerProductos());
         tpnMostrar.setSelectedIndex(pnlAlmac);
-        for (int i = 0; i < listaModelos[indiceRegProd].getRowCount(); i++) {
-            if (listaModelos[indiceRegProd].getValueAt(i, 5).toString().equals("Agotado")) {
-                Producto agotado = baseDeDatos.buscarProducto(Integer.parseInt(listaModelos[indiceRegProd].getValueAt(i, 0).toString()));
-                JOptionPane.showMessageDialog(this, "Se encontro un producto agotado: \nNombre:" + agotado.getProducto() + "\nTipo de documento: " + agotado.getTipoDocumento() + "\nPrecio de Compra: " + agotado.getPrecioCompra());
-                return;
-            }
-        }
+        GestorModelos.buscarProductoAgotado(tblRegistroProductos, baseDeDatos);
 
     }//GEN-LAST:event_btnAlmacenMouseClicked
 
@@ -1436,7 +1437,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     }//GEN-LAST:event_btncajaMouseClicked
 
     private void btnregistrodeusuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnregistrodeusuarioMouseClicked
-        actualizarTBLRegistroUsuarios();
+        GestorModelos.actualizarTblAlmacen(tblRegistroProductos, baseDeDatos.obtenerProductos());
         tpnMostrar.setSelectedIndex(pnlRegUsu);
 
 
@@ -1512,7 +1513,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
 
         boolean esCuentaInactiva = rbtInactivo.isSelected();
         baseDeDatos.crearCuentaUsuario(usuarioDNI, txtNombres.getText(), txtApellidos.getText(), Integer.parseInt(txtTelefono.getText()), txtContraseña.getText(), cbTipoUsuario.getSelectedItem().toString(), esCuentaInactiva);
-        actualizarTBLRegistroUsuarios();
+        GestorModelos.actualizarUsuarios(tblRegistroUsuarios, baseDeDatos.obtenerUsuarios());
     }//GEN-LAST:event_btnGuardaryAgregarDatosActionPerformed
 
     private void rbtActivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtActivoActionPerformed
@@ -1577,9 +1578,9 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         if (filaSeleccion == null) {
             return;
         }
-        int usuario_id = Integer.parseInt(listaModelos[indiceRegUsu].getValueAt(filaSeleccion, 0).toString());
+        int usuario_id = GestorModelos.getUsuarioID(tblRegistroUsuarios, filaSeleccion);
         baseDeDatos.eliminarUsuario(usuario_id);
-        actualizarTBLRegistroUsuarios();
+        GestorModelos.actualizarUsuarios(tblRegistroUsuarios, baseDeDatos.obtenerUsuarios());
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnAgregarAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarAlmacenActionPerformed
@@ -1606,7 +1607,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         }
         //                  (String tipoDoc,String producto,double precio,int cantidad,String stock) {
         baseDeDatos.crearProducto("Sin documento", producto, precioCompra, cantidadProducto, Producto.calcularStock(cantidadProducto));
-        actualizarTBLRegistroProductos();
+        GestorModelos.actualizarTblAlmacen(tblRegistroProductos, baseDeDatos.obtenerProductos());
     }//GEN-LAST:event_btnAgregarAlmacenActionPerformed
 
     private void btnEliminarAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarAlmacenActionPerformed
@@ -1617,19 +1618,10 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         if (filaSeleccion == null) {
             return;
         }
-        int producto_id = Integer.parseInt(listaModelos[indiceRegProd].getValueAt(filaSeleccion, 0).toString());
+        int producto_id= GestorModelos.getProductoID(tblRegistroProductos, filaSeleccion);
         baseDeDatos.eliminarProducto(producto_id);
-        actualizarTBLRegistroProductos();
+        GestorModelos.actualizarTblAlmacen(tblRegistroProductos, baseDeDatos.obtenerProductos());
     }//GEN-LAST:event_btnEliminarAlmacenActionPerformed
-
-    private boolean tieneCeldasVacias(DefaultTableModel modelo, int fila) {
-        for (int i = 0; i < modelo.getColumnCount(); i++) {
-            if (modelo.getValueAt(fila, i).toString().isBlank()) {
-                return true;
-            }
-        }
-        return false;
-    }
 
     private void btnEditarAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarAlmacenActionPerformed
         Integer filaSeleccion = getSeleccionEditar(tblRegistroProductos);
@@ -1638,7 +1630,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         }
 
         //Revisar no espacios en blanco
-        if (tieneCeldasVacias(listaModelos[indiceRegProd], filaSeleccion)) {
+        if (GestorModelos.tieneCeldasVacias(tblRegistroProductos, filaSeleccion)) {
             JOptionPane.showMessageDialog(this, "Faltan datos en la fila");
             return;
         }
@@ -1646,16 +1638,16 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         //formato correcto
         String errorMensaje = "";
         boolean noEntrar = false;
-        Integer producto_id = Integer.parseInt(listaModelos[indiceRegProd].getValueAt(filaSeleccion, 0).toString());
-        String tipoDoc = listaModelos[indiceRegProd].getValueAt(filaSeleccion, 1).toString();
-        String producto = listaModelos[indiceRegProd].getValueAt(filaSeleccion, 2).toString();
-        Double precio = Double.parseDouble(listaModelos[indiceRegProd].getValueAt(filaSeleccion, 3).toString());
+        Integer producto_id = Integer.parseInt(GestorModelos.getValueAt(tblRegistroProductos,filaSeleccion, 0).toString());
+        String tipoDoc = GestorModelos.getValueAt(tblRegistroProductos,filaSeleccion, 1).toString();
+        String producto = GestorModelos.getValueAt(tblRegistroProductos,filaSeleccion, 2).toString();
+        Double precio = Double.parseDouble(GestorModelos.getValueAt(tblRegistroProductos,filaSeleccion, 3).toString());
         if (precio == null) {
             errorMensaje += "Formato de precio incorrecto. Ingrese un numero real.\n";
             noEntrar = true;
         }
 
-        Integer cantidad = Integer.parseInt(listaModelos[indiceRegProd].getValueAt(filaSeleccion, 4).toString());
+        Integer cantidad = Integer.parseInt(GestorModelos.getValueAt(tblRegistroProductos,filaSeleccion, 4).toString());
         if (cantidad == null) {
             errorMensaje += "Formato de precio incorrecto. Ingrese un numero natural.\n";
             noEntrar = true;
@@ -1666,66 +1658,26 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
             return;
         }
 
-        String stock = listaModelos[indiceRegProd].getValueAt(filaSeleccion, 5).toString();
+        String stock = GestorModelos.getValueAt(tblRegistroProductos,filaSeleccion, 5).toString();
 
         baseDeDatos.actualizarProducto(producto_id, tipoDoc, producto, precio, cantidad, stock);
-        actualizarTBLRegistroProductos();
+        GestorModelos.actualizarTblAlmacen(tblRegistroProductos, baseDeDatos.obtenerProductos());
     }//GEN-LAST:event_btnEditarAlmacenActionPerformed
 
     private void btnFiltrarAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFiltrarAlmacenActionPerformed
-        actualizarTBLRegistroProductos();
-        if (cbTipoStock.getSelectedIndex() == 1) {
-            //sin stock
-            for (int i = 0; i < listaModelos[indiceRegProd].getRowCount(); i++) {
-                if (listaModelos[indiceRegProd].getValueAt(i, 5).toString().equals("Disponible") || listaModelos[indiceRegProd].getValueAt(i, 5).toString().equals("Camino agotarse")) {
-                    listaModelos[indiceRegProd].removeRow(i);
-                    i--;
-                }
-            }
-        } else if (cbTipoStock.getSelectedIndex() == 2) {
-            //con stock
-            for (int i = 0; i < listaModelos[indiceRegProd].getRowCount(); i++) {
-                if (listaModelos[indiceRegProd].getValueAt(i, 5).toString().equals("Agotado")) {
-                    listaModelos[indiceRegProd].removeRow(i);
-                    i--;
-                }
-            }
-        }
+        GestorModelos.actualizarTblAlmacen(tblRegistroProductos, baseDeDatos.obtenerProductos());
+        GestorModelos.filtrarProductos(tblRegistroProductos, cbTipoStock);
     }//GEN-LAST:event_btnFiltrarAlmacenActionPerformed
-
-    private static boolean coincideAlgo(String clave, String palabra) {
-        int numCoinc;
-        for (int i = 0; i <= (palabra.length() - clave.length()); i++) {
-            numCoinc = 0;
-            for (int j = 0; j < clave.length(); j++) {
-                if (palabra.toLowerCase().charAt(i + j) == clave.toLowerCase().charAt(j)) {
-                    numCoinc++;
-                    continue;
-                }
-                break;
-            }
-            if (numCoinc == clave.length()) {
-                return true;
-            }
-        }
-        return false;
-    }
 
     private void btnBuscarAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarAlmacenActionPerformed
         //revisar que no este en blanco
         if (faltanDatosEnTxt(txtBuscar) && !txtBuscar.getText().equals(" ") || btnBuscarAlmacen.getText().equals("Revertir")) {
-            actualizarTBLRegistroProductos();
+            GestorModelos.actualizarTblAlmacen(tblRegistroProductos, baseDeDatos.obtenerProductos());
             btnBuscarAlmacen.setText("Buscar");
             txtBuscar.setEnabled(true);
             return;
         }
-
-        for (int i = 0; i < listaModelos[indiceRegProd].getRowCount(); i++) {
-            if (!coincideAlgo(txtBuscar.getText(), listaModelos[indiceRegProd].getValueAt(i, 2).toString())) {
-                listaModelos[indiceRegProd].removeRow(i);
-                i--;
-            }
-        }
+        GestorModelos.buscarProductoAlm(tblRegistroProductos, txtBuscar.getText());
         btnBuscarAlmacen.setText("Revertir");
         txtBuscar.setEnabled(false);
 
@@ -1750,7 +1702,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         //buscar todos los comprobantes en la base de datos e insertarlos en la lista de comprobantes tempListComprEmitid
 
         //actualizar la tabla
-        actualizarTBLComprEmit(indiceRegCompComprEmitid, tempListComprEmitid);
+        GestorModelos.actualizarCompEmit(tblRegistrodeComprobantesEmitidos, baseDeDatos.obtenerComprobantes());
         tpnMostrar.setSelectedIndex(pnlCompEmit);
     }//GEN-LAST:event_jmCOMPROBATESEMITIDOSRegComActionPerformed
 
@@ -1776,19 +1728,19 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGuardarRegComProformaActionPerformed
 
     private void btnAgregarRegComFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarRegComFacturaActionPerformed
-        indiceTblPadreComVenProd = indiceRegFact;
+        tblPadre = tblRegistroFactura;
         pnlPadreComVenProd = pnlFact;
         tpnMostrar.setSelectedIndex(pnlAgrComProd);
     }//GEN-LAST:event_btnAgregarRegComFacturaActionPerformed
 
     private void btnAgregarRegComBoletaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarRegComBoletaActionPerformed
-        indiceTblPadreComVenProd = indiceRegBole;
+        tblPadre = tblRegistroBoleta;
         pnlPadreComVenProd = pnlBole;
         tpnMostrar.setSelectedIndex(pnlAgrComProd);
     }//GEN-LAST:event_btnAgregarRegComBoletaActionPerformed
 
     private void btnAgregarRegComProformaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarRegComProformaActionPerformed
-        indiceTblPadreComVenProd = indiceRegProf;
+        tblPadre = tblRegistroProforma;
         pnlPadreComVenProd = pnlProf;
         tpnMostrar.setSelectedIndex(pnlAgrComProd);
     }//GEN-LAST:event_btnAgregarRegComProformaActionPerformed
@@ -1825,7 +1777,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         if (filaSeleccion == null) {
             return;
         }
-        if (tieneCeldasVacias(listaModelos[indiceRegFact], filaSeleccion)) {
+        if(GestorModelos.tieneCeldasVacias(tblRegistroFactura, filaSeleccion)) {
             JOptionPane.showMessageDialog(this, "Faltan datos en la fila");
             return;
         }
@@ -1836,7 +1788,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         if (filaSeleccion == null) {
             return;
         }
-        if (tieneCeldasVacias(listaModelos[indiceRegBole], filaSeleccion)) {
+        if(GestorModelos.tieneCeldasVacias(tblRegistroBoleta, filaSeleccion)) {
             JOptionPane.showMessageDialog(this, "Faltan datos en la fila");
             return;
         }
@@ -1847,7 +1799,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         if (filaSeleccion == null) {
             return;
         }
-        if (tieneCeldasVacias(listaModelos[indiceRegProf], filaSeleccion)) {
+        if(GestorModelos.tieneCeldasVacias(tblRegistroProforma,  filaSeleccion)) {
             JOptionPane.showMessageDialog(this, "Faltan datos en la fila");
             return;
         }
@@ -1857,20 +1809,16 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         tpnMostrar.setSelectedIndex(pnlPadreComVenProd);
     }//GEN-LAST:event_btnCancelarRegComActionPerformed
 
-    private String calcularTipoDoc(int padre) {
+    private String calcularTipoDoc(JTable padre) {
         String rpta = "";
-        switch (padre) {
-            case pnlFact:
+        if(padre==tblRegistroFactura)
                 rpta = "Factura";
-                break;
-            case pnlBole:
+        else if(padre==tblRegistroBoleta){
                 rpta = "Boleta";
-                break;
-            case pnlProf:
+        }else if(padre==tblRegistroProforma){
                 rpta = "Proforma";
-                break;
-            default:
-                rpta = "No definido";
+        }else{
+            rpta = "No definido";
         }
         return rpta;
     }
@@ -1891,18 +1839,15 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         return rpta;
     }
 
-    private ArrayList<Producto> identificarLista(int tblPadre) {
+    private ArrayList<Producto> identificarLista(JTable tblPadre) {
         ArrayList<Producto> rpta = new ArrayList<>();
-        switch (tblPadre) {
-            case indiceRegFact:
+        
+        if(tblPadre==tblRegistroFactura)
                 rpta = tempListFact;
-                break;
-            case indiceRegBole:
+        else if(tblPadre==tblRegistroBoleta){
                 rpta = tempListBole;
-                break;
-            case indiceRegProf:
+        }else if(tblPadre==tblRegistroProforma){
                 rpta = tempListProf;
-                break;
         }
         return rpta;
     }
@@ -1931,18 +1876,18 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
             return;
         }
 
-        String tipoDoc = calcularTipoDoc(pnlPadreComVenProd);
+        String tipoDoc = calcularTipoDoc(tblPadre);
         JTextField txtTotal = IdentificarTxt(pnlPadreComVenProd);
         Producto prod = new Producto(tipoDoc, txtProductoRegCom.getText(), cantidad, precio);
 
-        ArrayList<Producto> listaTemp = identificarLista(indiceTblPadreComVenProd);
+        ArrayList<Producto> listaTemp = identificarLista(tblPadre);
         listaTemp.add(prod);
-        actualizarTBLRegistroFactBoleProf(indiceTblPadreComVenProd, listaTemp, txtTotal);
+        GestorModelos.actualizarRegsCompVenProd(tblPadre, listaTemp, txtTotal);
         tpnMostrar.setSelectedIndex(pnlPadreComVenProd);
     }//GEN-LAST:event_btnAgregarProductoRegComActionPerformed
 
     private void btnCancelarRegVenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarRegVenActionPerformed
-        tpnMostrar.setSelectedIndex(indiceTblPadreComVenProd);
+        tpnMostrar.setSelectedIndex(pnlPadreComVenProd);
     }//GEN-LAST:event_btnCancelarRegVenActionPerformed
 
     private void btnAgregarProductoRegVenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarProductoRegVenActionPerformed
@@ -1976,30 +1921,30 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
             return;
         }
 
-        if (tieneCeldasVacias(listaModelos[indiceRegUsu], filaSeleccion)) {
+        if (GestorModelos.tieneCeldasVacias(tblRegistroUsuarios, filaSeleccion)) {
             JOptionPane.showMessageDialog(this, "Faltan datos en la fila");
             return;
         }
 
-        int usuID = Integer.parseInt(listaModelos[indiceRegUsu].getValueAt(filaSeleccion, 0).toString());
+        int usuID = Integer.parseInt(GestorModelos.getValueAt(tblRegistroUsuarios,filaSeleccion, 0).toString());
         //Empleado nombre String
-        String[] nombres_apellidos = separarNombresApellidos(listaModelos[indiceRegUsu].getValueAt(filaSeleccion, 1).toString());
+        String[] nombres_apellidos = separarNombresApellidos(GestorModelos.getValueAt(tblRegistroUsuarios,filaSeleccion, 1).toString());
         String nombre = nombres_apellidos[0];
         String apellido = nombres_apellidos[1];
         //UsuarioDNIoRUC Long
-        long usuarioDNI = Long.parseLong(listaModelos[indiceRegUsu].getValueAt(filaSeleccion, 2).toString());
+        long usuarioDNI = Long.parseLong(GestorModelos.getValueAt(tblRegistroUsuarios,filaSeleccion, 2).toString());
         //Contraseña String
-        String contra = listaModelos[indiceRegUsu].getValueAt(filaSeleccion, 3).toString();
+        String contra = GestorModelos.getValueAt(tblRegistroUsuarios,filaSeleccion, 3).toString();
         //Tipo String
-        String rol = listaModelos[indiceRegUsu].getValueAt(filaSeleccion, 4).toString();
+        String rol = GestorModelos.getValueAt(tblRegistroUsuarios,filaSeleccion, 4).toString();
         //Telefono int
-        int fono = Integer.parseInt(listaModelos[indiceRegUsu].getValueAt(filaSeleccion, 5).toString());
+        int fono = Integer.parseInt(GestorModelos.getValueAt(tblRegistroUsuarios,filaSeleccion, 5).toString());
 
         //Estado boolean
-        boolean esCuentaBloqueada = Usuario.parseEsCuentaBloqueada(listaModelos[indiceRegUsu].getValueAt(filaSeleccion, 6).toString());
+        boolean esCuentaBloqueada = Usuario.parseEsCuentaBloqueada(GestorModelos.getValueAt(tblRegistroUsuarios,filaSeleccion, 6).toString());
         //long usuarioDNI, String contraseña, String rol, LocalDate fechaUltimoCambio,int intentosFallidos, boolean cuentaBloqueada, String nombres, String apellidos, int telefono, int usuario_id
         baseDeDatos.actualizarUsuario(usuarioDNI, contra, rol, LocalDate.now(), 0, esCuentaBloqueada, nombre, apellido, fono, usuID);
-        actualizarTBLRegistroUsuarios();
+        GestorModelos.actualizarUsuarios(tblRegistroUsuarios, baseDeDatos.obtenerUsuarios());
 
     }//GEN-LAST:event_btnEditarActionPerformed
 

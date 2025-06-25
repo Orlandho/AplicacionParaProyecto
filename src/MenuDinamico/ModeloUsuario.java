@@ -33,4 +33,7 @@ public class ModeloUsuario extends EstructuraModeloEstandar<Usuario> {
         }
     }
     
+    public static Integer getID(DefaultTableModel mdl,int filaSeleccion){
+        return Integer.parseInt(mdl.getValueAt(filaSeleccion, 0).toString());
+    }
 }

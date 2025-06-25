@@ -9,6 +9,7 @@ import GestorDatosPermanentes.SQLiteManager;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 import Producto.Producto;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
@@ -82,5 +83,19 @@ public class ModeloProducto extends EstructuraModeloEstandar<Producto> {
             Object[] datoFila = {i, com.getId(), com.getFechaRegistro(), com.getTipoComprobante(), com.getSerie(), com.getNumero(), com.getProveedor(), com.getTotal()};
             mdl.addRow(datoFila);
         }
+    }
+    
+    public static void buscarProductoAgotado(DefaultTableModel mdl, SQLiteManager bd){
+        for (int i = 0; i < mdl.getRowCount(); i++) {
+            if (mdl.getValueAt(i, 5).toString().equals("Agotado")) {
+                Producto agotado = bd.buscarProducto(Integer.parseInt(mdl.getValueAt(i, 0).toString()));
+                JOptionPane.showMessageDialog(null, "Se encontro un producto agotado: \nNombre:" + agotado.getProducto() + "\nTipo de documento: " + agotado.getTipoDocumento() + "\nPrecio de Compra: " + agotado.getPrecioCompra());
+                return;
+            }
+        }
+    }
+    
+    public static Integer getID(DefaultTableModel mdl,int filaSeleccion){
+        return Integer.parseInt(mdl.getValueAt(filaSeleccion, 0).toString());
     }
 }
