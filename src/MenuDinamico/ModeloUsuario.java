@@ -24,16 +24,16 @@ public class ModeloUsuario extends EstructuraModeloEstandar<Usuario> {
     protected void actualizarRegistros(ArrayList<Usuario> tempList) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-    
-    public static void actualizarRegistros(ArrayList<Usuario> lista,DefaultTableModel mdl) {
+
+    public static void actualizarRegistros(ArrayList<Usuario> lista, DefaultTableModel mdl) {
         mdl.setRowCount(0);
         for (Usuario usu : lista) {
             Object[] datoFila = {usu.getUsuario_id(), usu.getNombres() + " " + usu.getApellidos(), usu.getUsuarioDNIoRUC(), usu.getContraseña(), usu.getRol(), usu.getTelefono(), Usuario.parseEsCuentaBloqueada(usu.esCuentaBloqueada())};
             mdl.addRow(datoFila);
         }
     }
-    
-    public static Integer getID(DefaultTableModel mdl,int filaSeleccion){
+
+    public static Integer getID(DefaultTableModel mdl, int filaSeleccion) {
         return Integer.parseInt(mdl.getValueAt(filaSeleccion, 0).toString());
     }
 }

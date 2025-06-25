@@ -19,7 +19,7 @@ import javax.swing.JTextField;
  */
 public class ModeloProducto extends EstructuraModeloEstandar<Producto> {
 
-    public ModeloProducto( String[] columnas, int[] columnasProhibidas) {
+    public ModeloProducto(String[] columnas, int[] columnasProhibidas) {
         super(columnas, columnasProhibidas);
     }
 
@@ -27,8 +27,8 @@ public class ModeloProducto extends EstructuraModeloEstandar<Producto> {
     protected void actualizarRegistros(ArrayList<Producto> tempList) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-    
-    public static void actualizarRegsCompVen(ArrayList<Producto> tempList,DefaultTableModel mdl,JTextField total){
+
+    public static void actualizarRegsCompVen(ArrayList<Producto> tempList, DefaultTableModel mdl, JTextField total) {
         mdl.setRowCount(0);
         double acumulador = 0;
         for (int i = 0; i < tempList.size(); i++) {
@@ -39,15 +39,15 @@ public class ModeloProducto extends EstructuraModeloEstandar<Producto> {
         }
         total.setText(String.format("%.2f", acumulador));
     }
-    
-    public static void actualizarRegsAlmacen(DefaultTableModel mdl,ArrayList<Producto> tempList){
+
+    public static void actualizarRegsAlmacen(DefaultTableModel mdl, ArrayList<Producto> tempList) {
         mdl.setRowCount(0);
         for (Producto pro : tempList) {
             Object[] datoFila = {pro.getID(), pro.getTipoDocumento(), pro.getProducto(), pro.getPrecioCompra(), pro.getCantidad(), pro.getStock()};
             mdl.addRow(datoFila);
         }
     }
-    
+
     private static boolean coincideAlgo(String clave, String palabra) {
         int numCoinc;
         for (int i = 0; i <= (palabra.length() - clave.length()); i++) {
@@ -65,8 +65,8 @@ public class ModeloProducto extends EstructuraModeloEstandar<Producto> {
         }
         return false;
     }
-    
-    public static void buscarProductoAlm(DefaultTableModel mdl,String txtBuscar){
+
+    public static void buscarProductoAlm(DefaultTableModel mdl, String txtBuscar) {
         for (int i = 0; i < mdl.getRowCount(); i++) {
             if (!coincideAlgo(txtBuscar, mdl.getValueAt(i, 2).toString())) {
                 mdl.removeRow(i);
@@ -74,8 +74,8 @@ public class ModeloProducto extends EstructuraModeloEstandar<Producto> {
             }
         }
     }
-    
-    public static void buscarCompEmit(DefaultTableModel mdl,String txtBuscar,int col){
+
+    public static void buscarCompEmit(DefaultTableModel mdl, String txtBuscar, int col) {
         for (int i = 0; i < mdl.getRowCount(); i++) {
             if (!coincideAlgo(txtBuscar, mdl.getValueAt(i, col).toString())) {
                 mdl.removeRow(i);
@@ -83,8 +83,8 @@ public class ModeloProducto extends EstructuraModeloEstandar<Producto> {
             }
         }
     }
-    
-    public static void actualizarCompEmit(DefaultTableModel mdl,ArrayList<ComprobanteEmitido> tempList){
+
+    public static void actualizarCompEmit(DefaultTableModel mdl, ArrayList<ComprobanteEmitido> tempList) {
         mdl.setRowCount(0);
         for (int i = 0; i < tempList.size(); i++) {
             ComprobanteEmitido com = tempList.get(i);
@@ -92,8 +92,8 @@ public class ModeloProducto extends EstructuraModeloEstandar<Producto> {
             mdl.addRow(datoFila);
         }
     }
-    
-    public static void buscarProductoAgotado(DefaultTableModel mdl, SQLiteManager bd){
+
+    public static void buscarProductoAgotado(DefaultTableModel mdl, SQLiteManager bd) {
         for (int i = 0; i < mdl.getRowCount(); i++) {
             if (mdl.getValueAt(i, 5).toString().equals("Agotado")) {
                 Producto agotado = bd.buscarProducto(Integer.parseInt(mdl.getValueAt(i, 0).toString()));
@@ -102,8 +102,8 @@ public class ModeloProducto extends EstructuraModeloEstandar<Producto> {
             }
         }
     }
-    
-    public static Integer getID(DefaultTableModel mdl,int filaSeleccion){
+
+    public static Integer getID(DefaultTableModel mdl, int filaSeleccion) {
         return Integer.parseInt(mdl.getValueAt(filaSeleccion, 0).toString());
     }
 }
