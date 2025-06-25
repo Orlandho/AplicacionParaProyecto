@@ -38,7 +38,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     private ArrayList<Producto> tempListBole;
     private ArrayList<Producto> tempListProf;
     private int pnlPadreComVenProd;
-    private String[] colsRegCompComprEmitid = {"ID", "Fecha de registro", "Tipo de comprobante", "Serie", "Número", "Proveedor", "Total"};
+    private String[] colsRegCompComprEmitid = {"N°","ID", "Fecha de registro", "Tipo de comprobante", "Serie", "Número", "Proveedor", "Total"};
     private int indiceRegCompComprEmitid = 5;
     private ArrayList<ComprobanteEmitido> tempListComprEmitid;
     private JTable tblPadre;

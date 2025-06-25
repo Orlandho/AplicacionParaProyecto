@@ -32,7 +32,7 @@ public class GestorModelos {
     }
     
     public static void añadirTblProducto(JTable tablaGUI){
-        ModeloProducto mdl=new ModeloProducto(new String[]{"ID", "Producto", "Cantidad", "Precio Unit.", "Sub. Total", "I.G.V.", "Total"}, new int[]{0,1,2,3,4,5,6});
+        ModeloProducto mdl=new ModeloProducto(new String[]{"ID", "Producto", "Cantidad", "Precio Unit.", "Sub. Total", "I.G.V.", "Total"}, new int[]{0,4,5,6});
         tablaGUI.setModel(mdl.getModelo());
         tablaModelo.put(tablaGUI,mdl);
     }
@@ -51,8 +51,8 @@ public class GestorModelos {
         ModeloProducto.actualizarRegsCompVen(listaP,tablaModelo.get(tblDocCom).getModelo(),total);
     }
     
-    public static void actualizarCompEmit(JTable tblDocCom,ArrayList<ComprobanteEmitido> listaP){
-        ModeloProducto.actualizarCompEmit(tablaModelo.get(tblDocCom).getModelo(), listaP);
+    public static void actualizarCompEmit(JTable tblDocCom,ArrayList<ComprobanteEmitido> listaC){
+        ModeloProducto.actualizarCompEmit(tablaModelo.get(tblDocCom).getModelo(), listaC);
     }
     
     public static void actualizarUsuarios(JTable tblDocCom,ArrayList<Usuario> listaU){
