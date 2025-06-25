@@ -471,7 +471,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         lblRUC.setFont(new java.awt.Font("Cartoon Fun", 0, 14)); // NOI18N
         lblRUC.setText("Agro Integral Perú");
         jpanelsuperior.add(lblRUC);
-        lblRUC.setBounds(610, 10, 200, 19);
+        lblRUC.setBounds(610, 10, 200, 24);
 
         lblRol.setText("Empleado");
         jpanelsuperior.add(lblRol);
@@ -1988,6 +1988,8 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         Integer filaSeleccion = getSeleccionEliminar(tblRegistrodeComprobantesEmitidos);
         if (filaSeleccion == null)
             return;
+        baseDeDatos.eliminarComprobante(Integer.parseInt(GestorModelos.getValueAt(tblRegistrodeComprobantesEmitidos, filaSeleccion, 1).toString()));
+        GestorModelos.actualizarCompEmit(tblRegistrodeComprobantesEmitidos, baseDeDatos.obtenerComprobantes());
     }//GEN-LAST:event_btnAnularComprobantesEmitidosActionPerformed
 
     public Integer getSeleccionEditar(JTable editame) {
