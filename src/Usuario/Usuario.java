@@ -148,4 +148,5 @@ public class Usuario extends Persona {
     public static boolean muyLargo(String texto) {
         return texto.length() > 20;
     }
+
 }

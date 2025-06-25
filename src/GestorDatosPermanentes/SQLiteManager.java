@@ -2,6 +2,7 @@ package GestorDatosPermanentes;
 
 import Producto.Producto;
 import Usuario.Usuario;
+import DocumentoComercial.ComprobanteEmitido;
 import java.time.LocalDate;
 import java.util.ArrayList;
 //librerias para SQL
@@ -253,7 +254,7 @@ public class SQLiteManager {
         }
         return null;
     }
-    
+
     public Producto buscarProducto(int ID) {
         String comandoSQL = "SELECT * FROM Productos WHERE producto_id= ?";
         try {
@@ -300,7 +301,7 @@ public class SQLiteManager {
         return productos;
     }
 
-    public boolean crearProducto(String tipoDoc,String producto,double precio,int cantidad,String stock) {
+    public boolean crearProducto(String tipoDoc, String producto, double precio, int cantidad, String stock) {
         boolean exito = false;
         String sql = "INSERT INTO productos (tipoDocumento, producto, precioCompra, cantidad, stock) VALUES (?, ?, ?, ?, ?)";
         try {
@@ -357,7 +358,161 @@ public class SQLiteManager {
         }
         return exito;
     }
+    
+    //SPRINT 4: Comprobantes y ajustes
+    
+    public ComprobanteEmitido buscarComprobante(int id) {
+        String comandoSQL = "SELECT * FROM comprobantesEmitidosCompra WHERE comprobante_id= ?";
+        try {
+            PreparedStatement ingresarComando = conexionDB.prepareStatement(comandoSQL);
+            ingresarComando.setInt(1, id);
+            ResultSet datosObtenidos = ingresarComando.executeQuery();
 
+            if (datosObtenidos.next()) {
+                return new ComprobanteEmitido(
+                        datosObtenidos.getInt("comprobante_id"),
+                        LocalDate.parse(datosObtenidos.getString("fechaRegistro")),
+                        datosObtenidos.getString("tipoComprobante"),
+                        datosObtenidos.getInt("serie"),
+                        datosObtenidos.getInt("numero"),
+                        datosObtenidos.getString("proveedor"),
+                        datosObtenidos.getDouble("total")
+                );
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al buscar producto: " + e);
+        }
+        return null;
+    }
+
+    public ArrayList<ComprobanteEmitido> obtenerComprobantes() {
+        ArrayList<ComprobanteEmitido> comprobantes = new ArrayList<>();
+        String sql = "SELECT * FROM comprobantesEmitidosCompra";
+        try {
+            PreparedStatement statement = conexionDB.prepareStatement(sql);
+            ResultSet resultado = statement.executeQuery();
+            while (resultado.next()) {
+                ComprobanteEmitido comprobante = new ComprobanteEmitido(
+                        resultado.getInt("comprobante_id"),
+                        LocalDate.parse(resultado.getString("fechaRegistro")),
+                        resultado.getString("tipoComprobante"),
+                        resultado.getInt("serie"),
+                        resultado.getInt("numero"),
+                        resultado.getString("proveedor"),
+                        resultado.getDouble("total")
+                );
+                comprobantes.add(comprobante);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al obtener productos: " + e.getMessage());
+        }
+        return comprobantes;
+    }
+
+    public boolean crearComprobante(String fechaRegistro, String tipoComprobante, long serie, long numero, String proveedor, double total) {
+        boolean exito = false;
+        String sql = "INSERT INTO comprobantesEmitidosCompra (fechaRegistro,tipoComprobante,serie,numero,proveedor,total) VALUES (date('now'), ?, ?, ?, ?, ?)";
+        try {
+            PreparedStatement statement = conexionDB.prepareStatement(sql);
+            statement.setString(1, tipoComprobante);
+            statement.setLong(2, serie);
+            statement.setLong(3, numero);
+            statement.setString(4, proveedor);
+            statement.setDouble(5, total);
+            int filasInsertadas = statement.executeUpdate();
+            if (filasInsertadas > 0) {
+                exito = true;
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al crear comprobante: " + e.getMessage());
+        }
+        return exito;
+    }
+    
+    public boolean eliminarComprobante(int comprobante_id) {
+        boolean exito = false;
+        String sql = "DELETE FROM comprobantesEmitidosCompra WHERE comprobante_id = ?";
+        try {
+            PreparedStatement statement = conexionDB.prepareStatement(sql);
+            statement.setInt(1, comprobante_id);
+            int filasEliminadas = statement.executeUpdate();
+            if (filasEliminadas > 0) {
+                exito = true;
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al eliminar comprobante: " + e.getMessage());
+        }
+        return exito;
+    }
+
+    public boolean actualizarComprobante(int comprobante_id, LocalDate fechaRegistro, String tipoComprobante,
+            int serie, int numero, String proveedor, double total) {
+        boolean exito = false;
+        String sql = "UPDATE comprobantesEmitidosCompra SET fechaRegistro = ?, tipoComprobante = ?, serie = ?, numero = ?, proveedor = ?, total  = ? WHERE comprobante_id = ?";
+        try {
+            PreparedStatement statement = conexionDB.prepareStatement(sql);
+            statement.setString(1, fechaRegistro.toString());
+            statement.setString(2, tipoComprobante);
+            statement.setInt(3, serie);
+            statement.setInt(4, numero);
+            statement.setString(5, proveedor);
+            statement.setDouble(6, total);
+            statement.setInt(7, comprobante_id);
+            int filasActualizadas = statement.executeUpdate();
+            if (filasActualizadas > 0) {
+                exito = true;
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al actualizar comprobante: " + e.getMessage());
+        }
+        return exito;
+    }
+    
+    //AJUSTES
+    
+    public String[] obtenerAjustes() {
+        String sql = "SELECT * FROM ajustes";
+        try {
+            PreparedStatement statement = conexionDB.prepareStatement(sql);
+            ResultSet resultado = statement.executeQuery();
+            while (resultado.next()) {
+                return new String[]{
+                    resultado.getString("lenguaje"),
+                    resultado.getString("modo")
+                };       
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al obtener ajustes: " + e.getMessage());
+        }
+        return null;
+    }
+    
+    public boolean actualizarAjustes(String lenguaje, String modo) {
+        boolean exito = false;
+        String sql = "UPDATE ajustes SET lenguaje = ?, modo = ? WHERE ajuste_id = 1";
+        try {
+            PreparedStatement statement = conexionDB.prepareStatement(sql);
+
+            // Obtener los valores actuales de ajustes
+            String[] ajustes = obtenerAjustes();
+
+            if (ajustes != null) {
+                statement.setString(1, lenguaje); 
+                statement.setString(2, modo); 
+
+                int filasActualizadas = statement.executeUpdate();
+                if (filasActualizadas > 0) {
+                    exito = true;
+                }
+            } else {
+                System.out.println("No se pudieron obtener los ajustes actuales.");
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al actualizar ajustes: " + e.getMessage());
+        }
+        return exito;
+    }
+    
     /*
         Dicionario de codigos:
         0 | Usuario o contraseña incorrectos

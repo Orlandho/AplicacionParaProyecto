@@ -128,7 +128,7 @@ public class FrmLogin extends javax.swing.JFrame {
 
             JOptionPane.showOptionDialog(this, JPanelPedirContraNueva, "Creando contraseña", JOptionPane.NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
             contraseñaNueva = txfNuevaContra.getText();
-            
+
             if (!Usuario.esContraseñaValida(txfNuevaContra.getText())) {
                 JOptionPane.showMessageDialog(this, "Formato de contraseña incorrecto. Intente de nuevo");
                 continue;
@@ -150,11 +150,15 @@ public class FrmLogin extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Intento de Login, Error: Usuario bloqueado");
                 break;
             case SQLiteManager.DEBE_CAMBIAR_CONTRASEÑA:
+                txfUsuario.setEnabled(false);
+                txfContraseña.setEnabled(false);
                 if (baseDeDatos.actualizarContraseña(txfUsuario.getText(), txfContraseña.getText(), obligarCrearContraseña(txfContraseña.getText()))) {
                     JOptionPane.showMessageDialog(this, "La contraseña se cambio correctamente");
                 } else {
                     JOptionPane.showMessageDialog(this, "No se pudo cambiar la contraseña");
                 }
+                txfUsuario.setEnabled(true);
+                txfContraseña.setEnabled(true);
                 break;
             default:
                 JOptionPane.showMessageDialog(this, "Intento de Login, Error: no definido");
@@ -163,10 +167,16 @@ public class FrmLogin extends javax.swing.JFrame {
     }
 
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
-        String DNIoRUC = txfUsuario.getText(), contraseña = txfContraseña.getText();
-
-        if (!Usuario.esDniORucValido(DNIoRUC) || !Usuario.esContraseñaValida(contraseña)) {
-            JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos. Intente de nuevo");
+        String DNIoRUC = txfUsuario.getText(), contraseña = txfContraseña.getText(),error="Intento de Login cancelado:\n";
+        final int noPasar=error.length();
+        if (!Usuario.esDniORucValido(DNIoRUC) ) {
+            error+="-El usuario tiene que ser un DNI o RUC.\n";
+        }
+        if(!Usuario.esContraseñaValida(contraseña)){
+            error+="-La contraseña es muy corta o larga.\n";
+        }
+        if(error.length()>noPasar){
+            JOptionPane.showMessageDialog(this,error);
             return;
         }
         ArrayList<Object> respuestaDB = baseDeDatos.intentarLogin(DNIoRUC, contraseña);
