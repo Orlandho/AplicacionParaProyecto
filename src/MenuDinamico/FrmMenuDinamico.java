@@ -1736,8 +1736,15 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Faltan datos de factura y/o productos.");
             return;
         }
-        
+        Long serieFact=Long.parseLong(txtSerieFactura.getText());
+        Long numFact=Long.parseLong(txtNumeroFactura.getText());
+        String proveedor=txtProveedorFactura.getText();
+        String responsable=cbTipoDeLiderFactura.getSelectedItem().toString();
+        String moneda= cbTipoDeDineroFactura.getSelectedItem().toString();
         guardarProductosEnBD(tempListFact);
+        //crearComprobante(String fechaRegistro, String tipoComprobante, int serie, int numero, String proveedor, double total) {
+        baseDeDatos.crearComprobante(txtFechaFactura.getText(),"Factura",serieFact,numFact,proveedor,Double.parseDouble(txtTotalFactura.getText()));
+        comprobanteRegistrado();
     }//GEN-LAST:event_btnGuardarRegComFacturaActionPerformed
 
     private void btnGuardarRegComBoletaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarRegComBoletaActionPerformed
@@ -1745,13 +1752,31 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Faltan datos de boleta y/o productos.");
             return;
         }
+        Long serieBoleta=Long.parseLong(txtSerieBoleta.getText());
+        Long numBoleta=Long.parseLong(txtNumeroBoleta.getText());
+        String proveedor=txtProveedorBoleta.getText();
+        String responsable=cbTipoDeLiderBoleta.getSelectedItem().toString();
+        String moneda= cbTipoDeDineroBoleta.getSelectedItem().toString();
+        guardarProductosEnBD(tempListBole);
+        //crearComprobante(String fechaRegistro, String tipoComprobante, int serie, int numero, String proveedor, double total) {
+        baseDeDatos.crearComprobante(txtFechaBoleta.getText(),"Boleta",serieBoleta,numBoleta,proveedor,Double.parseDouble(txtTotalBoleta.getText()));
+        comprobanteRegistrado();
     }//GEN-LAST:event_btnGuardarRegComBoletaActionPerformed
 
+    private void comprobanteRegistrado(){
+        JOptionPane.showMessageDialog(this, "Documento registrado correctamente.");
+    }
+    
     private void btnGuardarRegComProformaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarRegComProformaActionPerformed
         if (faltanDatosEnTxt(txtNombresProforma, txtFechaProforma) || tblRegistroProforma.getRowCount() <= 0) {
             JOptionPane.showMessageDialog(this, "Faltan datos de proforma y/o productos.");
             return;
         }
+        String proveedor=txtNombresProforma.getText();
+        guardarProductosEnBD(tempListProf);
+        //crearComprobante(String fechaRegistro, String tipoComprobante, int serie, int numero, String proveedor, double total) {
+        baseDeDatos.crearComprobante(txtFechaProforma.getText(),"Proforma",0,0,proveedor,Double.parseDouble(txtTotalProforma.getText()));
+        comprobanteRegistrado();
     }//GEN-LAST:event_btnGuardarRegComProformaActionPerformed
 
     private void btnAgregarRegComFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarRegComFacturaActionPerformed
