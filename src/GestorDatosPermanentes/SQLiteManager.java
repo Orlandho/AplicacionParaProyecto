@@ -358,9 +358,8 @@ public class SQLiteManager {
         }
         return exito;
     }
-    
+
     //SPRINT 4: Comprobantes y ajustes
-    
     public ComprobanteEmitido buscarComprobante(int id) {
         String comandoSQL = "SELECT * FROM comprobantesEmitidosCompra WHERE comprobante_id= ?";
         try {
@@ -428,7 +427,7 @@ public class SQLiteManager {
         }
         return exito;
     }
-    
+
     public boolean eliminarComprobante(int comprobante_id) {
         boolean exito = false;
         String sql = "DELETE FROM comprobantesEmitidosCompra WHERE comprobante_id = ?";
@@ -467,9 +466,8 @@ public class SQLiteManager {
         }
         return exito;
     }
-    
+
     //AJUSTES
-    
     public String[] obtenerAjustes() {
         String sql = "SELECT * FROM ajustes";
         try {
@@ -479,14 +477,14 @@ public class SQLiteManager {
                 return new String[]{
                     resultado.getString("lenguaje"),
                     resultado.getString("modo")
-                };       
+                };
             }
         } catch (SQLException e) {
             System.out.println("Error al obtener ajustes: " + e.getMessage());
         }
         return null;
     }
-    
+
     public boolean actualizarAjustes(String lenguaje, String modo) {
         boolean exito = false;
         String sql = "UPDATE ajustes SET lenguaje = ?, modo = ? WHERE ajuste_id = 1";
@@ -497,8 +495,8 @@ public class SQLiteManager {
             String[] ajustes = obtenerAjustes();
 
             if (ajustes != null) {
-                statement.setString(1, lenguaje); 
-                statement.setString(2, modo); 
+                statement.setString(1, lenguaje);
+                statement.setString(2, modo);
 
                 int filasActualizadas = statement.executeUpdate();
                 if (filasActualizadas > 0) {
@@ -512,7 +510,7 @@ public class SQLiteManager {
         }
         return exito;
     }
-    
+
     /*
         Dicionario de codigos:
         0 | Usuario o contraseña incorrectos
