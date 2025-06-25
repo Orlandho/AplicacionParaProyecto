@@ -1723,13 +1723,21 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         tpnMostrar.setSelectedIndex(pnlCompEmit);
     }//GEN-LAST:event_jmCOMPROBATESEMITIDOSRegComActionPerformed
 
+    private void guardarProductosEnBD(ArrayList<Producto> listaProductos){
+        for (Producto prod : listaProductos) {
+            //crearProducto(String tipoDoc, String producto, double precio, int cantidad, String stock) {
+            baseDeDatos.crearProducto(prod.getTipoDocumento(),prod.getProducto(),prod.getPrecioCompra(),prod.getCantidad(),prod.getStock());
+        }
+        
+    }
+    
     private void btnGuardarRegComFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarRegComFacturaActionPerformed
         if (faltanDatosEnTxt(txtSerieFactura, txtNumeroFactura, txtProveedorFactura, txtFechaFactura) || tblRegistroFactura.getRowCount() <= 0) {
             JOptionPane.showMessageDialog(this, "Faltan datos de factura y/o productos.");
             return;
         }
         
-        
+        guardarProductosEnBD(tempListFact);
     }//GEN-LAST:event_btnGuardarRegComFacturaActionPerformed
 
     private void btnGuardarRegComBoletaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarRegComBoletaActionPerformed
@@ -1800,13 +1808,18 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         btnElimAccion(tblRegistroProforma,filaSeleccion,tempListProf,txtTotalProforma);
     }//GEN-LAST:event_btnEliminarRegComProformaActionPerformed
 
-    private void btnEditarAccion(String tipoDoc,JTable tbl, int filaSeleccion, ArrayList<Producto> tempList){
+    private boolean tryBtnEditarAccion(String tipoDoc,JTable tbl, int filaSeleccion, ArrayList<Producto> tempList){
         Integer idLista= Integer.parseInt(GestorModelos.getValueAt(tbl, filaSeleccion, 0).toString());
         String producto=GestorModelos.getValueAt(tbl, filaSeleccion, 1).toString();
         Integer cantidad=Integer.parseInt(GestorModelos.getValueAt(tbl, filaSeleccion, 2).toString());
         Double precioUni=Double.parseDouble(GestorModelos.getValueAt(tbl, filaSeleccion, 3).toString());
+        if(producto==null||cantidad==null||precioUni==null){
+            JOptionPane.showMessageDialog(null, "Tipo de dato incorrecto en producto o cantidad o precioUni");
+            return false;
+        }
         Producto editado=new Producto(tipoDoc, producto, cantidad, precioUni);
         tempList.set(idLista, editado);
+        return true;
     }
     
     private void btnEditarRegComFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarRegComFacturaActionPerformed
@@ -1818,7 +1831,8 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Faltan datos en la fila");
             return;
         }
-        btnEditarAccion("Factura",tblRegistroFactura,filaSeleccion,tempListFact);
+        if(!tryBtnEditarAccion("Factura",tblRegistroFactura,filaSeleccion,tempListFact))
+            return;
         GestorModelos.actualizarRegsCompVenProd(tblRegistroFactura, tempListFact, txtTotalFactura);
     }//GEN-LAST:event_btnEditarRegComFacturaActionPerformed
 
@@ -1831,7 +1845,8 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Faltan datos en la fila");
             return;
         }
-        btnEditarAccion("Boleta", tblRegistroBoleta, filaSeleccion, tempListBole);
+        if(!tryBtnEditarAccion("Boleta", tblRegistroBoleta, filaSeleccion, tempListBole))
+            return;
         GestorModelos.actualizarRegsCompVenProd(tblRegistroBoleta, tempListBole, txtTotalBoleta);
     }//GEN-LAST:event_btnEditarRegComBoletaActionPerformed
 
@@ -1844,7 +1859,8 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Faltan datos en la fila");
             return;
         }
-        btnEditarAccion("Proforma", tblRegistroProforma, filaSeleccion, tempListProf);
+        if(!tryBtnEditarAccion("Proforma", tblRegistroProforma, filaSeleccion, tempListProf))
+            return;
         GestorModelos.actualizarRegsCompVenProd(tblRegistroProforma, tempListProf, txtTotalProforma);
     }//GEN-LAST:event_btnEditarRegComProformaActionPerformed
 
