@@ -471,7 +471,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         lblRUC.setFont(new java.awt.Font("Cartoon Fun", 0, 14)); // NOI18N
         lblRUC.setText("Agro Integral Perú");
         jpanelsuperior.add(lblRUC);
-        lblRUC.setBounds(610, 10, 200, 24);
+        lblRUC.setBounds(610, 10, 200, 19);
 
         lblRol.setText("Empleado");
         jpanelsuperior.add(lblRol);
@@ -1266,6 +1266,11 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
 
         btnPDFComprobantesEmitidos.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         btnPDFComprobantesEmitidos.setText("PDF");
+        btnPDFComprobantesEmitidos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPDFComprobantesEmitidosActionPerformed(evt);
+            }
+        });
         pnlRegComCompromantesEmitidos.add(btnPDFComprobantesEmitidos);
         btnPDFComprobantesEmitidos.setBounds(570, 100, 100, 30);
 
@@ -2067,6 +2072,21 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         btnBuscarComprobantesEmitidos.setText("Revertir");
         txtBuscarComprobantesEmitidos.setEnabled(false);
     }//GEN-LAST:event_btnBuscarComprobantesEmitidosActionPerformed
+
+    private void btnPDFComprobantesEmitidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPDFComprobantesEmitidosActionPerformed
+        
+        int filaSeleccionada = tblRegistrodeComprobantesEmitidos.getSelectedRow(); 
+        
+        if(filaSeleccionada == -1) {
+            JOptionPane.showMessageDialog(null, "Por favor selecciona un comprobante");
+            return;
+        }
+        
+        String comprobanteid = tblRegistrodeComprobantesEmitidos.getValueAt(filaSeleccionada, 0).toString(); 
+        
+        GeneradorPDF pdf = new GeneradorPDF(); 
+        pdf.generarPDF(comprobanteid); 
+    }//GEN-LAST:event_btnPDFComprobantesEmitidosActionPerformed
 
     /**
      * @param args the command line arguments
