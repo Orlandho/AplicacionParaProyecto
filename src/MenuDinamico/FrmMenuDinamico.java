@@ -2074,7 +2074,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBuscarComprobantesEmitidosActionPerformed
 
     private void btnPDFComprobantesEmitidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPDFComprobantesEmitidosActionPerformed
-        
+       //comentario        
         int filaSeleccionada = tblRegistrodeComprobantesEmitidos.getSelectedRow(); 
         
         if(filaSeleccionada == -1) {
