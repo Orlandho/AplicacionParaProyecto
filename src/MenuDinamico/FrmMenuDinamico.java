@@ -45,6 +45,9 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
 
     public FrmMenuDinamico() {
         initComponents();
+        //esto coloque para el cmabio de idioma
+        ajustes.Ajustes.cambiarAIngles(null, this);
+        //hasta aca
         jpaneladmin.setVisible(false);
         baseDeDatos = new SQLiteManager();
 
@@ -1434,6 +1437,46 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+        //esto coloque para el cmabio de idioma
+    public javax.swing.JLabel getLblInventario() {
+        return lblinventario;
+    }
+
+    public JLabel getBtnInicio() {
+        return btninicio;
+    }
+    public JLabel getBtnAlmacen() {
+        return btnAlmacen;
+    }
+
+    public JLabel getBtnRegistroDeCompras() {
+        return btnregistrodecompras;
+    }
+
+    public JLabel getBtnRegistroDeVentas() {
+        return btnregistrodeventas;
+    }
+
+    public JLabel getBtnCaja() {
+        return btncaja;
+    }
+
+    public JLabel getBtnRegistroDeUsuario() {
+        return btnregistrodeusuario;
+    }
+
+    public JLabel getBtnReportes() {
+        return btnreportes;
+    }
+
+    public JLabel getBtnAjustes() {
+        return btnajustes;
+    }
+
+    public JLabel getBtnCerrarSesion() {
+        return btncerrarsesion;
+    }
+    //hasta aca
 
     private void btninicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btninicioMouseClicked
         tpnMostrar.setSelectedIndex(pnlInicio);
