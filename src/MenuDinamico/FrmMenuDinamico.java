@@ -8,7 +8,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import GestorDatosPermanentes.SQLiteManager;
 import java.util.ArrayList;
-import javax.swing.table.DefaultTableModel;
 import Login.FrmLogin;
 import java.time.LocalDate;
 import javax.swing.JTable;
@@ -1699,322 +1698,423 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-        //esto coloque para el cmabio de idioma
+    //esto coloque para el cmabio de idioma
     public javax.swing.JLabel getLblInventario() {
         return lblinventario;
     }
+
     public JLabel getBtnInicio() {
         return btninicio;
     }
+
     public JLabel getBtnAlmacen() {
         return btnAlmacen;
     }
+
     public JLabel getBtnRegistroDeCompras() {
         return btnregistrodecompras;
     }
+
     public JLabel getBtnRegistroDeVentas() {
         return btnregistrodeventas;
     }
+
     public JLabel getBtnCaja() {
         return btncaja;
     }
+
     public JLabel getBtnRegistroDeUsuario() {
         return btnregistrodeusuario;
     }
+
     public JLabel getBtnReportes() {
         return btnreportes;
     }
+
     public JLabel getBtnAjustes() {
         return btnajustes;
     }
+
     public JLabel getBtnCerrarSesion() {
         return btncerrarsesion;
     }
+
     // pnl1Inicio
     public JLabel getLblSubTitulo() {
         return lblSubTitulo;
     }
+
     public JLabel getLblGanancias() {
         return lblGanancias;
     }
+
     public JLabel getLblProveedores() {
         return lblProveedores;
     }
+
     public JLabel getLblCompraDelMes() {
         return lblCompraDelMes;
     }
+
     public JLabel getLblVentasDelDia() {
         return lblVentasDelDia;
     }
+
     public JLabel getLblClientes() {
         return lblClientes;
     }
+
     public JLabel getLblProductos() {
         return lblProductos;
     }
+
     // pnlRegUsuMostrar
     public JButton getBtnCrearUsuario() {
         return btnCrearUsuario;
     }
+
     public JButton getBtnEliminar() {
         return btnEliminar;
     }
+
     public JButton getBtnEditar() {
         return btnEditar;
     }
+
     // pnlRegUsuIngresar
     public JLabel getLblAgregaryCrearUsuario() {
         return lblAgregaryCrearUsuario;
     }
+
     public JLabel getLblSubTitulo1() {
         return lblSubTitulo1;
     }
+
     public JLabel getLblNombres() {
         return lblNombres;
     }
+
     public JLabel getLblTelefono() {
         return lblTelefono;
     }
+
     public JLabel getLblContraseña() {
         return lblContraseña;
     }
+
     public JLabel getLblApellidos() {
         return lblApellidos;
     }
+
     public JLabel getLblDNIUsuario() {
         return lblDNIUsuario;
     }
+
     public JLabel getLblTipoUsuario() {
         return lblTipoUsuario;
     }
+
     public JButton getBtnGuardaryAgregarDatos() {
         return btnGuardaryAgregarDatos;
     }
+
     // pnl1Almacen
     public JLabel getLblSubtema2() {
         return lblSubtema2;
     }
+
     public JLabel getLblProducto() {
         return lblProducto;
     }
+
     public JLabel getLblCantidaddeProducto() {
         return lblCantidaddeProducto;
     }
+
     public JLabel getLblPreciodeProducto() {
         return lblPreciodeProducto;
     }
+
     public JButton getBtnAgregarAlmacen() {
         return btnAgregarAlmacen;
     }
+
     public JButton getBtnEliminarAlmacen() {
         return btnEliminarAlmacen;
     }
+
     public JButton getBtnEditarAlmacen() {
         return btnEditarAlmacen;
     }
+
     public JButton getBtnBuscarAlmacen() {
         return btnBuscarAlmacen;
     }
+
     public JButton getBtnFiltrarAlmacen() {
         return btnFiltrarAlmacen;
     }
+
     // pnlRegComFactura
     public JLabel getLblsubtemaFactura() {
         return lblsubtemaFactura;
     }
+
     public JLabel getLblSerieFactura() {
         return lblSerieFactura;
     }
+
     public JLabel getLblProveedorFactura() {
         return lblProveedorFactura;
     }
+
     public JLabel getLblResponsableFactura() {
         return lblResponsableFactura;
     }
+
     public JLabel getblNumeroFactura() {
         return lblNumeroFactura;
     }
+
     public JLabel getLblMonedaFactura() {
         return lblMonedaFactura;
     }
+
     public JLabel getLblFechaFactura() {
         return lblFechaFactura;
     }
+
     public JButton getBtnGuardarRegComFactura() {
         return btnGuardarRegComFactura;
     }
+
     public JButton getBtnAgregarRegComFactura() {
         return btnAgregarRegComFactura;
     }
+
     public JButton getBtnEliminarRegComFactura() {
         return btnEliminarRegComFactura;
     }
+
     public JButton getBtnEditarRegComFactura() {
         return btnEditarRegComFactura;
     }
+
     // pnlRegComBoleta
     public JLabel getLblsubtemaBoleta() {
         return lblsubtemaBoleta;
     }
+
     public JLabel getLblSerieBoleta() {
         return lblSerieBoleta;
     }
+
     public JLabel getLblProveedorBoleta() {
         return lblProveedorBoleta;
     }
+
     public JLabel getLblResponsableBoleta() {
         return lblResponsableBoleta;
     }
+
     public JLabel getblNumeroBoleta() {
         return lblNumeroBoleta;
     }
+
     public JLabel getLblMonedaBoleta() {
         return lblMonedaBoleta;
     }
+
     public JLabel getLblFechaBoleta() {
         return lblFechaBoleta;
     }
+
     public JButton getBtnGuardarRegComBoleta() {
         return btnGuardarRegComBoleta;
     }
+
     public JButton getBtnAgregarRegComBoleta() {
         return btnAgregarRegComBoleta;
     }
+
     public JButton getBtnEliminarRegComBoleta() {
         return btnEliminarRegComBoleta;
     }
+
     public JButton getBtnEditarRegComBoleta() {
         return btnEditarRegComBoleta;
     }
+
     // pnlRegComProforma
     public JLabel getLblsubtemaProforma() {
         return lblsubtemaProforma;
     }
+
     public JLabel getLblNombresProforma() {
         return lblNombresProforma;
     }
+
     public JLabel getLblResponsableProforma() {
         return lblResponsableProforma;
     }
+
     public JLabel getLblMonedaProforma() {
         return lblMonedaProforma;
     }
+
     public JLabel getLblFechaProforma() {
         return lblFechaProforma;
     }
+
     public JButton getBtnGuardarRegComProforma() {
         return btnGuardarRegComProforma;
     }
+
     public JButton getBtnAgregarRegComProforma() {
         return btnAgregarRegComProforma;
     }
+
     public JButton getBtnEliminarRegComProforma() {
         return btnEliminarRegComProforma;
     }
+
     public JButton getBtnEditarRegComProforma() {
         return btnEditarRegComProforma;
     }
+
     // pnlRegComCompromantesEmitidos
     public JLabel getLblSubtemaComprobantesEmitidos() {
         return lblSubtemaComprobantesEmitidos;
     }
+
     public JButton getBtnBuscarComprobantesEmitidos() {
         return btnBuscarComprobantesEmitidos;
     }
+
     public JButton getBtnPDFComprobantesEmitidos() {
         return btnPDFComprobantesEmitidos;
     }
+
     public JButton getBtnAnularComprobantesEmitidos() {
         return btnAnularComprobantesEmitidos;
     }
+
     // pnlRegComAgregarProducto
     public JLabel getLblSubtemaAgregarProductoRegCom() {
         return lblSubtemaAgregarProductoRegCom;
     }
+
     public JLabel getLblRegistrodeProductosRegCom() {
         return lblRegistrodeProductosRegCom;
     }
+
     public JLabel getLblProductoRegCom() {
         return lblProductoRegCom;
     }
+
     public JLabel getLblCantidadRegCom() {
         return lblCantidadRegCom;
     }
+
     public JLabel getLblPreciioUnitarioRegCom() {
         return lblPreciioUnitarioRegCom;
     }
+
     public JButton getBtnAgregarProductoRegCom() {
         return btnAgregarProductoRegCom;
     }
+
     public JButton getBtnCancelarRegCom() {
         return btnCancelarRegCom;
     }
+
     // pnlRegVenAgregarProducto
     public JLabel getLblSubtemaAgregarProductoRegVen() {
         return lblSubtemaAgregarProductoRegVen;
     }
+
     public JLabel getLblAgregamosProductosRegVen() {
         return lblAgregamosProductosRegVen;
     }
+
     public JLabel getLblProductoRegVen() {
         return lblProductoRegVen;
     }
+
     public JLabel getLblCantidadRegVen() {
         return lblCantidadRegVen;
     }
+
     public JLabel getLblPreciioUnitarioRegVen() {
         return lblPreciioUnitarioRegVen;
     }
+
     public JButton getBtnAgregarProductoRegVen() {
         return btnAgregarProductoRegVen;
     }
+
     public JButton getBtnCancelarRegVen() {
         return btnCancelarRegVen;
     }
+
     // pnlRegVenFactura
     public JLabel getLblsubtemaFacturaRegVen() {
         return lblsubtemaFacturaRegVen;
     }
+
     public JLabel getLblRucFacturaRegVen() {
         return lblRucFacturaRegVen;
     }
+
     public JLabel getLblClienteFacturaRegVen() {
         return lblClienteFacturaRegVen;
     }
+
     public JLabel getLblFechaFacturaRegVen() {
         return lblFechaFacturaRegVen;
     }
+
     public JLabel getLblSerieFacturaRegVen() {
         return lblSerieFacturaRegVen;
     }
+
     public JLabel getLblMonedaFacturaRegVen() {
         return lblMonedaFacturaRegVen;
     }
+
     public JLabel getLblNumeroFacturaRegVen() {
         return lblNumeroFacturaRegVen;
     }
+
     public JButton getBtnGuardarRegComFacturaRegVen() {
         return btnGuardarRegComFacturaRegVen;
     }
+
     public JButton getBtnAgregarRegComFacturaRegVen() {
         return btnAgregarRegComFacturaRegVen;
     }
+
     public JButton getBtnEliminarRegComFacturaRegVen() {
         return btnEliminarRegComFacturaRegVen;
     }
+
     public JButton getBtnEditarRegComFacturaRegVen() {
         return btnEditarRegComFacturaRegVen;
     }
+
     // pnlRegVenCompromantesEmitidos
     public JLabel getLblSubtemaComprobantesEmitidosRegVen() {
         return lblSubtemaComprobantesEmitidosRegVen;
     }
+
     public JButton getBtnBuscarComprobantesEmitidosRegVen() {
         return btnBuscarComprobantesEmitidosRegVen;
     }
+
     public JButton getBtnPDFComprobantesEmitidosRegVen() {
         return btnPDFComprobantesEmitidosRegVen;
     }
+
     public JButton getBtnAnularComprobantesEmitidosRegVen() {
         return btnAnularComprobantesEmitidosRegVen;
     }
@@ -2675,17 +2775,17 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEliminarRegComFacturaRegVenActionPerformed
 
     private void btnPDFComprobantesEmitidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPDFComprobantesEmitidosActionPerformed
-       int filaSeleccionada = tblRegistrodeComprobantesEmitidos.getSelectedRow(); 
-        
-        if(filaSeleccionada == -1) {
+        int filaSeleccionada = tblRegistrodeComprobantesEmitidos.getSelectedRow();
+
+        if (filaSeleccionada == -1) {
             JOptionPane.showMessageDialog(null, "Por favor selecciona un comprobante");
             return;
         }
-        
-        String comprobanteid = tblRegistrodeComprobantesEmitidos.getValueAt(filaSeleccionada, 0).toString(); 
-        
-        GeneradorPDF pdf = new GeneradorPDF(); 
-        pdf.generarPDF(comprobanteid); 
+
+        String comprobanteid = tblRegistrodeComprobantesEmitidos.getValueAt(filaSeleccionada, 0).toString();
+
+        GeneradorPDF pdf = new GeneradorPDF();
+        pdf.generarPDF(comprobanteid);
     }//GEN-LAST:event_btnPDFComprobantesEmitidosActionPerformed
 
     /**

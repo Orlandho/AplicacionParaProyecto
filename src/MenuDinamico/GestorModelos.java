@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import Producto.Producto;
 import Usuario.Usuario;
 import javax.swing.JComboBox;
-import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 

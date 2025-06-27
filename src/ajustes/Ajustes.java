@@ -4,7 +4,8 @@ import Login.FrmLogin;
 import MenuDinamico.FrmMenuDinamico;
 
 public class Ajustes {
-        public static void cambiarAIngles(FrmLogin login, FrmMenuDinamico menu) {
+
+    public static void cambiarAIngles(FrmLogin login, FrmMenuDinamico menu) {
         // Cambios en el Login
         if (login != null) {
             login.getBtnIngresar().setText("LOG IN");
@@ -126,7 +127,7 @@ public class Ajustes {
             menu.getBtnBuscarComprobantesEmitidosRegVen().setText("Search");
             menu.getBtnPDFComprobantesEmitidosRegVen().setText("PDF");
             menu.getBtnAnularComprobantesEmitidosRegVen().setText("Cancel");
-            
+
         }
     }
 
@@ -253,6 +254,5 @@ public class Ajustes {
             menu.getBtnPDFComprobantesEmitidosRegVen().setText("PDF");
             menu.getBtnAnularComprobantesEmitidosRegVen().setText("Anular");
         }
-    }   
+    }
 }
-

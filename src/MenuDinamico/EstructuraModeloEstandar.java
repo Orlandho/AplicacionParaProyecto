@@ -5,8 +5,6 @@
 package MenuDinamico;
 
 import java.util.ArrayList;
-import javax.swing.JTable;
-import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 /**
