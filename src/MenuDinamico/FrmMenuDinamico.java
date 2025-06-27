@@ -2848,12 +2848,18 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         }
         int indice = 0;
         String seleccion = cbTipodeBusquedaComprobantesEmitidos.getSelectedItem().toString();
-        if (seleccion.equals("   Numero")) {
-            indice = 5;
-        } else if (seleccion.equals("   Serie ")) {
-            indice = 4;
-        } else if (seleccion.equals("   Proveedor")) {
-            indice = 6;
+        switch (cbTipodeBusquedaComprobantesEmitidos.getSelectedIndex()) {
+            case 0:
+                indice = 5;
+                break;
+                case 1:
+                indice = 4;
+                break;
+                case 2:
+                indice = 6;
+                break;
+            default:
+                throw new AssertionError();
         }
         GestorModelos.buscarCompEmit(tblRegistrodeComprobantesEmitidos, txtBuscarComprobantesEmitidos.getText(), indice);
         btnBuscarComprobantesEmitidos.setText("Revertir");
