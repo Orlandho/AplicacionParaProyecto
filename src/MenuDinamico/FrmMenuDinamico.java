@@ -15,6 +15,7 @@ import Producto.Producto;
 import javax.swing.JTextField;
 import MenuDinamico.GestorModelos;
 import javax.swing.JButton;
+import javax.swing.JToggleButton;
 
 public class FrmMenuDinamico extends javax.swing.JFrame {
 
@@ -46,7 +47,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     public FrmMenuDinamico() {
         initComponents();
         //esto coloque para el cmabio de idioma
-        ajustes.Ajustes.cambiarAIngles(null, this);
+        Ajuste.Ajustes.cambiarAIngles(null, this);
         //hasta aca
         jpaneladmin.setVisible(false);
         baseDeDatos = new SQLiteManager();
@@ -317,6 +318,22 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         lblimagen1ComprobantesEmitidosRegVen = new javax.swing.JLabel();
         cbTipodeBusquedaComprobantesEmitidosRegVen = new javax.swing.JComboBox<>();
         txtBuscarComprobantesEmitidosRegVen = new javax.swing.JTextField();
+        pnlCaja = new javax.swing.JPanel();
+        lblGananciascaja = new javax.swing.JLabel();
+        lblINGRESOScaja = new javax.swing.JLabel();
+        lblEGRESOScaja = new javax.swing.JLabel();
+        pnlInternodecaja = new javax.swing.JPanel();
+        lblimagen1caja = new javax.swing.JLabel();
+        txtBusquedacaja = new javax.swing.JTextField();
+        lblEgresoscaja = new javax.swing.JTextField();
+        btnBusquedacaja = new javax.swing.JToggleButton();
+        lblHistorialdeMovimientoscaja = new javax.swing.JTextField();
+        lblIngresoscaja = new javax.swing.JTextField();
+        jScrollPane9 = new javax.swing.JScrollPane();
+        tblRegistrodeCaja = new javax.swing.JTable();
+        txtGANACIAScaja = new javax.swing.JTextField();
+        txtINGRESOScaja = new javax.swing.JTextField();
+        txtEGRESOScaja = new javax.swing.JTextField();
 
         jmFACTURASRegCom.setText("FACTURAS");
         jmFACTURASRegCom.addActionListener(new java.awt.event.ActionListener() {
@@ -1691,6 +1708,79 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
 
         tpnMostrar.addTab("pnlRegVenCompromantesEmitidos", pnlRegVenCompromantesEmitidos);
 
+        pnlCaja.setLayout(null);
+
+        lblGananciascaja.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        lblGananciascaja.setForeground(new java.awt.Color(176, 148, 0));
+        lblGananciascaja.setText("■   GANANCIAS");
+        pnlCaja.add(lblGananciascaja);
+        lblGananciascaja.setBounds(60, 140, 180, 30);
+
+        lblINGRESOScaja.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        lblINGRESOScaja.setForeground(new java.awt.Color(255, 0, 204));
+        lblINGRESOScaja.setText("■   INGRESOS");
+        pnlCaja.add(lblINGRESOScaja);
+        lblINGRESOScaja.setBounds(60, 40, 170, 30);
+
+        lblEGRESOScaja.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        lblEGRESOScaja.setForeground(new java.awt.Color(136, 216, 252));
+        lblEGRESOScaja.setText("■   EGRESOS");
+        pnlCaja.add(lblEGRESOScaja);
+        lblEGRESOScaja.setBounds(60, 90, 170, 30);
+
+        pnlInternodecaja.setBackground(new java.awt.Color(255, 255, 255));
+        pnlInternodecaja.setLayout(null);
+
+        lblimagen1caja.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Lupa.png"))); // NOI18N
+        pnlInternodecaja.add(lblimagen1caja);
+        lblimagen1caja.setBounds(20, 110, 40, 30);
+        pnlInternodecaja.add(txtBusquedacaja);
+        txtBusquedacaja.setBounds(50, 110, 230, 30);
+
+        lblEgresoscaja.setText("               Egresos");
+        pnlInternodecaja.add(lblEgresoscaja);
+        lblEgresoscaja.setBounds(250, 50, 150, 50);
+
+        btnBusquedacaja.setText("Busqueda");
+        pnlInternodecaja.add(btnBusquedacaja);
+        btnBusquedacaja.setBounds(310, 110, 100, 30);
+
+        lblHistorialdeMovimientoscaja.setText("   Historial de movimientos");
+        pnlInternodecaja.add(lblHistorialdeMovimientoscaja);
+        lblHistorialdeMovimientoscaja.setBounds(20, 20, 230, 30);
+
+        lblIngresoscaja.setText("                           Ingresos");
+        pnlInternodecaja.add(lblIngresoscaja);
+        lblIngresoscaja.setBounds(20, 50, 230, 50);
+
+        tblRegistrodeCaja.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Fecha", "Totales del dia"
+            }
+        ));
+        jScrollPane9.setViewportView(tblRegistrodeCaja);
+
+        pnlInternodecaja.add(jScrollPane9);
+        jScrollPane9.setBounds(20, 160, 590, 140);
+
+        pnlCaja.add(pnlInternodecaja);
+        pnlInternodecaja.setBounds(20, 190, 630, 310);
+        pnlCaja.add(txtGANACIAScaja);
+        txtGANACIAScaja.setBounds(220, 140, 90, 30);
+        pnlCaja.add(txtINGRESOScaja);
+        txtINGRESOScaja.setBounds(220, 40, 90, 30);
+        pnlCaja.add(txtEGRESOScaja);
+        txtEGRESOScaja.setBounds(220, 90, 90, 30);
+
+        tpnMostrar.addTab("pnlCaja", pnlCaja);
+
+        tpnMostrar.setSelectedIndex(12);
+
         getContentPane().add(tpnMostrar);
         tpnMostrar.setBounds(190, 80, 690, 610);
 
@@ -2117,6 +2207,22 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
 
     public JButton getBtnAnularComprobantesEmitidosRegVen() {
         return btnAnularComprobantesEmitidosRegVen;
+    }
+    // pnlCaja
+    public JLabel getLblINGRESOScaja() {
+        return lblINGRESOScaja;
+    }
+    public JLabel getLblEGRESOScaja() {
+        return lblEGRESOScaja;
+    }
+    public JLabel getLblGananciascaja() {
+        return lblGananciascaja;
+    }
+    public JTextField getLblHistorialdeMovimientoscaja() {
+        return lblHistorialdeMovimientoscaja;
+    }
+    public JToggleButton getBtnBusquedacaja() {
+        return btnBusquedacaja;
     }
     //hasta aca
 
@@ -2742,12 +2848,18 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         }
         int indice = 0;
         String seleccion = cbTipodeBusquedaComprobantesEmitidos.getSelectedItem().toString();
-        if (seleccion.equals("   Numero")) {
-            indice = 5;
-        } else if (seleccion.equals("   Serie ")) {
-            indice = 4;
-        } else if (seleccion.equals("   Proveedor")) {
-            indice = 6;
+        switch (cbTipodeBusquedaComprobantesEmitidos.getSelectedIndex()) {
+            case 0:
+                indice = 5;
+                break;
+                case 1:
+                indice = 4;
+                break;
+                case 2:
+                indice = 6;
+                break;
+            default:
+                throw new AssertionError();
         }
         GestorModelos.buscarCompEmit(tblRegistrodeComprobantesEmitidos, txtBuscarComprobantesEmitidos.getText(), indice);
         btnBuscarComprobantesEmitidos.setText("Revertir");
@@ -2840,6 +2952,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     private javax.swing.JButton btnBuscarAlmacen;
     private javax.swing.JButton btnBuscarComprobantesEmitidos;
     private javax.swing.JButton btnBuscarComprobantesEmitidosRegVen;
+    private javax.swing.JToggleButton btnBusquedacaja;
     private javax.swing.JButton btnCancelarRegCom;
     private javax.swing.JButton btnCancelarRegVen;
     private javax.swing.JButton btnCrearUsuario;
@@ -2891,6 +3004,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
+    private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JMenuItem jmBOLETASRegCom;
     private javax.swing.JMenuItem jmBOLETASRegVen;
     private javax.swing.JMenuItem jmCOMPROBATESEMITIDOSRegCom;
@@ -2913,14 +3027,20 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     private javax.swing.JLabel lblCompraDelMes;
     private javax.swing.JLabel lblContraseña;
     private javax.swing.JLabel lblDNIUsuario;
+    private javax.swing.JLabel lblEGRESOScaja;
+    private javax.swing.JTextField lblEgresoscaja;
     private javax.swing.JLabel lblFechaBoleta;
     private javax.swing.JLabel lblFechaFactura;
     private javax.swing.JLabel lblFechaFacturaRegVen;
     private javax.swing.JLabel lblFechaProforma;
     private javax.swing.JLabel lblGanancias;
+    private javax.swing.JLabel lblGananciascaja;
+    private javax.swing.JTextField lblHistorialdeMovimientoscaja;
+    private javax.swing.JLabel lblINGRESOScaja;
     private javax.swing.JLabel lblImagen1;
     private javax.swing.JLabel lblImagen1FacturaRegVen;
     private javax.swing.JLabel lblImagen2FacturaRegVen;
+    private javax.swing.JTextField lblIngresoscaja;
     private javax.swing.JLabel lblMonedaBoleta;
     private javax.swing.JLabel lblMonedaFactura;
     private javax.swing.JLabel lblMonedaFacturaRegVen;
@@ -2965,6 +3085,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     private javax.swing.JLabel lblimagen1;
     private javax.swing.JLabel lblimagen1ComprobantesEmitidos;
     private javax.swing.JLabel lblimagen1ComprobantesEmitidosRegVen;
+    private javax.swing.JLabel lblimagen1caja;
     private javax.swing.JLabel lblimagen1factura;
     private javax.swing.JLabel lblimagen2;
     private javax.swing.JLabel lblimagen2factura;
@@ -2975,6 +3096,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     private javax.swing.JLabel lblsubtemaProforma;
     private javax.swing.JPanel pnl1Almacen;
     private javax.swing.JPanel pnl1Inicio;
+    private javax.swing.JPanel pnlCaja;
     private javax.swing.JPanel pnlCientes;
     private javax.swing.JPanel pnlCompraDelMes;
     private javax.swing.JPanel pnlGancias;
@@ -2982,6 +3104,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     private javax.swing.JPanel pnlInternRegComFacturaRegVen;
     private javax.swing.JPanel pnlInternoRegComBoleta;
     private javax.swing.JPanel pnlInternoRegComProforma;
+    private javax.swing.JPanel pnlInternodecaja;
     private javax.swing.JPanel pnlProductos;
     private javax.swing.JPanel pnlProveedores;
     private javax.swing.JPanel pnlRegComAgregarProducto;
@@ -3003,6 +3126,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     private javax.swing.JTable tblRegistroProductos;
     private javax.swing.JTable tblRegistroProforma;
     private javax.swing.JTable tblRegistroUsuarios;
+    private javax.swing.JTable tblRegistrodeCaja;
     private javax.swing.JTable tblRegistrodeComprobantesEmitidos;
     private javax.swing.JTable tblRegistrodeComprobantesEmitidosRegVen;
     private javax.swing.JTabbedPane tpnMostrar;
@@ -3010,6 +3134,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     private javax.swing.JTextField txtBuscar;
     private javax.swing.JTextField txtBuscarComprobantesEmitidos;
     private javax.swing.JTextField txtBuscarComprobantesEmitidosRegVen;
+    private javax.swing.JTextField txtBusquedacaja;
     private javax.swing.JTextField txtCantidadRegCom;
     private javax.swing.JTextField txtCantidadRegVen;
     private javax.swing.JTextField txtCantidaddeProducto;
@@ -3026,11 +3151,14 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     private javax.swing.JTextField txtDecoracion2Factura;
     private javax.swing.JTextField txtDecoracion2FacturaRegVen;
     private javax.swing.JTextField txtDecoracion2Proforma;
+    private javax.swing.JTextField txtEGRESOScaja;
     private javax.swing.JTextField txtFechaBoleta;
     private javax.swing.JTextField txtFechaFactura;
     private javax.swing.JTextField txtFechaFacturaRegVen;
     private javax.swing.JTextField txtFechaProforma;
+    private javax.swing.JTextField txtGANACIAScaja;
     private javax.swing.JTextField txtGanancias;
+    private javax.swing.JTextField txtINGRESOScaja;
     private javax.swing.JTextField txtNombres;
     private javax.swing.JTextField txtNombresProforma;
     private javax.swing.JTextField txtNumeroBoleta;

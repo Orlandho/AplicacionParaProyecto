@@ -1,4 +1,4 @@
-package ajustes;
+package Ajuste;
 
 import Login.FrmLogin;
 import MenuDinamico.FrmMenuDinamico;
@@ -127,6 +127,12 @@ public class Ajustes {
             menu.getBtnBuscarComprobantesEmitidosRegVen().setText("Search");
             menu.getBtnPDFComprobantesEmitidosRegVen().setText("PDF");
             menu.getBtnAnularComprobantesEmitidosRegVen().setText("Cancel");
+            // pnlCaja
+            menu.getLblINGRESOScaja().setText("■   INCOME");
+            menu.getLblEGRESOScaja().setText("■   EXPENSES");
+            menu.getLblGananciascaja().setText("■   PROFITS");
+            menu.getLblHistorialdeMovimientoscaja().setText("   Transaction History");
+            menu.getBtnBusquedacaja().setText("Search");
 
         }
     }
@@ -253,6 +259,13 @@ public class Ajustes {
             menu.getBtnBuscarComprobantesEmitidosRegVen().setText("Buscar");
             menu.getBtnPDFComprobantesEmitidosRegVen().setText("PDF");
             menu.getBtnAnularComprobantesEmitidosRegVen().setText("Anular");
+            // pnlCaja
+            menu.getLblINGRESOScaja().setText("■   INGRESOS");
+            menu.getLblEGRESOScaja().setText("■   EGRESOS");
+            menu.getLblGananciascaja().setText("■   GANANCIAS");
+            menu.getLblHistorialdeMovimientoscaja().setText("   Historial de movimientos");
+            menu.getBtnBusquedacaja().setText("Busqueda");
+            
         }
     }
 }

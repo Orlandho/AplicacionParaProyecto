@@ -20,7 +20,7 @@ public class FrmLogin extends javax.swing.JFrame {
         initComponents();
         baseDeDatos = new SQLiteManager();
         //esto coloque para el cmabio de idioma
-        ajustes.Ajustes.cambiarAIngles(this, null);
+        Ajuste.Ajustes.cambiarAIngles(this, null);
         //hasta aca
     }
 
