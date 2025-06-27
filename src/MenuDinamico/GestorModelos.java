@@ -4,7 +4,7 @@
  */
 package MenuDinamico;
 
-import DocumentoComercial.ComprobanteEmitido;
+import DocumentoComercial.ComprobanteCompra;
 import GestorDatosPermanentes.SQLiteManager;
 import java.util.HashMap;
 import javax.swing.JTable;
@@ -51,7 +51,7 @@ public class GestorModelos {
         ModeloProducto.actualizarRegsCompVen(listaP, tablaModelo.get(tblDocCom).getModelo(), total);
     }
 
-    public static void actualizarCompEmit(JTable tblDocCom, ArrayList<ComprobanteEmitido> listaC) {
+    public static void actualizarCompEmit(JTable tblDocCom, ArrayList<ComprobanteCompra> listaC) {
         ModeloProducto.actualizarCompEmit(tablaModelo.get(tblDocCom).getModelo(), listaC);
     }
 

@@ -2,7 +2,7 @@ package GestorDatosPermanentes;
 
 import Producto.Producto;
 import Usuario.Usuario;
-import DocumentoComercial.ComprobanteEmitido;
+import DocumentoComercial.ComprobanteCompra;
 import java.time.LocalDate;
 import java.util.ArrayList;
 //librerias para SQL
@@ -357,7 +357,7 @@ public class SQLiteManager {
     }
 
     //SPRINT 4: Comprobantes y ajustes
-    public ComprobanteEmitido buscarComprobante(int id) {
+    public ComprobanteCompra buscarComprobante(int id) {
         String comandoSQL = "SELECT * FROM comprobantesEmitidosCompra WHERE comprobante_id= ?";
         try {
             PreparedStatement ingresarComando = conexionDB.prepareStatement(comandoSQL);
@@ -365,7 +365,7 @@ public class SQLiteManager {
             ResultSet datosObtenidos = ingresarComando.executeQuery();
 
             if (datosObtenidos.next()) {
-                return new ComprobanteEmitido(
+                return new ComprobanteCompra(
                         datosObtenidos.getInt("comprobante_id"),
                         LocalDate.parse(datosObtenidos.getString("fechaRegistro")),
                         datosObtenidos.getString("tipoComprobante"),
@@ -381,14 +381,14 @@ public class SQLiteManager {
         return null;
     }
 
-    public ArrayList<ComprobanteEmitido> obtenerComprobantes() {
-        ArrayList<ComprobanteEmitido> comprobantes = new ArrayList<>();
+    public ArrayList<ComprobanteCompra> obtenerComprobantes() {
+        ArrayList<ComprobanteCompra> comprobantes = new ArrayList<>();
         String sql = "SELECT * FROM comprobantesEmitidosCompra";
         try {
             PreparedStatement statement = conexionDB.prepareStatement(sql);
             ResultSet resultado = statement.executeQuery();
             while (resultado.next()) {
-                ComprobanteEmitido comprobante = new ComprobanteEmitido(
+                ComprobanteCompra comprobante = new ComprobanteCompra(
                         resultado.getInt("comprobante_id"),
                         LocalDate.parse(resultado.getString("fechaRegistro")),
                         resultado.getString("tipoComprobante"),

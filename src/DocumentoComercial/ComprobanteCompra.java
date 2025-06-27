@@ -10,7 +10,7 @@ import java.time.LocalDate;
  *
  * @author ORLANDO
  */
-public class ComprobanteEmitido {
+public class ComprobanteCompra {
 
     private int id;
     private LocalDate fechaRegistro;
@@ -20,7 +20,7 @@ public class ComprobanteEmitido {
     private String proveedor;
     private double total;
 
-    public ComprobanteEmitido(int id, LocalDate fechaRegistro, String tipoComprobante, long serie, int numero, String proveedor, double total) {
+    public ComprobanteCompra(int id, LocalDate fechaRegistro, String tipoComprobante, long serie, int numero, String proveedor, double total) {
         this.id = id;
         this.fechaRegistro = fechaRegistro;
         this.tipoComprobante = tipoComprobante;
