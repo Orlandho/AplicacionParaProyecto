@@ -1,7 +1,7 @@
 package MenuDinamico;
 //Autor: orlando el pro
 
-import DocumentoComercial.ComprobanteEmitido;
+import DocumentoComercial.ComprobanteCompra;
 import Usuario.Usuario;
 import java.awt.Component;
 import javax.swing.JLabel;
@@ -40,7 +40,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     private int pnlPadreComVenProd;
     private String[] colsRegCompComprEmitid = {"N°", "ID", "Fecha de registro", "Tipo de comprobante", "Serie", "Número", "Proveedor", "Total"};
     private int indiceRegCompComprEmitid = 5;
-    private ArrayList<ComprobanteEmitido> tempListComprEmitid;
+    private ArrayList<ComprobanteCompra> tempListComprEmitid;
     private JTable tblPadre;
 
     public FrmMenuDinamico() {

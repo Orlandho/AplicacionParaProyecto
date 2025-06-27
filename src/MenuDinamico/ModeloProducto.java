@@ -4,7 +4,7 @@
  */
 package MenuDinamico;
 
-import DocumentoComercial.ComprobanteEmitido;
+import DocumentoComercial.ComprobanteCompra;
 import GestorDatosPermanentes.SQLiteManager;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
@@ -83,10 +83,10 @@ public class ModeloProducto extends EstructuraModeloEstandar<Producto> {
         }
     }
 
-    public static void actualizarCompEmit(DefaultTableModel mdl, ArrayList<ComprobanteEmitido> tempList) {
+    public static void actualizarCompEmit(DefaultTableModel mdl, ArrayList<ComprobanteCompra> tempList) {
         mdl.setRowCount(0);
         for (int i = 0; i < tempList.size(); i++) {
-            ComprobanteEmitido com = tempList.get(i);
+            ComprobanteCompra com = tempList.get(i);
             Object[] datoFila = {i, com.getId(), com.getFechaRegistro(), com.getTipoComprobante(), com.getSerie(), com.getNumero(), com.getProveedor(), com.getTotal()};
             mdl.addRow(datoFila);
         }
