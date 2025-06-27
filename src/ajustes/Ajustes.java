@@ -67,7 +67,7 @@ public class Ajustes {
             menu.getBtnEliminarRegComFactura().setText("Delete");
             menu.getBtnEditarRegComFactura().setText("Edit");
             // pnlRegComBoleta
-            menu.getLblsubtemaBoleta().setText("INVOICE");
+            menu.getLblsubtemaBoleta().setText("RECEIPT");
             menu.getLblSerieBoleta().setText("Series:");
             menu.getLblProveedorBoleta().setText("Supplier:");
             menu.getLblResponsableBoleta().setText("Responsible:");
@@ -79,7 +79,7 @@ public class Ajustes {
             menu.getBtnEliminarRegComBoleta().setText("Delete");
             menu.getBtnEditarRegComBoleta().setText("Edit");
             // pnlRegComProforma
-            menu.getLblsubtemaProforma().setText("PROFORMA");
+            menu.getLblsubtemaProforma().setText("PROFORMA INVOICE");
             menu.getLblNombresProforma().setText("Names:");
             menu.getLblResponsableProforma().setText("Responsible:");
             menu.getLblMonedaProforma().setText("Currency:");

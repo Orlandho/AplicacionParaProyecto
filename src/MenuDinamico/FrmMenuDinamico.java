@@ -513,7 +513,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         lblRUC.setFont(new java.awt.Font("Cartoon Fun", 0, 14)); // NOI18N
         lblRUC.setText("Agro Integral Perú");
         jpanelsuperior.add(lblRUC);
-        lblRUC.setBounds(610, 10, 200, 19);
+        lblRUC.setBounds(610, 10, 200, 24);
 
         lblRol.setText("Empleado");
         jpanelsuperior.add(lblRol);
@@ -1168,7 +1168,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         lblsubtemaProforma.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
         lblsubtemaProforma.setText("PROFORMA");
         pnlRegComProforma.add(lblsubtemaProforma);
-        lblsubtemaProforma.setBounds(60, 30, 210, 20);
+        lblsubtemaProforma.setBounds(60, 30, 360, 20);
         pnlRegComProforma.add(txtFechaProforma);
         txtFechaProforma.setBounds(360, 160, 110, 30);
 
@@ -1608,11 +1608,11 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
 
         lblImagen2FacturaRegVen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Etiqueta.png"))); // NOI18N
         pnlRegVenFactura.add(lblImagen2FacturaRegVen);
-        lblImagen2FacturaRegVen.setBounds(630, 50, 0, 30);
+        lblImagen2FacturaRegVen.setBounds(630, 50, 31, 30);
 
         lblImagen1FacturaRegVen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Etiqueta.png"))); // NOI18N
         pnlRegVenFactura.add(lblImagen1FacturaRegVen);
-        lblImagen1FacturaRegVen.setBounds(450, 50, 0, 30);
+        lblImagen1FacturaRegVen.setBounds(450, 50, 31, 30);
 
         lblimagen2factura.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Etiqueta.png"))); // NOI18N
         pnlRegVenFactura.add(lblimagen2factura);
