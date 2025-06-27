@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 import Producto.Producto;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
 import javax.swing.JTextField;
 
 /**
