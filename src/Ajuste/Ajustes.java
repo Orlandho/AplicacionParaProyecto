@@ -133,7 +133,18 @@ public class Ajustes {
             menu.getLblGananciascaja().setText("■   PROFITS");
             menu.getLblHistorialdeMovimientoscaja().setText("   Transaction History");
             menu.getBtnBusquedacaja().setText("Search");
-
+            // pnlRegVenBoleta
+            menu.getLblsubtemaBoletaRegVen().setText("Ticket");
+            menu.getLblOPBoletaRegVen().setText("OP:");
+            menu.getLblClienteBoletaRegVen().setText("Customer:");
+            menu.getLblFechaBoletaRegVen().setText("Date:");
+            menu.getLblSerieBoletaRegVen().setText("Series:");
+            menu.getLblMonedaBoletaRegVen().setText("Currency:");
+            menu.getLblNumeroBoletaRegVen().setText("Number:");
+            menu.getBtnGuardarBoletaRegVen().setText("Save");
+            menu.getBtnAgregarBoletaRegVen().setText("Add");
+            menu.getBtnEliminarBoletaRegVen().setText("Delete");
+            menu.getBtnEditarBoletaRegVen().setText("Edit");
         }
     }
 
@@ -265,6 +276,19 @@ public class Ajustes {
             menu.getLblGananciascaja().setText("■   GANANCIAS");
             menu.getLblHistorialdeMovimientoscaja().setText("   Historial de movimientos");
             menu.getBtnBusquedacaja().setText("Busqueda");
+            // pnlRegVenBoleta
+            menu.getLblsubtemaBoletaRegVen().setText("BOLETA");
+            menu.getLblOPBoletaRegVen().setText("OP:");
+            menu.getLblClienteBoletaRegVen().setText("Cliente:");
+            menu.getLblFechaBoletaRegVen().setText("Fecha:");
+            menu.getLblSerieBoletaRegVen().setText("Serie:");
+            menu.getLblMonedaBoletaRegVen().setText("Moneda:");
+            menu.getLblNumeroBoletaRegVen().setText("Numero:");
+            menu.getBtnGuardarBoletaRegVen().setText("Guardar");
+            menu.getBtnAgregarBoletaRegVen().setText("Agregar");
+            menu.getBtnEliminarBoletaRegVen().setText("Eliminar");
+            menu.getBtnEditarBoletaRegVen().setText("Editar");
+            
             
         }
     }
