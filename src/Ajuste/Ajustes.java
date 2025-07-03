@@ -145,6 +145,23 @@ public class Ajustes {
             menu.getBtnAgregarBoletaRegVen().setText("Add");
             menu.getBtnEliminarBoletaRegVen().setText("Delete");
             menu.getBtnEditarBoletaRegVen().setText("Edit");
+            // pnlReportes
+            menu.getLblREPORTEREGISTRODEVENTASReportes().setText("SALES REPORT-RECORD");
+            menu.getLblSurcusalesReportes().setText("Branches:");
+            menu.getLblPeriodoReportes().setText("Period:");
+            menu.getLblRangodeperiodoReportes().setText("Period range:");
+            menu.getBtnDescargarRegistrodeVentasReportes().setText(" Download Sales Record");
+            // pnlAjustes
+            menu.getLblGestionarperfilAjustes().setText("•      Manage profile");
+            menu.getLblNombreAjustes().setText("Name:");
+            menu.getLblLogoAjustes().setText("Logo:");
+            menu.getLblDatosAjustes().setText("•      Data");
+            menu.getLblRUCAjustes().setText("RUC:");
+            menu.getLblTelefonoAjustes().setText("Phone:");
+            menu.getLblCorreodeEmpresaAjustes().setText("Company Email:");
+            menu.getLblIDIOMAAjustes().setText("LANGUAGE");
+            menu.getLblApectoAjustes().setText("Appearance:");
+            menu.getBtnGuardacambiosAjustes().setText("Save changes");
         }
     }
 
@@ -288,8 +305,23 @@ public class Ajustes {
             menu.getBtnAgregarBoletaRegVen().setText("Agregar");
             menu.getBtnEliminarBoletaRegVen().setText("Eliminar");
             menu.getBtnEditarBoletaRegVen().setText("Editar");
-            
-            
+            // pnlReportes
+            menu.getLblREPORTEREGISTRODEVENTASReportes().setText("REPORTE-REGISTRO DE VENTAS");
+            menu.getLblSurcusalesReportes().setText("Surcusales:");
+            menu.getLblPeriodoReportes().setText("Período:");
+            menu.getLblRangodeperiodoReportes().setText("Rango de periodo:");
+            menu.getBtnDescargarRegistrodeVentasReportes().setText(" Descargar Registro de Ventas");
+            // pnlAjustes
+            menu.getLblGestionarperfilAjustes().setText("•      Gestionar perfil");
+            menu.getLblNombreAjustes().setText("Nombre:");
+            menu.getLblLogoAjustes().setText("Logo:");
+            menu.getLblDatosAjustes().setText("•      Datos");
+            menu.getLblRUCAjustes().setText("RUC:");
+            menu.getLblTelefonoAjustes().setText("Telefono:");
+            menu.getLblCorreodeEmpresaAjustes().setText("Correo de Empresa:");
+            menu.getLblIDIOMAAjustes().setText("IDIOMA");
+            menu.getLblApectoAjustes().setText("Aspecto:");
+            menu.getBtnGuardacambiosAjustes().setText("Guardar cambios");
         }
     }
 }
