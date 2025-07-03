@@ -387,7 +387,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         lblIDIOMAAjustes = new javax.swing.JLabel();
         btnGuardacambiosAjustes = new javax.swing.JButton();
         lblApectoAjustes = new javax.swing.JLabel();
-        lblLogotipoAjustes = new javax.swing.JLabel();
+        lblLogoAjustes = new javax.swing.JLabel();
 
         jmFACTURASRegCom.setText("FACTURAS");
         jmFACTURASRegCom.addActionListener(new java.awt.event.ActionListener() {
@@ -2091,7 +2091,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         lblIDIOMAAjustes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Planeta.png"))); // NOI18N
         lblIDIOMAAjustes.setText("IDIOMA");
         pnlAjustes.add(lblIDIOMAAjustes);
-        lblIDIOMAAjustes.setBounds(110, 340, 90, 30);
+        lblIDIOMAAjustes.setBounds(110, 340, 120, 30);
 
         btnGuardacambiosAjustes.setBackground(new java.awt.Color(240, 236, 220));
         btnGuardacambiosAjustes.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
@@ -2107,14 +2107,16 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         lblApectoAjustes.setFont(new java.awt.Font("Corbel Light", 1, 14)); // NOI18N
         lblApectoAjustes.setText("Aspecto:");
         pnlAjustes.add(lblApectoAjustes);
-        lblApectoAjustes.setBounds(360, 340, 90, 30);
+        lblApectoAjustes.setBounds(350, 340, 90, 30);
 
-        lblLogotipoAjustes.setFont(new java.awt.Font("Corbel Light", 1, 14)); // NOI18N
-        lblLogotipoAjustes.setText("Logotipo:");
-        pnlAjustes.add(lblLogotipoAjustes);
-        lblLogotipoAjustes.setBounds(340, 100, 70, 30);
+        lblLogoAjustes.setFont(new java.awt.Font("Corbel Light", 1, 14)); // NOI18N
+        lblLogoAjustes.setText("Logo:");
+        pnlAjustes.add(lblLogoAjustes);
+        lblLogoAjustes.setBounds(340, 100, 70, 30);
 
         tpnMostrar.addTab("pnlAjustes", pnlAjustes);
+
+        tpnMostrar.setSelectedIndex(15);
 
         getContentPane().add(tpnMostrar);
         tpnMostrar.setBounds(190, 80, 690, 610);
@@ -2603,6 +2605,67 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     public JButton getBtnEditarBoletaRegVen() {
         return btnEditarBoletaRegVen;
     }
+    //pnlReportes
+    public JLabel getLblREPORTEREGISTRODEVENTASReportes() {
+        return lblREPORTEREGISTRODEVENTASReportes;
+    }
+
+    public JLabel getLblSurcusalesReportes() {
+        return lblSurcusalesReportes;
+    }
+
+    public JLabel getLblPeriodoReportes() {
+        return lblPeriodoReportes;
+    }
+
+    public JLabel getLblRangodeperiodoReportes() {
+        return lblRangodeperiodoReportes;
+    }
+
+    public JButton getBtnDescargarRegistrodeVentasReportes() {
+        return btnDescargarRegistrodeVentasReportes;
+    }
+    // pnlAjustes
+    public JLabel getLblGestionarperfilAjustes() {
+        return lblGestionarperfilAjustes;
+    }
+    
+    public JLabel getLblNombreAjustes() {
+        return lblNombreAjustes;
+    }
+    
+    public JLabel getLblLogoAjustes() {
+        return lblLogoAjustes;
+    }
+    
+    public JLabel getLblDatosAjustes() {
+        return lblDatosAjustes;
+    }
+    
+    public JLabel getLblRUCAjustes() {
+        return lblRUCAjustes;
+    }
+    
+    public JLabel getLblTelefonoAjustes() {
+        return lblTelefonoAjustes;
+    }
+    
+    public JLabel getLblCorreodeEmpresaAjustes() {
+        return lblCorreodeEmpresaAjustes;
+    }
+    
+    public JLabel getLblIDIOMAAjustes() {
+        return lblIDIOMAAjustes;
+    }
+    
+    public JLabel getLblApectoAjustes() {
+        return lblApectoAjustes;
+    }
+    
+    public JButton getBtnGuardacambiosAjustes() {
+        return btnGuardacambiosAjustes;
+    }
+    
     //hasta aca
 
 
@@ -3465,7 +3528,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     private javax.swing.JLabel lblImagen2BoletaRegVen;
     private javax.swing.JLabel lblImagen2FacturaRegVen;
     private javax.swing.JTextField lblIngresoscaja;
-    private javax.swing.JLabel lblLogotipoAjustes;
+    private javax.swing.JLabel lblLogoAjustes;
     private javax.swing.JLabel lblMonedaBoleta;
     private javax.swing.JLabel lblMonedaBoletaRegVen;
     private javax.swing.JLabel lblMonedaFactura;

@@ -418,6 +418,7 @@
     </Container>
     <Container class="javax.swing.JTabbedPane" name="tpnMostrar">
       <Properties>
+        <Property name="selectedIndex" type="int" value="15"/>
         <Property name="tabPlacement" type="int" value="3"/>
       </Properties>
       <Constraints>
@@ -4108,7 +4109,7 @@
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="110" y="340" width="90" height="30"/>
+                  <AbsoluteConstraints x="110" y="340" width="120" height="30"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -4140,16 +4141,16 @@
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="360" y="340" width="90" height="30"/>
+                  <AbsoluteConstraints x="350" y="340" width="90" height="30"/>
                 </Constraint>
               </Constraints>
             </Component>
-            <Component class="javax.swing.JLabel" name="lblLogotipoAjustes">
+            <Component class="javax.swing.JLabel" name="lblLogoAjustes">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Corbel Light" size="14" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Logotipo:"/>
+                <Property name="text" type="java.lang.String" value="Logo:"/>
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
