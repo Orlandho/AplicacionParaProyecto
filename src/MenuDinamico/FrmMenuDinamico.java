@@ -1,20 +1,21 @@
 package MenuDinamico;
 //Autor: orlando el pro
 
-import DocumentoComercial.ComprobanteEmitido;
+import DocumentoComercial.ComprobanteCompra;
 import Usuario.Usuario;
 import java.awt.Component;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import GestorDatosPermanentes.SQLiteManager;
 import java.util.ArrayList;
-import javax.swing.table.DefaultTableModel;
 import Login.FrmLogin;
 import java.time.LocalDate;
 import javax.swing.JTable;
 import Producto.Producto;
 import javax.swing.JTextField;
 import MenuDinamico.GestorModelos;
+import javax.swing.JButton;
+import javax.swing.JToggleButton;
 
 public class FrmMenuDinamico extends javax.swing.JFrame {
 
@@ -31,38 +32,41 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     private final int pnlCompEmit = 7;
     private final int pnlAgrComProd = 8;
     private final int pnlAgrVenProd = 9;
-    
+
     private String[] colsRegProd = {"Producto ID", "Tipo de Documento", "Producto", "Precio Compra", "Cantidad", "Stock"};
     private String[] colsRegFactBoleProf = {"ID", "Producto", "Cantidad", "Precio Unit.", "Sub. Total", "I.G.V.", "Total"};
     private ArrayList<Producto> tempListFact;
     private ArrayList<Producto> tempListBole;
     private ArrayList<Producto> tempListProf;
     private int pnlPadreComVenProd;
-    private String[] colsRegCompComprEmitid = {"N°","ID", "Fecha de registro", "Tipo de comprobante", "Serie", "Número", "Proveedor", "Total"};
+    private String[] colsRegCompComprEmitid = {"N°", "ID", "Fecha de registro", "Tipo de comprobante", "Serie", "Número", "Proveedor", "Total"};
     private int indiceRegCompComprEmitid = 5;
-    private ArrayList<ComprobanteEmitido> tempListComprEmitid;
+    private ArrayList<ComprobanteCompra> tempListComprEmitid;
     private JTable tblPadre;
 
     public FrmMenuDinamico() {
         initComponents();
+        //esto coloque para el cmabio de idioma
+        Ajuste.Ajustes.cambiarAIngles(null, this);
+        //hasta aca
         jpaneladmin.setVisible(false);
         baseDeDatos = new SQLiteManager();
-        
+
         GestorModelos.añadirTblUsuario(tblRegistroUsuarios);
         //configuracion personalizada para tblRegistroProductos
-        GestorModelos.añadirTblProducto(tblRegistroProductos, colsRegProd, new int[]{0,1,5});
+        GestorModelos.añadirTblProducto(tblRegistroProductos, colsRegProd, new int[]{0, 1, 5});
         GestorModelos.añadirTblProducto(tblRegistroFactura);
         GestorModelos.añadirTblProducto(tblRegistroFactura);
         GestorModelos.añadirTblProducto(tblRegistroBoleta);
         GestorModelos.añadirTblProducto(tblRegistroProforma);
         //configuracion personalizada para tblRegistrodeComprobantesEmitidos
-        GestorModelos.añadirTblProducto(tblRegistrodeComprobantesEmitidos, colsRegCompComprEmitid, new int[]{0,1,2,3,4,5,6,7});
+        GestorModelos.añadirTblProducto(tblRegistrodeComprobantesEmitidos, colsRegCompComprEmitid, new int[]{0, 1, 2, 3, 4, 5, 6, 7});
 
         tempListFact = new ArrayList<>();
         tempListBole = new ArrayList<>();
         tempListProf = new ArrayList<>();
         tempListComprEmitid = new ArrayList<>();
-        tblPadre=null;
+        tblPadre = null;
     }
 
     public void modificarSegunRol(Usuario usuario) {
@@ -276,6 +280,114 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         lblProductoRegVen = new javax.swing.JLabel();
         lblCantidadRegVen = new javax.swing.JLabel();
         cbTipoProductosRegVen = new javax.swing.JComboBox<>();
+        pnlRegVenFactura = new javax.swing.JPanel();
+        lblsubtemaFacturaRegVen = new javax.swing.JLabel();
+        lblRucFacturaRegVen = new javax.swing.JLabel();
+        txtRucFacturaRegVen = new javax.swing.JTextField();
+        lblSerieFacturaRegVen = new javax.swing.JLabel();
+        txtFechaFacturaRegVen = new javax.swing.JTextField();
+        lblFechaFacturaRegVen = new javax.swing.JLabel();
+        txtClienteFacturaRegVen = new javax.swing.JTextField();
+        lblClienteFacturaRegVen = new javax.swing.JLabel();
+        lblNumeroFacturaRegVen = new javax.swing.JLabel();
+        lblMonedaFacturaRegVen = new javax.swing.JLabel();
+        txtNumeroFacturaRegVen = new javax.swing.JTextField();
+        cbTipoDeDineroFacturaRegVen = new javax.swing.JComboBox<>();
+        pnlInternRegComFacturaRegVen = new javax.swing.JPanel();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        tblRegistroFacturaRegVen = new javax.swing.JTable();
+        txtDecoracion1FacturaRegVen = new javax.swing.JTextField();
+        txtDecoracion2FacturaRegVen = new javax.swing.JTextField();
+        txtTotalFacturaRegVen = new javax.swing.JTextField();
+        btnEditarRegComFacturaRegVen = new javax.swing.JButton();
+        btnGuardarRegComFacturaRegVen = new javax.swing.JButton();
+        btnAgregarRegComFacturaRegVen = new javax.swing.JButton();
+        btnEliminarRegComFacturaRegVen = new javax.swing.JButton();
+        txtSerieFacturaRegVen = new javax.swing.JTextField();
+        lblImagen2FacturaRegVen = new javax.swing.JLabel();
+        lblImagen1FacturaRegVen = new javax.swing.JLabel();
+        lblimagen2factura = new javax.swing.JLabel();
+        lblimagen1factura = new javax.swing.JLabel();
+        pnlRegVenCompromantesEmitidos = new javax.swing.JPanel();
+        lblSubtemaComprobantesEmitidosRegVen = new javax.swing.JLabel();
+        btnBuscarComprobantesEmitidosRegVen = new javax.swing.JButton();
+        btnPDFComprobantesEmitidosRegVen = new javax.swing.JButton();
+        btnAnularComprobantesEmitidosRegVen = new javax.swing.JButton();
+        jScrollPane8 = new javax.swing.JScrollPane();
+        tblRegistrodeComprobantesEmitidosRegVen = new javax.swing.JTable();
+        lblimagen1ComprobantesEmitidosRegVen = new javax.swing.JLabel();
+        cbTipodeBusquedaComprobantesEmitidosRegVen = new javax.swing.JComboBox<>();
+        txtBuscarComprobantesEmitidosRegVen = new javax.swing.JTextField();
+        pnlCaja = new javax.swing.JPanel();
+        lblGananciascaja = new javax.swing.JLabel();
+        lblINGRESOScaja = new javax.swing.JLabel();
+        lblEGRESOScaja = new javax.swing.JLabel();
+        pnlInternodecaja = new javax.swing.JPanel();
+        lblimagen1caja = new javax.swing.JLabel();
+        txtBusquedacaja = new javax.swing.JTextField();
+        lblEgresoscaja = new javax.swing.JTextField();
+        btnBusquedacaja = new javax.swing.JToggleButton();
+        lblHistorialdeMovimientoscaja = new javax.swing.JTextField();
+        lblIngresoscaja = new javax.swing.JTextField();
+        jScrollPane9 = new javax.swing.JScrollPane();
+        tblRegistrodeCaja = new javax.swing.JTable();
+        txtGANACIAScaja = new javax.swing.JTextField();
+        txtINGRESOScaja = new javax.swing.JTextField();
+        txtEGRESOScaja = new javax.swing.JTextField();
+        pnlRegVenBoleta = new javax.swing.JPanel();
+        lblsubtemaBoletaRegVen = new javax.swing.JLabel();
+        lblOPBoletaRegVen = new javax.swing.JLabel();
+        lblSerieBoletaRegVen = new javax.swing.JLabel();
+        txtFechaBoletaRegVen = new javax.swing.JTextField();
+        lblFechaBoletaRegVen = new javax.swing.JLabel();
+        txtClienteBoletaRegVen = new javax.swing.JTextField();
+        lblClienteBoletaRegVen = new javax.swing.JLabel();
+        lblNumeroBoletaRegVen = new javax.swing.JLabel();
+        lblMonedaBoletaRegVen = new javax.swing.JLabel();
+        txtNumeroBoletaRegVen = new javax.swing.JTextField();
+        cbTipoDeDineroBoletaRegVen = new javax.swing.JComboBox<>();
+        pnlInternoBoletaRegVen = new javax.swing.JPanel();
+        jScrollPane10 = new javax.swing.JScrollPane();
+        tblRegistroBoletaRegVen = new javax.swing.JTable();
+        txtDecoracion1BoletaRegVen = new javax.swing.JTextField();
+        txtDecoracion2BoletaRegVen = new javax.swing.JTextField();
+        txtTotalBoletaRegVen = new javax.swing.JTextField();
+        btnEditarBoletaRegVen = new javax.swing.JButton();
+        btnGuardarBoletaRegVen = new javax.swing.JButton();
+        btnAgregarBoletaRegVen = new javax.swing.JButton();
+        btnEliminarBoletaRegVen = new javax.swing.JButton();
+        txtSerieBoletaRegVen = new javax.swing.JTextField();
+        lblImagen2BoletaRegVen = new javax.swing.JLabel();
+        lblImagen1BoletaRegVen = new javax.swing.JLabel();
+        lblimagen2factura1 = new javax.swing.JLabel();
+        lblimagen1factura1 = new javax.swing.JLabel();
+        cbTipoOPBoletaRegVen = new javax.swing.JComboBox<>();
+        pnlReportes = new javax.swing.JPanel();
+        lblREPORTEREGISTRODEVENTASReportes = new javax.swing.JLabel();
+        txtRangodeperiodoReportes = new javax.swing.JTextField();
+        lblRangodeperiodoReportes = new javax.swing.JLabel();
+        txtPeriodoReportes = new javax.swing.JTextField();
+        lblSurcusalesReportes = new javax.swing.JLabel();
+        cbTipoSurcusalesReportes = new javax.swing.JComboBox<>();
+        btnDescargarRegistrodeVentasReportes = new javax.swing.JButton();
+        lblPeriodoReportes = new javax.swing.JLabel();
+        pnlAjustes = new javax.swing.JPanel();
+        lblGestionarperfilAjustes = new javax.swing.JLabel();
+        lblDatosAjustes = new javax.swing.JLabel();
+        txtNombreAjustes = new javax.swing.JTextField();
+        lblNombreAjustes = new javax.swing.JLabel();
+        lblImagen1Ajustes = new javax.swing.JLabel();
+        txtRUCAjustes = new javax.swing.JTextField();
+        lblRUCAjustes = new javax.swing.JLabel();
+        txtTelefonoAjustes = new javax.swing.JTextField();
+        lblTelefonoAjustes = new javax.swing.JLabel();
+        txtCorreodeEmpresaAjustes = new javax.swing.JTextField();
+        lblCorreodeEmpresaAjustes = new javax.swing.JLabel();
+        cbTipoAspectoAjustes = new javax.swing.JComboBox<>();
+        lblIDIOMAAjustes = new javax.swing.JLabel();
+        btnGuardacambiosAjustes = new javax.swing.JButton();
+        lblApectoAjustes = new javax.swing.JLabel();
+        lblLogoAjustes = new javax.swing.JLabel();
 
         jmFACTURASRegCom.setText("FACTURAS");
         jmFACTURASRegCom.addActionListener(new java.awt.event.ActionListener() {
@@ -487,7 +599,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         lblSubTitulo.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
         lblSubTitulo.setText("RESUMEN DEL DÍA");
         pnl1Inicio.add(lblSubTitulo);
-        lblSubTitulo.setBounds(30, 20, 160, 40);
+        lblSubTitulo.setBounds(20, 20, 310, 40);
 
         pnlProductos.setBackground(new java.awt.Color(216, 196, 244));
         pnlProductos.setLayout(null);
@@ -547,7 +659,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         lblVentasDelDia.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
         lblVentasDelDia.setText("VENTAS DEL DIA");
         pnlVentasDelDia.add(lblVentasDelDia);
-        lblVentasDelDia.setBounds(40, 50, 110, 30);
+        lblVentasDelDia.setBounds(40, 50, 140, 30);
         pnlVentasDelDia.add(txtVentasDelDia);
         txtVentasDelDia.setBounds(20, 20, 150, 30);
 
@@ -662,9 +774,9 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         lblApellidos.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
         lblApellidos.setText("Apellidos:");
         pnlRegUsuIngresar.add(lblApellidos);
-        lblApellidos.setBounds(330, 160, 60, 30);
+        lblApellidos.setBounds(330, 160, 90, 30);
         pnlRegUsuIngresar.add(txtApellidos);
-        txtApellidos.setBounds(390, 160, 190, 30);
+        txtApellidos.setBounds(420, 160, 190, 30);
 
         lblTelefono.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
         lblTelefono.setText("Telefono:");
@@ -851,7 +963,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         lblSerieFactura.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         lblSerieFactura.setText("Serie:");
         pnlRegComFactura.add(lblSerieFactura);
-        lblSerieFactura.setBounds(60, 80, 60, 17);
+        lblSerieFactura.setBounds(60, 80, 90, 17);
         pnlRegComFactura.add(txtSerieFactura);
         txtSerieFactura.setBounds(130, 70, 71, 30);
 
@@ -877,7 +989,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         lblMonedaFactura.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         lblMonedaFactura.setText("Moneda:");
         pnlRegComFactura.add(lblMonedaFactura);
-        lblMonedaFactura.setBounds(350, 120, 70, 17);
+        lblMonedaFactura.setBounds(340, 120, 80, 17);
 
         lblResponsableFactura.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         lblResponsableFactura.setText("Responsable:");
@@ -986,12 +1098,12 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         lblsubtemaBoleta.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
         lblsubtemaBoleta.setText("BOLETA");
         pnlRegComBoleta.add(lblsubtemaBoleta);
-        lblsubtemaBoleta.setBounds(60, 30, 90, 20);
+        lblsubtemaBoleta.setBounds(60, 30, 210, 20);
 
         lblSerieBoleta.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         lblSerieBoleta.setText("Serie:");
         pnlRegComBoleta.add(lblSerieBoleta);
-        lblSerieBoleta.setBounds(60, 80, 60, 17);
+        lblSerieBoleta.setBounds(60, 80, 70, 17);
         pnlRegComBoleta.add(txtSerieBoleta);
         txtSerieBoleta.setBounds(130, 70, 71, 30);
 
@@ -1017,7 +1129,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         lblMonedaBoleta.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         lblMonedaBoleta.setText("Moneda:");
         pnlRegComBoleta.add(lblMonedaBoleta);
-        lblMonedaBoleta.setBounds(350, 120, 70, 17);
+        lblMonedaBoleta.setBounds(340, 120, 100, 17);
 
         lblResponsableBoleta.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         lblResponsableBoleta.setText("Responsable:");
@@ -1126,7 +1238,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         lblsubtemaProforma.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
         lblsubtemaProforma.setText("PROFORMA");
         pnlRegComProforma.add(lblsubtemaProforma);
-        lblsubtemaProforma.setBounds(60, 30, 130, 20);
+        lblsubtemaProforma.setBounds(60, 30, 360, 20);
         pnlRegComProforma.add(txtFechaProforma);
         txtFechaProforma.setBounds(360, 160, 110, 30);
 
@@ -1143,7 +1255,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         lblMonedaProforma.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         lblMonedaProforma.setText("Moneda:");
         pnlRegComProforma.add(lblMonedaProforma);
-        lblMonedaProforma.setBounds(60, 170, 70, 17);
+        lblMonedaProforma.setBounds(60, 170, 100, 17);
 
         lblResponsableProforma.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         lblResponsableProforma.setText("Responsable:");
@@ -1158,7 +1270,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         cbTipoDeDineroProforma.setFont(new java.awt.Font("Courier New", 0, 13)); // NOI18N
         cbTipoDeDineroProforma.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Soles", "Dólares" }));
         pnlRegComProforma.add(cbTipoDeDineroProforma);
-        cbTipoDeDineroProforma.setBounds(130, 160, 120, 30);
+        cbTipoDeDineroProforma.setBounds(140, 160, 120, 30);
 
         pnlInternoRegComProforma.setBackground(new java.awt.Color(255, 255, 255));
         pnlInternoRegComProforma.setLayout(null);
@@ -1252,7 +1364,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         lblSubtemaComprobantesEmitidos.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
         lblSubtemaComprobantesEmitidos.setText("COMPROBANTES EMITIDOS");
         pnlRegComCompromantesEmitidos.add(lblSubtemaComprobantesEmitidos);
-        lblSubtemaComprobantesEmitidos.setBounds(40, 40, 310, 20);
+        lblSubtemaComprobantesEmitidos.setBounds(40, 40, 350, 20);
 
         btnBuscarComprobantesEmitidos.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         btnBuscarComprobantesEmitidos.setText("Buscar");
@@ -1266,6 +1378,11 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
 
         btnPDFComprobantesEmitidos.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         btnPDFComprobantesEmitidos.setText("PDF");
+        btnPDFComprobantesEmitidos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPDFComprobantesEmitidosActionPerformed(evt);
+            }
+        });
         pnlRegComCompromantesEmitidos.add(btnPDFComprobantesEmitidos);
         btnPDFComprobantesEmitidos.setBounds(570, 100, 100, 30);
 
@@ -1346,7 +1463,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
             }
         });
         pnlRegComAgregarProducto.add(btnCancelarRegCom);
-        btnCancelarRegCom.setBounds(300, 380, 130, 30);
+        btnCancelarRegCom.setBounds(430, 380, 130, 30);
 
         btnAgregarProductoRegCom.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
         btnAgregarProductoRegCom.setText("Agregar producto");
@@ -1427,12 +1544,1127 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
 
         tpnMostrar.addTab("pnlRegVenAgregarProducto", pnlRegVenAgregarProducto);
 
+        pnlRegVenFactura.setBackground(new java.awt.Color(216, 252, 156));
+        pnlRegVenFactura.setLayout(null);
+
+        lblsubtemaFacturaRegVen.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
+        lblsubtemaFacturaRegVen.setText("FACTURA");
+        pnlRegVenFactura.add(lblsubtemaFacturaRegVen);
+        lblsubtemaFacturaRegVen.setBounds(60, 30, 110, 20);
+
+        lblRucFacturaRegVen.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        lblRucFacturaRegVen.setText("Ruc:");
+        pnlRegVenFactura.add(lblRucFacturaRegVen);
+        lblRucFacturaRegVen.setBounds(60, 80, 60, 17);
+        pnlRegVenFactura.add(txtRucFacturaRegVen);
+        txtRucFacturaRegVen.setBounds(110, 70, 180, 30);
+
+        lblSerieFacturaRegVen.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        lblSerieFacturaRegVen.setText("Serie:");
+        pnlRegVenFactura.add(lblSerieFacturaRegVen);
+        lblSerieFacturaRegVen.setBounds(310, 60, 70, 17);
+        pnlRegVenFactura.add(txtFechaFacturaRegVen);
+        txtFechaFacturaRegVen.setBounds(120, 150, 140, 30);
+
+        lblFechaFacturaRegVen.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        lblFechaFacturaRegVen.setText("Fecha:");
+        pnlRegVenFactura.add(lblFechaFacturaRegVen);
+        lblFechaFacturaRegVen.setBounds(60, 160, 60, 17);
+        pnlRegVenFactura.add(txtClienteFacturaRegVen);
+        txtClienteFacturaRegVen.setBounds(160, 110, 190, 30);
+
+        lblClienteFacturaRegVen.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        lblClienteFacturaRegVen.setText("Cliente:");
+        pnlRegVenFactura.add(lblClienteFacturaRegVen);
+        lblClienteFacturaRegVen.setBounds(60, 120, 100, 17);
+
+        lblNumeroFacturaRegVen.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        lblNumeroFacturaRegVen.setText("Numero:");
+        pnlRegVenFactura.add(lblNumeroFacturaRegVen);
+        lblNumeroFacturaRegVen.setBounds(490, 60, 70, 17);
+
+        lblMonedaFacturaRegVen.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        lblMonedaFacturaRegVen.setText("Moneda:");
+        pnlRegVenFactura.add(lblMonedaFacturaRegVen);
+        lblMonedaFacturaRegVen.setBounds(370, 120, 110, 17);
+        pnlRegVenFactura.add(txtNumeroFacturaRegVen);
+        txtNumeroFacturaRegVen.setBounds(560, 50, 60, 30);
+
+        cbTipoDeDineroFacturaRegVen.setFont(new java.awt.Font("Courier New", 0, 13)); // NOI18N
+        cbTipoDeDineroFacturaRegVen.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Soles", "Dolares", " " }));
+        pnlRegVenFactura.add(cbTipoDeDineroFacturaRegVen);
+        cbTipoDeDineroFacturaRegVen.setBounds(450, 110, 110, 30);
+
+        pnlInternRegComFacturaRegVen.setBackground(new java.awt.Color(255, 255, 255));
+        pnlInternRegComFacturaRegVen.setLayout(null);
+
+        tblRegistroFacturaRegVen.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "ID", "Producto", "Cantidad", "Precio Unit.", "SubTotal", "I.G.V.", "Total"
+            }
+        ));
+        jScrollPane7.setViewportView(tblRegistroFacturaRegVen);
+
+        pnlInternRegComFacturaRegVen.add(jScrollPane7);
+        jScrollPane7.setBounds(0, 30, 530, 170);
+
+        txtDecoracion1FacturaRegVen.setEditable(false);
+        txtDecoracion1FacturaRegVen.setBackground(new java.awt.Color(255, 255, 255));
+        txtDecoracion1FacturaRegVen.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        txtDecoracion1FacturaRegVen.setText("DETALLE DE VENTA:");
+        pnlInternRegComFacturaRegVen.add(txtDecoracion1FacturaRegVen);
+        txtDecoracion1FacturaRegVen.setBounds(0, 0, 130, 30);
+
+        txtDecoracion2FacturaRegVen.setEditable(false);
+        txtDecoracion2FacturaRegVen.setBackground(new java.awt.Color(255, 255, 255));
+        txtDecoracion2FacturaRegVen.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
+        txtDecoracion2FacturaRegVen.setForeground(new java.awt.Color(255, 51, 51));
+        txtDecoracion2FacturaRegVen.setText("TOTAL");
+        pnlInternRegComFacturaRegVen.add(txtDecoracion2FacturaRegVen);
+        txtDecoracion2FacturaRegVen.setBounds(360, 210, 80, 30);
+
+        txtTotalFacturaRegVen.setEnabled(false);
+        pnlInternRegComFacturaRegVen.add(txtTotalFacturaRegVen);
+        txtTotalFacturaRegVen.setBounds(440, 210, 80, 30);
+
+        pnlRegVenFactura.add(pnlInternRegComFacturaRegVen);
+        pnlInternRegComFacturaRegVen.setBounds(60, 210, 530, 250);
+
+        btnEditarRegComFacturaRegVen.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        btnEditarRegComFacturaRegVen.setText("Editar");
+        btnEditarRegComFacturaRegVen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarRegComFacturaRegVenActionPerformed(evt);
+            }
+        });
+        pnlRegVenFactura.add(btnEditarRegComFacturaRegVen);
+        btnEditarRegComFacturaRegVen.setBounds(420, 470, 100, 30);
+
+        btnGuardarRegComFacturaRegVen.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        btnGuardarRegComFacturaRegVen.setText("Guardar");
+        btnGuardarRegComFacturaRegVen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarRegComFacturaRegVenActionPerformed(evt);
+            }
+        });
+        pnlRegVenFactura.add(btnGuardarRegComFacturaRegVen);
+        btnGuardarRegComFacturaRegVen.setBounds(60, 470, 100, 30);
+
+        btnAgregarRegComFacturaRegVen.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        btnAgregarRegComFacturaRegVen.setText("Agregar");
+        btnAgregarRegComFacturaRegVen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarRegComFacturaRegVenActionPerformed(evt);
+            }
+        });
+        pnlRegVenFactura.add(btnAgregarRegComFacturaRegVen);
+        btnAgregarRegComFacturaRegVen.setBounds(180, 470, 100, 30);
+
+        btnEliminarRegComFacturaRegVen.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        btnEliminarRegComFacturaRegVen.setText("Eliminar");
+        btnEliminarRegComFacturaRegVen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarRegComFacturaRegVenActionPerformed(evt);
+            }
+        });
+        pnlRegVenFactura.add(btnEliminarRegComFacturaRegVen);
+        btnEliminarRegComFacturaRegVen.setBounds(300, 470, 110, 30);
+        pnlRegVenFactura.add(txtSerieFacturaRegVen);
+        txtSerieFacturaRegVen.setBounds(370, 50, 70, 30);
+
+        lblImagen2FacturaRegVen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Etiqueta.png"))); // NOI18N
+        pnlRegVenFactura.add(lblImagen2FacturaRegVen);
+        lblImagen2FacturaRegVen.setBounds(630, 50, 31, 30);
+
+        lblImagen1FacturaRegVen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Etiqueta.png"))); // NOI18N
+        pnlRegVenFactura.add(lblImagen1FacturaRegVen);
+        lblImagen1FacturaRegVen.setBounds(450, 50, 31, 30);
+
+        lblimagen2factura.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Etiqueta.png"))); // NOI18N
+        pnlRegVenFactura.add(lblimagen2factura);
+        lblimagen2factura.setBounds(630, 50, 31, 30);
+
+        lblimagen1factura.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Etiqueta.png"))); // NOI18N
+        pnlRegVenFactura.add(lblimagen1factura);
+        lblimagen1factura.setBounds(450, 50, 31, 30);
+
+        tpnMostrar.addTab("pnlRegVenFactura", pnlRegVenFactura);
+
+        pnlRegVenCompromantesEmitidos.setBackground(new java.awt.Color(216, 252, 156));
+        pnlRegVenCompromantesEmitidos.setLayout(null);
+
+        lblSubtemaComprobantesEmitidosRegVen.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
+        lblSubtemaComprobantesEmitidosRegVen.setText("COMPROBANTES EMITIDOS");
+        pnlRegVenCompromantesEmitidos.add(lblSubtemaComprobantesEmitidosRegVen);
+        lblSubtemaComprobantesEmitidosRegVen.setBounds(40, 40, 310, 20);
+
+        btnBuscarComprobantesEmitidosRegVen.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        btnBuscarComprobantesEmitidosRegVen.setText("Buscar");
+        pnlRegVenCompromantesEmitidos.add(btnBuscarComprobantesEmitidosRegVen);
+        btnBuscarComprobantesEmitidosRegVen.setBounds(570, 60, 100, 30);
+
+        btnPDFComprobantesEmitidosRegVen.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        btnPDFComprobantesEmitidosRegVen.setText("PDF");
+        pnlRegVenCompromantesEmitidos.add(btnPDFComprobantesEmitidosRegVen);
+        btnPDFComprobantesEmitidosRegVen.setBounds(570, 100, 100, 30);
+
+        btnAnularComprobantesEmitidosRegVen.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        btnAnularComprobantesEmitidosRegVen.setText("Anular");
+        btnAnularComprobantesEmitidosRegVen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAnularComprobantesEmitidosRegVenActionPerformed(evt);
+            }
+        });
+        pnlRegVenCompromantesEmitidos.add(btnAnularComprobantesEmitidosRegVen);
+        btnAnularComprobantesEmitidosRegVen.setBounds(570, 140, 100, 30);
+
+        tblRegistrodeComprobantesEmitidosRegVen.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        tblRegistrodeComprobantesEmitidosRegVen.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "ID", "Fecha de registro", "Tipo de comprobantes", "Serie", "Numero", "Cliente", "Total"
+            }
+        ));
+        tblRegistrodeComprobantesEmitidosRegVen.setAutoscrolls(false);
+        tblRegistrodeComprobantesEmitidosRegVen.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        tblRegistrodeComprobantesEmitidosRegVen.setPreferredSize(new java.awt.Dimension(890, 140));
+        jScrollPane8.setViewportView(tblRegistrodeComprobantesEmitidosRegVen);
+
+        pnlRegVenCompromantesEmitidos.add(jScrollPane8);
+        jScrollPane8.setBounds(20, 180, 540, 300);
+
+        lblimagen1ComprobantesEmitidosRegVen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Lupa.png"))); // NOI18N
+        pnlRegVenCompromantesEmitidos.add(lblimagen1ComprobantesEmitidosRegVen);
+        lblimagen1ComprobantesEmitidosRegVen.setBounds(40, 90, 40, 30);
+
+        cbTipodeBusquedaComprobantesEmitidosRegVen.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "   Numero", "   Serie ", "   Cliente", " ", " " }));
+        pnlRegVenCompromantesEmitidos.add(cbTipodeBusquedaComprobantesEmitidosRegVen);
+        cbTipodeBusquedaComprobantesEmitidosRegVen.setBounds(70, 120, 470, 30);
+        pnlRegVenCompromantesEmitidos.add(txtBuscarComprobantesEmitidosRegVen);
+        txtBuscarComprobantesEmitidosRegVen.setBounds(70, 90, 470, 30);
+
+        tpnMostrar.addTab("pnlRegVenCompromantesEmitidos", pnlRegVenCompromantesEmitidos);
+
+        pnlCaja.setLayout(null);
+
+        lblGananciascaja.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        lblGananciascaja.setForeground(new java.awt.Color(176, 148, 0));
+        lblGananciascaja.setText("■   GANANCIAS");
+        pnlCaja.add(lblGananciascaja);
+        lblGananciascaja.setBounds(60, 140, 180, 30);
+
+        lblINGRESOScaja.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        lblINGRESOScaja.setForeground(new java.awt.Color(255, 0, 204));
+        lblINGRESOScaja.setText("■   INGRESOS");
+        pnlCaja.add(lblINGRESOScaja);
+        lblINGRESOScaja.setBounds(60, 40, 170, 30);
+
+        lblEGRESOScaja.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        lblEGRESOScaja.setForeground(new java.awt.Color(136, 216, 252));
+        lblEGRESOScaja.setText("■   EGRESOS");
+        pnlCaja.add(lblEGRESOScaja);
+        lblEGRESOScaja.setBounds(60, 90, 170, 30);
+
+        pnlInternodecaja.setBackground(new java.awt.Color(255, 255, 255));
+        pnlInternodecaja.setLayout(null);
+
+        lblimagen1caja.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Lupa.png"))); // NOI18N
+        pnlInternodecaja.add(lblimagen1caja);
+        lblimagen1caja.setBounds(20, 110, 40, 30);
+        pnlInternodecaja.add(txtBusquedacaja);
+        txtBusquedacaja.setBounds(50, 110, 230, 30);
+
+        lblEgresoscaja.setText("               Egresos");
+        pnlInternodecaja.add(lblEgresoscaja);
+        lblEgresoscaja.setBounds(250, 50, 150, 50);
+
+        btnBusquedacaja.setText("Busqueda");
+        pnlInternodecaja.add(btnBusquedacaja);
+        btnBusquedacaja.setBounds(310, 110, 100, 30);
+
+        lblHistorialdeMovimientoscaja.setText("   Historial de movimientos");
+        pnlInternodecaja.add(lblHistorialdeMovimientoscaja);
+        lblHistorialdeMovimientoscaja.setBounds(20, 20, 230, 30);
+
+        lblIngresoscaja.setText("                           Ingresos");
+        pnlInternodecaja.add(lblIngresoscaja);
+        lblIngresoscaja.setBounds(20, 50, 230, 50);
+
+        tblRegistrodeCaja.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Fecha", "Totales del dia"
+            }
+        ));
+        jScrollPane9.setViewportView(tblRegistrodeCaja);
+
+        pnlInternodecaja.add(jScrollPane9);
+        jScrollPane9.setBounds(20, 160, 590, 140);
+
+        pnlCaja.add(pnlInternodecaja);
+        pnlInternodecaja.setBounds(20, 190, 630, 310);
+        pnlCaja.add(txtGANACIAScaja);
+        txtGANACIAScaja.setBounds(220, 140, 90, 30);
+        pnlCaja.add(txtINGRESOScaja);
+        txtINGRESOScaja.setBounds(220, 40, 90, 30);
+        pnlCaja.add(txtEGRESOScaja);
+        txtEGRESOScaja.setBounds(220, 90, 90, 30);
+
+        tpnMostrar.addTab("pnlCaja", pnlCaja);
+
+        pnlRegVenBoleta.setBackground(new java.awt.Color(216, 252, 156));
+        pnlRegVenBoleta.setLayout(null);
+
+        lblsubtemaBoletaRegVen.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
+        lblsubtemaBoletaRegVen.setText("BOLETA");
+        pnlRegVenBoleta.add(lblsubtemaBoletaRegVen);
+        lblsubtemaBoletaRegVen.setBounds(60, 30, 160, 20);
+
+        lblOPBoletaRegVen.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        lblOPBoletaRegVen.setText("OP:");
+        pnlRegVenBoleta.add(lblOPBoletaRegVen);
+        lblOPBoletaRegVen.setBounds(60, 80, 60, 17);
+
+        lblSerieBoletaRegVen.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        lblSerieBoletaRegVen.setText("Serie:");
+        pnlRegVenBoleta.add(lblSerieBoletaRegVen);
+        lblSerieBoletaRegVen.setBounds(310, 60, 70, 17);
+        pnlRegVenBoleta.add(txtFechaBoletaRegVen);
+        txtFechaBoletaRegVen.setBounds(120, 150, 140, 30);
+
+        lblFechaBoletaRegVen.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        lblFechaBoletaRegVen.setText("Fecha:");
+        pnlRegVenBoleta.add(lblFechaBoletaRegVen);
+        lblFechaBoletaRegVen.setBounds(60, 160, 60, 17);
+        pnlRegVenBoleta.add(txtClienteBoletaRegVen);
+        txtClienteBoletaRegVen.setBounds(160, 110, 190, 30);
+
+        lblClienteBoletaRegVen.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        lblClienteBoletaRegVen.setText("Cliente:");
+        pnlRegVenBoleta.add(lblClienteBoletaRegVen);
+        lblClienteBoletaRegVen.setBounds(60, 120, 100, 17);
+
+        lblNumeroBoletaRegVen.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        lblNumeroBoletaRegVen.setText("Numero:");
+        pnlRegVenBoleta.add(lblNumeroBoletaRegVen);
+        lblNumeroBoletaRegVen.setBounds(490, 60, 70, 17);
+
+        lblMonedaBoletaRegVen.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        lblMonedaBoletaRegVen.setText("Moneda:");
+        pnlRegVenBoleta.add(lblMonedaBoletaRegVen);
+        lblMonedaBoletaRegVen.setBounds(370, 120, 110, 17);
+        pnlRegVenBoleta.add(txtNumeroBoletaRegVen);
+        txtNumeroBoletaRegVen.setBounds(560, 50, 60, 30);
+
+        cbTipoDeDineroBoletaRegVen.setFont(new java.awt.Font("Courier New", 0, 13)); // NOI18N
+        cbTipoDeDineroBoletaRegVen.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Soles", "Dolares", " " }));
+        pnlRegVenBoleta.add(cbTipoDeDineroBoletaRegVen);
+        cbTipoDeDineroBoletaRegVen.setBounds(450, 110, 110, 30);
+
+        pnlInternoBoletaRegVen.setBackground(new java.awt.Color(255, 255, 255));
+        pnlInternoBoletaRegVen.setLayout(null);
+
+        tblRegistroBoletaRegVen.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "ID", "Producto", "Cantidad", "Precio Unit.", "SubTotal", "I.G.V.", "Total"
+            }
+        ));
+        jScrollPane10.setViewportView(tblRegistroBoletaRegVen);
+
+        pnlInternoBoletaRegVen.add(jScrollPane10);
+        jScrollPane10.setBounds(0, 30, 530, 170);
+
+        txtDecoracion1BoletaRegVen.setEditable(false);
+        txtDecoracion1BoletaRegVen.setBackground(new java.awt.Color(255, 255, 255));
+        txtDecoracion1BoletaRegVen.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        txtDecoracion1BoletaRegVen.setText("DETALLE DE VENTA:");
+        pnlInternoBoletaRegVen.add(txtDecoracion1BoletaRegVen);
+        txtDecoracion1BoletaRegVen.setBounds(0, 0, 130, 30);
+
+        txtDecoracion2BoletaRegVen.setEditable(false);
+        txtDecoracion2BoletaRegVen.setBackground(new java.awt.Color(255, 255, 255));
+        txtDecoracion2BoletaRegVen.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
+        txtDecoracion2BoletaRegVen.setForeground(new java.awt.Color(255, 51, 51));
+        txtDecoracion2BoletaRegVen.setText("TOTAL");
+        pnlInternoBoletaRegVen.add(txtDecoracion2BoletaRegVen);
+        txtDecoracion2BoletaRegVen.setBounds(360, 210, 80, 30);
+
+        txtTotalBoletaRegVen.setEnabled(false);
+        pnlInternoBoletaRegVen.add(txtTotalBoletaRegVen);
+        txtTotalBoletaRegVen.setBounds(440, 210, 80, 30);
+
+        pnlRegVenBoleta.add(pnlInternoBoletaRegVen);
+        pnlInternoBoletaRegVen.setBounds(60, 210, 530, 250);
+
+        btnEditarBoletaRegVen.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        btnEditarBoletaRegVen.setText("Editar");
+        btnEditarBoletaRegVen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarBoletaRegVenActionPerformed(evt);
+            }
+        });
+        pnlRegVenBoleta.add(btnEditarBoletaRegVen);
+        btnEditarBoletaRegVen.setBounds(420, 470, 100, 30);
+
+        btnGuardarBoletaRegVen.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        btnGuardarBoletaRegVen.setText("Guardar");
+        btnGuardarBoletaRegVen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarBoletaRegVenActionPerformed(evt);
+            }
+        });
+        pnlRegVenBoleta.add(btnGuardarBoletaRegVen);
+        btnGuardarBoletaRegVen.setBounds(60, 470, 100, 30);
+
+        btnAgregarBoletaRegVen.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        btnAgregarBoletaRegVen.setText("Agregar");
+        btnAgregarBoletaRegVen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarBoletaRegVenActionPerformed(evt);
+            }
+        });
+        pnlRegVenBoleta.add(btnAgregarBoletaRegVen);
+        btnAgregarBoletaRegVen.setBounds(180, 470, 100, 30);
+
+        btnEliminarBoletaRegVen.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        btnEliminarBoletaRegVen.setText("Eliminar");
+        btnEliminarBoletaRegVen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarBoletaRegVenActionPerformed(evt);
+            }
+        });
+        pnlRegVenBoleta.add(btnEliminarBoletaRegVen);
+        btnEliminarBoletaRegVen.setBounds(300, 470, 110, 30);
+        pnlRegVenBoleta.add(txtSerieBoletaRegVen);
+        txtSerieBoletaRegVen.setBounds(370, 50, 70, 30);
+
+        lblImagen2BoletaRegVen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Etiqueta.png"))); // NOI18N
+        pnlRegVenBoleta.add(lblImagen2BoletaRegVen);
+        lblImagen2BoletaRegVen.setBounds(630, 50, 31, 30);
+
+        lblImagen1BoletaRegVen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Etiqueta.png"))); // NOI18N
+        pnlRegVenBoleta.add(lblImagen1BoletaRegVen);
+        lblImagen1BoletaRegVen.setBounds(450, 50, 31, 30);
+
+        lblimagen2factura1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Etiqueta.png"))); // NOI18N
+        pnlRegVenBoleta.add(lblimagen2factura1);
+        lblimagen2factura1.setBounds(630, 50, 31, 30);
+
+        lblimagen1factura1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Etiqueta.png"))); // NOI18N
+        pnlRegVenBoleta.add(lblimagen1factura1);
+        lblimagen1factura1.setBounds(450, 50, 31, 30);
+
+        cbTipoOPBoletaRegVen.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sin documento", "DNI", "Ruc" }));
+        pnlRegVenBoleta.add(cbTipoOPBoletaRegVen);
+        cbTipoOPBoletaRegVen.setBounds(100, 70, 190, 30);
+
+        tpnMostrar.addTab("pnlRegVenBoleta", pnlRegVenBoleta);
+
+        pnlReportes.setLayout(null);
+
+        lblREPORTEREGISTRODEVENTASReportes.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
+        lblREPORTEREGISTRODEVENTASReportes.setText("REPORTE-REGISTRO DE VENTAS");
+        pnlReportes.add(lblREPORTEREGISTRODEVENTASReportes);
+        lblREPORTEREGISTRODEVENTASReportes.setBounds(50, 40, 300, 30);
+        pnlReportes.add(txtRangodeperiodoReportes);
+        txtRangodeperiodoReportes.setBounds(450, 160, 190, 30);
+
+        lblRangodeperiodoReportes.setFont(new java.awt.Font("Corbel Light", 1, 14)); // NOI18N
+        lblRangodeperiodoReportes.setText("Rango de periodo:");
+        pnlReportes.add(lblRangodeperiodoReportes);
+        lblRangodeperiodoReportes.setBounds(320, 160, 130, 30);
+        pnlReportes.add(txtPeriodoReportes);
+        txtPeriodoReportes.setBounds(380, 110, 180, 30);
+
+        lblSurcusalesReportes.setFont(new java.awt.Font("Corbel Light", 1, 14)); // NOI18N
+        lblSurcusalesReportes.setText("Surcusales:");
+        pnlReportes.add(lblSurcusalesReportes);
+        lblSurcusalesReportes.setBounds(50, 110, 90, 30);
+
+        cbTipoSurcusalesReportes.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        cbTipoSurcusalesReportes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "• Facturas", "• Boletas", "• Proformas" }));
+        pnlReportes.add(cbTipoSurcusalesReportes);
+        cbTipoSurcusalesReportes.setBounds(130, 110, 150, 30);
+
+        btnDescargarRegistrodeVentasReportes.setBackground(new java.awt.Color(202, 244, 250));
+        btnDescargarRegistrodeVentasReportes.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
+        btnDescargarRegistrodeVentasReportes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Nube.png"))); // NOI18N
+        btnDescargarRegistrodeVentasReportes.setText(" Descargar Registro de Ventas");
+        btnDescargarRegistrodeVentasReportes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDescargarRegistrodeVentasReportesActionPerformed(evt);
+            }
+        });
+        pnlReportes.add(btnDescargarRegistrodeVentasReportes);
+        btnDescargarRegistrodeVentasReportes.setBounds(100, 260, 460, 60);
+
+        lblPeriodoReportes.setFont(new java.awt.Font("Corbel Light", 1, 14)); // NOI18N
+        lblPeriodoReportes.setText("Período:");
+        pnlReportes.add(lblPeriodoReportes);
+        lblPeriodoReportes.setBounds(310, 110, 70, 30);
+
+        tpnMostrar.addTab("pnlReportes", pnlReportes);
+
+        pnlAjustes.setLayout(null);
+
+        lblGestionarperfilAjustes.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblGestionarperfilAjustes.setForeground(new java.awt.Color(78, 154, 169));
+        lblGestionarperfilAjustes.setText("•      Gestionar perfil");
+        pnlAjustes.add(lblGestionarperfilAjustes);
+        lblGestionarperfilAjustes.setBounds(40, 50, 150, 20);
+
+        lblDatosAjustes.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblDatosAjustes.setForeground(new java.awt.Color(48, 174, 76));
+        lblDatosAjustes.setText("•      Datos");
+        pnlAjustes.add(lblDatosAjustes);
+        lblDatosAjustes.setBounds(40, 160, 150, 20);
+        pnlAjustes.add(txtNombreAjustes);
+        txtNombreAjustes.setBounds(110, 100, 180, 30);
+
+        lblNombreAjustes.setFont(new java.awt.Font("Corbel Light", 1, 14)); // NOI18N
+        lblNombreAjustes.setText("Nombre:");
+        pnlAjustes.add(lblNombreAjustes);
+        lblNombreAjustes.setBounds(40, 100, 70, 30);
+
+        lblImagen1Ajustes.setFont(new java.awt.Font("Corbel Light", 1, 14)); // NOI18N
+        lblImagen1Ajustes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Logo.png"))); // NOI18N
+        pnlAjustes.add(lblImagen1Ajustes);
+        lblImagen1Ajustes.setBounds(420, 70, 80, 90);
+        pnlAjustes.add(txtRUCAjustes);
+        txtRUCAjustes.setBounds(110, 220, 180, 30);
+
+        lblRUCAjustes.setFont(new java.awt.Font("Corbel Light", 1, 14)); // NOI18N
+        lblRUCAjustes.setText("RUC:");
+        pnlAjustes.add(lblRUCAjustes);
+        lblRUCAjustes.setBounds(40, 220, 70, 30);
+        pnlAjustes.add(txtTelefonoAjustes);
+        txtTelefonoAjustes.setBounds(400, 220, 180, 30);
+
+        lblTelefonoAjustes.setFont(new java.awt.Font("Corbel Light", 1, 14)); // NOI18N
+        lblTelefonoAjustes.setText("Telefono:");
+        pnlAjustes.add(lblTelefonoAjustes);
+        lblTelefonoAjustes.setBounds(330, 220, 70, 30);
+        pnlAjustes.add(txtCorreodeEmpresaAjustes);
+        txtCorreodeEmpresaAjustes.setBounds(180, 280, 180, 30);
+
+        lblCorreodeEmpresaAjustes.setFont(new java.awt.Font("Corbel Light", 1, 14)); // NOI18N
+        lblCorreodeEmpresaAjustes.setText("Correo de Empresa:");
+        pnlAjustes.add(lblCorreodeEmpresaAjustes);
+        lblCorreodeEmpresaAjustes.setBounds(40, 280, 140, 30);
+
+        cbTipoAspectoAjustes.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        cbTipoAspectoAjustes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "• Claro", "• Oscuro" }));
+        pnlAjustes.add(cbTipoAspectoAjustes);
+        cbTipoAspectoAjustes.setBounds(440, 340, 150, 30);
+
+        lblIDIOMAAjustes.setFont(new java.awt.Font("Corbel Light", 1, 14)); // NOI18N
+        lblIDIOMAAjustes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Planeta.png"))); // NOI18N
+        lblIDIOMAAjustes.setText("IDIOMA");
+        pnlAjustes.add(lblIDIOMAAjustes);
+        lblIDIOMAAjustes.setBounds(110, 340, 120, 30);
+
+        btnGuardacambiosAjustes.setBackground(new java.awt.Color(240, 236, 220));
+        btnGuardacambiosAjustes.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
+        btnGuardacambiosAjustes.setText("Guardar cambios");
+        btnGuardacambiosAjustes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardacambiosAjustesActionPerformed(evt);
+            }
+        });
+        pnlAjustes.add(btnGuardacambiosAjustes);
+        btnGuardacambiosAjustes.setBounds(170, 410, 340, 30);
+
+        lblApectoAjustes.setFont(new java.awt.Font("Corbel Light", 1, 14)); // NOI18N
+        lblApectoAjustes.setText("Aspecto:");
+        pnlAjustes.add(lblApectoAjustes);
+        lblApectoAjustes.setBounds(350, 340, 90, 30);
+
+        lblLogoAjustes.setFont(new java.awt.Font("Corbel Light", 1, 14)); // NOI18N
+        lblLogoAjustes.setText("Logo:");
+        pnlAjustes.add(lblLogoAjustes);
+        lblLogoAjustes.setBounds(340, 100, 70, 30);
+
+        tpnMostrar.addTab("pnlAjustes", pnlAjustes);
+
         getContentPane().add(tpnMostrar);
         tpnMostrar.setBounds(190, 80, 690, 610);
 
         setSize(new java.awt.Dimension(894, 644));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    //esto coloque para el cmabio de idioma
+    public javax.swing.JLabel getLblInventario() {
+        return lblinventario;
+    }
+
+    public JLabel getBtnInicio() {
+        return btninicio;
+    }
+
+    public JLabel getBtnAlmacen() {
+        return btnAlmacen;
+    }
+
+    public JLabel getBtnRegistroDeCompras() {
+        return btnregistrodecompras;
+    }
+
+    public JLabel getBtnRegistroDeVentas() {
+        return btnregistrodeventas;
+    }
+
+    public JLabel getBtnCaja() {
+        return btncaja;
+    }
+
+    public JLabel getBtnRegistroDeUsuario() {
+        return btnregistrodeusuario;
+    }
+
+    public JLabel getBtnReportes() {
+        return btnreportes;
+    }
+
+    public JLabel getBtnAjustes() {
+        return btnajustes;
+    }
+
+    public JLabel getBtnCerrarSesion() {
+        return btncerrarsesion;
+    }
+
+    // pnl1Inicio
+    public JLabel getLblSubTitulo() {
+        return lblSubTitulo;
+    }
+
+    public JLabel getLblGanancias() {
+        return lblGanancias;
+    }
+
+    public JLabel getLblProveedores() {
+        return lblProveedores;
+    }
+
+    public JLabel getLblCompraDelMes() {
+        return lblCompraDelMes;
+    }
+
+    public JLabel getLblVentasDelDia() {
+        return lblVentasDelDia;
+    }
+
+    public JLabel getLblClientes() {
+        return lblClientes;
+    }
+
+    public JLabel getLblProductos() {
+        return lblProductos;
+    }
+
+    // pnlRegUsuMostrar
+    public JButton getBtnCrearUsuario() {
+        return btnCrearUsuario;
+    }
+
+    public JButton getBtnEliminar() {
+        return btnEliminar;
+    }
+
+    public JButton getBtnEditar() {
+        return btnEditar;
+    }
+
+    // pnlRegUsuIngresar
+    public JLabel getLblAgregaryCrearUsuario() {
+        return lblAgregaryCrearUsuario;
+    }
+
+    public JLabel getLblSubTitulo1() {
+        return lblSubTitulo1;
+    }
+
+    public JLabel getLblNombres() {
+        return lblNombres;
+    }
+
+    public JLabel getLblTelefono() {
+        return lblTelefono;
+    }
+
+    public JLabel getLblContraseña() {
+        return lblContraseña;
+    }
+
+    public JLabel getLblApellidos() {
+        return lblApellidos;
+    }
+
+    public JLabel getLblDNIUsuario() {
+        return lblDNIUsuario;
+    }
+
+    public JLabel getLblTipoUsuario() {
+        return lblTipoUsuario;
+    }
+
+    public JButton getBtnGuardaryAgregarDatos() {
+        return btnGuardaryAgregarDatos;
+    }
+
+    // pnl1Almacen
+    public JLabel getLblSubtema2() {
+        return lblSubtema2;
+    }
+
+    public JLabel getLblProducto() {
+        return lblProducto;
+    }
+
+    public JLabel getLblCantidaddeProducto() {
+        return lblCantidaddeProducto;
+    }
+
+    public JLabel getLblPreciodeProducto() {
+        return lblPreciodeProducto;
+    }
+
+    public JButton getBtnAgregarAlmacen() {
+        return btnAgregarAlmacen;
+    }
+
+    public JButton getBtnEliminarAlmacen() {
+        return btnEliminarAlmacen;
+    }
+
+    public JButton getBtnEditarAlmacen() {
+        return btnEditarAlmacen;
+    }
+
+    public JButton getBtnBuscarAlmacen() {
+        return btnBuscarAlmacen;
+    }
+
+    public JButton getBtnFiltrarAlmacen() {
+        return btnFiltrarAlmacen;
+    }
+
+    // pnlRegComFactura
+    public JLabel getLblsubtemaFactura() {
+        return lblsubtemaFactura;
+    }
+
+    public JLabel getLblSerieFactura() {
+        return lblSerieFactura;
+    }
+
+    public JLabel getLblProveedorFactura() {
+        return lblProveedorFactura;
+    }
+
+    public JLabel getLblResponsableFactura() {
+        return lblResponsableFactura;
+    }
+
+    public JLabel getblNumeroFactura() {
+        return lblNumeroFactura;
+    }
+
+    public JLabel getLblMonedaFactura() {
+        return lblMonedaFactura;
+    }
+
+    public JLabel getLblFechaFactura() {
+        return lblFechaFactura;
+    }
+
+    public JButton getBtnGuardarRegComFactura() {
+        return btnGuardarRegComFactura;
+    }
+
+    public JButton getBtnAgregarRegComFactura() {
+        return btnAgregarRegComFactura;
+    }
+
+    public JButton getBtnEliminarRegComFactura() {
+        return btnEliminarRegComFactura;
+    }
+
+    public JButton getBtnEditarRegComFactura() {
+        return btnEditarRegComFactura;
+    }
+
+    // pnlRegComBoleta
+    public JLabel getLblsubtemaBoleta() {
+        return lblsubtemaBoleta;
+    }
+
+    public JLabel getLblSerieBoleta() {
+        return lblSerieBoleta;
+    }
+
+    public JLabel getLblProveedorBoleta() {
+        return lblProveedorBoleta;
+    }
+
+    public JLabel getLblResponsableBoleta() {
+        return lblResponsableBoleta;
+    }
+
+    public JLabel getblNumeroBoleta() {
+        return lblNumeroBoleta;
+    }
+
+    public JLabel getLblMonedaBoleta() {
+        return lblMonedaBoleta;
+    }
+
+    public JLabel getLblFechaBoleta() {
+        return lblFechaBoleta;
+    }
+
+    public JButton getBtnGuardarRegComBoleta() {
+        return btnGuardarRegComBoleta;
+    }
+
+    public JButton getBtnAgregarRegComBoleta() {
+        return btnAgregarRegComBoleta;
+    }
+
+    public JButton getBtnEliminarRegComBoleta() {
+        return btnEliminarRegComBoleta;
+    }
+
+    public JButton getBtnEditarRegComBoleta() {
+        return btnEditarRegComBoleta;
+    }
+
+    // pnlRegComProforma
+    public JLabel getLblsubtemaProforma() {
+        return lblsubtemaProforma;
+    }
+
+    public JLabel getLblNombresProforma() {
+        return lblNombresProforma;
+    }
+
+    public JLabel getLblResponsableProforma() {
+        return lblResponsableProforma;
+    }
+
+    public JLabel getLblMonedaProforma() {
+        return lblMonedaProforma;
+    }
+
+    public JLabel getLblFechaProforma() {
+        return lblFechaProforma;
+    }
+
+    public JButton getBtnGuardarRegComProforma() {
+        return btnGuardarRegComProforma;
+    }
+
+    public JButton getBtnAgregarRegComProforma() {
+        return btnAgregarRegComProforma;
+    }
+
+    public JButton getBtnEliminarRegComProforma() {
+        return btnEliminarRegComProforma;
+    }
+
+    public JButton getBtnEditarRegComProforma() {
+        return btnEditarRegComProforma;
+    }
+
+    // pnlRegComCompromantesEmitidos
+    public JLabel getLblSubtemaComprobantesEmitidos() {
+        return lblSubtemaComprobantesEmitidos;
+    }
+
+    public JButton getBtnBuscarComprobantesEmitidos() {
+        return btnBuscarComprobantesEmitidos;
+    }
+
+    public JButton getBtnPDFComprobantesEmitidos() {
+        return btnPDFComprobantesEmitidos;
+    }
+
+    public JButton getBtnAnularComprobantesEmitidos() {
+        return btnAnularComprobantesEmitidos;
+    }
+
+    // pnlRegComAgregarProducto
+    public JLabel getLblSubtemaAgregarProductoRegCom() {
+        return lblSubtemaAgregarProductoRegCom;
+    }
+
+    public JLabel getLblRegistrodeProductosRegCom() {
+        return lblRegistrodeProductosRegCom;
+    }
+
+    public JLabel getLblProductoRegCom() {
+        return lblProductoRegCom;
+    }
+
+    public JLabel getLblCantidadRegCom() {
+        return lblCantidadRegCom;
+    }
+
+    public JLabel getLblPreciioUnitarioRegCom() {
+        return lblPreciioUnitarioRegCom;
+    }
+
+    public JButton getBtnAgregarProductoRegCom() {
+        return btnAgregarProductoRegCom;
+    }
+
+    public JButton getBtnCancelarRegCom() {
+        return btnCancelarRegCom;
+    }
+
+    // pnlRegVenAgregarProducto
+    public JLabel getLblSubtemaAgregarProductoRegVen() {
+        return lblSubtemaAgregarProductoRegVen;
+    }
+
+    public JLabel getLblAgregamosProductosRegVen() {
+        return lblAgregamosProductosRegVen;
+    }
+
+    public JLabel getLblProductoRegVen() {
+        return lblProductoRegVen;
+    }
+
+    public JLabel getLblCantidadRegVen() {
+        return lblCantidadRegVen;
+    }
+
+    public JLabel getLblPreciioUnitarioRegVen() {
+        return lblPreciioUnitarioRegVen;
+    }
+
+    public JButton getBtnAgregarProductoRegVen() {
+        return btnAgregarProductoRegVen;
+    }
+
+    public JButton getBtnCancelarRegVen() {
+        return btnCancelarRegVen;
+    }
+
+    // pnlRegVenFactura
+    public JLabel getLblsubtemaFacturaRegVen() {
+        return lblsubtemaFacturaRegVen;
+    }
+
+    public JLabel getLblRucFacturaRegVen() {
+        return lblRucFacturaRegVen;
+    }
+
+    public JLabel getLblClienteFacturaRegVen() {
+        return lblClienteFacturaRegVen;
+    }
+
+    public JLabel getLblFechaFacturaRegVen() {
+        return lblFechaFacturaRegVen;
+    }
+
+    public JLabel getLblSerieFacturaRegVen() {
+        return lblSerieFacturaRegVen;
+    }
+
+    public JLabel getLblMonedaFacturaRegVen() {
+        return lblMonedaFacturaRegVen;
+    }
+
+    public JLabel getLblNumeroFacturaRegVen() {
+        return lblNumeroFacturaRegVen;
+    }
+
+    public JButton getBtnGuardarRegComFacturaRegVen() {
+        return btnGuardarRegComFacturaRegVen;
+    }
+
+    public JButton getBtnAgregarRegComFacturaRegVen() {
+        return btnAgregarRegComFacturaRegVen;
+    }
+
+    public JButton getBtnEliminarRegComFacturaRegVen() {
+        return btnEliminarRegComFacturaRegVen;
+    }
+
+    public JButton getBtnEditarRegComFacturaRegVen() {
+        return btnEditarRegComFacturaRegVen;
+    }
+
+    // pnlRegVenCompromantesEmitidos
+    public JLabel getLblSubtemaComprobantesEmitidosRegVen() {
+        return lblSubtemaComprobantesEmitidosRegVen;
+    }
+
+    public JButton getBtnBuscarComprobantesEmitidosRegVen() {
+        return btnBuscarComprobantesEmitidosRegVen;
+    }
+
+    public JButton getBtnPDFComprobantesEmitidosRegVen() {
+        return btnPDFComprobantesEmitidosRegVen;
+    }
+
+    public JButton getBtnAnularComprobantesEmitidosRegVen() {
+        return btnAnularComprobantesEmitidosRegVen;
+    }
+    // pnlCaja
+    public JLabel getLblINGRESOScaja() {
+        return lblINGRESOScaja;
+    }
+    public JLabel getLblEGRESOScaja() {
+        return lblEGRESOScaja;
+    }
+    public JLabel getLblGananciascaja() {
+        return lblGananciascaja;
+    }
+    public JTextField getLblHistorialdeMovimientoscaja() {
+        return lblHistorialdeMovimientoscaja;
+    }
+    public JToggleButton getBtnBusquedacaja() {
+        return btnBusquedacaja;
+    }
+    // pnlRegVenBoleta
+    public JLabel getLblsubtemaBoletaRegVen() {
+        return lblsubtemaBoletaRegVen;
+    }
+
+    public JLabel getLblOPBoletaRegVen() {
+        return lblOPBoletaRegVen;
+    }
+
+    public JLabel getLblClienteBoletaRegVen() {
+        return lblClienteBoletaRegVen;
+    }
+
+    public JLabel getLblFechaBoletaRegVen() {
+        return lblFechaBoletaRegVen;
+    }
+
+    public JLabel getLblSerieBoletaRegVen() {
+        return lblSerieBoletaRegVen;
+    }
+
+    public JLabel getLblMonedaBoletaRegVen() {
+        return lblMonedaBoletaRegVen;
+    }
+
+    public JLabel getLblNumeroBoletaRegVen() {
+        return lblNumeroBoletaRegVen;
+    }
+
+    public JButton getBtnGuardarBoletaRegVen() {
+        return btnGuardarBoletaRegVen;
+    }
+
+    public JButton getBtnAgregarBoletaRegVen() {
+        return btnAgregarBoletaRegVen;
+    }
+
+    public JButton getBtnEliminarBoletaRegVen() {
+        return btnEliminarBoletaRegVen;
+    }
+
+    public JButton getBtnEditarBoletaRegVen() {
+        return btnEditarBoletaRegVen;
+    }
+    //pnlReportes
+    public JLabel getLblREPORTEREGISTRODEVENTASReportes() {
+        return lblREPORTEREGISTRODEVENTASReportes;
+    }
+
+    public JLabel getLblSurcusalesReportes() {
+        return lblSurcusalesReportes;
+    }
+
+    public JLabel getLblPeriodoReportes() {
+        return lblPeriodoReportes;
+    }
+
+    public JLabel getLblRangodeperiodoReportes() {
+        return lblRangodeperiodoReportes;
+    }
+
+    public JButton getBtnDescargarRegistrodeVentasReportes() {
+        return btnDescargarRegistrodeVentasReportes;
+    }
+    // pnlAjustes
+    public JLabel getLblGestionarperfilAjustes() {
+        return lblGestionarperfilAjustes;
+    }
+    
+    public JLabel getLblNombreAjustes() {
+        return lblNombreAjustes;
+    }
+    
+    public JLabel getLblLogoAjustes() {
+        return lblLogoAjustes;
+    }
+    
+    public JLabel getLblDatosAjustes() {
+        return lblDatosAjustes;
+    }
+    
+    public JLabel getLblRUCAjustes() {
+        return lblRUCAjustes;
+    }
+    
+    public JLabel getLblTelefonoAjustes() {
+        return lblTelefonoAjustes;
+    }
+    
+    public JLabel getLblCorreodeEmpresaAjustes() {
+        return lblCorreodeEmpresaAjustes;
+    }
+    
+    public JLabel getLblIDIOMAAjustes() {
+        return lblIDIOMAAjustes;
+    }
+    
+    public JLabel getLblApectoAjustes() {
+        return lblApectoAjustes;
+    }
+    
+    public JButton getBtnGuardacambiosAjustes() {
+        return btnGuardacambiosAjustes;
+    }
+    
+    //hasta aca
 
 
     private void btninicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btninicioMouseClicked
@@ -1640,7 +2872,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         if (filaSeleccion == null) {
             return;
         }
-        int producto_id= GestorModelos.getProductoID(tblRegistroProductos, filaSeleccion);
+        int producto_id = GestorModelos.getProductoID(tblRegistroProductos, filaSeleccion);
         baseDeDatos.eliminarProducto(producto_id);
         GestorModelos.actualizarTblAlmacen(tblRegistroProductos, baseDeDatos.obtenerProductos());
     }//GEN-LAST:event_btnEliminarAlmacenActionPerformed
@@ -1660,16 +2892,16 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         //formato correcto
         String errorMensaje = "";
         boolean noEntrar = false;
-        Integer producto_id = Integer.parseInt(GestorModelos.getValueAt(tblRegistroProductos,filaSeleccion, 0).toString());
-        String tipoDoc = GestorModelos.getValueAt(tblRegistroProductos,filaSeleccion, 1).toString();
-        String producto = GestorModelos.getValueAt(tblRegistroProductos,filaSeleccion, 2).toString();
-        Double precio = Double.parseDouble(GestorModelos.getValueAt(tblRegistroProductos,filaSeleccion, 3).toString());
+        Integer producto_id = Integer.parseInt(GestorModelos.getValueAt(tblRegistroProductos, filaSeleccion, 0).toString());
+        String tipoDoc = GestorModelos.getValueAt(tblRegistroProductos, filaSeleccion, 1).toString();
+        String producto = GestorModelos.getValueAt(tblRegistroProductos, filaSeleccion, 2).toString();
+        Double precio = Double.parseDouble(GestorModelos.getValueAt(tblRegistroProductos, filaSeleccion, 3).toString());
         if (precio == null) {
             errorMensaje += "Formato de precio incorrecto. Ingrese un numero real.\n";
             noEntrar = true;
         }
 
-        Integer cantidad = Integer.parseInt(GestorModelos.getValueAt(tblRegistroProductos,filaSeleccion, 4).toString());
+        Integer cantidad = Integer.parseInt(GestorModelos.getValueAt(tblRegistroProductos, filaSeleccion, 4).toString());
         if (cantidad == null) {
             errorMensaje += "Formato de precio incorrecto. Ingrese un numero natural.\n";
             noEntrar = true;
@@ -1680,7 +2912,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
             return;
         }
 
-        String stock = GestorModelos.getValueAt(tblRegistroProductos,filaSeleccion, 5).toString();
+        String stock = GestorModelos.getValueAt(tblRegistroProductos, filaSeleccion, 5).toString();
 
         baseDeDatos.actualizarProducto(producto_id, tipoDoc, producto, precio, cantidad, stock);
         GestorModelos.actualizarTblAlmacen(tblRegistroProductos, baseDeDatos.obtenerProductos());
@@ -1728,27 +2960,27 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         tpnMostrar.setSelectedIndex(pnlCompEmit);
     }//GEN-LAST:event_jmCOMPROBATESEMITIDOSRegComActionPerformed
 
-    private void guardarProductosEnBD(ArrayList<Producto> listaProductos){
+    private void guardarProductosEnBD(ArrayList<Producto> listaProductos) {
         for (Producto prod : listaProductos) {
             //crearProducto(String tipoDoc, String producto, double precio, int cantidad, String stock) {
-            baseDeDatos.crearProducto(prod.getTipoDocumento(),prod.getProducto(),prod.getPrecioCompra(),prod.getCantidad(),prod.getStock());
+            baseDeDatos.crearProducto(prod.getTipoDocumento(), prod.getProducto(), prod.getPrecioCompra(), prod.getCantidad(), prod.getStock());
         }
-        
+
     }
-    
+
     private void btnGuardarRegComFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarRegComFacturaActionPerformed
         if (faltanDatosEnTxt(txtSerieFactura, txtNumeroFactura, txtProveedorFactura, txtFechaFactura) || tblRegistroFactura.getRowCount() <= 0) {
             JOptionPane.showMessageDialog(this, "Faltan datos de factura y/o productos.");
             return;
         }
-        Long serieFact=Long.parseLong(txtSerieFactura.getText());
-        Long numFact=Long.parseLong(txtNumeroFactura.getText());
-        String proveedor=txtProveedorFactura.getText();
-        String responsable=cbTipoDeLiderFactura.getSelectedItem().toString();
-        String moneda= cbTipoDeDineroFactura.getSelectedItem().toString();
+        Long serieFact = Long.parseLong(txtSerieFactura.getText());
+        Long numFact = Long.parseLong(txtNumeroFactura.getText());
+        String proveedor = txtProveedorFactura.getText();
+        String responsable = cbTipoDeLiderFactura.getSelectedItem().toString();
+        String moneda = cbTipoDeDineroFactura.getSelectedItem().toString();
         guardarProductosEnBD(tempListFact);
         //crearComprobante(String fechaRegistro, String tipoComprobante, int serie, int numero, String proveedor, double total) {
-        baseDeDatos.crearComprobante(txtFechaFactura.getText(),"Factura",serieFact,numFact,proveedor,Double.parseDouble(txtTotalFactura.getText()));
+        baseDeDatos.crearComprobante(txtFechaFactura.getText(), "Factura", serieFact, numFact, proveedor, Double.parseDouble(txtTotalFactura.getText()));
         comprobanteRegistrado();
     }//GEN-LAST:event_btnGuardarRegComFacturaActionPerformed
 
@@ -1757,30 +2989,30 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Faltan datos de boleta y/o productos.");
             return;
         }
-        Long serieBoleta=Long.parseLong(txtSerieBoleta.getText());
-        Long numBoleta=Long.parseLong(txtNumeroBoleta.getText());
-        String proveedor=txtProveedorBoleta.getText();
-        String responsable=cbTipoDeLiderBoleta.getSelectedItem().toString();
-        String moneda= cbTipoDeDineroBoleta.getSelectedItem().toString();
+        Long serieBoleta = Long.parseLong(txtSerieBoleta.getText());
+        Long numBoleta = Long.parseLong(txtNumeroBoleta.getText());
+        String proveedor = txtProveedorBoleta.getText();
+        String responsable = cbTipoDeLiderBoleta.getSelectedItem().toString();
+        String moneda = cbTipoDeDineroBoleta.getSelectedItem().toString();
         guardarProductosEnBD(tempListBole);
         //crearComprobante(String fechaRegistro, String tipoComprobante, int serie, int numero, String proveedor, double total) {
-        baseDeDatos.crearComprobante(txtFechaBoleta.getText(),"Boleta",serieBoleta,numBoleta,proveedor,Double.parseDouble(txtTotalBoleta.getText()));
+        baseDeDatos.crearComprobante(txtFechaBoleta.getText(), "Boleta", serieBoleta, numBoleta, proveedor, Double.parseDouble(txtTotalBoleta.getText()));
         comprobanteRegistrado();
     }//GEN-LAST:event_btnGuardarRegComBoletaActionPerformed
 
-    private void comprobanteRegistrado(){
+    private void comprobanteRegistrado() {
         JOptionPane.showMessageDialog(this, "Documento registrado correctamente.");
     }
-    
+
     private void btnGuardarRegComProformaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarRegComProformaActionPerformed
         if (faltanDatosEnTxt(txtNombresProforma, txtFechaProforma) || tblRegistroProforma.getRowCount() <= 0) {
             JOptionPane.showMessageDialog(this, "Faltan datos de proforma y/o productos.");
             return;
         }
-        String proveedor=txtNombresProforma.getText();
+        String proveedor = txtNombresProforma.getText();
         guardarProductosEnBD(tempListProf);
         //crearComprobante(String fechaRegistro, String tipoComprobante, int serie, int numero, String proveedor, double total) {
-        baseDeDatos.crearComprobante(txtFechaProforma.getText(),"Proforma",0,0,proveedor,Double.parseDouble(txtTotalProforma.getText()));
+        baseDeDatos.crearComprobante(txtFechaProforma.getText(), "Proforma", 0, 0, proveedor, Double.parseDouble(txtTotalProforma.getText()));
         comprobanteRegistrado();
     }//GEN-LAST:event_btnGuardarRegComProformaActionPerformed
 
@@ -1802,20 +3034,21 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         tpnMostrar.setSelectedIndex(pnlAgrComProd);
     }//GEN-LAST:event_btnAgregarRegComProformaActionPerformed
 
-    private void btnElimAccion(JTable tbl, int filaSeleccion, ArrayList<Producto> list,JTextField txtf){
-        int prodId=GestorModelos.getProductoID(tbl, filaSeleccion);
+    private void btnElimAccion(JTable tbl, int filaSeleccion, ArrayList<Producto> list, JTextField txtf) {
+        int prodId = GestorModelos.getProductoID(tbl, filaSeleccion);
         list.remove(prodId);
         GestorModelos.actualizarRegsCompVenProd(tbl, list, txtf);
     }
-    
+
     private void btnEliminarRegComFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarRegComFacturaActionPerformed
         if (cancelarEliminacion()) {
             return;
         }
         Integer filaSeleccion = getSeleccionEliminar(tblRegistroFactura);
-        if (filaSeleccion == null)
+        if (filaSeleccion == null) {
             return;
-        btnElimAccion(tblRegistroFactura,filaSeleccion,tempListFact,txtTotalFactura);
+        }
+        btnElimAccion(tblRegistroFactura, filaSeleccion, tempListFact, txtTotalFactura);
     }//GEN-LAST:event_btnEliminarRegComFacturaActionPerformed
 
     private void btnEliminarRegComBoletaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarRegComBoletaActionPerformed
@@ -1823,9 +3056,10 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
             return;
         }
         Integer filaSeleccion = getSeleccionEliminar(tblRegistroBoleta);
-        if (filaSeleccion == null)
+        if (filaSeleccion == null) {
             return;
-        btnElimAccion(tblRegistroBoleta,filaSeleccion,tempListBole,txtTotalBoleta);
+        }
+        btnElimAccion(tblRegistroBoleta, filaSeleccion, tempListBole, txtTotalBoleta);
     }//GEN-LAST:event_btnEliminarRegComBoletaActionPerformed
 
     private void btnEliminarRegComProformaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarRegComProformaActionPerformed
@@ -1833,36 +3067,38 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
             return;
         }
         Integer filaSeleccion = getSeleccionEliminar(tblRegistroProforma);
-        if (filaSeleccion == null)
+        if (filaSeleccion == null) {
             return;
-        btnElimAccion(tblRegistroProforma,filaSeleccion,tempListProf,txtTotalProforma);
+        }
+        btnElimAccion(tblRegistroProforma, filaSeleccion, tempListProf, txtTotalProforma);
     }//GEN-LAST:event_btnEliminarRegComProformaActionPerformed
 
-    private boolean tryBtnEditarAccion(String tipoDoc,JTable tbl, int filaSeleccion, ArrayList<Producto> tempList){
-        Integer idLista= Integer.parseInt(GestorModelos.getValueAt(tbl, filaSeleccion, 0).toString());
-        String producto=GestorModelos.getValueAt(tbl, filaSeleccion, 1).toString();
-        Integer cantidad=Integer.parseInt(GestorModelos.getValueAt(tbl, filaSeleccion, 2).toString());
-        Double precioUni=Double.parseDouble(GestorModelos.getValueAt(tbl, filaSeleccion, 3).toString());
-        if(producto==null||cantidad==null||precioUni==null){
+    private boolean tryBtnEditarAccion(String tipoDoc, JTable tbl, int filaSeleccion, ArrayList<Producto> tempList) {
+        Integer idLista = Integer.parseInt(GestorModelos.getValueAt(tbl, filaSeleccion, 0).toString());
+        String producto = GestorModelos.getValueAt(tbl, filaSeleccion, 1).toString();
+        Integer cantidad = Integer.parseInt(GestorModelos.getValueAt(tbl, filaSeleccion, 2).toString());
+        Double precioUni = Double.parseDouble(GestorModelos.getValueAt(tbl, filaSeleccion, 3).toString());
+        if (producto == null || cantidad == null || precioUni == null) {
             JOptionPane.showMessageDialog(null, "Tipo de dato incorrecto en producto o cantidad o precioUni");
             return false;
         }
-        Producto editado=new Producto(tipoDoc, producto, cantidad, precioUni);
+        Producto editado = new Producto(tipoDoc, producto, cantidad, precioUni);
         tempList.set(idLista, editado);
         return true;
     }
-    
+
     private void btnEditarRegComFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarRegComFacturaActionPerformed
         Integer filaSeleccion = getSeleccionEditar(tblRegistroFactura);
         if (filaSeleccion == null) {
             return;
         }
-        if(GestorModelos.tieneCeldasVacias(tblRegistroFactura, filaSeleccion)) {
+        if (GestorModelos.tieneCeldasVacias(tblRegistroFactura, filaSeleccion)) {
             JOptionPane.showMessageDialog(this, "Faltan datos en la fila");
             return;
         }
-        if(!tryBtnEditarAccion("Factura",tblRegistroFactura,filaSeleccion,tempListFact))
+        if (!tryBtnEditarAccion("Factura", tblRegistroFactura, filaSeleccion, tempListFact)) {
             return;
+        }
         GestorModelos.actualizarRegsCompVenProd(tblRegistroFactura, tempListFact, txtTotalFactura);
     }//GEN-LAST:event_btnEditarRegComFacturaActionPerformed
 
@@ -1871,12 +3107,13 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         if (filaSeleccion == null) {
             return;
         }
-        if(GestorModelos.tieneCeldasVacias(tblRegistroBoleta, filaSeleccion)) {
+        if (GestorModelos.tieneCeldasVacias(tblRegistroBoleta, filaSeleccion)) {
             JOptionPane.showMessageDialog(this, "Faltan datos en la fila");
             return;
         }
-        if(!tryBtnEditarAccion("Boleta", tblRegistroBoleta, filaSeleccion, tempListBole))
+        if (!tryBtnEditarAccion("Boleta", tblRegistroBoleta, filaSeleccion, tempListBole)) {
             return;
+        }
         GestorModelos.actualizarRegsCompVenProd(tblRegistroBoleta, tempListBole, txtTotalBoleta);
     }//GEN-LAST:event_btnEditarRegComBoletaActionPerformed
 
@@ -1885,12 +3122,13 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         if (filaSeleccion == null) {
             return;
         }
-        if(GestorModelos.tieneCeldasVacias(tblRegistroProforma,  filaSeleccion)) {
+        if (GestorModelos.tieneCeldasVacias(tblRegistroProforma, filaSeleccion)) {
             JOptionPane.showMessageDialog(this, "Faltan datos en la fila");
             return;
         }
-        if(!tryBtnEditarAccion("Proforma", tblRegistroProforma, filaSeleccion, tempListProf))
+        if (!tryBtnEditarAccion("Proforma", tblRegistroProforma, filaSeleccion, tempListProf)) {
             return;
+        }
         GestorModelos.actualizarRegsCompVenProd(tblRegistroProforma, tempListProf, txtTotalProforma);
     }//GEN-LAST:event_btnEditarRegComProformaActionPerformed
 
@@ -1900,13 +3138,13 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
 
     private String calcularTipoDoc(JTable padre) {
         String rpta = "";
-        if(padre==tblRegistroFactura)
-                rpta = "Factura";
-        else if(padre==tblRegistroBoleta){
-                rpta = "Boleta";
-        }else if(padre==tblRegistroProforma){
-                rpta = "Proforma";
-        }else{
+        if (padre == tblRegistroFactura) {
+            rpta = "Factura";
+        } else if (padre == tblRegistroBoleta) {
+            rpta = "Boleta";
+        } else if (padre == tblRegistroProforma) {
+            rpta = "Proforma";
+        } else {
             rpta = "No definido";
         }
         return rpta;
@@ -1930,13 +3168,13 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
 
     private ArrayList<Producto> identificarLista(JTable tblPadre) {
         ArrayList<Producto> rpta = new ArrayList<>();
-        
-        if(tblPadre==tblRegistroFactura)
-                rpta = tempListFact;
-        else if(tblPadre==tblRegistroBoleta){
-                rpta = tempListBole;
-        }else if(tblPadre==tblRegistroProforma){
-                rpta = tempListProf;
+
+        if (tblPadre == tblRegistroFactura) {
+            rpta = tempListFact;
+        } else if (tblPadre == tblRegistroBoleta) {
+            rpta = tempListBole;
+        } else if (tblPadre == tblRegistroProforma) {
+            rpta = tempListProf;
         }
         return rpta;
     }
@@ -1991,8 +3229,9 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
             return;
         }
         Integer filaSeleccion = getSeleccionEliminar(tblRegistrodeComprobantesEmitidos);
-        if (filaSeleccion == null)
+        if (filaSeleccion == null) {
             return;
+        }
         baseDeDatos.eliminarComprobante(Integer.parseInt(GestorModelos.getValueAt(tblRegistrodeComprobantesEmitidos, filaSeleccion, 1).toString()));
         GestorModelos.actualizarCompEmit(tblRegistrodeComprobantesEmitidos, baseDeDatos.obtenerComprobantes());
     }//GEN-LAST:event_btnAnularComprobantesEmitidosActionPerformed
@@ -2017,22 +3256,22 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
             return;
         }
 
-        int usuID = Integer.parseInt(GestorModelos.getValueAt(tblRegistroUsuarios,filaSeleccion, 0).toString());
+        int usuID = Integer.parseInt(GestorModelos.getValueAt(tblRegistroUsuarios, filaSeleccion, 0).toString());
         //Empleado nombre String
-        String[] nombres_apellidos = separarNombresApellidos(GestorModelos.getValueAt(tblRegistroUsuarios,filaSeleccion, 1).toString());
+        String[] nombres_apellidos = separarNombresApellidos(GestorModelos.getValueAt(tblRegistroUsuarios, filaSeleccion, 1).toString());
         String nombre = nombres_apellidos[0];
         String apellido = nombres_apellidos[1];
         //UsuarioDNIoRUC Long
-        long usuarioDNI = Long.parseLong(GestorModelos.getValueAt(tblRegistroUsuarios,filaSeleccion, 2).toString());
+        long usuarioDNI = Long.parseLong(GestorModelos.getValueAt(tblRegistroUsuarios, filaSeleccion, 2).toString());
         //Contraseña String
-        String contra = GestorModelos.getValueAt(tblRegistroUsuarios,filaSeleccion, 3).toString();
+        String contra = GestorModelos.getValueAt(tblRegistroUsuarios, filaSeleccion, 3).toString();
         //Tipo String
-        String rol = GestorModelos.getValueAt(tblRegistroUsuarios,filaSeleccion, 4).toString();
+        String rol = GestorModelos.getValueAt(tblRegistroUsuarios, filaSeleccion, 4).toString();
         //Telefono int
-        int fono = Integer.parseInt(GestorModelos.getValueAt(tblRegistroUsuarios,filaSeleccion, 5).toString());
+        int fono = Integer.parseInt(GestorModelos.getValueAt(tblRegistroUsuarios, filaSeleccion, 5).toString());
 
         //Estado boolean
-        boolean esCuentaBloqueada = Usuario.parseEsCuentaBloqueada(GestorModelos.getValueAt(tblRegistroUsuarios,filaSeleccion, 6).toString());
+        boolean esCuentaBloqueada = Usuario.parseEsCuentaBloqueada(GestorModelos.getValueAt(tblRegistroUsuarios, filaSeleccion, 6).toString());
         //long usuarioDNI, String contraseña, String rol, LocalDate fechaUltimoCambio,int intentosFallidos, boolean cuentaBloqueada, String nombres, String apellidos, int telefono, int usuario_id
         baseDeDatos.actualizarUsuario(usuarioDNI, contra, rol, LocalDate.now(), 0, esCuentaBloqueada, nombre, apellido, fono, usuID);
         GestorModelos.actualizarUsuarios(tblRegistroUsuarios, baseDeDatos.obtenerUsuarios());
@@ -2047,19 +3286,83 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
             txtBuscarComprobantesEmitidos.setEnabled(true);
             return;
         }
-        int indice=0;
-        String seleccion=cbTipodeBusquedaComprobantesEmitidos.getSelectedItem().toString();
-        if(seleccion.equals("   Numero")){
-            indice=5;
-        }else if(seleccion.equals("   Serie ")){
-            indice=4;
-        }else if(seleccion.equals("   Proveedor")){
-            indice=6;
+        int indice = 0;
+        String seleccion = cbTipodeBusquedaComprobantesEmitidos.getSelectedItem().toString();
+        switch (cbTipodeBusquedaComprobantesEmitidos.getSelectedIndex()) {
+            case 0:
+                indice = 5;
+                break;
+                case 1:
+                indice = 4;
+                break;
+                case 2:
+                indice = 6;
+                break;
+            default:
+                throw new AssertionError();
         }
-        GestorModelos.buscarCompEmit(tblRegistrodeComprobantesEmitidos, txtBuscarComprobantesEmitidos.getText(),indice);
+        GestorModelos.buscarCompEmit(tblRegistrodeComprobantesEmitidos, txtBuscarComprobantesEmitidos.getText(), indice);
         btnBuscarComprobantesEmitidos.setText("Revertir");
         txtBuscarComprobantesEmitidos.setEnabled(false);
     }//GEN-LAST:event_btnBuscarComprobantesEmitidosActionPerformed
+
+    private void btnAnularComprobantesEmitidosRegVenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnularComprobantesEmitidosRegVenActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAnularComprobantesEmitidosRegVenActionPerformed
+
+    private void btnEditarRegComFacturaRegVenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarRegComFacturaRegVenActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnEditarRegComFacturaRegVenActionPerformed
+
+    private void btnGuardarRegComFacturaRegVenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarRegComFacturaRegVenActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnGuardarRegComFacturaRegVenActionPerformed
+
+    private void btnAgregarRegComFacturaRegVenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarRegComFacturaRegVenActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAgregarRegComFacturaRegVenActionPerformed
+
+    private void btnEliminarRegComFacturaRegVenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarRegComFacturaRegVenActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnEliminarRegComFacturaRegVenActionPerformed
+
+    private void btnPDFComprobantesEmitidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPDFComprobantesEmitidosActionPerformed
+        int filaSeleccionada = tblRegistrodeComprobantesEmitidos.getSelectedRow();
+
+        if (filaSeleccionada == -1) {
+            JOptionPane.showMessageDialog(null, "Por favor selecciona un comprobante");
+            return;
+        }
+
+        String comprobanteid = tblRegistrodeComprobantesEmitidos.getValueAt(filaSeleccionada, 0).toString();
+
+        GeneradorPDF pdf = new GeneradorPDF();
+        pdf.generarPDF(comprobanteid);
+    }//GEN-LAST:event_btnPDFComprobantesEmitidosActionPerformed
+
+    private void btnEditarBoletaRegVenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarBoletaRegVenActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnEditarBoletaRegVenActionPerformed
+
+    private void btnGuardarBoletaRegVenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarBoletaRegVenActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnGuardarBoletaRegVenActionPerformed
+
+    private void btnAgregarBoletaRegVenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarBoletaRegVenActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAgregarBoletaRegVenActionPerformed
+
+    private void btnEliminarBoletaRegVenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarBoletaRegVenActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnEliminarBoletaRegVenActionPerformed
+
+    private void btnDescargarRegistrodeVentasReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDescargarRegistrodeVentasReportesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnDescargarRegistrodeVentasReportesActionPerformed
+
+    private void btnGuardacambiosAjustesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardacambiosAjustesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnGuardacambiosAjustesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -2101,34 +3404,48 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     private javax.swing.JPopupMenu RegistroDeCompra;
     private javax.swing.JPopupMenu RegistroDeVenta;
     private javax.swing.JButton btnAgregarAlmacen;
+    private javax.swing.JButton btnAgregarBoletaRegVen;
     private javax.swing.JButton btnAgregarProductoRegCom;
     private javax.swing.JButton btnAgregarProductoRegVen;
     private javax.swing.JButton btnAgregarRegComBoleta;
     private javax.swing.JButton btnAgregarRegComFactura;
+    private javax.swing.JButton btnAgregarRegComFacturaRegVen;
     private javax.swing.JButton btnAgregarRegComProforma;
     private javax.swing.JLabel btnAlmacen;
     private javax.swing.JButton btnAnularComprobantesEmitidos;
+    private javax.swing.JButton btnAnularComprobantesEmitidosRegVen;
     private javax.swing.JButton btnBuscarAlmacen;
     private javax.swing.JButton btnBuscarComprobantesEmitidos;
+    private javax.swing.JButton btnBuscarComprobantesEmitidosRegVen;
+    private javax.swing.JToggleButton btnBusquedacaja;
     private javax.swing.JButton btnCancelarRegCom;
     private javax.swing.JButton btnCancelarRegVen;
     private javax.swing.JButton btnCrearUsuario;
+    private javax.swing.JButton btnDescargarRegistrodeVentasReportes;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnEditarAlmacen;
+    private javax.swing.JButton btnEditarBoletaRegVen;
     private javax.swing.JButton btnEditarRegComBoleta;
     private javax.swing.JButton btnEditarRegComFactura;
+    private javax.swing.JButton btnEditarRegComFacturaRegVen;
     private javax.swing.JButton btnEditarRegComProforma;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnEliminarAlmacen;
+    private javax.swing.JButton btnEliminarBoletaRegVen;
     private javax.swing.JButton btnEliminarRegComBoleta;
     private javax.swing.JButton btnEliminarRegComFactura;
+    private javax.swing.JButton btnEliminarRegComFacturaRegVen;
     private javax.swing.JButton btnEliminarRegComProforma;
     private javax.swing.JButton btnFiltrarAlmacen;
+    private javax.swing.JButton btnGuardacambiosAjustes;
+    private javax.swing.JButton btnGuardarBoletaRegVen;
     private javax.swing.JButton btnGuardarRegComBoleta;
     private javax.swing.JButton btnGuardarRegComFactura;
+    private javax.swing.JButton btnGuardarRegComFacturaRegVen;
     private javax.swing.JButton btnGuardarRegComProforma;
     private javax.swing.JButton btnGuardaryAgregarDatos;
     private javax.swing.JButton btnPDFComprobantesEmitidos;
+    private javax.swing.JButton btnPDFComprobantesEmitidosRegVen;
     private javax.swing.JLabel btnajustes;
     private javax.swing.JLabel btncaja;
     private javax.swing.JLabel btncerrarsesion;
@@ -2137,22 +3454,32 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     private javax.swing.JLabel btnregistrodeusuario;
     private javax.swing.JLabel btnregistrodeventas;
     private javax.swing.JLabel btnreportes;
+    private javax.swing.JComboBox<String> cbTipoAspectoAjustes;
     private javax.swing.JComboBox<String> cbTipoDeDineroBoleta;
+    private javax.swing.JComboBox<String> cbTipoDeDineroBoletaRegVen;
     private javax.swing.JComboBox<String> cbTipoDeDineroFactura;
+    private javax.swing.JComboBox<String> cbTipoDeDineroFacturaRegVen;
     private javax.swing.JComboBox<String> cbTipoDeDineroProforma;
     private javax.swing.JComboBox<String> cbTipoDeLiderBoleta;
     private javax.swing.JComboBox<String> cbTipoDeLiderFactura;
     private javax.swing.JComboBox<String> cbTipoDeLiderProforma;
+    private javax.swing.JComboBox<String> cbTipoOPBoletaRegVen;
     private javax.swing.JComboBox<String> cbTipoProductosRegVen;
     private javax.swing.JComboBox<String> cbTipoStock;
+    private javax.swing.JComboBox<String> cbTipoSurcusalesReportes;
     private javax.swing.JComboBox<String> cbTipoUsuario;
     private javax.swing.JComboBox<String> cbTipodeBusquedaComprobantesEmitidos;
+    private javax.swing.JComboBox<String> cbTipodeBusquedaComprobantesEmitidosRegVen;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane10;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JScrollPane jScrollPane8;
+    private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JMenuItem jmBOLETASRegCom;
     private javax.swing.JMenuItem jmBOLETASRegVen;
     private javax.swing.JMenuItem jmCOMPROBATESEMITIDOSRegCom;
@@ -2166,26 +3493,54 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     private javax.swing.JPanel jpanelsuperior;
     private javax.swing.JLabel lblAgregamosProductosRegVen;
     private javax.swing.JLabel lblAgregaryCrearUsuario;
+    private javax.swing.JLabel lblApectoAjustes;
     private javax.swing.JLabel lblApellidos;
     private javax.swing.JLabel lblCantidadRegCom;
     private javax.swing.JLabel lblCantidadRegVen;
     private javax.swing.JLabel lblCantidaddeProducto;
+    private javax.swing.JLabel lblClienteBoletaRegVen;
+    private javax.swing.JLabel lblClienteFacturaRegVen;
     private javax.swing.JLabel lblClientes;
     private javax.swing.JLabel lblCompraDelMes;
     private javax.swing.JLabel lblContraseña;
+    private javax.swing.JLabel lblCorreodeEmpresaAjustes;
     private javax.swing.JLabel lblDNIUsuario;
+    private javax.swing.JLabel lblDatosAjustes;
+    private javax.swing.JLabel lblEGRESOScaja;
+    private javax.swing.JTextField lblEgresoscaja;
     private javax.swing.JLabel lblFechaBoleta;
+    private javax.swing.JLabel lblFechaBoletaRegVen;
     private javax.swing.JLabel lblFechaFactura;
+    private javax.swing.JLabel lblFechaFacturaRegVen;
     private javax.swing.JLabel lblFechaProforma;
     private javax.swing.JLabel lblGanancias;
+    private javax.swing.JLabel lblGananciascaja;
+    private javax.swing.JLabel lblGestionarperfilAjustes;
+    private javax.swing.JTextField lblHistorialdeMovimientoscaja;
+    private javax.swing.JLabel lblIDIOMAAjustes;
+    private javax.swing.JLabel lblINGRESOScaja;
     private javax.swing.JLabel lblImagen1;
+    private javax.swing.JLabel lblImagen1Ajustes;
+    private javax.swing.JLabel lblImagen1BoletaRegVen;
+    private javax.swing.JLabel lblImagen1FacturaRegVen;
+    private javax.swing.JLabel lblImagen2BoletaRegVen;
+    private javax.swing.JLabel lblImagen2FacturaRegVen;
+    private javax.swing.JTextField lblIngresoscaja;
+    private javax.swing.JLabel lblLogoAjustes;
     private javax.swing.JLabel lblMonedaBoleta;
+    private javax.swing.JLabel lblMonedaBoletaRegVen;
     private javax.swing.JLabel lblMonedaFactura;
+    private javax.swing.JLabel lblMonedaFacturaRegVen;
     private javax.swing.JLabel lblMonedaProforma;
+    private javax.swing.JLabel lblNombreAjustes;
     private javax.swing.JLabel lblNombres;
     private javax.swing.JLabel lblNombresProforma;
     private javax.swing.JLabel lblNumeroBoleta;
+    private javax.swing.JLabel lblNumeroBoletaRegVen;
     private javax.swing.JLabel lblNumeroFactura;
+    private javax.swing.JLabel lblNumeroFacturaRegVen;
+    private javax.swing.JLabel lblOPBoletaRegVen;
+    private javax.swing.JLabel lblPeriodoReportes;
     private javax.swing.JLabel lblPreciioUnitarioRegCom;
     private javax.swing.JLabel lblPreciioUnitarioRegVen;
     private javax.swing.JLabel lblPreciodeProducto;
@@ -2196,7 +3551,10 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     private javax.swing.JLabel lblProveedorBoleta;
     private javax.swing.JLabel lblProveedorFactura;
     private javax.swing.JLabel lblProveedores;
+    private javax.swing.JLabel lblREPORTEREGISTRODEVENTASReportes;
     private javax.swing.JLabel lblRUC;
+    private javax.swing.JLabel lblRUCAjustes;
+    private javax.swing.JLabel lblRangodeperiodoReportes;
     private javax.swing.JLabel lblRegCompras;
     private javax.swing.JLabel lblRegVentas;
     private javax.swing.JLabel lblRegistrodeProductosRegCom;
@@ -2204,32 +3562,51 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     private javax.swing.JLabel lblResponsableFactura;
     private javax.swing.JLabel lblResponsableProforma;
     private javax.swing.JLabel lblRol;
+    private javax.swing.JLabel lblRucFacturaRegVen;
     private javax.swing.JLabel lblSerieBoleta;
+    private javax.swing.JLabel lblSerieBoletaRegVen;
     private javax.swing.JLabel lblSerieFactura;
+    private javax.swing.JLabel lblSerieFacturaRegVen;
     private javax.swing.JLabel lblSubTitulo;
     private javax.swing.JLabel lblSubTitulo1;
     private javax.swing.JLabel lblSubtema2;
     private javax.swing.JLabel lblSubtemaAgregarProductoRegCom;
     private javax.swing.JLabel lblSubtemaAgregarProductoRegVen;
     private javax.swing.JLabel lblSubtemaComprobantesEmitidos;
+    private javax.swing.JLabel lblSubtemaComprobantesEmitidosRegVen;
+    private javax.swing.JLabel lblSurcusalesReportes;
     private javax.swing.JLabel lblTelefono;
+    private javax.swing.JLabel lblTelefonoAjustes;
     private javax.swing.JLabel lblTipoUsuario;
     private javax.swing.JLabel lblVentasDelDia;
     private javax.swing.JLabel lblimagen1;
     private javax.swing.JLabel lblimagen1ComprobantesEmitidos;
+    private javax.swing.JLabel lblimagen1ComprobantesEmitidosRegVen;
+    private javax.swing.JLabel lblimagen1caja;
+    private javax.swing.JLabel lblimagen1factura;
+    private javax.swing.JLabel lblimagen1factura1;
     private javax.swing.JLabel lblimagen2;
+    private javax.swing.JLabel lblimagen2factura;
+    private javax.swing.JLabel lblimagen2factura1;
     private javax.swing.JLabel lblinventario;
     private javax.swing.JLabel lblsubtemaBoleta;
+    private javax.swing.JLabel lblsubtemaBoletaRegVen;
     private javax.swing.JLabel lblsubtemaFactura;
+    private javax.swing.JLabel lblsubtemaFacturaRegVen;
     private javax.swing.JLabel lblsubtemaProforma;
     private javax.swing.JPanel pnl1Almacen;
     private javax.swing.JPanel pnl1Inicio;
+    private javax.swing.JPanel pnlAjustes;
+    private javax.swing.JPanel pnlCaja;
     private javax.swing.JPanel pnlCientes;
     private javax.swing.JPanel pnlCompraDelMes;
     private javax.swing.JPanel pnlGancias;
     private javax.swing.JPanel pnlInternRegComFactura;
+    private javax.swing.JPanel pnlInternRegComFacturaRegVen;
+    private javax.swing.JPanel pnlInternoBoletaRegVen;
     private javax.swing.JPanel pnlInternoRegComBoleta;
     private javax.swing.JPanel pnlInternoRegComProforma;
+    private javax.swing.JPanel pnlInternodecaja;
     private javax.swing.JPanel pnlProductos;
     private javax.swing.JPanel pnlProveedores;
     private javax.swing.JPanel pnlRegComAgregarProducto;
@@ -2240,40 +3617,66 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     private javax.swing.JPanel pnlRegUsuIngresar;
     private javax.swing.JPanel pnlRegUsuMostrar;
     private javax.swing.JPanel pnlRegVenAgregarProducto;
+    private javax.swing.JPanel pnlRegVenBoleta;
+    private javax.swing.JPanel pnlRegVenCompromantesEmitidos;
+    private javax.swing.JPanel pnlRegVenFactura;
+    private javax.swing.JPanel pnlReportes;
     private javax.swing.JPanel pnlVentasDelDia;
     private javax.swing.JRadioButton rbtActivo;
     private javax.swing.JRadioButton rbtInactivo;
     private javax.swing.JTable tblRegistroBoleta;
+    private javax.swing.JTable tblRegistroBoletaRegVen;
     private javax.swing.JTable tblRegistroFactura;
+    private javax.swing.JTable tblRegistroFacturaRegVen;
     private javax.swing.JTable tblRegistroProductos;
     private javax.swing.JTable tblRegistroProforma;
     private javax.swing.JTable tblRegistroUsuarios;
+    private javax.swing.JTable tblRegistrodeCaja;
     private javax.swing.JTable tblRegistrodeComprobantesEmitidos;
+    private javax.swing.JTable tblRegistrodeComprobantesEmitidosRegVen;
     private javax.swing.JTabbedPane tpnMostrar;
     private javax.swing.JTextField txtApellidos;
     private javax.swing.JTextField txtBuscar;
     private javax.swing.JTextField txtBuscarComprobantesEmitidos;
+    private javax.swing.JTextField txtBuscarComprobantesEmitidosRegVen;
+    private javax.swing.JTextField txtBusquedacaja;
     private javax.swing.JTextField txtCantidadRegCom;
     private javax.swing.JTextField txtCantidadRegVen;
     private javax.swing.JTextField txtCantidaddeProducto;
+    private javax.swing.JTextField txtClienteBoletaRegVen;
+    private javax.swing.JTextField txtClienteFacturaRegVen;
     private javax.swing.JTextField txtClientes;
     private javax.swing.JTextField txtComprasDelMes;
     private javax.swing.JTextField txtContraseña;
+    private javax.swing.JTextField txtCorreodeEmpresaAjustes;
     private javax.swing.JTextField txtDNIUsuario;
     private javax.swing.JTextField txtDecoracion1Boleta;
+    private javax.swing.JTextField txtDecoracion1BoletaRegVen;
     private javax.swing.JTextField txtDecoracion1Factura;
+    private javax.swing.JTextField txtDecoracion1FacturaRegVen;
     private javax.swing.JTextField txtDecoracion1Proforma;
     private javax.swing.JTextField txtDecoracion2Boleta;
+    private javax.swing.JTextField txtDecoracion2BoletaRegVen;
     private javax.swing.JTextField txtDecoracion2Factura;
+    private javax.swing.JTextField txtDecoracion2FacturaRegVen;
     private javax.swing.JTextField txtDecoracion2Proforma;
+    private javax.swing.JTextField txtEGRESOScaja;
     private javax.swing.JTextField txtFechaBoleta;
+    private javax.swing.JTextField txtFechaBoletaRegVen;
     private javax.swing.JTextField txtFechaFactura;
+    private javax.swing.JTextField txtFechaFacturaRegVen;
     private javax.swing.JTextField txtFechaProforma;
+    private javax.swing.JTextField txtGANACIAScaja;
     private javax.swing.JTextField txtGanancias;
+    private javax.swing.JTextField txtINGRESOScaja;
+    private javax.swing.JTextField txtNombreAjustes;
     private javax.swing.JTextField txtNombres;
     private javax.swing.JTextField txtNombresProforma;
     private javax.swing.JTextField txtNumeroBoleta;
+    private javax.swing.JTextField txtNumeroBoletaRegVen;
     private javax.swing.JTextField txtNumeroFactura;
+    private javax.swing.JTextField txtNumeroFacturaRegVen;
+    private javax.swing.JTextField txtPeriodoReportes;
     private javax.swing.JTextField txtPreciioUnitarioRegCom;
     private javax.swing.JTextField txtPreciioUnitarioRegVen;
     private javax.swing.JTextField txtPreciodeCompra;
@@ -2283,11 +3686,19 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     private javax.swing.JTextField txtProveedorBoleta;
     private javax.swing.JTextField txtProveedorFactura;
     private javax.swing.JTextField txtProveedores;
+    private javax.swing.JTextField txtRUCAjustes;
+    private javax.swing.JTextField txtRangodeperiodoReportes;
+    private javax.swing.JTextField txtRucFacturaRegVen;
     private javax.swing.JTextField txtSerieBoleta;
+    private javax.swing.JTextField txtSerieBoletaRegVen;
     private javax.swing.JTextField txtSerieFactura;
+    private javax.swing.JTextField txtSerieFacturaRegVen;
     private javax.swing.JTextField txtTelefono;
+    private javax.swing.JTextField txtTelefonoAjustes;
     private javax.swing.JTextField txtTotalBoleta;
+    private javax.swing.JTextField txtTotalBoletaRegVen;
     private javax.swing.JTextField txtTotalFactura;
+    private javax.swing.JTextField txtTotalFacturaRegVen;
     private javax.swing.JTextField txtTotalProforma;
     private javax.swing.JTextField txtVentasDelDia;
     // End of variables declaration//GEN-END:variables

@@ -19,6 +19,9 @@ public class FrmLogin extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         initComponents();
         baseDeDatos = new SQLiteManager();
+        //esto coloque para el cmabio de idioma
+        Ajuste.Ajustes.cambiarAIngles(this, null);
+        //hasta aca
     }
 
     /**
@@ -165,18 +168,23 @@ public class FrmLogin extends javax.swing.JFrame {
                 break;
         }
     }
+    //esto coloque para el cmabio de idioma
+    public javax.swing.JButton getBtnIngresar() {
+    return btnIngresar;
+    }
+    //hasta aca
 
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
-        String DNIoRUC = txfUsuario.getText(), contraseña = txfContraseña.getText(),error="Intento de Login cancelado:\n";
-        final int noPasar=error.length();
-        if (!Usuario.esDniORucValido(DNIoRUC) ) {
-            error+="-El usuario tiene que ser un DNI o RUC.\n";
+        String DNIoRUC = txfUsuario.getText(), contraseña = txfContraseña.getText(), error = "Intento de Login cancelado:\n";
+        final int noPasar = error.length();
+        if (!Usuario.esDniORucValido(DNIoRUC)) {
+            error += "-El usuario tiene que ser un DNI o RUC.\n";
         }
-        if(!Usuario.esContraseñaValida(contraseña)){
-            error+="-La contraseña es muy corta o larga.\n";
+        if (!Usuario.esContraseñaValida(contraseña)) {
+            error += "-La contraseña es muy corta o larga.\n";
         }
-        if(error.length()>noPasar){
-            JOptionPane.showMessageDialog(this,error);
+        if (error.length() > noPasar) {
+            JOptionPane.showMessageDialog(this, error);
             return;
         }
         ArrayList<Object> respuestaDB = baseDeDatos.intentarLogin(DNIoRUC, contraseña);
