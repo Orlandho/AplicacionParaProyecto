@@ -583,7 +583,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         lblRUC.setFont(new java.awt.Font("Cartoon Fun", 0, 14)); // NOI18N
         lblRUC.setText("Agro Integral Perú");
         jpanelsuperior.add(lblRUC);
-        lblRUC.setBounds(610, 10, 200, 19);
+        lblRUC.setBounds(610, 10, 200, 24);
 
         lblRol.setText("Empleado");
         jpanelsuperior.add(lblRol);
@@ -2115,8 +2115,6 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         lblLogoAjustes.setBounds(340, 100, 70, 30);
 
         tpnMostrar.addTab("pnlAjustes", pnlAjustes);
-
-        tpnMostrar.setSelectedIndex(15);
 
         getContentPane().add(tpnMostrar);
         tpnMostrar.setBounds(190, 80, 690, 610);
