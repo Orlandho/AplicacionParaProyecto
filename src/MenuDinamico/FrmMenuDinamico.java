@@ -362,6 +362,32 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         lblimagen2factura1 = new javax.swing.JLabel();
         lblimagen1factura1 = new javax.swing.JLabel();
         cbTipoOPBoletaRegVen = new javax.swing.JComboBox<>();
+        pnlReportes = new javax.swing.JPanel();
+        lblREPORTEREGISTRODEVENTASReportes = new javax.swing.JLabel();
+        txtRangodeperiodoReportes = new javax.swing.JTextField();
+        lblRangodeperiodoReportes = new javax.swing.JLabel();
+        txtPeriodoReportes = new javax.swing.JTextField();
+        lblSurcusalesReportes = new javax.swing.JLabel();
+        cbTipoSurcusalesReportes = new javax.swing.JComboBox<>();
+        btnDescargarRegistrodeVentasReportes = new javax.swing.JButton();
+        lblPeriodoReportes = new javax.swing.JLabel();
+        pnlAjustes = new javax.swing.JPanel();
+        lblGestionarperfilAjustes = new javax.swing.JLabel();
+        lblDatosAjustes = new javax.swing.JLabel();
+        txtNombreAjustes = new javax.swing.JTextField();
+        lblNombreAjustes = new javax.swing.JLabel();
+        lblImagen1Ajustes = new javax.swing.JLabel();
+        txtRUCAjustes = new javax.swing.JTextField();
+        lblRUCAjustes = new javax.swing.JLabel();
+        txtTelefonoAjustes = new javax.swing.JTextField();
+        lblTelefonoAjustes = new javax.swing.JLabel();
+        txtCorreodeEmpresaAjustes = new javax.swing.JTextField();
+        lblCorreodeEmpresaAjustes = new javax.swing.JLabel();
+        cbTipoAspectoAjustes = new javax.swing.JComboBox<>();
+        lblIDIOMAAjustes = new javax.swing.JLabel();
+        btnGuardacambiosAjustes = new javax.swing.JButton();
+        lblApectoAjustes = new javax.swing.JLabel();
+        lblLogotipoAjustes = new javax.swing.JLabel();
 
         jmFACTURASRegCom.setText("FACTURAS");
         jmFACTURASRegCom.addActionListener(new java.awt.event.ActionListener() {
@@ -1964,6 +1990,132 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
 
         tpnMostrar.addTab("pnlRegVenBoleta", pnlRegVenBoleta);
 
+        pnlReportes.setLayout(null);
+
+        lblREPORTEREGISTRODEVENTASReportes.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
+        lblREPORTEREGISTRODEVENTASReportes.setText("REPORTE-REGISTRO DE VENTAS");
+        pnlReportes.add(lblREPORTEREGISTRODEVENTASReportes);
+        lblREPORTEREGISTRODEVENTASReportes.setBounds(50, 40, 300, 30);
+        pnlReportes.add(txtRangodeperiodoReportes);
+        txtRangodeperiodoReportes.setBounds(450, 160, 190, 30);
+
+        lblRangodeperiodoReportes.setFont(new java.awt.Font("Corbel Light", 1, 14)); // NOI18N
+        lblRangodeperiodoReportes.setText("Rango de periodo:");
+        pnlReportes.add(lblRangodeperiodoReportes);
+        lblRangodeperiodoReportes.setBounds(320, 160, 130, 30);
+        pnlReportes.add(txtPeriodoReportes);
+        txtPeriodoReportes.setBounds(380, 110, 180, 30);
+
+        lblSurcusalesReportes.setFont(new java.awt.Font("Corbel Light", 1, 14)); // NOI18N
+        lblSurcusalesReportes.setText("Surcusales:");
+        pnlReportes.add(lblSurcusalesReportes);
+        lblSurcusalesReportes.setBounds(50, 110, 90, 30);
+
+        cbTipoSurcusalesReportes.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        cbTipoSurcusalesReportes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "• Facturas", "• Boletas", "• Proformas" }));
+        pnlReportes.add(cbTipoSurcusalesReportes);
+        cbTipoSurcusalesReportes.setBounds(130, 110, 150, 30);
+
+        btnDescargarRegistrodeVentasReportes.setBackground(new java.awt.Color(202, 244, 250));
+        btnDescargarRegistrodeVentasReportes.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
+        btnDescargarRegistrodeVentasReportes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Nube.png"))); // NOI18N
+        btnDescargarRegistrodeVentasReportes.setText(" Descargar Registro de Ventas");
+        btnDescargarRegistrodeVentasReportes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDescargarRegistrodeVentasReportesActionPerformed(evt);
+            }
+        });
+        pnlReportes.add(btnDescargarRegistrodeVentasReportes);
+        btnDescargarRegistrodeVentasReportes.setBounds(100, 260, 460, 60);
+
+        lblPeriodoReportes.setFont(new java.awt.Font("Corbel Light", 1, 14)); // NOI18N
+        lblPeriodoReportes.setText("Período:");
+        pnlReportes.add(lblPeriodoReportes);
+        lblPeriodoReportes.setBounds(310, 110, 70, 30);
+
+        tpnMostrar.addTab("pnlReportes", pnlReportes);
+
+        pnlAjustes.setLayout(null);
+
+        lblGestionarperfilAjustes.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblGestionarperfilAjustes.setForeground(new java.awt.Color(78, 154, 169));
+        lblGestionarperfilAjustes.setText("•      Gestionar perfil");
+        pnlAjustes.add(lblGestionarperfilAjustes);
+        lblGestionarperfilAjustes.setBounds(40, 50, 150, 20);
+
+        lblDatosAjustes.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblDatosAjustes.setForeground(new java.awt.Color(48, 174, 76));
+        lblDatosAjustes.setText("•      Datos");
+        pnlAjustes.add(lblDatosAjustes);
+        lblDatosAjustes.setBounds(40, 160, 150, 20);
+        pnlAjustes.add(txtNombreAjustes);
+        txtNombreAjustes.setBounds(110, 100, 180, 30);
+
+        lblNombreAjustes.setFont(new java.awt.Font("Corbel Light", 1, 14)); // NOI18N
+        lblNombreAjustes.setText("Nombre:");
+        pnlAjustes.add(lblNombreAjustes);
+        lblNombreAjustes.setBounds(40, 100, 70, 30);
+
+        lblImagen1Ajustes.setFont(new java.awt.Font("Corbel Light", 1, 14)); // NOI18N
+        lblImagen1Ajustes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Logo.png"))); // NOI18N
+        pnlAjustes.add(lblImagen1Ajustes);
+        lblImagen1Ajustes.setBounds(420, 70, 80, 90);
+        pnlAjustes.add(txtRUCAjustes);
+        txtRUCAjustes.setBounds(110, 220, 180, 30);
+
+        lblRUCAjustes.setFont(new java.awt.Font("Corbel Light", 1, 14)); // NOI18N
+        lblRUCAjustes.setText("RUC:");
+        pnlAjustes.add(lblRUCAjustes);
+        lblRUCAjustes.setBounds(40, 220, 70, 30);
+        pnlAjustes.add(txtTelefonoAjustes);
+        txtTelefonoAjustes.setBounds(400, 220, 180, 30);
+
+        lblTelefonoAjustes.setFont(new java.awt.Font("Corbel Light", 1, 14)); // NOI18N
+        lblTelefonoAjustes.setText("Telefono:");
+        pnlAjustes.add(lblTelefonoAjustes);
+        lblTelefonoAjustes.setBounds(330, 220, 70, 30);
+        pnlAjustes.add(txtCorreodeEmpresaAjustes);
+        txtCorreodeEmpresaAjustes.setBounds(180, 280, 180, 30);
+
+        lblCorreodeEmpresaAjustes.setFont(new java.awt.Font("Corbel Light", 1, 14)); // NOI18N
+        lblCorreodeEmpresaAjustes.setText("Correo de Empresa:");
+        pnlAjustes.add(lblCorreodeEmpresaAjustes);
+        lblCorreodeEmpresaAjustes.setBounds(40, 280, 140, 30);
+
+        cbTipoAspectoAjustes.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        cbTipoAspectoAjustes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "• Claro", "• Oscuro" }));
+        pnlAjustes.add(cbTipoAspectoAjustes);
+        cbTipoAspectoAjustes.setBounds(440, 340, 150, 30);
+
+        lblIDIOMAAjustes.setFont(new java.awt.Font("Corbel Light", 1, 14)); // NOI18N
+        lblIDIOMAAjustes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Planeta.png"))); // NOI18N
+        lblIDIOMAAjustes.setText("IDIOMA");
+        pnlAjustes.add(lblIDIOMAAjustes);
+        lblIDIOMAAjustes.setBounds(110, 340, 90, 30);
+
+        btnGuardacambiosAjustes.setBackground(new java.awt.Color(240, 236, 220));
+        btnGuardacambiosAjustes.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
+        btnGuardacambiosAjustes.setText("Guardar cambios");
+        btnGuardacambiosAjustes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardacambiosAjustesActionPerformed(evt);
+            }
+        });
+        pnlAjustes.add(btnGuardacambiosAjustes);
+        btnGuardacambiosAjustes.setBounds(170, 410, 340, 30);
+
+        lblApectoAjustes.setFont(new java.awt.Font("Corbel Light", 1, 14)); // NOI18N
+        lblApectoAjustes.setText("Aspecto:");
+        pnlAjustes.add(lblApectoAjustes);
+        lblApectoAjustes.setBounds(360, 340, 90, 30);
+
+        lblLogotipoAjustes.setFont(new java.awt.Font("Corbel Light", 1, 14)); // NOI18N
+        lblLogotipoAjustes.setText("Logotipo:");
+        pnlAjustes.add(lblLogotipoAjustes);
+        lblLogotipoAjustes.setBounds(340, 100, 70, 30);
+
+        tpnMostrar.addTab("pnlAjustes", pnlAjustes);
+
         getContentPane().add(tpnMostrar);
         tpnMostrar.setBounds(190, 80, 690, 610);
 
@@ -3143,6 +3295,14 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnEliminarBoletaRegVenActionPerformed
 
+    private void btnDescargarRegistrodeVentasReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDescargarRegistrodeVentasReportesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnDescargarRegistrodeVentasReportesActionPerformed
+
+    private void btnGuardacambiosAjustesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardacambiosAjustesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnGuardacambiosAjustesActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -3200,6 +3360,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     private javax.swing.JButton btnCancelarRegCom;
     private javax.swing.JButton btnCancelarRegVen;
     private javax.swing.JButton btnCrearUsuario;
+    private javax.swing.JButton btnDescargarRegistrodeVentasReportes;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnEditarAlmacen;
     private javax.swing.JButton btnEditarBoletaRegVen;
@@ -3215,6 +3376,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     private javax.swing.JButton btnEliminarRegComFacturaRegVen;
     private javax.swing.JButton btnEliminarRegComProforma;
     private javax.swing.JButton btnFiltrarAlmacen;
+    private javax.swing.JButton btnGuardacambiosAjustes;
     private javax.swing.JButton btnGuardarBoletaRegVen;
     private javax.swing.JButton btnGuardarRegComBoleta;
     private javax.swing.JButton btnGuardarRegComFactura;
@@ -3231,6 +3393,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     private javax.swing.JLabel btnregistrodeusuario;
     private javax.swing.JLabel btnregistrodeventas;
     private javax.swing.JLabel btnreportes;
+    private javax.swing.JComboBox<String> cbTipoAspectoAjustes;
     private javax.swing.JComboBox<String> cbTipoDeDineroBoleta;
     private javax.swing.JComboBox<String> cbTipoDeDineroBoletaRegVen;
     private javax.swing.JComboBox<String> cbTipoDeDineroFactura;
@@ -3242,6 +3405,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cbTipoOPBoletaRegVen;
     private javax.swing.JComboBox<String> cbTipoProductosRegVen;
     private javax.swing.JComboBox<String> cbTipoStock;
+    private javax.swing.JComboBox<String> cbTipoSurcusalesReportes;
     private javax.swing.JComboBox<String> cbTipoUsuario;
     private javax.swing.JComboBox<String> cbTipodeBusquedaComprobantesEmitidos;
     private javax.swing.JComboBox<String> cbTipodeBusquedaComprobantesEmitidosRegVen;
@@ -3268,6 +3432,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     private javax.swing.JPanel jpanelsuperior;
     private javax.swing.JLabel lblAgregamosProductosRegVen;
     private javax.swing.JLabel lblAgregaryCrearUsuario;
+    private javax.swing.JLabel lblApectoAjustes;
     private javax.swing.JLabel lblApellidos;
     private javax.swing.JLabel lblCantidadRegCom;
     private javax.swing.JLabel lblCantidadRegVen;
@@ -3277,7 +3442,9 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     private javax.swing.JLabel lblClientes;
     private javax.swing.JLabel lblCompraDelMes;
     private javax.swing.JLabel lblContraseña;
+    private javax.swing.JLabel lblCorreodeEmpresaAjustes;
     private javax.swing.JLabel lblDNIUsuario;
+    private javax.swing.JLabel lblDatosAjustes;
     private javax.swing.JLabel lblEGRESOScaja;
     private javax.swing.JTextField lblEgresoscaja;
     private javax.swing.JLabel lblFechaBoleta;
@@ -3287,19 +3454,24 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     private javax.swing.JLabel lblFechaProforma;
     private javax.swing.JLabel lblGanancias;
     private javax.swing.JLabel lblGananciascaja;
+    private javax.swing.JLabel lblGestionarperfilAjustes;
     private javax.swing.JTextField lblHistorialdeMovimientoscaja;
+    private javax.swing.JLabel lblIDIOMAAjustes;
     private javax.swing.JLabel lblINGRESOScaja;
     private javax.swing.JLabel lblImagen1;
+    private javax.swing.JLabel lblImagen1Ajustes;
     private javax.swing.JLabel lblImagen1BoletaRegVen;
     private javax.swing.JLabel lblImagen1FacturaRegVen;
     private javax.swing.JLabel lblImagen2BoletaRegVen;
     private javax.swing.JLabel lblImagen2FacturaRegVen;
     private javax.swing.JTextField lblIngresoscaja;
+    private javax.swing.JLabel lblLogotipoAjustes;
     private javax.swing.JLabel lblMonedaBoleta;
     private javax.swing.JLabel lblMonedaBoletaRegVen;
     private javax.swing.JLabel lblMonedaFactura;
     private javax.swing.JLabel lblMonedaFacturaRegVen;
     private javax.swing.JLabel lblMonedaProforma;
+    private javax.swing.JLabel lblNombreAjustes;
     private javax.swing.JLabel lblNombres;
     private javax.swing.JLabel lblNombresProforma;
     private javax.swing.JLabel lblNumeroBoleta;
@@ -3307,6 +3479,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     private javax.swing.JLabel lblNumeroFactura;
     private javax.swing.JLabel lblNumeroFacturaRegVen;
     private javax.swing.JLabel lblOPBoletaRegVen;
+    private javax.swing.JLabel lblPeriodoReportes;
     private javax.swing.JLabel lblPreciioUnitarioRegCom;
     private javax.swing.JLabel lblPreciioUnitarioRegVen;
     private javax.swing.JLabel lblPreciodeProducto;
@@ -3317,7 +3490,10 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     private javax.swing.JLabel lblProveedorBoleta;
     private javax.swing.JLabel lblProveedorFactura;
     private javax.swing.JLabel lblProveedores;
+    private javax.swing.JLabel lblREPORTEREGISTRODEVENTASReportes;
     private javax.swing.JLabel lblRUC;
+    private javax.swing.JLabel lblRUCAjustes;
+    private javax.swing.JLabel lblRangodeperiodoReportes;
     private javax.swing.JLabel lblRegCompras;
     private javax.swing.JLabel lblRegVentas;
     private javax.swing.JLabel lblRegistrodeProductosRegCom;
@@ -3337,7 +3513,9 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     private javax.swing.JLabel lblSubtemaAgregarProductoRegVen;
     private javax.swing.JLabel lblSubtemaComprobantesEmitidos;
     private javax.swing.JLabel lblSubtemaComprobantesEmitidosRegVen;
+    private javax.swing.JLabel lblSurcusalesReportes;
     private javax.swing.JLabel lblTelefono;
+    private javax.swing.JLabel lblTelefonoAjustes;
     private javax.swing.JLabel lblTipoUsuario;
     private javax.swing.JLabel lblVentasDelDia;
     private javax.swing.JLabel lblimagen1;
@@ -3357,6 +3535,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     private javax.swing.JLabel lblsubtemaProforma;
     private javax.swing.JPanel pnl1Almacen;
     private javax.swing.JPanel pnl1Inicio;
+    private javax.swing.JPanel pnlAjustes;
     private javax.swing.JPanel pnlCaja;
     private javax.swing.JPanel pnlCientes;
     private javax.swing.JPanel pnlCompraDelMes;
@@ -3380,6 +3559,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     private javax.swing.JPanel pnlRegVenBoleta;
     private javax.swing.JPanel pnlRegVenCompromantesEmitidos;
     private javax.swing.JPanel pnlRegVenFactura;
+    private javax.swing.JPanel pnlReportes;
     private javax.swing.JPanel pnlVentasDelDia;
     private javax.swing.JRadioButton rbtActivo;
     private javax.swing.JRadioButton rbtInactivo;
@@ -3407,6 +3587,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     private javax.swing.JTextField txtClientes;
     private javax.swing.JTextField txtComprasDelMes;
     private javax.swing.JTextField txtContraseña;
+    private javax.swing.JTextField txtCorreodeEmpresaAjustes;
     private javax.swing.JTextField txtDNIUsuario;
     private javax.swing.JTextField txtDecoracion1Boleta;
     private javax.swing.JTextField txtDecoracion1BoletaRegVen;
@@ -3427,12 +3608,14 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     private javax.swing.JTextField txtGANACIAScaja;
     private javax.swing.JTextField txtGanancias;
     private javax.swing.JTextField txtINGRESOScaja;
+    private javax.swing.JTextField txtNombreAjustes;
     private javax.swing.JTextField txtNombres;
     private javax.swing.JTextField txtNombresProforma;
     private javax.swing.JTextField txtNumeroBoleta;
     private javax.swing.JTextField txtNumeroBoletaRegVen;
     private javax.swing.JTextField txtNumeroFactura;
     private javax.swing.JTextField txtNumeroFacturaRegVen;
+    private javax.swing.JTextField txtPeriodoReportes;
     private javax.swing.JTextField txtPreciioUnitarioRegCom;
     private javax.swing.JTextField txtPreciioUnitarioRegVen;
     private javax.swing.JTextField txtPreciodeCompra;
@@ -3442,12 +3625,15 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     private javax.swing.JTextField txtProveedorBoleta;
     private javax.swing.JTextField txtProveedorFactura;
     private javax.swing.JTextField txtProveedores;
+    private javax.swing.JTextField txtRUCAjustes;
+    private javax.swing.JTextField txtRangodeperiodoReportes;
     private javax.swing.JTextField txtRucFacturaRegVen;
     private javax.swing.JTextField txtSerieBoleta;
     private javax.swing.JTextField txtSerieBoletaRegVen;
     private javax.swing.JTextField txtSerieFactura;
     private javax.swing.JTextField txtSerieFacturaRegVen;
     private javax.swing.JTextField txtTelefono;
+    private javax.swing.JTextField txtTelefonoAjustes;
     private javax.swing.JTextField txtTotalBoleta;
     private javax.swing.JTextField txtTotalBoletaRegVen;
     private javax.swing.JTextField txtTotalFactura;
