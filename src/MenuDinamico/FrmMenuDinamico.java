@@ -14,6 +14,9 @@ import javax.swing.JTable;
 import Producto.Producto;
 import javax.swing.JTextField;
 import MenuDinamico.GestorModelos;
+//añadido
+import java.util.List;
+//hasta aca
 import javax.swing.JButton;
 import javax.swing.JToggleButton;
 
@@ -639,7 +642,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         lblRUC.setFont(new java.awt.Font("Cartoon Fun", 0, 14)); // NOI18N
         lblRUC.setText("Agro Integral Perú");
         jpanelsuperior.add(lblRUC);
-        lblRUC.setBounds(610, 10, 200, 24);
+        lblRUC.setBounds(610, 10, 200, 19);
 
         lblRol.setText("Empleado");
         jpanelsuperior.add(lblRol);
@@ -2300,6 +2303,8 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
 
         tpnMostrar.addTab("pnlRegVenProforma", pnlRegVenProform);
 
+        tpnMostrar.setSelectedIndex(14);
+
         getContentPane().add(tpnMostrar);
         tpnMostrar.setBounds(190, 80, 690, 610);
 
@@ -3681,7 +3686,13 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEliminarBoletaRegVenActionPerformed
 
     private void btnDescargarRegistrodeVentasReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDescargarRegistrodeVentasReportesActionPerformed
-        
+
+    String tipoSucursal = cbTipoSurcusalesReportes.getSelectedItem().toString();
+    String periodo = txtPeriodoReportes.getText().trim();
+    String rangoPeriodo = txtRangodeperiodoReportes.getText().trim();
+
+    Excel.ExportadorExcel exportador = new Excel.ExportadorExcel();
+    exportador.exportarRegistroDeVentas(tipoSucursal, periodo, rangoPeriodo);
     }//GEN-LAST:event_btnDescargarRegistrodeVentasReportesActionPerformed
 
     private void btnGuardacambiosAjustesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardacambiosAjustesActionPerformed
