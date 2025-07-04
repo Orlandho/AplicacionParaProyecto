@@ -26,18 +26,27 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     private final int pnlRegUsu = 1;
     private final int pnlCrearUsu = 2;
     private final int pnlAlmac = 3;
-    private final int pnlFact = 4;
-    private final int pnlBole = 5;
-    private final int pnlProf = 6;
+    private final int pnlComFact = 4;
+    private final int pnlComBole = 5;
+    private final int pnlComProf = 6;
     private final int pnlCompEmit = 7;
     private final int pnlAgrComProd = 8;
     private final int pnlAgrVenProd = 9;
+    private final int pnlVenFactura=10;
+    private final int pnlVenBoleta=13;
+    private final int pnlVenCompEmit=11;
+    private final int iPnlCaja=12;
+    private final int iPnlReportes=14;
+    private final int pnlAjuste=15;
 
     private String[] colsRegProd = {"Producto ID", "Tipo de Documento", "Producto", "Precio Compra", "Cantidad", "Stock"};
     private String[] colsRegFactBoleProf = {"ID", "Producto", "Cantidad", "Precio Unit.", "Sub. Total", "I.G.V.", "Total"};
     private ArrayList<Producto> tempListFact;
     private ArrayList<Producto> tempListBole;
     private ArrayList<Producto> tempListProf;
+    private ArrayList<Producto> tempListVenFact;
+    private ArrayList<Producto> tempListVenBole;
+    private ArrayList<Producto> tempListVenProf;
     private int pnlPadreComVenProd;
     private String[] colsRegCompComprEmitid = {"N°", "ID", "Fecha de registro", "Tipo de comprobante", "Serie", "Número", "Proveedor", "Total"};
     private int indiceRegCompComprEmitid = 5;
@@ -47,7 +56,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     public FrmMenuDinamico() {
         initComponents();
         //esto coloque para el cmabio de idioma
-        Ajuste.Ajustes.cambiarAIngles(null, this);
+        //Ajuste.Ajustes.cambiarAIngles(null, this);
         //hasta aca
         jpaneladmin.setVisible(false);
         baseDeDatos = new SQLiteManager();
@@ -61,10 +70,16 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         GestorModelos.añadirTblProducto(tblRegistroProforma);
         //configuracion personalizada para tblRegistrodeComprobantesEmitidos
         GestorModelos.añadirTblProducto(tblRegistrodeComprobantesEmitidos, colsRegCompComprEmitid, new int[]{0, 1, 2, 3, 4, 5, 6, 7});
+        GestorModelos.añadirTblProducto(tblRegistroFacturaRegVen);
+        GestorModelos.añadirTblProducto(tblRegistroBoletaRegVen);
+        GestorModelos.añadirTblProducto(tblRegistrodeComprobantesEmitidosRegVen, new String[]{"N°", "ID", "Fecha de registro", "Tipo de comprobante", "Serie", "Número", "Cliente", "Total"}, new int[]{0, 1, 2, 3, 4, 5, 6, 7});
 
         tempListFact = new ArrayList<>();
         tempListBole = new ArrayList<>();
         tempListProf = new ArrayList<>();
+        tempListVenFact= new ArrayList<>();
+        tempListVenBole= new ArrayList<>();
+        tempListVenProf= new ArrayList<>();
         tempListComprEmitid = new ArrayList<>();
         tblPadre = null;
     }
@@ -440,15 +455,30 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         RegistroDeCompra.add(jmCOMPROBATESEMITIDOSRegCom);
 
         jmFACTURASRegVen.setText("FACTURAS");
+        jmFACTURASRegVen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmFACTURASRegVenActionPerformed(evt);
+            }
+        });
         RegistroDeVenta.add(jmFACTURASRegVen);
 
         jmBOLETASRegVen.setText("BOLETAS");
+        jmBOLETASRegVen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmBOLETASRegVenActionPerformed(evt);
+            }
+        });
         RegistroDeVenta.add(jmBOLETASRegVen);
 
         jmOTROSRegVen.setText("OTROS");
         RegistroDeVenta.add(jmOTROSRegVen);
 
         jmCOMPROBATESEMITIDOSRegVen.setText("COMPROBATES EMITIDOS");
+        jmCOMPROBATESEMITIDOSRegVen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmCOMPROBATESEMITIDOSRegVenActionPerformed(evt);
+            }
+        });
         RegistroDeVenta.add(jmCOMPROBATESEMITIDOSRegVen);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
@@ -1557,6 +1587,11 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         pnlRegVenAgregarProducto.add(lblCantidadRegVen);
         lblCantidadRegVen.setBounds(40, 210, 80, 18);
 
+        cbTipoProductosRegVen.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbTipoProductosRegVenItemStateChanged(evt);
+            }
+        });
         pnlRegVenAgregarProducto.add(cbTipoProductosRegVen);
         cbTipoProductosRegVen.setBounds(110, 150, 170, 30);
 
@@ -1727,6 +1762,11 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
 
         btnBuscarComprobantesEmitidosRegVen.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         btnBuscarComprobantesEmitidosRegVen.setText("Buscar");
+        btnBuscarComprobantesEmitidosRegVen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarComprobantesEmitidosRegVenActionPerformed(evt);
+            }
+        });
         pnlRegVenCompromantesEmitidos.add(btnBuscarComprobantesEmitidosRegVen);
         btnBuscarComprobantesEmitidosRegVen.setBounds(570, 60, 100, 30);
 
@@ -1772,7 +1812,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         pnlRegVenCompromantesEmitidos.add(lblimagen1ComprobantesEmitidosRegVen);
         lblimagen1ComprobantesEmitidosRegVen.setBounds(40, 90, 40, 30);
 
-        cbTipodeBusquedaComprobantesEmitidosRegVen.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "   Numero", "   Serie ", "   Cliente", " ", " " }));
+        cbTipodeBusquedaComprobantesEmitidosRegVen.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " Numero", " Serie", " Cliente" }));
         pnlRegVenCompromantesEmitidos.add(cbTipodeBusquedaComprobantesEmitidosRegVen);
         cbTipodeBusquedaComprobantesEmitidosRegVen.setBounds(70, 120, 470, 30);
         pnlRegVenCompromantesEmitidos.add(txtBuscarComprobantesEmitidosRegVen);
@@ -2851,15 +2891,15 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAlmacenMouseClicked
 
     private void btnregistrodecomprasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnregistrodecomprasMouseClicked
-
+        
     }//GEN-LAST:event_btnregistrodecomprasMouseClicked
 
     private void btnregistrodeventasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnregistrodeventasMouseClicked
-
+        
     }//GEN-LAST:event_btnregistrodeventasMouseClicked
 
     private void btncajaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btncajaMouseClicked
-
+        tpnMostrar.setSelectedIndex(iPnlCaja);
     }//GEN-LAST:event_btncajaMouseClicked
 
     private void btnregistrodeusuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnregistrodeusuarioMouseClicked
@@ -2870,11 +2910,11 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     }//GEN-LAST:event_btnregistrodeusuarioMouseClicked
 
     private void btnreportesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnreportesMouseClicked
-
+        tpnMostrar.setSelectedIndex(iPnlReportes);
     }//GEN-LAST:event_btnreportesMouseClicked
 
     private void btnajustesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnajustesMouseClicked
-
+        tpnMostrar.setSelectedIndex(pnlAjuste);
     }//GEN-LAST:event_btnajustesMouseClicked
 
     private void btncerrarsesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btncerrarsesionMouseClicked
@@ -3112,21 +3152,19 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
 
     private void jmFACTURASRegComActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmFACTURASRegComActionPerformed
         //cambiar al panel
-        tpnMostrar.setSelectedIndex(pnlFact);
+        tpnMostrar.setSelectedIndex(pnlComFact);
 
     }//GEN-LAST:event_jmFACTURASRegComActionPerformed
 
     private void jmBOLETASRegComActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmBOLETASRegComActionPerformed
-        tpnMostrar.setSelectedIndex(pnlBole);
+        tpnMostrar.setSelectedIndex(pnlComBole);
     }//GEN-LAST:event_jmBOLETASRegComActionPerformed
 
     private void jmOTROSRegComActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmOTROSRegComActionPerformed
-        tpnMostrar.setSelectedIndex(pnlProf);
+        tpnMostrar.setSelectedIndex(pnlComProf);
     }//GEN-LAST:event_jmOTROSRegComActionPerformed
 
     private void jmCOMPROBATESEMITIDOSRegComActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmCOMPROBATESEMITIDOSRegComActionPerformed
-        //buscar todos los comprobantes en la base de datos e insertarlos en la lista de comprobantes tempListComprEmitid
-
         //actualizar la tabla
         GestorModelos.actualizarCompEmit(tblRegistrodeComprobantesEmitidos, baseDeDatos.obtenerComprobantes());
         tpnMostrar.setSelectedIndex(pnlCompEmit);
@@ -3134,7 +3172,6 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
 
     private void guardarProductosEnBD(ArrayList<Producto> listaProductos) {
         for (Producto prod : listaProductos) {
-            //crearProducto(String tipoDoc, String producto, double precio, int cantidad, String stock) {
             baseDeDatos.crearProducto(prod.getTipoDocumento(), prod.getProducto(), prod.getPrecioCompra(), prod.getCantidad(), prod.getStock());
         }
 
@@ -3151,7 +3188,6 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         String responsable = cbTipoDeLiderFactura.getSelectedItem().toString();
         String moneda = cbTipoDeDineroFactura.getSelectedItem().toString();
         guardarProductosEnBD(tempListFact);
-        //crearComprobante(String fechaRegistro, String tipoComprobante, int serie, int numero, String proveedor, double total) {
         baseDeDatos.crearComprobante(txtFechaFactura.getText(), "Factura", serieFact, numFact, proveedor, Double.parseDouble(txtTotalFactura.getText()));
         comprobanteRegistrado();
     }//GEN-LAST:event_btnGuardarRegComFacturaActionPerformed
@@ -3190,19 +3226,19 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
 
     private void btnAgregarRegComFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarRegComFacturaActionPerformed
         tblPadre = tblRegistroFactura;
-        pnlPadreComVenProd = pnlFact;
+        pnlPadreComVenProd = pnlComFact;
         tpnMostrar.setSelectedIndex(pnlAgrComProd);
     }//GEN-LAST:event_btnAgregarRegComFacturaActionPerformed
 
     private void btnAgregarRegComBoletaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarRegComBoletaActionPerformed
         tblPadre = tblRegistroBoleta;
-        pnlPadreComVenProd = pnlBole;
+        pnlPadreComVenProd = pnlComBole;
         tpnMostrar.setSelectedIndex(pnlAgrComProd);
     }//GEN-LAST:event_btnAgregarRegComBoletaActionPerformed
 
     private void btnAgregarRegComProformaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarRegComProformaActionPerformed
         tblPadre = tblRegistroProforma;
-        pnlPadreComVenProd = pnlProf;
+        pnlPadreComVenProd = pnlComProf;
         tpnMostrar.setSelectedIndex(pnlAgrComProd);
     }//GEN-LAST:event_btnAgregarRegComProformaActionPerformed
 
@@ -3325,15 +3361,21 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     private JTextField IdentificarTxt(int pnlPadre) {
         JTextField rpta = new JTextField();
         switch (pnlPadre) {
-            case pnlFact:
+            case pnlComFact:
                 rpta = txtTotalFactura;
                 break;
-            case pnlBole:
+            case pnlComBole:
                 rpta = txtTotalBoleta;
                 break;
-            case pnlProf:
+            case pnlComProf:
                 rpta = txtTotalProforma;
                 break;
+            case pnlVenFactura:
+            rpta=txtTotalFacturaRegVen;
+            break;
+            case pnlVenBoleta:
+            rpta=txtTotalBoletaRegVen;
+            break;
         }
         return rpta;
     }
@@ -3347,7 +3389,14 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
             rpta = tempListBole;
         } else if (tblPadre == tblRegistroProforma) {
             rpta = tempListProf;
-        }
+        }else if(tblPadre ==tblRegistroFacturaRegVen){
+            rpta = tempListVenFact;
+        }else if(tblPadre ==tblRegistroBoletaRegVen){
+            rpta = tempListVenBole;
+        }/*else if(tblPadre ==){
+rpta = tempListVenProf;
+        }*/
+        
         return rpta;
     }
 
@@ -3388,12 +3437,19 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     private void btnCancelarRegVenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarRegVenActionPerformed
         tpnMostrar.setSelectedIndex(pnlPadreComVenProd);
     }//GEN-LAST:event_btnCancelarRegVenActionPerformed
-
+    
     private void btnAgregarProductoRegVenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarProductoRegVenActionPerformed
         if (faltanDatosEnTxt(txtPreciioUnitarioRegVen, txtPreciioUnitarioRegVen, txtCantidadRegVen)) {
             JOptionPane.showMessageDialog(this, "Faltan datos de producto");
             return;
         }
+        
+        Producto prod=baseDeDatos.buscarProducto(cbTipoProductosRegVen.getSelectedItem().toString());
+        JTextField txtTotal = IdentificarTxt(pnlPadreComVenProd);
+        ArrayList<Producto> listaTemp = identificarLista(tblPadre);
+        listaTemp.add(prod);
+        GestorModelos.actualizarRegsCompVenProd(tblPadre, listaTemp, txtTotal);
+        tpnMostrar.setSelectedIndex(pnlPadreComVenProd);
     }//GEN-LAST:event_btnAgregarProductoRegVenActionPerformed
 
     private void btnAnularComprobantesEmitidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnularComprobantesEmitidosActionPerformed
@@ -3406,6 +3462,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         }
         baseDeDatos.eliminarComprobante(Integer.parseInt(GestorModelos.getValueAt(tblRegistrodeComprobantesEmitidos, filaSeleccion, 1).toString()));
         GestorModelos.actualizarCompEmit(tblRegistrodeComprobantesEmitidos, baseDeDatos.obtenerComprobantes());
+        
     }//GEN-LAST:event_btnAnularComprobantesEmitidosActionPerformed
 
     public Integer getSeleccionEditar(JTable editame) {
@@ -3479,23 +3536,80 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBuscarComprobantesEmitidosActionPerformed
 
     private void btnAnularComprobantesEmitidosRegVenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnularComprobantesEmitidosRegVenActionPerformed
-        // TODO add your handling code here:
+        if (cancelarEliminacion()) {
+            return;
+        }
+        Integer filaSeleccion = getSeleccionEliminar(tblRegistrodeComprobantesEmitidosRegVen);
+        if (filaSeleccion == null) {
+            return;
+        }
+        baseDeDatos.eliminarComprobanteVenta(Integer.parseInt(GestorModelos.getValueAt(tblRegistrodeComprobantesEmitidosRegVen, filaSeleccion, 1).toString()));
+        GestorModelos.actualizarCompVenEmit(tblRegistrodeComprobantesEmitidosRegVen, baseDeDatos.obtenerComprobantesVenta());
+        
     }//GEN-LAST:event_btnAnularComprobantesEmitidosRegVenActionPerformed
 
     private void btnEditarRegComFacturaRegVenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarRegComFacturaRegVenActionPerformed
-        // TODO add your handling code here:
+        Integer filaSeleccion = getSeleccionEditar(tblRegistroFacturaRegVen);
+        if (filaSeleccion == null) {
+            return;
+        }
+        if (GestorModelos.tieneCeldasVacias(tblRegistroFacturaRegVen, filaSeleccion)) {
+            JOptionPane.showMessageDialog(this, "Faltan datos en la fila");
+            return;
+        }
+        if (!tryBtnEditarAccion("Factura", tblRegistroFacturaRegVen, filaSeleccion, tempListVenFact)) {
+            return;
+        }
+        GestorModelos.actualizarRegsCompVenProd(tblRegistroFacturaRegVen, tempListVenFact, txtTotalFacturaRegVen);
     }//GEN-LAST:event_btnEditarRegComFacturaRegVenActionPerformed
 
+    private void removerProdsVendidos(ArrayList<Producto> listaProductos) {
+        System.out.println("Me ejecute adentro");
+        for (Producto prod : listaProductos) {
+            System.out.println("Me ejecute adentro del for");
+            System.out.println(prod.getID());
+            baseDeDatos.eliminarProducto(prod.getID());
+        }
+    }
+    
     private void btnGuardarRegComFacturaRegVenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarRegComFacturaRegVenActionPerformed
-        // TODO add your handling code here:
+        
+        int serie=Integer.parseInt(txtSerieFacturaRegVen.getText());
+        int numero=Integer.parseInt(txtNumeroFacturaRegVen.getText());
+        String cliente=txtClienteFacturaRegVen.getText();
+        double total=Double.parseDouble(txtTotalFacturaRegVen.getText());
+        String fechaRegistro=txtFechaFacturaRegVen.getText();
+        //crearComprobanteVenta(String fechaRegistro, String tipoComprobante, int serie, int numero, String cliente, double total)
+        baseDeDatos.crearComprobanteVenta(fechaRegistro,"Factura",serie,numero,cliente,total);
+        removerProdsVendidos(tempListVenFact);
+        comprobanteRegistrado();
     }//GEN-LAST:event_btnGuardarRegComFacturaRegVenActionPerformed
 
+    private void actualizarComboBoxAgregVen(){
+        cbTipoProductosRegVen.removeAllItems();
+        ArrayList<Producto> lista= baseDeDatos.obtenerProductos();
+        for (Producto prod : lista) {
+            cbTipoProductosRegVen.addItem(prod.getProducto());
+        }
+        
+    }
+    
     private void btnAgregarRegComFacturaRegVenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarRegComFacturaRegVenActionPerformed
-        // TODO add your handling code here:
+        tblPadre = tblRegistroFacturaRegVen;
+        pnlPadreComVenProd = pnlVenFactura;
+        actualizarComboBoxAgregVen();
+        tpnMostrar.setSelectedIndex(pnlAgrVenProd);
     }//GEN-LAST:event_btnAgregarRegComFacturaRegVenActionPerformed
 
     private void btnEliminarRegComFacturaRegVenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarRegComFacturaRegVenActionPerformed
-        // TODO add your handling code here:
+        if (cancelarEliminacion()) {
+            return;
+        }
+        Integer filaSeleccion = getSeleccionEliminar(tblRegistroFacturaRegVen);
+        if (filaSeleccion == null) {
+            return;
+        }
+        btnElimAccion(tblRegistroFacturaRegVen, filaSeleccion, tempListVenFact, txtTotalFacturaRegVen);
     }//GEN-LAST:event_btnEliminarRegComFacturaRegVenActionPerformed
 
     private void btnPDFComprobantesEmitidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPDFComprobantesEmitidosActionPerformed
@@ -3513,28 +3627,109 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPDFComprobantesEmitidosActionPerformed
 
     private void btnEditarBoletaRegVenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarBoletaRegVenActionPerformed
-        // TODO add your handling code here:
+        Integer filaSeleccion = getSeleccionEditar(tblRegistroBoletaRegVen);
+        if (filaSeleccion == null) {
+            return;
+        }
+        if (GestorModelos.tieneCeldasVacias(tblRegistroBoletaRegVen, filaSeleccion)) {
+            JOptionPane.showMessageDialog(this, "Faltan datos en la fila");
+            return;
+        }
+        if (!tryBtnEditarAccion("Factura", tblRegistroBoletaRegVen, filaSeleccion, tempListVenBole)) {
+            return;
+        }
+        GestorModelos.actualizarRegsCompVenProd(tblRegistroBoletaRegVen, tempListVenBole, txtTotalBoletaRegVen);
     }//GEN-LAST:event_btnEditarBoletaRegVenActionPerformed
 
     private void btnGuardarBoletaRegVenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarBoletaRegVenActionPerformed
-        // TODO add your handling code here:
+        
+        int serie=Integer.parseInt(txtSerieBoletaRegVen.getText());
+        int numero=Integer.parseInt(txtNumeroBoletaRegVen.getText());
+        String cliente=txtClienteBoletaRegVen.getText();
+        double total=Double.parseDouble(txtTotalBoletaRegVen.getText());
+        String fechaRegistro=txtFechaBoletaRegVen.getText();
+        baseDeDatos.crearComprobanteVenta(fechaRegistro,"Factura",serie,numero,cliente,total);
+        removerProdsVendidos(tempListVenBole);
+        comprobanteRegistrado();
     }//GEN-LAST:event_btnGuardarBoletaRegVenActionPerformed
 
     private void btnAgregarBoletaRegVenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarBoletaRegVenActionPerformed
-        // TODO add your handling code here:
+        tblPadre = tblRegistroBoletaRegVen;
+        pnlPadreComVenProd = pnlVenBoleta;
+        actualizarComboBoxAgregVen();
+        tpnMostrar.setSelectedIndex(pnlAgrVenProd);
     }//GEN-LAST:event_btnAgregarBoletaRegVenActionPerformed
 
     private void btnEliminarBoletaRegVenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarBoletaRegVenActionPerformed
-        // TODO add your handling code here:
+        if (cancelarEliminacion()) {
+            return;
+        }
+        Integer filaSeleccion = getSeleccionEliminar(tblRegistroBoletaRegVen);
+        if (filaSeleccion == null) {
+            return;
+        }
+        btnElimAccion(tblRegistroBoletaRegVen, filaSeleccion, tempListVenBole, txtTotalBoletaRegVen);
     }//GEN-LAST:event_btnEliminarBoletaRegVenActionPerformed
 
     private void btnDescargarRegistrodeVentasReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDescargarRegistrodeVentasReportesActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_btnDescargarRegistrodeVentasReportesActionPerformed
 
     private void btnGuardacambiosAjustesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardacambiosAjustesActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_btnGuardacambiosAjustesActionPerformed
+
+    private void jmFACTURASRegVenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmFACTURASRegVenActionPerformed
+        tpnMostrar.setSelectedIndex(pnlVenFactura);
+    }//GEN-LAST:event_jmFACTURASRegVenActionPerformed
+
+    private void jmBOLETASRegVenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmBOLETASRegVenActionPerformed
+        tpnMostrar.setSelectedIndex(pnlVenBoleta);
+    }//GEN-LAST:event_jmBOLETASRegVenActionPerformed
+
+    private void jmCOMPROBATESEMITIDOSRegVenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmCOMPROBATESEMITIDOSRegVenActionPerformed
+        GestorModelos.actualizarCompVenEmit(tblRegistrodeComprobantesEmitidosRegVen, baseDeDatos.obtenerComprobantesVenta());
+        tpnMostrar.setSelectedIndex(pnlVenCompEmit);
+    }//GEN-LAST:event_jmCOMPROBATESEMITIDOSRegVenActionPerformed
+
+    private void cbTipoProductosRegVenItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbTipoProductosRegVenItemStateChanged
+        int seleccionado=cbTipoProductosRegVen.getSelectedIndex();
+        if(seleccionado==-1){
+            return;
+        }
+        Producto prodSeleccionado=baseDeDatos.buscarProducto(cbTipoProductosRegVen.getItemAt(seleccionado));
+        txtCantidadRegVen.setText(Integer.toString(prodSeleccionado.getCantidad()));
+        txtPreciioUnitarioRegVen.setText(Double.toString(prodSeleccionado.getPrecioUnitario()));
+        
+    }//GEN-LAST:event_cbTipoProductosRegVenItemStateChanged
+
+    private void btnBuscarComprobantesEmitidosRegVenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarComprobantesEmitidosRegVenActionPerformed
+        //revisar que no este en blanco
+        if (faltanDatosEnTxt(txtBuscarComprobantesEmitidosRegVen) && !txtBuscarComprobantesEmitidosRegVen.getText().equals(" ") || btnBuscarComprobantesEmitidosRegVen.getText().equals("Revertir")) {
+            GestorModelos.actualizarCompVenEmit(tblRegistrodeComprobantesEmitidosRegVen, baseDeDatos.obtenerComprobantesVenta());
+            btnBuscarComprobantesEmitidosRegVen.setText("Buscar");
+            txtBuscarComprobantesEmitidosRegVen.setEnabled(true);
+            return;
+        }
+        int indice = 0;
+        String seleccion = cbTipodeBusquedaComprobantesEmitidosRegVen.getSelectedItem().toString();
+        switch (cbTipodeBusquedaComprobantesEmitidosRegVen.getSelectedIndex()) {
+            case 0:
+                indice = 5;
+                break;
+                case 1:
+                indice = 4;
+                break;
+                case 2:
+                indice = 6;
+                break;
+            default:
+                throw new AssertionError();
+        }
+        GestorModelos.buscarCompEmit(tblRegistrodeComprobantesEmitidosRegVen, txtBuscarComprobantesEmitidosRegVen.getText(), indice);
+        btnBuscarComprobantesEmitidosRegVen.setText("Revertir");
+        txtBuscarComprobantesEmitidosRegVen.setEnabled(false);
+    }//GEN-LAST:event_btnBuscarComprobantesEmitidosRegVenActionPerformed
 
     private void btnEditarRegVenProformaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarRegVenProformaActionPerformed
         // TODO add your handling code here:
@@ -3551,6 +3746,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     private void btnEliminarRegVenProformaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarRegVenProformaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnEliminarRegVenProformaActionPerformed
+
 
     /**
      * @param args the command line arguments
