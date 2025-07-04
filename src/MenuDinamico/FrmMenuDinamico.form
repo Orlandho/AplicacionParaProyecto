@@ -3135,6 +3135,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Buscar"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBuscarComprobantesEmitidosRegVenActionPerformed"/>
+              </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
                   <AbsoluteConstraints x="570" y="60" width="100" height="30"/>
@@ -3224,12 +3227,10 @@
             <Component class="javax.swing.JComboBox" name="cbTipodeBusquedaComprobantesEmitidosRegVen">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="5">
-                    <StringItem index="0" value="  &#xf0a7; Numero"/>
-                    <StringItem index="1" value="  &#xf0a7; Serie "/>
-                    <StringItem index="2" value="  &#xf0a7; Cliente"/>
-                    <StringItem index="3" value=" "/>
-                    <StringItem index="4" value=" "/>
+                  <StringArray count="3">
+                    <StringItem index="0" value="&#xf0a7; Numero"/>
+                    <StringItem index="1" value="&#xf0a7; Serie"/>
+                    <StringItem index="2" value="&#xf0a7; Cliente"/>
                   </StringArray>
                 </Property>
               </Properties>

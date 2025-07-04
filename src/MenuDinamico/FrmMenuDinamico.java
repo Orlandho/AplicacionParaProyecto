@@ -1744,6 +1744,11 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
 
         btnBuscarComprobantesEmitidosRegVen.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         btnBuscarComprobantesEmitidosRegVen.setText("Buscar");
+        btnBuscarComprobantesEmitidosRegVen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarComprobantesEmitidosRegVenActionPerformed(evt);
+            }
+        });
         pnlRegVenCompromantesEmitidos.add(btnBuscarComprobantesEmitidosRegVen);
         btnBuscarComprobantesEmitidosRegVen.setBounds(570, 60, 100, 30);
 
@@ -1789,7 +1794,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         pnlRegVenCompromantesEmitidos.add(lblimagen1ComprobantesEmitidosRegVen);
         lblimagen1ComprobantesEmitidosRegVen.setBounds(40, 90, 40, 30);
 
-        cbTipodeBusquedaComprobantesEmitidosRegVen.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "   Numero", "   Serie ", "   Cliente", " ", " " }));
+        cbTipodeBusquedaComprobantesEmitidosRegVen.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " Numero", " Serie", " Cliente" }));
         pnlRegVenCompromantesEmitidos.add(cbTipodeBusquedaComprobantesEmitidosRegVen);
         cbTipodeBusquedaComprobantesEmitidosRegVen.setBounds(70, 120, 470, 30);
         pnlRegVenCompromantesEmitidos.add(txtBuscarComprobantesEmitidosRegVen);
@@ -3372,7 +3377,18 @@ rpta = tempListVenProf;
     }//GEN-LAST:event_btnAnularComprobantesEmitidosRegVenActionPerformed
 
     private void btnEditarRegComFacturaRegVenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarRegComFacturaRegVenActionPerformed
-        // TODO add your handling code here:
+        Integer filaSeleccion = getSeleccionEditar(tblRegistroFacturaRegVen);
+        if (filaSeleccion == null) {
+            return;
+        }
+        if (GestorModelos.tieneCeldasVacias(tblRegistroFacturaRegVen, filaSeleccion)) {
+            JOptionPane.showMessageDialog(this, "Faltan datos en la fila");
+            return;
+        }
+        if (!tryBtnEditarAccion("Factura", tblRegistroFacturaRegVen, filaSeleccion, tempListVenFact)) {
+            return;
+        }
+        GestorModelos.actualizarRegsCompVenProd(tblRegistroFacturaRegVen, tempListVenFact, txtTotalFacturaRegVen);
     }//GEN-LAST:event_btnEditarRegComFacturaRegVenActionPerformed
 
     private void removerProdsVendidos(ArrayList<Producto> listaProductos) {
@@ -3414,7 +3430,14 @@ rpta = tempListVenProf;
     }//GEN-LAST:event_btnAgregarRegComFacturaRegVenActionPerformed
 
     private void btnEliminarRegComFacturaRegVenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarRegComFacturaRegVenActionPerformed
-        
+        if (cancelarEliminacion()) {
+            return;
+        }
+        Integer filaSeleccion = getSeleccionEliminar(tblRegistroFacturaRegVen);
+        if (filaSeleccion == null) {
+            return;
+        }
+        btnElimAccion(tblRegistroFacturaRegVen, filaSeleccion, tempListVenFact, txtTotalFacturaRegVen);
     }//GEN-LAST:event_btnEliminarRegComFacturaRegVenActionPerformed
 
     private void btnPDFComprobantesEmitidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPDFComprobantesEmitidosActionPerformed
@@ -3432,7 +3455,18 @@ rpta = tempListVenProf;
     }//GEN-LAST:event_btnPDFComprobantesEmitidosActionPerformed
 
     private void btnEditarBoletaRegVenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarBoletaRegVenActionPerformed
-        
+        Integer filaSeleccion = getSeleccionEditar(tblRegistroBoletaRegVen);
+        if (filaSeleccion == null) {
+            return;
+        }
+        if (GestorModelos.tieneCeldasVacias(tblRegistroBoletaRegVen, filaSeleccion)) {
+            JOptionPane.showMessageDialog(this, "Faltan datos en la fila");
+            return;
+        }
+        if (!tryBtnEditarAccion("Factura", tblRegistroBoletaRegVen, filaSeleccion, tempListVenBole)) {
+            return;
+        }
+        GestorModelos.actualizarRegsCompVenProd(tblRegistroBoletaRegVen, tempListVenBole, txtTotalBoletaRegVen);
     }//GEN-LAST:event_btnEditarBoletaRegVenActionPerformed
 
     private void btnGuardarBoletaRegVenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarBoletaRegVenActionPerformed
@@ -3455,7 +3489,14 @@ rpta = tempListVenProf;
     }//GEN-LAST:event_btnAgregarBoletaRegVenActionPerformed
 
     private void btnEliminarBoletaRegVenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarBoletaRegVenActionPerformed
-        
+        if (cancelarEliminacion()) {
+            return;
+        }
+        Integer filaSeleccion = getSeleccionEliminar(tblRegistroBoletaRegVen);
+        if (filaSeleccion == null) {
+            return;
+        }
+        btnElimAccion(tblRegistroBoletaRegVen, filaSeleccion, tempListVenBole, txtTotalBoletaRegVen);
     }//GEN-LAST:event_btnEliminarBoletaRegVenActionPerformed
 
     private void btnDescargarRegistrodeVentasReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDescargarRegistrodeVentasReportesActionPerformed
@@ -3489,6 +3530,34 @@ rpta = tempListVenProf;
         txtPreciioUnitarioRegVen.setText(Double.toString(prodSeleccionado.getPrecioUnitario()));
         
     }//GEN-LAST:event_cbTipoProductosRegVenItemStateChanged
+
+    private void btnBuscarComprobantesEmitidosRegVenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarComprobantesEmitidosRegVenActionPerformed
+        //revisar que no este en blanco
+        if (faltanDatosEnTxt(txtBuscarComprobantesEmitidosRegVen) && !txtBuscarComprobantesEmitidosRegVen.getText().equals(" ") || btnBuscarComprobantesEmitidosRegVen.getText().equals("Revertir")) {
+            GestorModelos.actualizarCompVenEmit(tblRegistrodeComprobantesEmitidosRegVen, baseDeDatos.obtenerComprobantesVenta());
+            btnBuscarComprobantesEmitidosRegVen.setText("Buscar");
+            txtBuscarComprobantesEmitidosRegVen.setEnabled(true);
+            return;
+        }
+        int indice = 0;
+        String seleccion = cbTipodeBusquedaComprobantesEmitidosRegVen.getSelectedItem().toString();
+        switch (cbTipodeBusquedaComprobantesEmitidosRegVen.getSelectedIndex()) {
+            case 0:
+                indice = 5;
+                break;
+                case 1:
+                indice = 4;
+                break;
+                case 2:
+                indice = 6;
+                break;
+            default:
+                throw new AssertionError();
+        }
+        GestorModelos.buscarCompEmit(tblRegistrodeComprobantesEmitidosRegVen, txtBuscarComprobantesEmitidosRegVen.getText(), indice);
+        btnBuscarComprobantesEmitidosRegVen.setText("Revertir");
+        txtBuscarComprobantesEmitidosRegVen.setEnabled(false);
+    }//GEN-LAST:event_btnBuscarComprobantesEmitidosRegVenActionPerformed
 
     /**
      * @param args the command line arguments
