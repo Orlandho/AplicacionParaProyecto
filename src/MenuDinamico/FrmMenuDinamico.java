@@ -3564,9 +3564,7 @@ rpta = tempListVenProf;
     }//GEN-LAST:event_btnEditarRegComFacturaRegVenActionPerformed
 
     private void removerProdsVendidos(ArrayList<Producto> listaProductos) {
-        System.out.println("Me ejecute adentro");
         for (Producto prod : listaProductos) {
-            System.out.println("Me ejecute adentro del for");
             System.out.println(prod.getID());
             baseDeDatos.eliminarProducto(prod.getID());
         }
