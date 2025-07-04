@@ -14,8 +14,13 @@ import javax.swing.JTable;
 import Producto.Producto;
 import javax.swing.JTextField;
 import MenuDinamico.GestorModelos;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JToggleButton;
+import com.formdev.flatlaf.FlatDarkLaf;
+import com.formdev.flatlaf.FlatLightLaf;
+import javax.swing.UIManager;
+import javax.swing.SwingUtilities;
 
 public class FrmMenuDinamico extends javax.swing.JFrame {
 
@@ -56,34 +61,54 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
 
     public FrmMenuDinamico() {
         initComponents();
-        //esto coloque para el cmabio de idioma
-        //Ajuste.Ajustes.cambiarAIngles(null, this);
-        //hasta aca
-        jpaneladmin.setVisible(false);
+        // 1. Inicializar la base de datos
         baseDeDatos = new SQLiteManager();
 
+        // 2. Aplicar ajustes guardados (modo visual)
+        String[] ajustes = baseDeDatos.obtenerAjustes();
+        if (ajustes != null) {
+            String modo = ajustes[1]; // [0] = lenguaje, [1] = modo
+
+            try {
+                if (modo.equalsIgnoreCase("• Oscuro")) {
+                    UIManager.setLookAndFeel(new com.formdev.flatlaf.FlatDarkLaf());
+                } else {
+                    UIManager.setLookAndFeel(new com.formdev.flatlaf.FlatLightLaf());
+                }
+
+                SwingUtilities.updateComponentTreeUI(this);
+                cbTipoAspectoAjustes.setSelectedItem(modo); // Actualiza el ComboBox si ya está cargado
+
+            } catch (Exception e) {
+                System.out.println("No se pudo aplicar el tema guardado: " + e.getMessage());
+            }
+        }
+
+        // 3. Ocultar el panel del admin al inicio
+        jpaneladmin.setVisible(false);
+
+        // 4. Cargar modelos en tablas
         GestorModelos.añadirTblUsuario(tblRegistroUsuarios);
-        //configuracion personalizada para tblRegistroProductos
         GestorModelos.añadirTblProducto(tblRegistroProductos, colsRegProd, new int[]{0, 1, 5});
         GestorModelos.añadirTblProducto(tblRegistroFactura);
         GestorModelos.añadirTblProducto(tblRegistroFactura);
         GestorModelos.añadirTblProducto(tblRegistroBoleta);
         GestorModelos.añadirTblProducto(tblRegistroProforma);
-        //configuracion personalizada para tblRegistrodeComprobantesEmitidos
         GestorModelos.añadirTblProducto(tblRegistrodeComprobantesEmitidos, colsRegCompComprEmitid, new int[]{0, 1, 2, 3, 4, 5, 6, 7});
         GestorModelos.añadirTblProducto(tblRegistroFacturaRegVen);
         GestorModelos.añadirTblProducto(tblRegistroBoletaRegVen);
         GestorModelos.añadirTblProducto(tblRegistroProformaRegVen);
         GestorModelos.añadirTblProducto(tblRegistrodeComprobantesEmitidosRegVen, new String[]{"N°", "ID", "Fecha de registro", "Tipo de comprobante", "Serie", "Número", "Cliente", "Total"}, new int[]{0, 1, 2, 3, 4, 5, 6, 7});
 
+        // 5. Inicializar listas temporales
         tempListFact = new ArrayList<>();
         tempListBole = new ArrayList<>();
         tempListProf = new ArrayList<>();
-        tempListVenFact= new ArrayList<>();
-        tempListVenBole= new ArrayList<>();
-        tempListVenProf= new ArrayList<>();
+        tempListVenFact = new ArrayList<>();
+        tempListVenBole = new ArrayList<>();
+        tempListVenProf = new ArrayList<>();
         tempListComprEmitid = new ArrayList<>();
-        tempListVenProf= new ArrayList<>();
+        tempListVenProf = new ArrayList<>();
         tblPadre = null;
     }
 
@@ -639,7 +664,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         lblRUC.setFont(new java.awt.Font("Cartoon Fun", 0, 14)); // NOI18N
         lblRUC.setText("Agro Integral Perú");
         jpanelsuperior.add(lblRUC);
-        lblRUC.setBounds(610, 10, 200, 24);
+        lblRUC.setBounds(610, 10, 200, 19);
 
         lblRol.setText("Empleado");
         jpanelsuperior.add(lblRol);
@@ -2150,6 +2175,11 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
 
         cbTipoAspectoAjustes.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         cbTipoAspectoAjustes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "• Claro", "• Oscuro" }));
+        cbTipoAspectoAjustes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbTipoAspectoAjustesActionPerformed(evt);
+            }
+        });
         pnlAjustes.add(cbTipoAspectoAjustes);
         cbTipoAspectoAjustes.setBounds(440, 340, 150, 30);
 
@@ -3685,7 +3715,33 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDescargarRegistrodeVentasReportesActionPerformed
 
     private void btnGuardacambiosAjustesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardacambiosAjustesActionPerformed
-        
+        String modo = cbTipoAspectoAjustes.getSelectedItem().toString();  // "Claro" u "Oscuro"
+        String lenguaje = "Español"; // Fijo por ahora
+
+        try {
+            // Cambiar estilo visual
+            if (modo.equalsIgnoreCase("• Claro")) {
+                UIManager.setLookAndFeel(new com.formdev.flatlaf.FlatLightLaf());
+            } else if (modo.equalsIgnoreCase("• Oscuro")) {
+                UIManager.setLookAndFeel(new com.formdev.flatlaf.FlatDarkLaf());
+            }
+
+            SwingUtilities.updateComponentTreeUI(this);
+
+            // Guardar en la base de datos
+            SQLiteManager db = new SQLiteManager(); // Ya busca baseDeDatos.db
+            boolean exito = db.actualizarAjustes(lenguaje, modo);
+
+            if (exito) {
+                JOptionPane.showMessageDialog(this, "Ajustes guardados correctamente.");
+            } else {
+                JOptionPane.showMessageDialog(this, "No se pudieron guardar los ajustes.");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error al aplicar el tema: " + e.getMessage());
+        }
     }//GEN-LAST:event_btnGuardacambiosAjustesActionPerformed
 
     private void jmFACTURASRegVenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmFACTURASRegVenActionPerformed
@@ -3787,40 +3843,29 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         tpnMostrar.setSelectedIndex(iPnlVenProforma);
     }//GEN-LAST:event_jmOTROSRegVenActionPerformed
 
+    private void cbTipoAspectoAjustesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbTipoAspectoAjustesActionPerformed
+
+    }//GEN-LAST:event_cbTipoAspectoAjustesActionPerformed
+
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Metal".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
+            SQLiteManager db = new SQLiteManager();
+            String[] ajustes = db.obtenerAjustes();
+            if (ajustes != null && ajustes[1].equalsIgnoreCase("• Oscuro")) {
+                UIManager.setLookAndFeel(new com.formdev.flatlaf.FlatDarkLaf());
+            } else {
+                UIManager.setLookAndFeel(new com.formdev.flatlaf.FlatLightLaf());
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmMenuDinamico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmMenuDinamico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmMenuDinamico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmMenuDinamico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (Exception e) {
+            System.out.println("No se pudo aplicar tema desde main: " + e.getMessage());
         }
-        //</editor-fold>
-        //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FrmMenuDinamico().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new FrmMenuDinamico().setVisible(true);
         });
     }
 
