@@ -72,7 +72,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         GestorModelos.añadirTblProducto(tblRegistrodeComprobantesEmitidos, colsRegCompComprEmitid, new int[]{0, 1, 2, 3, 4, 5, 6, 7});
         GestorModelos.añadirTblProducto(tblRegistroFacturaRegVen);
         GestorModelos.añadirTblProducto(tblRegistroBoletaRegVen);
-        GestorModelos.añadirTblProducto(tblRegistrodeComprobantesEmitidos, new String[]{"N°", "ID", "Fecha de registro", "Tipo de comprobante", "Serie", "Número", "Cliente", "Total"}, new int[]{0, 1, 2, 3, 4, 5, 6, 7});
+        GestorModelos.añadirTblProducto(tblRegistrodeComprobantesEmitidosRegVen, new String[]{"N°", "ID", "Fecha de registro", "Tipo de comprobante", "Serie", "Número", "Cliente", "Total"}, new int[]{0, 1, 2, 3, 4, 5, 6, 7});
 
         tempListFact = new ArrayList<>();
         tempListBole = new ArrayList<>();
@@ -3285,6 +3285,7 @@ rpta = tempListVenProf;
         }
         baseDeDatos.eliminarComprobante(Integer.parseInt(GestorModelos.getValueAt(tblRegistrodeComprobantesEmitidos, filaSeleccion, 1).toString()));
         GestorModelos.actualizarCompEmit(tblRegistrodeComprobantesEmitidos, baseDeDatos.obtenerComprobantes());
+        
     }//GEN-LAST:event_btnAnularComprobantesEmitidosActionPerformed
 
     public Integer getSeleccionEditar(JTable editame) {
@@ -3358,7 +3359,16 @@ rpta = tempListVenProf;
     }//GEN-LAST:event_btnBuscarComprobantesEmitidosActionPerformed
 
     private void btnAnularComprobantesEmitidosRegVenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnularComprobantesEmitidosRegVenActionPerformed
-        // TODO add your handling code here:
+        if (cancelarEliminacion()) {
+            return;
+        }
+        Integer filaSeleccion = getSeleccionEliminar(tblRegistrodeComprobantesEmitidosRegVen);
+        if (filaSeleccion == null) {
+            return;
+        }
+        baseDeDatos.eliminarComprobanteVenta(Integer.parseInt(GestorModelos.getValueAt(tblRegistrodeComprobantesEmitidosRegVen, filaSeleccion, 1).toString()));
+        GestorModelos.actualizarCompVenEmit(tblRegistrodeComprobantesEmitidosRegVen, baseDeDatos.obtenerComprobantesVenta());
+        
     }//GEN-LAST:event_btnAnularComprobantesEmitidosRegVenActionPerformed
 
     private void btnEditarRegComFacturaRegVenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarRegComFacturaRegVenActionPerformed
@@ -3465,6 +3475,7 @@ rpta = tempListVenProf;
     }//GEN-LAST:event_jmBOLETASRegVenActionPerformed
 
     private void jmCOMPROBATESEMITIDOSRegVenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmCOMPROBATESEMITIDOSRegVenActionPerformed
+        GestorModelos.actualizarCompVenEmit(tblRegistrodeComprobantesEmitidosRegVen, baseDeDatos.obtenerComprobantesVenta());
         tpnMostrar.setSelectedIndex(pnlVenCompEmit);
     }//GEN-LAST:event_jmCOMPROBATESEMITIDOSRegVenActionPerformed
 
