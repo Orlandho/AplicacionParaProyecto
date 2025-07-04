@@ -388,6 +388,24 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         btnGuardacambiosAjustes = new javax.swing.JButton();
         lblApectoAjustes = new javax.swing.JLabel();
         lblLogoAjustes = new javax.swing.JLabel();
+        pnlRegVenProform = new javax.swing.JPanel();
+        lblsubtemaProformaRegVen = new javax.swing.JLabel();
+        txtFechaProformaRegVen = new javax.swing.JTextField();
+        lblFechaProformaRegVen = new javax.swing.JLabel();
+        lblNombresProformaRegVen = new javax.swing.JLabel();
+        lblMonedaProformaRegVen = new javax.swing.JLabel();
+        cbTipoDeDineroProformaRegVen = new javax.swing.JComboBox<>();
+        pnlInternoRegVenProforma = new javax.swing.JPanel();
+        jScrollPane11 = new javax.swing.JScrollPane();
+        tblRegistroProformaRegVen = new javax.swing.JTable();
+        txtDetalledeVentasRegVen = new javax.swing.JTextField();
+        txtTotalProformaRegVen = new javax.swing.JTextField();
+        txtDecoracion1ProformaRegVen = new javax.swing.JTextField();
+        btnEditarRegVenProforma = new javax.swing.JButton();
+        btnGuardarRegVenProforma = new javax.swing.JButton();
+        btnAgregarRegVenProforma = new javax.swing.JButton();
+        btnEliminarRegVenProforma = new javax.swing.JButton();
+        txtNombresProformaRegVen = new javax.swing.JTextField();
 
         jmFACTURASRegCom.setText("FACTURAS");
         jmFACTURASRegCom.addActionListener(new java.awt.event.ActionListener() {
@@ -583,7 +601,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         lblRUC.setFont(new java.awt.Font("Cartoon Fun", 0, 14)); // NOI18N
         lblRUC.setText("Agro Integral Perú");
         jpanelsuperior.add(lblRUC);
-        lblRUC.setBounds(610, 10, 200, 24);
+        lblRUC.setBounds(610, 10, 200, 19);
 
         lblRol.setText("Empleado");
         jpanelsuperior.add(lblRol);
@@ -2116,6 +2134,124 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
 
         tpnMostrar.addTab("pnlAjustes", pnlAjustes);
 
+        pnlRegVenProform.setBackground(new java.awt.Color(211, 251, 155));
+        pnlRegVenProform.setLayout(null);
+
+        lblsubtemaProformaRegVen.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
+        lblsubtemaProformaRegVen.setText("PROFORMA");
+        pnlRegVenProform.add(lblsubtemaProformaRegVen);
+        lblsubtemaProformaRegVen.setBounds(60, 30, 360, 20);
+        pnlRegVenProform.add(txtFechaProformaRegVen);
+        txtFechaProformaRegVen.setBounds(360, 130, 110, 30);
+
+        lblFechaProformaRegVen.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        lblFechaProformaRegVen.setText("Fecha:");
+        pnlRegVenProform.add(lblFechaProformaRegVen);
+        lblFechaProformaRegVen.setBounds(300, 140, 60, 17);
+
+        lblNombresProformaRegVen.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        lblNombresProformaRegVen.setText("Nombres:");
+        pnlRegVenProform.add(lblNombresProformaRegVen);
+        lblNombresProformaRegVen.setBounds(60, 90, 80, 17);
+
+        lblMonedaProformaRegVen.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        lblMonedaProformaRegVen.setText("Moneda:");
+        pnlRegVenProform.add(lblMonedaProformaRegVen);
+        lblMonedaProformaRegVen.setBounds(60, 140, 100, 17);
+
+        cbTipoDeDineroProformaRegVen.setFont(new java.awt.Font("Courier New", 0, 13)); // NOI18N
+        cbTipoDeDineroProformaRegVen.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Soles", "Dólares" }));
+        pnlRegVenProform.add(cbTipoDeDineroProformaRegVen);
+        cbTipoDeDineroProformaRegVen.setBounds(140, 130, 120, 30);
+
+        pnlInternoRegVenProforma.setBackground(new java.awt.Color(255, 255, 255));
+        pnlInternoRegVenProforma.setLayout(null);
+
+        tblRegistroProformaRegVen.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "ID", "Producto", "Cantidad", "Precio Unit.", "Subtotal", "I.G.V.", "Total"
+            }
+        ));
+        jScrollPane11.setViewportView(tblRegistroProformaRegVen);
+
+        pnlInternoRegVenProforma.add(jScrollPane11);
+        jScrollPane11.setBounds(0, 30, 530, 170);
+
+        txtDetalledeVentasRegVen.setEditable(false);
+        txtDetalledeVentasRegVen.setBackground(new java.awt.Color(255, 255, 255));
+        txtDetalledeVentasRegVen.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        txtDetalledeVentasRegVen.setText("DETALLE DE VENTA:");
+        pnlInternoRegVenProforma.add(txtDetalledeVentasRegVen);
+        txtDetalledeVentasRegVen.setBounds(0, 0, 140, 30);
+
+        txtTotalProformaRegVen.setEnabled(false);
+        pnlInternoRegVenProforma.add(txtTotalProformaRegVen);
+        txtTotalProformaRegVen.setBounds(440, 210, 80, 30);
+
+        txtDecoracion1ProformaRegVen.setEditable(false);
+        txtDecoracion1ProformaRegVen.setBackground(new java.awt.Color(255, 255, 255));
+        txtDecoracion1ProformaRegVen.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
+        txtDecoracion1ProformaRegVen.setForeground(new java.awt.Color(255, 51, 51));
+        txtDecoracion1ProformaRegVen.setText("TOTAL");
+        pnlInternoRegVenProforma.add(txtDecoracion1ProformaRegVen);
+        txtDecoracion1ProformaRegVen.setBounds(360, 210, 80, 30);
+
+        pnlRegVenProform.add(pnlInternoRegVenProforma);
+        pnlInternoRegVenProforma.setBounds(60, 190, 530, 250);
+
+        btnEditarRegVenProforma.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        btnEditarRegVenProforma.setText("Editar");
+        btnEditarRegVenProforma.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarRegVenProformaActionPerformed(evt);
+            }
+        });
+        pnlRegVenProform.add(btnEditarRegVenProforma);
+        btnEditarRegVenProforma.setBounds(420, 450, 100, 30);
+
+        btnGuardarRegVenProforma.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        btnGuardarRegVenProforma.setText("Guardar");
+        btnGuardarRegVenProforma.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarRegVenProformaActionPerformed(evt);
+            }
+        });
+        pnlRegVenProform.add(btnGuardarRegVenProforma);
+        btnGuardarRegVenProforma.setBounds(60, 450, 100, 30);
+
+        btnAgregarRegVenProforma.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        btnAgregarRegVenProforma.setText("Agregar");
+        btnAgregarRegVenProforma.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarRegVenProformaActionPerformed(evt);
+            }
+        });
+        pnlRegVenProform.add(btnAgregarRegVenProforma);
+        btnAgregarRegVenProforma.setBounds(180, 450, 100, 30);
+
+        btnEliminarRegVenProforma.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        btnEliminarRegVenProforma.setText("Eliminar");
+        btnEliminarRegVenProforma.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarRegVenProformaActionPerformed(evt);
+            }
+        });
+        pnlRegVenProform.add(btnEliminarRegVenProforma);
+        btnEliminarRegVenProforma.setBounds(300, 450, 110, 30);
+        pnlRegVenProform.add(txtNombresProformaRegVen);
+        txtNombresProformaRegVen.setBounds(140, 80, 390, 30);
+
+        tpnMostrar.addTab("pnlRegVenProforma", pnlRegVenProform);
+
         getContentPane().add(tpnMostrar);
         tpnMostrar.setBounds(190, 80, 690, 610);
 
@@ -2663,7 +2799,43 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     public JButton getBtnGuardacambiosAjustes() {
         return btnGuardacambiosAjustes;
     }
-    
+    // pnlRegVenProform
+    public JLabel getLblsubtemaProformaRegVen() {
+        return lblsubtemaProformaRegVen;
+    }
+
+    public JLabel getLblNombresProformaRegVen() {
+        return lblNombresProformaRegVen;
+    }
+
+    public JLabel getLblMonedaProformaRegVen() {
+        return lblMonedaProformaRegVen;
+    }
+
+    public JLabel getLblFechaProformaRegVen() {
+        return lblFechaProformaRegVen;
+    }
+
+    public JTextField getTxtDetalledeVentasRegVen() {
+        return txtDetalledeVentasRegVen;
+    }
+
+    public JButton getBtnGuardarRegVenProforma() {
+        return btnGuardarRegVenProforma;
+    }
+
+    public JButton getBtnAgregarRegVenProforma() {
+        return btnAgregarRegVenProforma;
+    }
+
+    public JButton getBtnEliminarRegVenProforma() {
+        return btnEliminarRegVenProforma;
+    }
+
+    public JButton getBtnEditarRegVenProforma() {
+        return btnEditarRegVenProforma;
+    }
+
     //hasta aca
 
 
@@ -3364,6 +3536,22 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnGuardacambiosAjustesActionPerformed
 
+    private void btnEditarRegVenProformaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarRegVenProformaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnEditarRegVenProformaActionPerformed
+
+    private void btnGuardarRegVenProformaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarRegVenProformaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnGuardarRegVenProformaActionPerformed
+
+    private void btnAgregarRegVenProformaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarRegVenProformaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAgregarRegVenProformaActionPerformed
+
+    private void btnEliminarRegVenProformaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarRegVenProformaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnEliminarRegVenProformaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -3411,6 +3599,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     private javax.swing.JButton btnAgregarRegComFactura;
     private javax.swing.JButton btnAgregarRegComFacturaRegVen;
     private javax.swing.JButton btnAgregarRegComProforma;
+    private javax.swing.JButton btnAgregarRegVenProforma;
     private javax.swing.JLabel btnAlmacen;
     private javax.swing.JButton btnAnularComprobantesEmitidos;
     private javax.swing.JButton btnAnularComprobantesEmitidosRegVen;
@@ -3429,6 +3618,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     private javax.swing.JButton btnEditarRegComFactura;
     private javax.swing.JButton btnEditarRegComFacturaRegVen;
     private javax.swing.JButton btnEditarRegComProforma;
+    private javax.swing.JButton btnEditarRegVenProforma;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnEliminarAlmacen;
     private javax.swing.JButton btnEliminarBoletaRegVen;
@@ -3436,6 +3626,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     private javax.swing.JButton btnEliminarRegComFactura;
     private javax.swing.JButton btnEliminarRegComFacturaRegVen;
     private javax.swing.JButton btnEliminarRegComProforma;
+    private javax.swing.JButton btnEliminarRegVenProforma;
     private javax.swing.JButton btnFiltrarAlmacen;
     private javax.swing.JButton btnGuardacambiosAjustes;
     private javax.swing.JButton btnGuardarBoletaRegVen;
@@ -3443,6 +3634,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     private javax.swing.JButton btnGuardarRegComFactura;
     private javax.swing.JButton btnGuardarRegComFacturaRegVen;
     private javax.swing.JButton btnGuardarRegComProforma;
+    private javax.swing.JButton btnGuardarRegVenProforma;
     private javax.swing.JButton btnGuardaryAgregarDatos;
     private javax.swing.JButton btnPDFComprobantesEmitidos;
     private javax.swing.JButton btnPDFComprobantesEmitidosRegVen;
@@ -3460,6 +3652,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cbTipoDeDineroFactura;
     private javax.swing.JComboBox<String> cbTipoDeDineroFacturaRegVen;
     private javax.swing.JComboBox<String> cbTipoDeDineroProforma;
+    private javax.swing.JComboBox<String> cbTipoDeDineroProformaRegVen;
     private javax.swing.JComboBox<String> cbTipoDeLiderBoleta;
     private javax.swing.JComboBox<String> cbTipoDeLiderFactura;
     private javax.swing.JComboBox<String> cbTipoDeLiderProforma;
@@ -3472,6 +3665,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cbTipodeBusquedaComprobantesEmitidosRegVen;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane10;
+    private javax.swing.JScrollPane jScrollPane11;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
@@ -3513,6 +3707,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     private javax.swing.JLabel lblFechaFactura;
     private javax.swing.JLabel lblFechaFacturaRegVen;
     private javax.swing.JLabel lblFechaProforma;
+    private javax.swing.JLabel lblFechaProformaRegVen;
     private javax.swing.JLabel lblGanancias;
     private javax.swing.JLabel lblGananciascaja;
     private javax.swing.JLabel lblGestionarperfilAjustes;
@@ -3532,9 +3727,11 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     private javax.swing.JLabel lblMonedaFactura;
     private javax.swing.JLabel lblMonedaFacturaRegVen;
     private javax.swing.JLabel lblMonedaProforma;
+    private javax.swing.JLabel lblMonedaProformaRegVen;
     private javax.swing.JLabel lblNombreAjustes;
     private javax.swing.JLabel lblNombres;
     private javax.swing.JLabel lblNombresProforma;
+    private javax.swing.JLabel lblNombresProformaRegVen;
     private javax.swing.JLabel lblNumeroBoleta;
     private javax.swing.JLabel lblNumeroBoletaRegVen;
     private javax.swing.JLabel lblNumeroFactura;
@@ -3594,6 +3791,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     private javax.swing.JLabel lblsubtemaFactura;
     private javax.swing.JLabel lblsubtemaFacturaRegVen;
     private javax.swing.JLabel lblsubtemaProforma;
+    private javax.swing.JLabel lblsubtemaProformaRegVen;
     private javax.swing.JPanel pnl1Almacen;
     private javax.swing.JPanel pnl1Inicio;
     private javax.swing.JPanel pnlAjustes;
@@ -3606,6 +3804,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     private javax.swing.JPanel pnlInternoBoletaRegVen;
     private javax.swing.JPanel pnlInternoRegComBoleta;
     private javax.swing.JPanel pnlInternoRegComProforma;
+    private javax.swing.JPanel pnlInternoRegVenProforma;
     private javax.swing.JPanel pnlInternodecaja;
     private javax.swing.JPanel pnlProductos;
     private javax.swing.JPanel pnlProveedores;
@@ -3620,6 +3819,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     private javax.swing.JPanel pnlRegVenBoleta;
     private javax.swing.JPanel pnlRegVenCompromantesEmitidos;
     private javax.swing.JPanel pnlRegVenFactura;
+    private javax.swing.JPanel pnlRegVenProform;
     private javax.swing.JPanel pnlReportes;
     private javax.swing.JPanel pnlVentasDelDia;
     private javax.swing.JRadioButton rbtActivo;
@@ -3630,6 +3830,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     private javax.swing.JTable tblRegistroFacturaRegVen;
     private javax.swing.JTable tblRegistroProductos;
     private javax.swing.JTable tblRegistroProforma;
+    private javax.swing.JTable tblRegistroProformaRegVen;
     private javax.swing.JTable tblRegistroUsuarios;
     private javax.swing.JTable tblRegistrodeCaja;
     private javax.swing.JTable tblRegistrodeComprobantesEmitidos;
@@ -3655,23 +3856,27 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     private javax.swing.JTextField txtDecoracion1Factura;
     private javax.swing.JTextField txtDecoracion1FacturaRegVen;
     private javax.swing.JTextField txtDecoracion1Proforma;
+    private javax.swing.JTextField txtDecoracion1ProformaRegVen;
     private javax.swing.JTextField txtDecoracion2Boleta;
     private javax.swing.JTextField txtDecoracion2BoletaRegVen;
     private javax.swing.JTextField txtDecoracion2Factura;
     private javax.swing.JTextField txtDecoracion2FacturaRegVen;
     private javax.swing.JTextField txtDecoracion2Proforma;
+    private javax.swing.JTextField txtDetalledeVentasRegVen;
     private javax.swing.JTextField txtEGRESOScaja;
     private javax.swing.JTextField txtFechaBoleta;
     private javax.swing.JTextField txtFechaBoletaRegVen;
     private javax.swing.JTextField txtFechaFactura;
     private javax.swing.JTextField txtFechaFacturaRegVen;
     private javax.swing.JTextField txtFechaProforma;
+    private javax.swing.JTextField txtFechaProformaRegVen;
     private javax.swing.JTextField txtGANACIAScaja;
     private javax.swing.JTextField txtGanancias;
     private javax.swing.JTextField txtINGRESOScaja;
     private javax.swing.JTextField txtNombreAjustes;
     private javax.swing.JTextField txtNombres;
     private javax.swing.JTextField txtNombresProforma;
+    private javax.swing.JTextField txtNombresProformaRegVen;
     private javax.swing.JTextField txtNumeroBoleta;
     private javax.swing.JTextField txtNumeroBoletaRegVen;
     private javax.swing.JTextField txtNumeroFactura;
@@ -3700,6 +3905,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     private javax.swing.JTextField txtTotalFactura;
     private javax.swing.JTextField txtTotalFacturaRegVen;
     private javax.swing.JTextField txtTotalProforma;
+    private javax.swing.JTextField txtTotalProformaRegVen;
     private javax.swing.JTextField txtVentasDelDia;
     // End of variables declaration//GEN-END:variables
 }
