@@ -134,6 +134,10 @@ public class Producto {
     }
 
     public double redondear2Decimales(double precio) {
+        
+        if (Double.isNaN(precio) || Double.isInfinite(precio)) {
+            return 0; 
+        }
         return ((new BigDecimal(precio)).setScale(2, RoundingMode.HALF_UP)).doubleValue();
     }
 }

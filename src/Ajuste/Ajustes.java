@@ -80,7 +80,7 @@ public class Ajustes {
             menu.getBtnEliminarRegComBoleta().setText("Delete");
             menu.getBtnEditarRegComBoleta().setText("Edit");
             // pnlRegComProforma
-            menu.getLblsubtemaProforma().setText("PROFORMA INVOICE");
+            menu.getLblsubtemaProforma().setText("INVOICE");
             menu.getLblNombresProforma().setText("Names:");
             menu.getLblResponsableProforma().setText("Responsible:");
             menu.getLblMonedaProforma().setText("Currency:");
@@ -162,6 +162,17 @@ public class Ajustes {
             menu.getLblIDIOMAAjustes().setText("LANGUAGE");
             menu.getLblApectoAjustes().setText("Appearance:");
             menu.getBtnGuardacambiosAjustes().setText("Save changes");
+            // pnlRegVenProform
+            menu.getLblsubtemaProformaRegVen().setText("PROFORMA");
+            menu.getLblNombresProformaRegVen().setText("Names:");
+            menu.getLblMonedaProformaRegVen().setText("Currency:");
+            menu.getLblFechaProformaRegVen().setText("Date:");
+            menu.getTxtDetalledeVentasRegVen().setText("SALE DETAILS:");
+            menu.getBtnGuardarRegVenProforma().setText("Save");
+            menu.getBtnAgregarRegVenProforma().setText("Add");
+            menu.getBtnEliminarRegVenProforma().setText("Delete");
+            menu.getBtnEditarRegVenProforma().setText("Edit");
+            
         }
     }
 
@@ -322,6 +333,16 @@ public class Ajustes {
             menu.getLblIDIOMAAjustes().setText("IDIOMA");
             menu.getLblApectoAjustes().setText("Aspecto:");
             menu.getBtnGuardacambiosAjustes().setText("Guardar cambios");
+            // pnlRegVenProform
+            menu.getLblsubtemaProformaRegVen().setText("PROFORMA");
+            menu.getLblNombresProformaRegVen().setText("Nombres:");
+            menu.getLblMonedaProformaRegVen().setText("Moneda:");
+            menu.getLblFechaProformaRegVen().setText("Fecha:");
+            menu.getTxtDetalledeVentasRegVen().setText("DETALLE DE VENTA:");
+            menu.getBtnGuardarRegVenProforma().setText("Guardar");
+            menu.getBtnAgregarRegVenProforma().setText("Agregar");
+            menu.getBtnEliminarRegVenProforma().setText("Eliminar");
+            menu.getBtnEditarRegVenProforma().setText("Editar");
         }
     }
 }
