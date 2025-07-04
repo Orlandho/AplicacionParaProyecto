@@ -467,11 +467,11 @@ public class SQLiteManager {
 
     //AJUSTES
     public String[] obtenerAjustes() {
-        String sql = "SELECT * FROM ajustes";
-        try {
-            PreparedStatement statement = conexionDB.prepareStatement(sql);
-            ResultSet resultado = statement.executeQuery();
-            while (resultado.next()) {
+        String sql = "SELECT lenguaje, modo FROM ajustes WHERE ajuste_id = 1";
+        try (PreparedStatement statement = conexionDB.prepareStatement(sql);
+             ResultSet resultado = statement.executeQuery()) {
+
+            if (resultado.next()) {
                 return new String[]{
                     resultado.getString("lenguaje"),
                     resultado.getString("modo")
@@ -484,29 +484,17 @@ public class SQLiteManager {
     }
 
     public boolean actualizarAjustes(String lenguaje, String modo) {
-        boolean exito = false;
         String sql = "UPDATE ajustes SET lenguaje = ?, modo = ? WHERE ajuste_id = 1";
-        try {
-            PreparedStatement statement = conexionDB.prepareStatement(sql);
+        try (PreparedStatement statement = conexionDB.prepareStatement(sql)) {
+            statement.setString(1, lenguaje);
+            statement.setString(2, modo);
 
-            // Obtener los valores actuales de ajustes
-            String[] ajustes = obtenerAjustes();
-
-            if (ajustes != null) {
-                statement.setString(1, lenguaje);
-                statement.setString(2, modo);
-
-                int filasActualizadas = statement.executeUpdate();
-                if (filasActualizadas > 0) {
-                    exito = true;
-                }
-            } else {
-                System.out.println("No se pudieron obtener los ajustes actuales.");
-            }
+            int filasActualizadas = statement.executeUpdate();
+            return filasActualizadas > 0;
         } catch (SQLException e) {
             System.out.println("Error al actualizar ajustes: " + e.getMessage());
+            return false;
         }
-        return exito;
     }
     
     //Sprint 5
