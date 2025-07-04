@@ -38,6 +38,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     private final int iPnlCaja=12;
     private final int iPnlReportes=14;
     private final int pnlAjuste=15;
+    private final int iPnlVenProforma=16;
 
     private String[] colsRegProd = {"Producto ID", "Tipo de Documento", "Producto", "Precio Compra", "Cantidad", "Stock"};
     private String[] colsRegFactBoleProf = {"ID", "Producto", "Cantidad", "Precio Unit.", "Sub. Total", "I.G.V.", "Total"};
@@ -72,6 +73,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         GestorModelos.añadirTblProducto(tblRegistrodeComprobantesEmitidos, colsRegCompComprEmitid, new int[]{0, 1, 2, 3, 4, 5, 6, 7});
         GestorModelos.añadirTblProducto(tblRegistroFacturaRegVen);
         GestorModelos.añadirTblProducto(tblRegistroBoletaRegVen);
+        GestorModelos.añadirTblProducto(tblRegistroProformaRegVen);
         GestorModelos.añadirTblProducto(tblRegistrodeComprobantesEmitidosRegVen, new String[]{"N°", "ID", "Fecha de registro", "Tipo de comprobante", "Serie", "Número", "Cliente", "Total"}, new int[]{0, 1, 2, 3, 4, 5, 6, 7});
 
         tempListFact = new ArrayList<>();
@@ -81,6 +83,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         tempListVenBole= new ArrayList<>();
         tempListVenProf= new ArrayList<>();
         tempListComprEmitid = new ArrayList<>();
+        tempListVenProf= new ArrayList<>();
         tblPadre = null;
     }
 
@@ -471,6 +474,11 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         RegistroDeVenta.add(jmBOLETASRegVen);
 
         jmOTROSRegVen.setText("OTROS");
+        jmOTROSRegVen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmOTROSRegVenActionPerformed(evt);
+            }
+        });
         RegistroDeVenta.add(jmOTROSRegVen);
 
         jmCOMPROBATESEMITIDOSRegVen.setText("COMPROBATES EMITIDOS");
@@ -631,7 +639,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         lblRUC.setFont(new java.awt.Font("Cartoon Fun", 0, 14)); // NOI18N
         lblRUC.setText("Agro Integral Perú");
         jpanelsuperior.add(lblRUC);
-        lblRUC.setBounds(610, 10, 200, 19);
+        lblRUC.setBounds(610, 10, 200, 24);
 
         lblRol.setText("Empleado");
         jpanelsuperior.add(lblRol);
@@ -3376,6 +3384,9 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
             case pnlVenBoleta:
             rpta=txtTotalBoletaRegVen;
             break;
+            case iPnlVenProforma:
+                rpta=txtTotalProformaRegVen;
+                
         }
         return rpta;
     }
@@ -3393,9 +3404,9 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
             rpta = tempListVenFact;
         }else if(tblPadre ==tblRegistroBoletaRegVen){
             rpta = tempListVenBole;
-        }/*else if(tblPadre ==){
-rpta = tempListVenProf;
-        }*/
+        }else if(tblPadre ==tblRegistroProformaRegVen){
+            rpta = tempListVenProf;
+        }
         
         return rpta;
     }
@@ -3633,7 +3644,7 @@ rpta = tempListVenProf;
             JOptionPane.showMessageDialog(this, "Faltan datos en la fila");
             return;
         }
-        if (!tryBtnEditarAccion("Factura", tblRegistroBoletaRegVen, filaSeleccion, tempListVenBole)) {
+        if (!tryBtnEditarAccion("Boleta", tblRegistroBoletaRegVen, filaSeleccion, tempListVenBole)) {
             return;
         }
         GestorModelos.actualizarRegsCompVenProd(tblRegistroBoletaRegVen, tempListVenBole, txtTotalBoletaRegVen);
@@ -3730,20 +3741,51 @@ rpta = tempListVenProf;
     }//GEN-LAST:event_btnBuscarComprobantesEmitidosRegVenActionPerformed
 
     private void btnEditarRegVenProformaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarRegVenProformaActionPerformed
-        // TODO add your handling code here:
+        Integer filaSeleccion = getSeleccionEditar(tblRegistroProformaRegVen);
+        if (filaSeleccion == null) {
+            return;
+        }
+        if (GestorModelos.tieneCeldasVacias(tblRegistroProformaRegVen, filaSeleccion)) {
+            JOptionPane.showMessageDialog(this, "Faltan datos en la fila");
+            return;
+        }
+        if (!tryBtnEditarAccion("Proforma", tblRegistroProformaRegVen, filaSeleccion, tempListVenProf)) {
+            return;
+        }
+        GestorModelos.actualizarRegsCompVenProd(tblRegistroProformaRegVen, tempListVenProf, txtTotalProformaRegVen);
     }//GEN-LAST:event_btnEditarRegVenProformaActionPerformed
 
     private void btnGuardarRegVenProformaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarRegVenProformaActionPerformed
-        // TODO add your handling code here:
+        String cliente=txtNombresProformaRegVen.getText();
+        double total=Double.parseDouble(txtTotalProformaRegVen.getText());
+        String fechaRegistro=txtFechaProformaRegVen.getText();
+        //crearComprobanteVenta(String fechaRegistro, String tipoComprobante, int serie, int numero, String cliente, double total)
+        baseDeDatos.crearComprobanteVenta(fechaRegistro,"Proforma",0,0,cliente,total);
+        removerProdsVendidos(tempListVenProf);
+        comprobanteRegistrado();
     }//GEN-LAST:event_btnGuardarRegVenProformaActionPerformed
 
     private void btnAgregarRegVenProformaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarRegVenProformaActionPerformed
-        // TODO add your handling code here:
+        tblPadre = tblRegistroProformaRegVen;
+        pnlPadreComVenProd = iPnlVenProforma;
+        actualizarComboBoxAgregVen();
+        tpnMostrar.setSelectedIndex(pnlAgrVenProd);
     }//GEN-LAST:event_btnAgregarRegVenProformaActionPerformed
 
     private void btnEliminarRegVenProformaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarRegVenProformaActionPerformed
-        // TODO add your handling code here:
+        if (cancelarEliminacion()) {
+            return;
+        }
+        Integer filaSeleccion = getSeleccionEliminar(tblRegistroProformaRegVen);
+        if (filaSeleccion == null) {
+            return;
+        }
+        btnElimAccion(tblRegistroProformaRegVen, filaSeleccion, tempListVenProf, txtTotalProformaRegVen);
     }//GEN-LAST:event_btnEliminarRegVenProformaActionPerformed
+
+    private void jmOTROSRegVenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmOTROSRegVenActionPerformed
+        tpnMostrar.setSelectedIndex(iPnlVenProforma);
+    }//GEN-LAST:event_jmOTROSRegVenActionPerformed
 
 
     /**
