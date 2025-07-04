@@ -2988,8 +2988,6 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     }//GEN-LAST:event_jmOTROSRegComActionPerformed
 
     private void jmCOMPROBATESEMITIDOSRegComActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmCOMPROBATESEMITIDOSRegComActionPerformed
-        //buscar todos los comprobantes en la base de datos e insertarlos en la lista de comprobantes tempListComprEmitid
-
         //actualizar la tabla
         GestorModelos.actualizarCompEmit(tblRegistrodeComprobantesEmitidos, baseDeDatos.obtenerComprobantes());
         tpnMostrar.setSelectedIndex(pnlCompEmit);
@@ -2997,7 +2995,6 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
 
     private void guardarProductosEnBD(ArrayList<Producto> listaProductos) {
         for (Producto prod : listaProductos) {
-            //crearProducto(String tipoDoc, String producto, double precio, int cantidad, String stock) {
             baseDeDatos.crearProducto(prod.getTipoDocumento(), prod.getProducto(), prod.getPrecioCompra(), prod.getCantidad(), prod.getStock());
         }
 
@@ -3014,7 +3011,6 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         String responsable = cbTipoDeLiderFactura.getSelectedItem().toString();
         String moneda = cbTipoDeDineroFactura.getSelectedItem().toString();
         guardarProductosEnBD(tempListFact);
-        //crearComprobante(String fechaRegistro, String tipoComprobante, int serie, int numero, String proveedor, double total) {
         baseDeDatos.crearComprobante(txtFechaFactura.getText(), "Factura", serieFact, numFact, proveedor, Double.parseDouble(txtTotalFactura.getText()));
         comprobanteRegistrado();
     }//GEN-LAST:event_btnGuardarRegComFacturaActionPerformed
@@ -3264,10 +3260,6 @@ rpta = tempListVenProf;
     private void btnCancelarRegVenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarRegVenActionPerformed
         tpnMostrar.setSelectedIndex(pnlPadreComVenProd);
     }//GEN-LAST:event_btnCancelarRegVenActionPerformed
-
-    private void agregarVentaEnTblPadre(){
-        
-    }
     
     private void btnAgregarProductoRegVenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarProductoRegVenActionPerformed
         if (faltanDatosEnTxt(txtPreciioUnitarioRegVen, txtPreciioUnitarioRegVen, txtCantidadRegVen)) {
@@ -3373,8 +3365,26 @@ rpta = tempListVenProf;
         // TODO add your handling code here:
     }//GEN-LAST:event_btnEditarRegComFacturaRegVenActionPerformed
 
+    private void removerProdsVendidos(ArrayList<Producto> listaProductos) {
+        System.out.println("Me ejecute adentro");
+        for (Producto prod : listaProductos) {
+            System.out.println("Me ejecute adentro del for");
+            System.out.println(prod.getID());
+            baseDeDatos.eliminarProducto(prod.getID());
+        }
+    }
+    
     private void btnGuardarRegComFacturaRegVenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarRegComFacturaRegVenActionPerformed
         
+        int serie=Integer.parseInt(txtSerieFacturaRegVen.getText());
+        int numero=Integer.parseInt(txtNumeroFacturaRegVen.getText());
+        String cliente=txtClienteFacturaRegVen.getText();
+        double total=Double.parseDouble(txtTotalFacturaRegVen.getText());
+        String fechaRegistro=txtFechaFacturaRegVen.getText();
+        //crearComprobanteVenta(String fechaRegistro, String tipoComprobante, int serie, int numero, String cliente, double total)
+        baseDeDatos.crearComprobanteVenta(fechaRegistro,"Factura",serie,numero,cliente,total);
+        removerProdsVendidos(tempListVenFact);
+        comprobanteRegistrado();
     }//GEN-LAST:event_btnGuardarRegComFacturaRegVenActionPerformed
 
     private void actualizarComboBoxAgregVen(){
@@ -3417,10 +3427,21 @@ rpta = tempListVenProf;
 
     private void btnGuardarBoletaRegVenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarBoletaRegVenActionPerformed
         
+        int serie=Integer.parseInt(txtSerieBoletaRegVen.getText());
+        int numero=Integer.parseInt(txtNumeroBoletaRegVen.getText());
+        String cliente=txtClienteBoletaRegVen.getText();
+        double total=Double.parseDouble(txtTotalBoletaRegVen.getText());
+        String fechaRegistro=txtFechaBoletaRegVen.getText();
+        baseDeDatos.crearComprobanteVenta(fechaRegistro,"Factura",serie,numero,cliente,total);
+        removerProdsVendidos(tempListVenBole);
+        comprobanteRegistrado();
     }//GEN-LAST:event_btnGuardarBoletaRegVenActionPerformed
 
     private void btnAgregarBoletaRegVenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarBoletaRegVenActionPerformed
-        
+        tblPadre = tblRegistroBoletaRegVen;
+        pnlPadreComVenProd = pnlVenBoleta;
+        actualizarComboBoxAgregVen();
+        tpnMostrar.setSelectedIndex(pnlAgrVenProd);
     }//GEN-LAST:event_btnAgregarBoletaRegVenActionPerformed
 
     private void btnEliminarBoletaRegVenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarBoletaRegVenActionPerformed
