@@ -29,6 +29,36 @@ public class SQLiteManager {
             throw new RuntimeException("Error al intentar conectar con la base de datos " + nombreDB + "\nMensaje de error: " + e.getMessage());
         }
     }
+    
+    public double obtenerTotalCompEmitCompra() {
+        //String sql = "SELECT COALESCE(SUM(total),0) FROM" + tabla;
+        String sql = "SELECT COALESCE(SUM(total),0) FROM comprobantesEmitidosCompra";
+        try {
+            PreparedStatement ps = conexionDB.prepareStatement(sql); 
+            ResultSet rs = ps.executeQuery();
+            return rs.getDouble(1);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Error BD ", JOptionPane.ERROR_MESSAGE);
+            return 0;
+        }
+
+    }
+    
+    public double obtenerTotalCompEmitVenta() {
+        //String sql = "SELECT COALESCE(SUM(total),0) FROM" + tabla;
+        String sql = "SELECT COALESCE(SUM(total),0) FROM comprobantesEmitidosVentas";
+        try {
+            PreparedStatement ps = conexionDB.prepareStatement(sql); 
+            ResultSet rs = ps.executeQuery();
+            return rs.getDouble(1);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Error BD", JOptionPane.ERROR_MESSAGE);
+            return 0;
+        }
+
+    }
 
     public void cerrarConexion() {
         try {
