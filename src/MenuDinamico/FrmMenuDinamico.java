@@ -1807,6 +1807,11 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
 
         btnPDFComprobantesEmitidosRegVen.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         btnPDFComprobantesEmitidosRegVen.setText("PDF");
+        btnPDFComprobantesEmitidosRegVen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPDFComprobantesEmitidosRegVenActionPerformed(evt);
+            }
+        });
         pnlRegVenCompromantesEmitidos.add(btnPDFComprobantesEmitidosRegVen);
         btnPDFComprobantesEmitidosRegVen.setBounds(570, 100, 100, 30);
 
@@ -3951,6 +3956,20 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_cbLenguajeItemStateChanged
+
+    private void btnPDFComprobantesEmitidosRegVenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPDFComprobantesEmitidosRegVenActionPerformed
+        int filaSeleccionada = tblRegistrodeComprobantesEmitidosRegVen.getSelectedRow();
+
+        if (filaSeleccionada == -1) {
+            JOptionPane.showMessageDialog(null, "Por favor selecciona un comprobante");
+            return;
+        }
+
+        String comprobanteid = tblRegistrodeComprobantesEmitidosRegVen.getValueAt(filaSeleccionada, 1).toString();
+
+        GeneradorPDF pdf = new GeneradorPDF();
+        pdf.generarPDFVenta(comprobanteid);
+    }//GEN-LAST:event_btnPDFComprobantesEmitidosRegVenActionPerformed
 
 
     /**
