@@ -3867,35 +3867,18 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     }//GEN-LAST:event_jmOTROSRegVenActionPerformed
 
     private void cargarResumenCaja() {
-        double ingresos = obtenerTotal("comprobantesEmitidosVentas");
-        double egresos = obtenerTotal("comprobantesEmitidosCompra");
+        try{
+        double ingresos = baseDeDatos.obtenerTotalCompEmitCompra();
+        double egresos = baseDeDatos.obtenerTotalCompEmitVenta();
         double ganancia = ingresos - egresos;
 
         txtINGRESOScaja.setText(String.format("%.2f", ingresos));
         txtEGRESOScaja.setText(String.format("%.2f", egresos));
         txtGANACIAScaja.setText(String.format("%.2f", ganancia));
-    }
-
-    private static Connection conectar() throws SQLException {
-        File db = new File("baseDeDatos.db");
-        if (!db.exists()) {
-            throw new SQLException("BD no encontrada: " + db.getAbsolutePath());
+        }catch(Exception e){
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "No se pudo obtener los datos de la base de datos.");
         }
-
-        String url = "jdbc:sqlite:" + db.getAbsolutePath();
-        return DriverManager.getConnection(url);
-    }
-
-    private double obtenerTotal(String tabla) {
-        String sql = "SELECT COALESCE(SUM(total),0) FROM" + tabla;
-        try (Connection cn = conectar(); PreparedStatement ps = cn.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
-
-            return rs.getDouble(1);
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, e.getMessage(), "Error BD", JOptionPane.ERROR_MESSAGE);
-            return 0;
-        }
-
     }
 
     private void txtINGRESOScajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtINGRESOScajaActionPerformed
@@ -3945,8 +3928,10 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         Grafico_Caja.add(panel, BorderLayout.CENTER);
         Grafico_Caja.revalidate();
         Grafico_Caja.repaint();
-
-        pack();
+        
+        //pack() resetea el tamaño del form y debido a que el form tiene null layout me parece que por eso se-
+        //esconde todo
+        //pack();
 
     }//GEN-LAST:event_btn_Grafico_CajaActionPerformed
     private void cbLenguajeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbLenguajeItemStateChanged
