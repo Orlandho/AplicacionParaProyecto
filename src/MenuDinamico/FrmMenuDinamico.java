@@ -1,4 +1,3 @@
-
 package MenuDinamico;
 //Autor: orlando el pro
 
@@ -30,7 +29,6 @@ import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
-
 
 public class FrmMenuDinamico extends javax.swing.JFrame {
 
@@ -351,24 +349,6 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         lblimagen1ComprobantesEmitidosRegVen = new javax.swing.JLabel();
         cbTipodeBusquedaComprobantesEmitidosRegVen = new javax.swing.JComboBox<>();
         txtBuscarComprobantesEmitidosRegVen = new javax.swing.JTextField();
-        pnlCaja = new javax.swing.JPanel();
-        lblGananciascaja = new javax.swing.JLabel();
-        lblINGRESOScaja = new javax.swing.JLabel();
-        lblEGRESOScaja = new javax.swing.JLabel();
-        pnlInternodecaja = new javax.swing.JPanel();
-        lblimagen1caja = new javax.swing.JLabel();
-        txtBusquedacaja = new javax.swing.JTextField();
-        lblEgresoscaja = new javax.swing.JTextField();
-        btnBusquedacaja = new javax.swing.JToggleButton();
-        lblHistorialdeMovimientoscaja = new javax.swing.JTextField();
-        lblIngresoscaja = new javax.swing.JTextField();
-        jScrollPane9 = new javax.swing.JScrollPane();
-        tblRegistrodeCaja = new javax.swing.JTable();
-        txtGANACIAScaja = new javax.swing.JTextField();
-        txtINGRESOScaja = new javax.swing.JTextField();
-        txtEGRESOScaja = new javax.swing.JTextField();
-        Grafico_Caja = new javax.swing.JPanel();
-        btn_Grafico_Caja = new javax.swing.JButton();
         pnlRegVenBoleta = new javax.swing.JPanel();
         lblsubtemaBoletaRegVen = new javax.swing.JLabel();
         lblOPBoletaRegVen = new javax.swing.JLabel();
@@ -441,6 +421,24 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         btnAgregarRegVenProforma = new javax.swing.JButton();
         btnEliminarRegVenProforma = new javax.swing.JButton();
         txtNombresProformaRegVen = new javax.swing.JTextField();
+        pnlCaja = new javax.swing.JPanel();
+        lblGananciascaja = new javax.swing.JLabel();
+        lblINGRESOScaja = new javax.swing.JLabel();
+        lblEGRESOScaja = new javax.swing.JLabel();
+        pnlInternodecaja = new javax.swing.JPanel();
+        lblimagen1caja = new javax.swing.JLabel();
+        txtBusquedacaja = new javax.swing.JTextField();
+        lblEgresoscaja = new javax.swing.JTextField();
+        btnBusquedacaja = new javax.swing.JToggleButton();
+        lblHistorialdeMovimientoscaja = new javax.swing.JTextField();
+        lblIngresoscaja = new javax.swing.JTextField();
+        jScrollPane9 = new javax.swing.JScrollPane();
+        tblRegistrodeCaja = new javax.swing.JTable();
+        txtGANACIAScaja = new javax.swing.JTextField();
+        txtINGRESOScaja = new javax.swing.JTextField();
+        txtEGRESOScaja = new javax.swing.JTextField();
+        Grafico_Caja = new javax.swing.JPanel();
+        btn_Grafico_Caja = new javax.swing.JButton();
 
         jmFACTURASRegCom.setText("FACTURAS");
         jmFACTURASRegCom.addActionListener(new java.awt.event.ActionListener() {
@@ -1845,106 +1843,6 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
 
         tpnMostrar.addTab("pnlRegVenCompromantesEmitidos", pnlRegVenCompromantesEmitidos);
 
-        pnlCaja.setLayout(null);
-
-        lblGananciascaja.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        lblGananciascaja.setForeground(new java.awt.Color(176, 148, 0));
-        lblGananciascaja.setText("■   GANANCIAS");
-        pnlCaja.add(lblGananciascaja);
-        lblGananciascaja.setBounds(30, 130, 180, 30);
-
-        lblINGRESOScaja.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        lblINGRESOScaja.setForeground(new java.awt.Color(255, 0, 204));
-        lblINGRESOScaja.setText("■   INGRESOS");
-        pnlCaja.add(lblINGRESOScaja);
-        lblINGRESOScaja.setBounds(30, 30, 170, 30);
-
-        lblEGRESOScaja.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        lblEGRESOScaja.setForeground(new java.awt.Color(136, 216, 252));
-        lblEGRESOScaja.setText("■   EGRESOS");
-        pnlCaja.add(lblEGRESOScaja);
-        lblEGRESOScaja.setBounds(30, 80, 170, 30);
-
-        pnlInternodecaja.setBackground(new java.awt.Color(255, 255, 255));
-        pnlInternodecaja.setLayout(null);
-
-        lblimagen1caja.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Lupa.png"))); // NOI18N
-        pnlInternodecaja.add(lblimagen1caja);
-        lblimagen1caja.setBounds(20, 90, 40, 30);
-        pnlInternodecaja.add(txtBusquedacaja);
-        txtBusquedacaja.setBounds(40, 90, 230, 30);
-
-        lblEgresoscaja.setText("               Egresos");
-        pnlInternodecaja.add(lblEgresoscaja);
-        lblEgresoscaja.setBounds(250, 40, 150, 30);
-
-        btnBusquedacaja.setText("Busqueda");
-        pnlInternodecaja.add(btnBusquedacaja);
-        btnBusquedacaja.setBounds(280, 90, 100, 30);
-
-        lblHistorialdeMovimientoscaja.setText("   Historial de movimientos");
-        pnlInternodecaja.add(lblHistorialdeMovimientoscaja);
-        lblHistorialdeMovimientoscaja.setBounds(20, 10, 230, 30);
-
-        lblIngresoscaja.setText("                           Ingresos");
-        pnlInternodecaja.add(lblIngresoscaja);
-        lblIngresoscaja.setBounds(20, 40, 230, 30);
-
-        tblRegistrodeCaja.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null}
-            },
-            new String [] {
-                "Fecha", "Totales del dia"
-            }
-        ));
-        jScrollPane9.setViewportView(tblRegistrodeCaja);
-
-        pnlInternodecaja.add(jScrollPane9);
-        jScrollPane9.setBounds(20, 130, 590, 120);
-
-        pnlCaja.add(pnlInternodecaja);
-        pnlInternodecaja.setBounds(20, 210, 630, 260);
-
-        txtGANACIAScaja.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtGANACIAScajaActionPerformed(evt);
-            }
-        });
-        pnlCaja.add(txtGANACIAScaja);
-        txtGANACIAScaja.setBounds(140, 130, 90, 30);
-
-        txtINGRESOScaja.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtINGRESOScajaActionPerformed(evt);
-            }
-        });
-        pnlCaja.add(txtINGRESOScaja);
-        txtINGRESOScaja.setBounds(140, 30, 90, 30);
-
-        txtEGRESOScaja.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtEGRESOScajaActionPerformed(evt);
-            }
-        });
-        pnlCaja.add(txtEGRESOScaja);
-        txtEGRESOScaja.setBounds(140, 80, 90, 30);
-        pnlCaja.add(Grafico_Caja);
-        Grafico_Caja.setBounds(260, 40, 390, 160);
-
-        btn_Grafico_Caja.setText("Graficar");
-        btn_Grafico_Caja.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_Grafico_CajaActionPerformed(evt);
-            }
-        });
-        pnlCaja.add(btn_Grafico_Caja);
-        btn_Grafico_Caja.setBounds(420, 10, 72, 23);
-
-        tpnMostrar.addTab("pnlCaja", pnlCaja);
-
         pnlRegVenBoleta.setBackground(new java.awt.Color(216, 252, 156));
         pnlRegVenBoleta.setLayout(null);
 
@@ -2345,6 +2243,106 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         txtNombresProformaRegVen.setBounds(140, 80, 390, 30);
 
         tpnMostrar.addTab("pnlRegVenProforma", pnlRegVenProform);
+
+        pnlCaja.setLayout(null);
+
+        lblGananciascaja.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        lblGananciascaja.setForeground(new java.awt.Color(176, 148, 0));
+        lblGananciascaja.setText("■   GANANCIAS");
+        pnlCaja.add(lblGananciascaja);
+        lblGananciascaja.setBounds(30, 130, 180, 30);
+
+        lblINGRESOScaja.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        lblINGRESOScaja.setForeground(new java.awt.Color(255, 0, 204));
+        lblINGRESOScaja.setText("■   INGRESOS");
+        pnlCaja.add(lblINGRESOScaja);
+        lblINGRESOScaja.setBounds(30, 30, 170, 30);
+
+        lblEGRESOScaja.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        lblEGRESOScaja.setForeground(new java.awt.Color(136, 216, 252));
+        lblEGRESOScaja.setText("■   EGRESOS");
+        pnlCaja.add(lblEGRESOScaja);
+        lblEGRESOScaja.setBounds(30, 80, 170, 30);
+
+        pnlInternodecaja.setBackground(new java.awt.Color(255, 255, 255));
+        pnlInternodecaja.setLayout(null);
+
+        lblimagen1caja.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Lupa.png"))); // NOI18N
+        pnlInternodecaja.add(lblimagen1caja);
+        lblimagen1caja.setBounds(20, 90, 40, 30);
+        pnlInternodecaja.add(txtBusquedacaja);
+        txtBusquedacaja.setBounds(40, 90, 230, 30);
+
+        lblEgresoscaja.setText("               Egresos");
+        pnlInternodecaja.add(lblEgresoscaja);
+        lblEgresoscaja.setBounds(250, 40, 150, 30);
+
+        btnBusquedacaja.setText("Busqueda");
+        pnlInternodecaja.add(btnBusquedacaja);
+        btnBusquedacaja.setBounds(280, 90, 100, 30);
+
+        lblHistorialdeMovimientoscaja.setText("   Historial de movimientos");
+        pnlInternodecaja.add(lblHistorialdeMovimientoscaja);
+        lblHistorialdeMovimientoscaja.setBounds(20, 10, 230, 30);
+
+        lblIngresoscaja.setText("                           Ingresos");
+        pnlInternodecaja.add(lblIngresoscaja);
+        lblIngresoscaja.setBounds(20, 40, 230, 30);
+
+        tblRegistrodeCaja.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Fecha", "Totales del dia"
+            }
+        ));
+        jScrollPane9.setViewportView(tblRegistrodeCaja);
+
+        pnlInternodecaja.add(jScrollPane9);
+        jScrollPane9.setBounds(20, 130, 590, 120);
+
+        pnlCaja.add(pnlInternodecaja);
+        pnlInternodecaja.setBounds(20, 210, 630, 260);
+
+        txtGANACIAScaja.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtGANACIAScajaActionPerformed(evt);
+            }
+        });
+        pnlCaja.add(txtGANACIAScaja);
+        txtGANACIAScaja.setBounds(140, 130, 90, 30);
+
+        txtINGRESOScaja.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtINGRESOScajaActionPerformed(evt);
+            }
+        });
+        pnlCaja.add(txtINGRESOScaja);
+        txtINGRESOScaja.setBounds(140, 30, 90, 30);
+
+        txtEGRESOScaja.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtEGRESOScajaActionPerformed(evt);
+            }
+        });
+        pnlCaja.add(txtEGRESOScaja);
+        txtEGRESOScaja.setBounds(140, 80, 90, 30);
+        pnlCaja.add(Grafico_Caja);
+        Grafico_Caja.setBounds(260, 40, 390, 160);
+
+        btn_Grafico_Caja.setText("Graficar");
+        btn_Grafico_Caja.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_Grafico_CajaActionPerformed(evt);
+            }
+        });
+        pnlCaja.add(btn_Grafico_Caja);
+        btn_Grafico_Caja.setBounds(420, 10, 72, 23);
+
+        tpnMostrar.addTab("pnlCaja", pnlCaja);
 
         getContentPane().add(tpnMostrar);
         tpnMostrar.setBounds(190, 80, 690, 610);
@@ -3857,7 +3855,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
             throw new SQLException("BD no encontrada: " + db.getAbsolutePath());
         }
 
-        String url = "jdbc:sqlite" + db.getAbsolutePath();
+        String url = "jdbc:sqlite:" + db.getAbsolutePath();
         return DriverManager.getConnection(url);
     }
 
@@ -3920,7 +3918,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         Grafico_Caja.add(panel, BorderLayout.CENTER);
         Grafico_Caja.revalidate();
         Grafico_Caja.repaint();
-        
+
         pack();
 
     }//GEN-LAST:event_btn_Grafico_CajaActionPerformed
@@ -3929,37 +3927,37 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-    /* Set the Nimbus look and feel */
-    //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-    /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-     */
-    try {
-        for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-            if ("Metal".equals(info.getName())) {
-                javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                break;
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Metal".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
             }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(FrmMenuDinamico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(FrmMenuDinamico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(FrmMenuDinamico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(FrmMenuDinamico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-    } catch (ClassNotFoundException ex) {
-        java.util.logging.Logger.getLogger(FrmMenuDinamico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-    } catch (InstantiationException ex) {
-        java.util.logging.Logger.getLogger(FrmMenuDinamico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-    } catch (IllegalAccessException ex) {
-        java.util.logging.Logger.getLogger(FrmMenuDinamico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-    } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-        java.util.logging.Logger.getLogger(FrmMenuDinamico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-    }
-    //</editor-fold>
-    //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
-    /* Create and display the form */
-    java.awt.EventQueue.invokeLater(new Runnable() {
-        public void run() {
-            new FrmMenuDinamico().setVisible(true);
-        }
-    });
-}
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new FrmMenuDinamico().setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Grafico_Caja;
