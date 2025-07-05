@@ -1951,7 +1951,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
             }
         });
         pnlCaja.add(btn_Grafico_Caja);
-        btn_Grafico_Caja.setBounds(420, 10, 72, 23);
+        btn_Grafico_Caja.setBounds(420, 10, 120, 23);
 
         tpnMostrar.addTab("pnlCaja", pnlCaja);
 
