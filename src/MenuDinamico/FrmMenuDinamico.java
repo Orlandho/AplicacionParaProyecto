@@ -14,11 +14,24 @@ import javax.swing.JTable;
 import Producto.Producto;
 import javax.swing.JTextField;
 import MenuDinamico.GestorModelos;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.io.File;
+import java.sql.SQLException;
+import java.sql.PreparedStatement;
 //añadido
 import java.util.List;
 //hasta aca
 import javax.swing.JButton;
 import javax.swing.JToggleButton;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
 
 public class FrmMenuDinamico extends javax.swing.JFrame {
 
@@ -35,13 +48,13 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     private final int pnlCompEmit = 7;
     private final int pnlAgrComProd = 8;
     private final int pnlAgrVenProd = 9;
-    private final int pnlVenFactura=10;
-    private final int pnlVenBoleta=13;
-    private final int pnlVenCompEmit=11;
-    private final int iPnlCaja=12;
-    private final int iPnlReportes=14;
-    private final int pnlAjuste=15;
-    private final int iPnlVenProforma=16;
+    private final int pnlVenFactura = 10;
+    private final int pnlVenBoleta = 13;
+    private final int pnlVenCompEmit = 11;
+    private final int iPnlCaja = 12;
+    private final int iPnlReportes = 14;
+    private final int pnlAjuste = 15;
+    private final int iPnlVenProforma = 16;
 
     private String[] colsRegProd = {"Producto ID", "Tipo de Documento", "Producto", "Precio Compra", "Cantidad", "Stock"};
     private String[] colsRegFactBoleProf = {"ID", "Producto", "Cantidad", "Precio Unit.", "Sub. Total", "I.G.V.", "Total"};
@@ -82,11 +95,11 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         tempListFact = new ArrayList<>();
         tempListBole = new ArrayList<>();
         tempListProf = new ArrayList<>();
-        tempListVenFact= new ArrayList<>();
-        tempListVenBole= new ArrayList<>();
-        tempListVenProf= new ArrayList<>();
+        tempListVenFact = new ArrayList<>();
+        tempListVenBole = new ArrayList<>();
+        tempListVenProf = new ArrayList<>();
         tempListComprEmitid = new ArrayList<>();
-        tempListVenProf= new ArrayList<>();
+        tempListVenProf = new ArrayList<>();
         tblPadre = null;
         leerLenguaje();
     }
@@ -363,6 +376,8 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         txtGANACIAScaja = new javax.swing.JTextField();
         txtINGRESOScaja = new javax.swing.JTextField();
         txtEGRESOScaja = new javax.swing.JTextField();
+        Grafico_Caja = new javax.swing.JPanel();
+        btn_Grafico_Caja = new javax.swing.JButton();
         pnlRegVenBoleta = new javax.swing.JPanel();
         lblsubtemaBoletaRegVen = new javax.swing.JLabel();
         lblOPBoletaRegVen = new javax.swing.JLabel();
@@ -1846,44 +1861,44 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         lblGananciascaja.setForeground(new java.awt.Color(176, 148, 0));
         lblGananciascaja.setText("■   GANANCIAS");
         pnlCaja.add(lblGananciascaja);
-        lblGananciascaja.setBounds(60, 140, 180, 30);
+        lblGananciascaja.setBounds(30, 130, 180, 30);
 
         lblINGRESOScaja.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lblINGRESOScaja.setForeground(new java.awt.Color(255, 0, 204));
         lblINGRESOScaja.setText("■   INGRESOS");
         pnlCaja.add(lblINGRESOScaja);
-        lblINGRESOScaja.setBounds(60, 40, 170, 30);
+        lblINGRESOScaja.setBounds(30, 30, 170, 30);
 
         lblEGRESOScaja.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lblEGRESOScaja.setForeground(new java.awt.Color(136, 216, 252));
         lblEGRESOScaja.setText("■   EGRESOS");
         pnlCaja.add(lblEGRESOScaja);
-        lblEGRESOScaja.setBounds(60, 90, 170, 30);
+        lblEGRESOScaja.setBounds(30, 80, 170, 30);
 
         pnlInternodecaja.setBackground(new java.awt.Color(255, 255, 255));
         pnlInternodecaja.setLayout(null);
 
         lblimagen1caja.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Lupa.png"))); // NOI18N
         pnlInternodecaja.add(lblimagen1caja);
-        lblimagen1caja.setBounds(20, 110, 40, 30);
+        lblimagen1caja.setBounds(20, 90, 40, 30);
         pnlInternodecaja.add(txtBusquedacaja);
-        txtBusquedacaja.setBounds(50, 110, 230, 30);
+        txtBusquedacaja.setBounds(40, 90, 230, 30);
 
         lblEgresoscaja.setText("               Egresos");
         pnlInternodecaja.add(lblEgresoscaja);
-        lblEgresoscaja.setBounds(250, 50, 150, 50);
+        lblEgresoscaja.setBounds(250, 40, 150, 30);
 
         btnBusquedacaja.setText("Busqueda");
         pnlInternodecaja.add(btnBusquedacaja);
-        btnBusquedacaja.setBounds(310, 110, 100, 30);
+        btnBusquedacaja.setBounds(280, 90, 100, 30);
 
         lblHistorialdeMovimientoscaja.setText("   Historial de movimientos");
         pnlInternodecaja.add(lblHistorialdeMovimientoscaja);
-        lblHistorialdeMovimientoscaja.setBounds(20, 20, 230, 30);
+        lblHistorialdeMovimientoscaja.setBounds(20, 10, 230, 30);
 
         lblIngresoscaja.setText("                           Ingresos");
         pnlInternodecaja.add(lblIngresoscaja);
-        lblIngresoscaja.setBounds(20, 50, 230, 50);
+        lblIngresoscaja.setBounds(20, 40, 230, 30);
 
         tblRegistrodeCaja.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -1898,16 +1913,45 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         jScrollPane9.setViewportView(tblRegistrodeCaja);
 
         pnlInternodecaja.add(jScrollPane9);
-        jScrollPane9.setBounds(20, 160, 590, 140);
+        jScrollPane9.setBounds(20, 130, 590, 120);
 
         pnlCaja.add(pnlInternodecaja);
-        pnlInternodecaja.setBounds(20, 190, 630, 310);
+        pnlInternodecaja.setBounds(20, 210, 630, 260);
+
+        txtGANACIAScaja.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtGANACIAScajaActionPerformed(evt);
+            }
+        });
         pnlCaja.add(txtGANACIAScaja);
-        txtGANACIAScaja.setBounds(220, 140, 90, 30);
+        txtGANACIAScaja.setBounds(140, 130, 90, 30);
+
+        txtINGRESOScaja.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtINGRESOScajaActionPerformed(evt);
+            }
+        });
         pnlCaja.add(txtINGRESOScaja);
-        txtINGRESOScaja.setBounds(220, 40, 90, 30);
+        txtINGRESOScaja.setBounds(140, 30, 90, 30);
+
+        txtEGRESOScaja.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtEGRESOScajaActionPerformed(evt);
+            }
+        });
         pnlCaja.add(txtEGRESOScaja);
-        txtEGRESOScaja.setBounds(220, 90, 90, 30);
+        txtEGRESOScaja.setBounds(140, 80, 90, 30);
+        pnlCaja.add(Grafico_Caja);
+        Grafico_Caja.setBounds(260, 40, 390, 160);
+
+        btn_Grafico_Caja.setText("Graficar");
+        btn_Grafico_Caja.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_Grafico_CajaActionPerformed(evt);
+            }
+        });
+        pnlCaja.add(btn_Grafico_Caja);
+        btn_Grafico_Caja.setBounds(420, 10, 72, 23);
 
         tpnMostrar.addTab("pnlCaja", pnlCaja);
 
@@ -2748,22 +2792,28 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     public JButton getBtnAnularComprobantesEmitidosRegVen() {
         return btnAnularComprobantesEmitidosRegVen;
     }
+
     // pnlCaja
     public JLabel getLblINGRESOScaja() {
         return lblINGRESOScaja;
     }
+
     public JLabel getLblEGRESOScaja() {
         return lblEGRESOScaja;
     }
+
     public JLabel getLblGananciascaja() {
         return lblGananciascaja;
     }
+
     public JTextField getLblHistorialdeMovimientoscaja() {
         return lblHistorialdeMovimientoscaja;
     }
+
     public JToggleButton getBtnBusquedacaja() {
         return btnBusquedacaja;
     }
+
     // pnlRegVenBoleta
     public JLabel getLblsubtemaBoletaRegVen() {
         return lblsubtemaBoletaRegVen;
@@ -2808,6 +2858,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     public JButton getBtnEditarBoletaRegVen() {
         return btnEditarBoletaRegVen;
     }
+
     //pnlReportes
     public JLabel getLblREPORTEREGISTRODEVENTASReportes() {
         return lblREPORTEREGISTRODEVENTASReportes;
@@ -2828,46 +2879,48 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     public JButton getBtnDescargarRegistrodeVentasReportes() {
         return btnDescargarRegistrodeVentasReportes;
     }
+
     // pnlAjustes
     public JLabel getLblGestionarperfilAjustes() {
         return lblGestionarperfilAjustes;
     }
-    
+
     public JLabel getLblNombreAjustes() {
         return lblNombreAjustes;
     }
-    
+
     public JLabel getLblLogoAjustes() {
         return lblLogoAjustes;
     }
-    
+
     public JLabel getLblDatosAjustes() {
         return lblDatosAjustes;
     }
-    
+
     public JLabel getLblRUCAjustes() {
         return lblRUCAjustes;
     }
-    
+
     public JLabel getLblTelefonoAjustes() {
         return lblTelefonoAjustes;
     }
-    
+
     public JLabel getLblCorreodeEmpresaAjustes() {
         return lblCorreodeEmpresaAjustes;
     }
-    
+
     public JLabel getLblIDIOMAAjustes() {
         return lblIDIOMAAjustes;
     }
-    
+
     public JLabel getLblApectoAjustes() {
         return lblApectoAjustes;
     }
-    
+
     public JButton getBtnGuardacambiosAjustes() {
         return btnGuardacambiosAjustes;
     }
+
     // pnlRegVenProform
     public JLabel getLblsubtemaProformaRegVen() {
         return lblsubtemaProformaRegVen;
@@ -2907,7 +2960,6 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
 
     //hasta aca
 
-
     private void btninicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btninicioMouseClicked
         tpnMostrar.setSelectedIndex(pnlInicio);
     }//GEN-LAST:event_btninicioMouseClicked
@@ -2920,11 +2972,11 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAlmacenMouseClicked
 
     private void btnregistrodecomprasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnregistrodecomprasMouseClicked
-        
+
     }//GEN-LAST:event_btnregistrodecomprasMouseClicked
 
     private void btnregistrodeventasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnregistrodeventasMouseClicked
-        
+
     }//GEN-LAST:event_btnregistrodeventasMouseClicked
 
     private void btncajaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btncajaMouseClicked
@@ -3400,14 +3452,14 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
                 rpta = txtTotalProforma;
                 break;
             case pnlVenFactura:
-            rpta=txtTotalFacturaRegVen;
-            break;
+                rpta = txtTotalFacturaRegVen;
+                break;
             case pnlVenBoleta:
-            rpta=txtTotalBoletaRegVen;
-            break;
+                rpta = txtTotalBoletaRegVen;
+                break;
             case iPnlVenProforma:
-                rpta=txtTotalProformaRegVen;
-                
+                rpta = txtTotalProformaRegVen;
+
         }
         return rpta;
     }
@@ -3421,14 +3473,14 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
             rpta = tempListBole;
         } else if (tblPadre == tblRegistroProforma) {
             rpta = tempListProf;
-        }else if(tblPadre ==tblRegistroFacturaRegVen){
+        } else if (tblPadre == tblRegistroFacturaRegVen) {
             rpta = tempListVenFact;
-        }else if(tblPadre ==tblRegistroBoletaRegVen){
+        } else if (tblPadre == tblRegistroBoletaRegVen) {
             rpta = tempListVenBole;
-        }else if(tblPadre ==tblRegistroProformaRegVen){
+        } else if (tblPadre == tblRegistroProformaRegVen) {
             rpta = tempListVenProf;
         }
-        
+
         return rpta;
     }
 
@@ -3469,14 +3521,14 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     private void btnCancelarRegVenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarRegVenActionPerformed
         tpnMostrar.setSelectedIndex(pnlPadreComVenProd);
     }//GEN-LAST:event_btnCancelarRegVenActionPerformed
-    
+
     private void btnAgregarProductoRegVenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarProductoRegVenActionPerformed
         if (faltanDatosEnTxt(txtPreciioUnitarioRegVen, txtPreciioUnitarioRegVen, txtCantidadRegVen)) {
             JOptionPane.showMessageDialog(this, "Faltan datos de producto");
             return;
         }
-        
-        Producto prod=baseDeDatos.buscarProducto(cbTipoProductosRegVen.getSelectedItem().toString());
+
+        Producto prod = baseDeDatos.buscarProducto(cbTipoProductosRegVen.getSelectedItem().toString());
         JTextField txtTotal = IdentificarTxt(pnlPadreComVenProd);
         ArrayList<Producto> listaTemp = identificarLista(tblPadre);
         listaTemp.add(prod);
@@ -3494,7 +3546,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         }
         baseDeDatos.eliminarComprobante(Integer.parseInt(GestorModelos.getValueAt(tblRegistrodeComprobantesEmitidos, filaSeleccion, 1).toString()));
         GestorModelos.actualizarCompEmit(tblRegistrodeComprobantesEmitidos, baseDeDatos.obtenerComprobantes());
-        
+
     }//GEN-LAST:event_btnAnularComprobantesEmitidosActionPerformed
 
     public Integer getSeleccionEditar(JTable editame) {
@@ -3553,10 +3605,10 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
             case 0:
                 indice = 5;
                 break;
-                case 1:
+            case 1:
                 indice = 4;
                 break;
-                case 2:
+            case 2:
                 indice = 6;
                 break;
             default:
@@ -3577,7 +3629,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         }
         baseDeDatos.eliminarComprobanteVenta(Integer.parseInt(GestorModelos.getValueAt(tblRegistrodeComprobantesEmitidosRegVen, filaSeleccion, 1).toString()));
         GestorModelos.actualizarCompVenEmit(tblRegistrodeComprobantesEmitidosRegVen, baseDeDatos.obtenerComprobantesVenta());
-        
+
     }//GEN-LAST:event_btnAnularComprobantesEmitidosRegVenActionPerformed
 
     private void btnEditarRegComFacturaRegVenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarRegComFacturaRegVenActionPerformed
@@ -3601,29 +3653,29 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
             baseDeDatos.eliminarProducto(prod.getID());
         }
     }
-    
+
     private void btnGuardarRegComFacturaRegVenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarRegComFacturaRegVenActionPerformed
-        
-        int serie=Integer.parseInt(txtSerieFacturaRegVen.getText());
-        int numero=Integer.parseInt(txtNumeroFacturaRegVen.getText());
-        String cliente=txtClienteFacturaRegVen.getText();
-        double total=Double.parseDouble(txtTotalFacturaRegVen.getText());
-        String fechaRegistro=txtFechaFacturaRegVen.getText();
+
+        int serie = Integer.parseInt(txtSerieFacturaRegVen.getText());
+        int numero = Integer.parseInt(txtNumeroFacturaRegVen.getText());
+        String cliente = txtClienteFacturaRegVen.getText();
+        double total = Double.parseDouble(txtTotalFacturaRegVen.getText());
+        String fechaRegistro = txtFechaFacturaRegVen.getText();
         //crearComprobanteVenta(String fechaRegistro, String tipoComprobante, int serie, int numero, String cliente, double total)
-        baseDeDatos.crearComprobanteVenta(fechaRegistro,"Factura",serie,numero,cliente,total);
+        baseDeDatos.crearComprobanteVenta(fechaRegistro, "Factura", serie, numero, cliente, total);
         removerProdsVendidos(tempListVenFact);
         comprobanteRegistrado();
     }//GEN-LAST:event_btnGuardarRegComFacturaRegVenActionPerformed
 
-    private void actualizarComboBoxAgregVen(){
+    private void actualizarComboBoxAgregVen() {
         cbTipoProductosRegVen.removeAllItems();
-        ArrayList<Producto> lista= baseDeDatos.obtenerProductos();
+        ArrayList<Producto> lista = baseDeDatos.obtenerProductos();
         for (Producto prod : lista) {
             cbTipoProductosRegVen.addItem(prod.getProducto());
         }
-        
+
     }
-    
+
     private void btnAgregarRegComFacturaRegVenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarRegComFacturaRegVenActionPerformed
         tblPadre = tblRegistroFacturaRegVen;
         pnlPadreComVenProd = pnlVenFactura;
@@ -3672,13 +3724,13 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEditarBoletaRegVenActionPerformed
 
     private void btnGuardarBoletaRegVenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarBoletaRegVenActionPerformed
-        
-        int serie=Integer.parseInt(txtSerieBoletaRegVen.getText());
-        int numero=Integer.parseInt(txtNumeroBoletaRegVen.getText());
-        String cliente=txtClienteBoletaRegVen.getText();
-        double total=Double.parseDouble(txtTotalBoletaRegVen.getText());
-        String fechaRegistro=txtFechaBoletaRegVen.getText();
-        baseDeDatos.crearComprobanteVenta(fechaRegistro,"Factura",serie,numero,cliente,total);
+
+        int serie = Integer.parseInt(txtSerieBoletaRegVen.getText());
+        int numero = Integer.parseInt(txtNumeroBoletaRegVen.getText());
+        String cliente = txtClienteBoletaRegVen.getText();
+        double total = Double.parseDouble(txtTotalBoletaRegVen.getText());
+        String fechaRegistro = txtFechaBoletaRegVen.getText();
+        baseDeDatos.crearComprobanteVenta(fechaRegistro, "Factura", serie, numero, cliente, total);
         removerProdsVendidos(tempListVenBole);
         comprobanteRegistrado();
     }//GEN-LAST:event_btnGuardarBoletaRegVenActionPerformed
@@ -3712,7 +3764,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDescargarRegistrodeVentasReportesActionPerformed
 
     private void btnGuardacambiosAjustesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardacambiosAjustesActionPerformed
-        
+
     }//GEN-LAST:event_btnGuardacambiosAjustesActionPerformed
 
     private void jmFACTURASRegVenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmFACTURASRegVenActionPerformed
@@ -3729,14 +3781,14 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     }//GEN-LAST:event_jmCOMPROBATESEMITIDOSRegVenActionPerformed
 
     private void cbTipoProductosRegVenItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbTipoProductosRegVenItemStateChanged
-        int seleccionado=cbTipoProductosRegVen.getSelectedIndex();
-        if(seleccionado==-1){
+        int seleccionado = cbTipoProductosRegVen.getSelectedIndex();
+        if (seleccionado == -1) {
             return;
         }
-        Producto prodSeleccionado=baseDeDatos.buscarProducto(cbTipoProductosRegVen.getItemAt(seleccionado));
+        Producto prodSeleccionado = baseDeDatos.buscarProducto(cbTipoProductosRegVen.getItemAt(seleccionado));
         txtCantidadRegVen.setText(Integer.toString(prodSeleccionado.getCantidad()));
         txtPreciioUnitarioRegVen.setText(Double.toString(prodSeleccionado.getPrecioUnitario()));
-        
+
     }//GEN-LAST:event_cbTipoProductosRegVenItemStateChanged
 
     private void btnBuscarComprobantesEmitidosRegVenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarComprobantesEmitidosRegVenActionPerformed
@@ -3753,10 +3805,10 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
             case 0:
                 indice = 5;
                 break;
-                case 1:
+            case 1:
                 indice = 4;
                 break;
-                case 2:
+            case 2:
                 indice = 6;
                 break;
             default:
@@ -3783,11 +3835,11 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEditarRegVenProformaActionPerformed
 
     private void btnGuardarRegVenProformaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarRegVenProformaActionPerformed
-        String cliente=txtNombresProformaRegVen.getText();
-        double total=Double.parseDouble(txtTotalProformaRegVen.getText());
-        String fechaRegistro=txtFechaProformaRegVen.getText();
+        String cliente = txtNombresProformaRegVen.getText();
+        double total = Double.parseDouble(txtTotalProformaRegVen.getText());
+        String fechaRegistro = txtFechaProformaRegVen.getText();
         //crearComprobanteVenta(String fechaRegistro, String tipoComprobante, int serie, int numero, String cliente, double total)
-        baseDeDatos.crearComprobanteVenta(fechaRegistro,"Proforma",0,0,cliente,total);
+        baseDeDatos.crearComprobanteVenta(fechaRegistro, "Proforma", 0, 0, cliente, total);
         removerProdsVendidos(tempListVenProf);
         comprobanteRegistrado();
     }//GEN-LAST:event_btnGuardarRegVenProformaActionPerformed
@@ -3814,6 +3866,89 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         tpnMostrar.setSelectedIndex(iPnlVenProforma);
     }//GEN-LAST:event_jmOTROSRegVenActionPerformed
 
+    private void cargarResumenCaja() {
+        double ingresos = obtenerTotal("comprobantesEmitidosVentas");
+        double egresos = obtenerTotal("comprobantesEmitidosCompra");
+        double ganancia = ingresos - egresos;
+
+        txtINGRESOScaja.setText(String.format("%.2f", ingresos));
+        txtEGRESOScaja.setText(String.format("%.2f", egresos));
+        txtGANACIAScaja.setText(String.format("%.2f", ganancia));
+    }
+
+    private static Connection conectar() throws SQLException {
+        File db = new File("baseDeDatos.db");
+        if (!db.exists()) {
+            throw new SQLException("BD no encontrada: " + db.getAbsolutePath());
+        }
+
+        String url = "jdbc:sqlite:" + db.getAbsolutePath();
+        return DriverManager.getConnection(url);
+    }
+
+    private double obtenerTotal(String tabla) {
+        String sql = "SELECT COALESCE(SUM(total),0) FROM" + tabla;
+        try (Connection cn = conectar(); PreparedStatement ps = cn.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
+
+            return rs.getDouble(1);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Error BD", JOptionPane.ERROR_MESSAGE);
+            return 0;
+        }
+
+    }
+
+    private void txtINGRESOScajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtINGRESOScajaActionPerformed
+
+        cargarResumenCaja();
+    }//GEN-LAST:event_txtINGRESOScajaActionPerformed
+
+    private void txtEGRESOScajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEGRESOScajaActionPerformed
+
+        cargarResumenCaja();
+    }//GEN-LAST:event_txtEGRESOScajaActionPerformed
+
+    private void txtGANACIAScajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtGANACIAScajaActionPerformed
+
+        cargarResumenCaja();
+    }//GEN-LAST:event_txtGANACIAScajaActionPerformed
+
+    private void btn_Grafico_CajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_Grafico_CajaActionPerformed
+
+        cargarResumenCaja();
+        double ingresos = Double.parseDouble(txtINGRESOScaja.getText());
+        double egresos = Double.parseDouble(txtEGRESOScaja.getText());
+        double ganancias = Double.parseDouble(txtGANACIAScaja.getText());
+
+        DefaultCategoryDataset datasetCaja = new DefaultCategoryDataset();
+
+        datasetCaja.setValue(ingresos, "Ingresos", "Total");
+        datasetCaja.setValue(egresos, "Egresos", "Total");
+        datasetCaja.setValue(ganancias, "Ganancias", "Total");
+
+        JFreeChart chart = ChartFactory.createBarChart3D(
+                "Resumen de Caja",
+                "Concepto",
+                "Monto (S/.)",
+                datasetCaja,
+                PlotOrientation.VERTICAL,
+                true,
+                true,
+                false);
+
+        ChartPanel panel = new ChartPanel(chart);
+        panel.setMouseWheelEnabled(true);
+        panel.setPreferredSize(new Dimension(450, 250));
+
+        Grafico_Caja.removeAll();
+        Grafico_Caja.setLayout(new BorderLayout());
+        Grafico_Caja.add(panel, BorderLayout.CENTER);
+        Grafico_Caja.revalidate();
+        Grafico_Caja.repaint();
+
+        pack();
+
+    }//GEN-LAST:event_btn_Grafico_CajaActionPerformed
     private void cbLenguajeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbLenguajeItemStateChanged
         int selec=cbLenguaje.getSelectedIndex();
         if(selec==-1){
@@ -3870,6 +4005,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel Grafico_Caja;
     private javax.swing.JPopupMenu RegistroDeCompra;
     private javax.swing.JPopupMenu RegistroDeVenta;
     private javax.swing.JButton btnAgregarAlmacen;
@@ -3919,6 +4055,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     private javax.swing.JButton btnGuardaryAgregarDatos;
     private javax.swing.JButton btnPDFComprobantesEmitidos;
     private javax.swing.JButton btnPDFComprobantesEmitidosRegVen;
+    private javax.swing.JButton btn_Grafico_Caja;
     private javax.swing.JLabel btnajustes;
     private javax.swing.JLabel btncaja;
     private javax.swing.JLabel btncerrarsesion;
