@@ -14,6 +14,9 @@ import javax.swing.JTable;
 import Producto.Producto;
 import javax.swing.JTextField;
 import MenuDinamico.GestorModelos;
+//añadido
+import java.util.List;
+//hasta aca
 import javax.swing.JButton;
 import javax.swing.JToggleButton;
 
@@ -3681,7 +3684,13 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEliminarBoletaRegVenActionPerformed
 
     private void btnDescargarRegistrodeVentasReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDescargarRegistrodeVentasReportesActionPerformed
-        
+
+    String tipoSucursal = cbTipoSurcusalesReportes.getSelectedItem().toString();
+    String periodo = txtPeriodoReportes.getText().trim();
+    String rangoPeriodo = txtRangodeperiodoReportes.getText().trim();
+
+    Excel.ExportadorExcel exportador = new Excel.ExportadorExcel();
+    exportador.exportarRegistroDeVentas(tipoSucursal, periodo, rangoPeriodo);
     }//GEN-LAST:event_btnDescargarRegistrodeVentasReportesActionPerformed
 
     private void btnGuardacambiosAjustesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardacambiosAjustesActionPerformed
