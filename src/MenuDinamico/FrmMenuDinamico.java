@@ -22,6 +22,9 @@ import java.sql.ResultSet;
 import java.io.File;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
+//añadido
+import java.util.List;
+//hasta aca
 import javax.swing.JButton;
 import javax.swing.JToggleButton;
 import org.jfree.chart.ChartFactory;
@@ -98,6 +101,14 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         tempListComprEmitid = new ArrayList<>();
         tempListVenProf = new ArrayList<>();
         tblPadre = null;
+        leerLenguaje();
+    }
+    
+    private void leerLenguaje(){
+        String[] configuracion=baseDeDatos.obtenerAjustes();
+        if(configuracion[0].equals("ingles")){
+            Ajuste.Ajustes.cambiarAIngles(null, this);
+        }
     }
 
     public void modificarSegunRol(Usuario usuario) {
@@ -421,6 +432,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         btnGuardacambiosAjustes = new javax.swing.JButton();
         lblApectoAjustes = new javax.swing.JLabel();
         lblLogoAjustes = new javax.swing.JLabel();
+        cbLenguaje = new javax.swing.JComboBox<>();
         pnlRegVenProform = new javax.swing.JPanel();
         lblsubtemaProformaRegVen = new javax.swing.JLabel();
         txtFechaProformaRegVen = new javax.swing.JTextField();
@@ -2224,6 +2236,15 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         pnlAjustes.add(lblLogoAjustes);
         lblLogoAjustes.setBounds(340, 100, 70, 30);
 
+        cbLenguaje.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Español", "Ingles" }));
+        cbLenguaje.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbLenguajeItemStateChanged(evt);
+            }
+        });
+        pnlAjustes.add(cbLenguaje);
+        cbLenguaje.setBounds(60, 370, 160, 30);
+
         tpnMostrar.addTab("pnlAjustes", pnlAjustes);
 
         pnlRegVenProform.setBackground(new java.awt.Color(211, 251, 155));
@@ -3734,6 +3755,12 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
 
     private void btnDescargarRegistrodeVentasReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDescargarRegistrodeVentasReportesActionPerformed
 
+    String tipoSucursal = cbTipoSurcusalesReportes.getSelectedItem().toString();
+    String periodo = txtPeriodoReportes.getText().trim();
+    String rangoPeriodo = txtRangodeperiodoReportes.getText().trim();
+
+    Excel.ExportadorExcel exportador = new Excel.ExportadorExcel();
+    exportador.exportarRegistroDeVentas(tipoSucursal, periodo, rangoPeriodo);
     }//GEN-LAST:event_btnDescargarRegistrodeVentasReportesActionPerformed
 
     private void btnGuardacambiosAjustesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardacambiosAjustesActionPerformed
@@ -3922,6 +3949,24 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         pack();
 
     }//GEN-LAST:event_btn_Grafico_CajaActionPerformed
+    private void cbLenguajeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbLenguajeItemStateChanged
+        int selec=cbLenguaje.getSelectedIndex();
+        if(selec==-1){
+            return;
+        }
+        switch(selec){
+            case 0:
+                baseDeDatos.actualizarAjustes("español","claro");
+                Ajuste.Ajustes.cambiarAEspanol(null, this);
+                break;
+            case 1:
+                baseDeDatos.actualizarAjustes("ingles","claro");
+                Ajuste.Ajustes.cambiarAIngles(null, this);
+                break;
+        }
+        
+    }//GEN-LAST:event_cbLenguajeItemStateChanged
+
 
     /**
      * @param args the command line arguments
@@ -4019,6 +4064,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
     private javax.swing.JLabel btnregistrodeusuario;
     private javax.swing.JLabel btnregistrodeventas;
     private javax.swing.JLabel btnreportes;
+    private javax.swing.JComboBox<String> cbLenguaje;
     private javax.swing.JComboBox<String> cbTipoAspectoAjustes;
     private javax.swing.JComboBox<String> cbTipoDeDineroBoleta;
     private javax.swing.JComboBox<String> cbTipoDeDineroBoletaRegVen;
