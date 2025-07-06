@@ -3707,7 +3707,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
             return;
         }
 
-        String comprobanteid = tblRegistrodeComprobantesEmitidos.getValueAt(filaSeleccionada, 0).toString();
+        String comprobanteid = tblRegistrodeComprobantesEmitidos.getValueAt(filaSeleccionada, 1).toString();
 
         GeneradorPDF pdf = new GeneradorPDF();
         pdf.generarPDF(comprobanteid);
