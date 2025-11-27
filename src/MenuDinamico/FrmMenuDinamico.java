@@ -15,6 +15,7 @@ import Producto.Producto;
 import javax.swing.JTextField;
 import MenuDinamico.GestorModelos;
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -517,277 +518,245 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         RegistroDeVenta.add(jmCOMPROBATESEMITIDOSRegVen);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setResizable(false);
+        setResizable(true); // Cambiado a true para permitir redimensionar
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
             }
         });
-        getContentPane().setLayout(null);
+        getContentPane().setLayout(new java.awt.BorderLayout());
 
+        // jpanelgeneral (Menú Lateral)
         jpanelgeneral.setBackground(new java.awt.Color(0, 153, 153));
-        jpanelgeneral.setLayout(null);
+        jpanelgeneral.setPreferredSize(new Dimension(200, 0));
+        jpanelgeneral.setLayout(new javax.swing.BoxLayout(jpanelgeneral, javax.swing.BoxLayout.Y_AXIS));
 
+        // Botones del menú
+        btninicio.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btnAlmacen.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btnregistrodecompras.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btnregistrodeventas.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btncerrarsesion.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        // Espaciado
+        jpanelgeneral.add(javax.swing.Box.createVerticalStrut(20));
+        jpanelgeneral.add(btninicio);
+        jpanelgeneral.add(javax.swing.Box.createVerticalStrut(10));
+        jpanelgeneral.add(btnAlmacen);
+        jpanelgeneral.add(javax.swing.Box.createVerticalStrut(10));
+
+        // Panel contenedor para Compras
+        javax.swing.JPanel pnlCompras = new javax.swing.JPanel();
+        pnlCompras.setOpaque(false);
+        pnlCompras.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 5, 0));
+        pnlCompras.add(btnregistrodecompras);
+        pnlCompras.add(lblRegCompras);
+        pnlCompras.setMaximumSize(new Dimension(200, 60));
+        jpanelgeneral.add(pnlCompras);
+
+        jpanelgeneral.add(javax.swing.Box.createVerticalStrut(10));
+
+        // Panel contenedor para Ventas
+        javax.swing.JPanel pnlVentas = new javax.swing.JPanel();
+        pnlVentas.setOpaque(false);
+        pnlVentas.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 5, 0));
+        pnlVentas.add(btnregistrodeventas);
+        pnlVentas.add(lblRegVentas);
+        pnlVentas.setMaximumSize(new Dimension(200, 60));
+        jpanelgeneral.add(pnlVentas);
+
+        // jpaneladmin (Parte del menú lateral para admin)
         jpaneladmin.setBackground(new java.awt.Color(0, 153, 153));
-        jpaneladmin.setEnabled(false);
-        jpaneladmin.setLayout(null);
+        jpaneladmin.setLayout(new javax.swing.BoxLayout(jpaneladmin, javax.swing.BoxLayout.Y_AXIS));
 
-        btncaja.setFont(new java.awt.Font("DialogInput", 0, 18)); // NOI18N
-        btncaja.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/dinero.png"))); // NOI18N
-        btncaja.setText("CAJA");
-        btncaja.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btncajaMouseClicked(evt);
-            }
-        });
+        btncaja.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btnregistrodeusuario.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btnreportes.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btnajustes.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        jpaneladmin.add(javax.swing.Box.createVerticalStrut(10));
         jpaneladmin.add(btncaja);
-        btncaja.setBounds(0, 0, 140, 50);
-
-        btnregistrodeusuario.setFont(new java.awt.Font("DialogInput", 0, 18)); // NOI18N
-        btnregistrodeusuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/personas.png"))); // NOI18N
-        btnregistrodeusuario.setText("<html>REGISTRO<br>DE USUARIOS</html>");
-        btnregistrodeusuario.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnregistrodeusuarioMouseClicked(evt);
-            }
-        });
+        jpaneladmin.add(javax.swing.Box.createVerticalStrut(10));
         jpaneladmin.add(btnregistrodeusuario);
-        btnregistrodeusuario.setBounds(0, 60, 190, 60);
-
-        btnreportes.setFont(new java.awt.Font("DialogInput", 0, 18)); // NOI18N
-        btnreportes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/documento.png"))); // NOI18N
-        btnreportes.setText("REPORTES");
-        btnreportes.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnreportesMouseClicked(evt);
-            }
-        });
+        jpaneladmin.add(javax.swing.Box.createVerticalStrut(10));
         jpaneladmin.add(btnreportes);
-        btnreportes.setBounds(0, 130, 170, 50);
-
-        btnajustes.setFont(new java.awt.Font("DialogInput", 0, 18)); // NOI18N
-        btnajustes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/tuercas.png"))); // NOI18N
-        btnajustes.setText("AJUSTES");
-        btnajustes.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnajustesMouseClicked(evt);
-            }
-        });
+        jpaneladmin.add(javax.swing.Box.createVerticalStrut(10));
         jpaneladmin.add(btnajustes);
-        btnajustes.setBounds(0, 180, 170, 50);
 
         jpanelgeneral.add(jpaneladmin);
-        jpaneladmin.setBounds(0, 220, 190, 250);
-
-        btninicio.setFont(new java.awt.Font("DialogInput", 0, 18)); // NOI18N
-        btninicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/casa.png"))); // NOI18N
-        btninicio.setText("INICIO");
-        btninicio.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btninicioMouseClicked(evt);
-            }
-        });
-        jpanelgeneral.add(btninicio);
-        btninicio.setBounds(0, 0, 140, 50);
-
-        btnAlmacen.setFont(new java.awt.Font("DialogInput", 0, 18)); // NOI18N
-        btnAlmacen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/caja.png"))); // NOI18N
-        btnAlmacen.setText("ALMACEN");
-        btnAlmacen.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnAlmacenMouseClicked(evt);
-            }
-        });
-        jpanelgeneral.add(btnAlmacen);
-        btnAlmacen.setBounds(0, 50, 160, 50);
-
-        btnregistrodecompras.setFont(new java.awt.Font("DialogInput", 0, 18)); // NOI18N
-        btnregistrodecompras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/camion.png"))); // NOI18N
-        btnregistrodecompras.setText("<html>REGISTRO<br>DE COMPRAS</html>");
-        btnregistrodecompras.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnregistrodecomprasMouseClicked(evt);
-            }
-        });
-        jpanelgeneral.add(btnregistrodecompras);
-        btnregistrodecompras.setBounds(0, 100, 170, 50);
-
-        btnregistrodeventas.setFont(new java.awt.Font("DialogInput", 0, 18)); // NOI18N
-        btnregistrodeventas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/tienda.png"))); // NOI18N
-        btnregistrodeventas.setText("<html>REGISTRO<br>DE VENTAS</html>");
-        btnregistrodeventas.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnregistrodeventasMouseClicked(evt);
-            }
-        });
-        jpanelgeneral.add(btnregistrodeventas);
-        btnregistrodeventas.setBounds(0, 160, 170, 50);
-
-        btncerrarsesion.setFont(new java.awt.Font("DialogInput", 0, 18)); // NOI18N
-        btncerrarsesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/puerta.png"))); // NOI18N
-        btncerrarsesion.setText("<html>CERRAR<br>SESION</html>");
-        btncerrarsesion.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btncerrarsesionMouseClicked(evt);
-            }
-        });
+        jpanelgeneral.add(javax.swing.Box.createVerticalGlue()); // Empuja cerrar sesión abajo
         jpanelgeneral.add(btncerrarsesion);
-        btncerrarsesion.setBounds(10, 470, 130, 50);
+        jpanelgeneral.add(javax.swing.Box.createVerticalStrut(20));
 
-        lblRegCompras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/signoMas.png"))); // NOI18N
-        lblRegCompras.setComponentPopupMenu(RegistroDeCompra);
-        jpanelgeneral.add(lblRegCompras);
-        lblRegCompras.setBounds(160, 110, 20, 20);
-
-        lblRegVentas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/signoMas.png"))); // NOI18N
-        lblRegVentas.setComponentPopupMenu(RegistroDeVenta);
-        jpanelgeneral.add(lblRegVentas);
-        lblRegVentas.setBounds(160, 170, 20, 20);
-
-        getContentPane().add(jpanelgeneral);
-        jpanelgeneral.setBounds(0, 80, 190, 530);
-
+        // jpanelsuperior (Encabezado)
         jpanelsuperior.setBackground(new java.awt.Color(0, 153, 153));
-        jpanelsuperior.setLayout(null);
+        jpanelsuperior.setPreferredSize(new Dimension(0, 80));
+        jpanelsuperior.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 20, 10));
 
-        lblinventario.setFont(new java.awt.Font("Cooper Black", 1, 24)); // NOI18N
-        lblinventario.setText("INVENTARIO");
         jpanelsuperior.add(lblinventario);
-        lblinventario.setBounds(20, 20, 180, 30);
-
-        lblimagen1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/carretilla.png"))); // NOI18N
         jpanelsuperior.add(lblimagen1);
-        lblimagen1.setBounds(190, 10, 70, 60);
+        // Separador flexible simulado con glue si fuera Box, pero FlowLayout es simple.
+        // Usaremos un panel derecho para alinear a la derecha la info de usuario
+        javax.swing.JPanel pnlInfoUsuario = new javax.swing.JPanel();
+        pnlInfoUsuario.setOpaque(false);
+        pnlInfoUsuario.setLayout(new java.awt.GridLayout(2, 1));
+        pnlInfoUsuario.add(lblRUC);
+        pnlInfoUsuario.add(lblRol);
 
-        lblimagen2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/usuariovl2.png"))); // NOI18N
-        jpanelsuperior.add(lblimagen2);
-        lblimagen2.setBounds(810, 20, 50, 40);
+        javax.swing.JPanel pnlHeaderRight = new javax.swing.JPanel();
+        pnlHeaderRight.setOpaque(false);
+        pnlHeaderRight.add(pnlInfoUsuario);
+        pnlHeaderRight.add(lblimagen2);
 
-        lblRUC.setFont(new java.awt.Font("Cartoon Fun", 0, 14)); // NOI18N
-        lblRUC.setText("Agro Integral Perú");
-        jpanelsuperior.add(lblRUC);
-        lblRUC.setBounds(610, 10, 200, 24);
+        // Contenedor principal del header para usar BorderLayout y separar titulo de usuario
+        javax.swing.JPanel pnlHeaderContainer = new javax.swing.JPanel(new BorderLayout());
+        pnlHeaderContainer.setOpaque(false);
 
-        lblRol.setText("Empleado");
-        jpanelsuperior.add(lblRol);
-        lblRol.setBounds(650, 40, 150, 16);
+        javax.swing.JPanel pnlHeaderLeft = new javax.swing.JPanel(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
+        pnlHeaderLeft.setOpaque(false);
+        pnlHeaderLeft.add(lblinventario);
+        pnlHeaderLeft.add(lblimagen1);
 
-        getContentPane().add(jpanelsuperior);
-        jpanelsuperior.setBounds(0, 0, 880, 80);
+        pnlHeaderContainer.add(pnlHeaderLeft, BorderLayout.WEST);
+        pnlHeaderContainer.add(pnlHeaderRight, BorderLayout.EAST);
+
+        // Reemplazamos el layout manager de jpanelsuperior por BorderLayout
+        jpanelsuperior.setLayout(new BorderLayout());
+        jpanelsuperior.add(pnlHeaderContainer, BorderLayout.CENTER);
+
+
+        // Agregar paneles al frame
+        getContentPane().add(jpanelsuperior, BorderLayout.NORTH);
+        getContentPane().add(jpanelgeneral, BorderLayout.WEST);
+        getContentPane().add(tpnMostrar, BorderLayout.CENTER);
 
         tpnMostrar.setTabPlacement(javax.swing.JTabbedPane.BOTTOM);
 
-        pnl1Inicio.setLayout(null);
+        // --- pnl1Inicio ---
+        // Usaremos GridBagLayout para centrar los paneles de resumen
+        pnl1Inicio.setLayout(new java.awt.GridBagLayout());
+        java.awt.GridBagConstraints gbcInicio = new java.awt.GridBagConstraints();
+        gbcInicio.insets = new java.awt.Insets(10, 10, 10, 10);
 
+        // Subtítulo
         lblSubTitulo.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
         lblSubTitulo.setText("RESUMEN DEL DÍA");
-        pnl1Inicio.add(lblSubTitulo);
-        lblSubTitulo.setBounds(20, 20, 310, 40);
+        gbcInicio.gridx = 0;
+        gbcInicio.gridy = 0;
+        gbcInicio.gridwidth = 2; // Ocupa dos columnas
+        gbcInicio.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        pnl1Inicio.add(lblSubTitulo, gbcInicio);
 
-        pnlProductos.setBackground(new java.awt.Color(216, 196, 244));
-        pnlProductos.setLayout(null);
+        // Configuración de layout para los paneles pequeños
+        java.awt.Dimension dimPanelResumen = new java.awt.Dimension(190, 90);
 
-        lblProductos.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
-        lblProductos.setText("PRODUCTOS");
-        pnlProductos.add(lblProductos);
-        lblProductos.setBounds(60, 50, 75, 30);
-        pnlProductos.add(txtProductos);
-        txtProductos.setBounds(20, 20, 150, 30);
-
-        pnl1Inicio.add(pnlProductos);
-        pnlProductos.setBounds(370, 360, 190, 90);
-
+        // pnlGanancias
         pnlGancias.setBackground(new java.awt.Color(255, 212, 4));
-        pnlGancias.setLayout(null);
-
-        lblGanancias.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
+        pnlGancias.setPreferredSize(dimPanelResumen);
+        pnlGancias.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 10)); // Simple FlowLayout
+        lblGanancias.setFont(new java.awt.Font("Comic Sans MS", 1, 12));
         lblGanancias.setText("GANANCIAS");
-        pnlGancias.add(lblGanancias);
-        lblGanancias.setBounds(60, 50, 80, 30);
+        txtGanancias.setPreferredSize(new java.awt.Dimension(150, 30));
         pnlGancias.add(txtGanancias);
-        txtGanancias.setBounds(20, 20, 150, 30);
+        pnlGancias.add(lblGanancias);
 
-        pnl1Inicio.add(pnlGancias);
-        pnlGancias.setBounds(100, 100, 190, 90);
+        gbcInicio.gridx = 0;
+        gbcInicio.gridy = 1;
+        gbcInicio.gridwidth = 1;
+        gbcInicio.anchor = java.awt.GridBagConstraints.CENTER;
+        pnl1Inicio.add(pnlGancias, gbcInicio);
 
+        // pnlProveedores
         pnlProveedores.setBackground(new java.awt.Color(199, 180, 159));
-        pnlProveedores.setLayout(null);
-
-        lblProveedores.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
+        pnlProveedores.setPreferredSize(dimPanelResumen);
+        pnlProveedores.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 10));
+        lblProveedores.setFont(new java.awt.Font("Comic Sans MS", 1, 12));
         lblProveedores.setText("PROVEEDORES");
-        pnlProveedores.add(lblProveedores);
-        lblProveedores.setBounds(50, 50, 110, 30);
+        txtProveedores.setPreferredSize(new java.awt.Dimension(150, 30));
         pnlProveedores.add(txtProveedores);
-        txtProveedores.setBounds(20, 20, 150, 30);
+        pnlProveedores.add(lblProveedores);
 
-        pnl1Inicio.add(pnlProveedores);
-        pnlProveedores.setBounds(370, 100, 190, 90);
+        gbcInicio.gridx = 1;
+        gbcInicio.gridy = 1;
+        pnl1Inicio.add(pnlProveedores, gbcInicio);
 
+        // pnlCompraDelMes
         pnlCompraDelMes.setBackground(new java.awt.Color(248, 197, 200));
-        pnlCompraDelMes.setLayout(null);
-
-        lblCompraDelMes.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
+        pnlCompraDelMes.setPreferredSize(dimPanelResumen);
+        pnlCompraDelMes.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 10));
+        lblCompraDelMes.setFont(new java.awt.Font("Comic Sans MS", 1, 12));
         lblCompraDelMes.setText("COMPRA DEL MES");
-        pnlCompraDelMes.add(lblCompraDelMes);
-        lblCompraDelMes.setBounds(40, 50, 120, 30);
+        txtComprasDelMes.setPreferredSize(new java.awt.Dimension(150, 30));
         pnlCompraDelMes.add(txtComprasDelMes);
-        txtComprasDelMes.setBounds(20, 20, 150, 30);
+        pnlCompraDelMes.add(lblCompraDelMes);
 
-        pnl1Inicio.add(pnlCompraDelMes);
-        pnlCompraDelMes.setBounds(100, 230, 190, 90);
+        gbcInicio.gridx = 0;
+        gbcInicio.gridy = 2;
+        pnl1Inicio.add(pnlCompraDelMes, gbcInicio);
 
+        // pnlVentasDelDia
         pnlVentasDelDia.setBackground(new java.awt.Color(160, 204, 92));
-        pnlVentasDelDia.setLayout(null);
-
-        lblVentasDelDia.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
+        pnlVentasDelDia.setPreferredSize(dimPanelResumen);
+        pnlVentasDelDia.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 10));
+        lblVentasDelDia.setFont(new java.awt.Font("Comic Sans MS", 1, 12));
         lblVentasDelDia.setText("VENTAS DEL DIA");
-        pnlVentasDelDia.add(lblVentasDelDia);
-        lblVentasDelDia.setBounds(40, 50, 140, 30);
+        txtVentasDelDia.setPreferredSize(new java.awt.Dimension(150, 30));
         pnlVentasDelDia.add(txtVentasDelDia);
-        txtVentasDelDia.setBounds(20, 20, 150, 30);
+        pnlVentasDelDia.add(lblVentasDelDia);
 
-        pnl1Inicio.add(pnlVentasDelDia);
-        pnlVentasDelDia.setBounds(370, 230, 190, 90);
+        gbcInicio.gridx = 1;
+        gbcInicio.gridy = 2;
+        pnl1Inicio.add(pnlVentasDelDia, gbcInicio);
 
+        // pnlCientes (Typo original conservado en variable)
         pnlCientes.setBackground(new java.awt.Color(152, 180, 204));
-        pnlCientes.setLayout(null);
-
-        lblClientes.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
+        pnlCientes.setPreferredSize(dimPanelResumen);
+        pnlCientes.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 10));
+        lblClientes.setFont(new java.awt.Font("Comic Sans MS", 1, 12));
         lblClientes.setText("CLIENTES");
-        pnlCientes.add(lblClientes);
-        lblClientes.setBounds(60, 50, 90, 30);
+        txtClientes.setPreferredSize(new java.awt.Dimension(150, 30));
         pnlCientes.add(txtClientes);
-        txtClientes.setBounds(20, 20, 150, 30);
+        pnlCientes.add(lblClientes);
 
-        pnl1Inicio.add(pnlCientes);
-        pnlCientes.setBounds(100, 360, 190, 90);
+        gbcInicio.gridx = 0;
+        gbcInicio.gridy = 3;
+        pnl1Inicio.add(pnlCientes, gbcInicio);
+
+        // pnlProductos
+        pnlProductos.setBackground(new java.awt.Color(216, 196, 244));
+        pnlProductos.setPreferredSize(dimPanelResumen);
+        pnlProductos.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 10));
+        lblProductos.setFont(new java.awt.Font("Comic Sans MS", 1, 12));
+        lblProductos.setText("PRODUCTOS");
+        txtProductos.setPreferredSize(new java.awt.Dimension(150, 30));
+        pnlProductos.add(txtProductos);
+        pnlProductos.add(lblProductos);
+
+        gbcInicio.gridx = 1;
+        gbcInicio.gridy = 3;
+        pnl1Inicio.add(pnlProductos, gbcInicio);
 
         tpnMostrar.addTab("pnl1Inicio", pnl1Inicio);
 
-        pnlRegUsuMostrar.setLayout(null);
+        // --- pnlRegUsuMostrar ---
+        pnlRegUsuMostrar.setLayout(new java.awt.BorderLayout());
 
+        // Panel superior para botón Crear Usuario
+        javax.swing.JPanel pnlRegUsuTop = new javax.swing.JPanel();
+        pnlRegUsuTop.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 20));
         btnCrearUsuario.setBackground(new java.awt.Color(202, 244, 250));
         btnCrearUsuario.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
         btnCrearUsuario.setText("Crear Usuario");
+        btnCrearUsuario.setPreferredSize(new Dimension(210, 40));
         btnCrearUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCrearUsuarioActionPerformed(evt);
             }
         });
-        pnlRegUsuMostrar.add(btnCrearUsuario);
-        btnCrearUsuario.setBounds(230, 60, 210, 40);
+        pnlRegUsuTop.add(btnCrearUsuario);
+        pnlRegUsuMostrar.add(pnlRegUsuTop, BorderLayout.NORTH);
 
-        btnEliminar.setBackground(new java.awt.Color(202, 244, 250));
-        btnEliminar.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
-        btnEliminar.setText("Eliminar");
-        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEliminarActionPerformed(evt);
-            }
-        });
-        pnlRegUsuMostrar.add(btnEliminar);
-        btnEliminar.setBounds(60, 420, 230, 40);
-
+        // Tabla central
         tblRegistroUsuarios.setBackground(new java.awt.Color(220, 235, 245));
         tblRegistroUsuarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -812,94 +781,134 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         });
         tblRegistroUsuarios.setGridColor(new java.awt.Color(255, 255, 255));
         jScrollPane1.setViewportView(tblRegistroUsuarios);
+        // Margen alrededor de la tabla
+        javax.swing.JPanel pnlTablaContainer = new javax.swing.JPanel(new BorderLayout());
+        pnlTablaContainer.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 20, 10, 20));
+        pnlTablaContainer.add(jScrollPane1, BorderLayout.CENTER);
+        pnlRegUsuMostrar.add(pnlTablaContainer, BorderLayout.CENTER);
 
-        pnlRegUsuMostrar.add(jScrollPane1);
-        jScrollPane1.setBounds(20, 140, 660, 240);
+        // Panel inferior para botones Editar y Eliminar
+        javax.swing.JPanel pnlRegUsuBottom = new javax.swing.JPanel();
+        pnlRegUsuBottom.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 30, 20));
+
+        btnEliminar.setBackground(new java.awt.Color(202, 244, 250));
+        btnEliminar.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
+        btnEliminar.setText("Eliminar");
+        btnEliminar.setPreferredSize(new Dimension(230, 40));
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
+        pnlRegUsuBottom.add(btnEliminar);
 
         btnEditar.setBackground(new java.awt.Color(226, 237, 241));
         btnEditar.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
         btnEditar.setText("Editar");
+        btnEditar.setPreferredSize(new Dimension(230, 40));
         btnEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEditarActionPerformed(evt);
             }
         });
-        pnlRegUsuMostrar.add(btnEditar);
-        btnEditar.setBounds(370, 420, 230, 40);
+        pnlRegUsuBottom.add(btnEditar);
+
+        pnlRegUsuMostrar.add(pnlRegUsuBottom, BorderLayout.SOUTH);
 
         tpnMostrar.addTab("pnlRegUsuMostrar", pnlRegUsuMostrar);
 
-        pnlRegUsuIngresar.setLayout(null);
+        // --- pnlRegUsuIngresar ---
+        pnlRegUsuIngresar.setLayout(new java.awt.GridBagLayout());
+        java.awt.GridBagConstraints gbcIngresar = new java.awt.GridBagConstraints();
+        gbcIngresar.insets = new java.awt.Insets(10, 10, 10, 10);
+        gbcIngresar.anchor = java.awt.GridBagConstraints.WEST;
 
+        // Titulo
         lblAgregaryCrearUsuario.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
         lblAgregaryCrearUsuario.setText("AGREGAR Y CREAR USUARIO");
-        pnlRegUsuIngresar.add(lblAgregaryCrearUsuario);
-        lblAgregaryCrearUsuario.setBounds(50, 50, 220, 30);
+        gbcIngresar.gridx = 0;
+        gbcIngresar.gridy = 0;
+        gbcIngresar.gridwidth = 4;
+        pnlRegUsuIngresar.add(lblAgregaryCrearUsuario, gbcIngresar);
 
+        // Subtitulo
         lblSubTitulo1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblSubTitulo1.setText("• Creación de Usuario");
-        pnlRegUsuIngresar.add(lblSubTitulo1);
-        lblSubTitulo1.setBounds(70, 110, 150, 20);
+        gbcIngresar.gridy = 1;
+        pnlRegUsuIngresar.add(lblSubTitulo1, gbcIngresar);
 
+        // Nombres
         lblNombres.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
         lblNombres.setText("Nombres:");
-        pnlRegUsuIngresar.add(lblNombres);
-        lblNombres.setBounds(70, 160, 60, 30);
+        gbcIngresar.gridy = 2;
+        gbcIngresar.gridwidth = 1;
+        pnlRegUsuIngresar.add(lblNombres, gbcIngresar);
 
+        txtNombres.setPreferredSize(new Dimension(190, 30));
         txtNombres.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNombresActionPerformed(evt);
             }
         });
-        pnlRegUsuIngresar.add(txtNombres);
-        txtNombres.setBounds(130, 160, 190, 30);
+        gbcIngresar.gridx = 1;
+        pnlRegUsuIngresar.add(txtNombres, gbcIngresar);
 
+        // Apellidos
         lblApellidos.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
         lblApellidos.setText("Apellidos:");
-        pnlRegUsuIngresar.add(lblApellidos);
-        lblApellidos.setBounds(330, 160, 90, 30);
-        pnlRegUsuIngresar.add(txtApellidos);
-        txtApellidos.setBounds(420, 160, 190, 30);
+        gbcIngresar.gridx = 2;
+        pnlRegUsuIngresar.add(lblApellidos, gbcIngresar);
 
+        txtApellidos.setPreferredSize(new Dimension(190, 30));
+        gbcIngresar.gridx = 3;
+        pnlRegUsuIngresar.add(txtApellidos, gbcIngresar);
+
+        // Telefono
         lblTelefono.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
         lblTelefono.setText("Telefono:");
-        pnlRegUsuIngresar.add(lblTelefono);
-        lblTelefono.setBounds(70, 230, 60, 30);
-        pnlRegUsuIngresar.add(txtTelefono);
-        txtTelefono.setBounds(130, 230, 190, 30);
+        gbcIngresar.gridx = 0;
+        gbcIngresar.gridy = 3;
+        pnlRegUsuIngresar.add(lblTelefono, gbcIngresar);
 
+        txtTelefono.setPreferredSize(new Dimension(190, 30));
+        gbcIngresar.gridx = 1;
+        pnlRegUsuIngresar.add(txtTelefono, gbcIngresar);
+
+        // DNI
         lblDNIUsuario.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
         lblDNIUsuario.setText("DNI/Usuario:");
-        pnlRegUsuIngresar.add(lblDNIUsuario);
-        lblDNIUsuario.setBounds(330, 230, 90, 30);
-        pnlRegUsuIngresar.add(txtDNIUsuario);
-        txtDNIUsuario.setBounds(420, 230, 180, 30);
+        gbcIngresar.gridx = 2;
+        pnlRegUsuIngresar.add(lblDNIUsuario, gbcIngresar);
 
+        txtDNIUsuario.setPreferredSize(new Dimension(190, 30));
+        gbcIngresar.gridx = 3;
+        pnlRegUsuIngresar.add(txtDNIUsuario, gbcIngresar);
+
+        // Contraseña
         lblContraseña.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
         lblContraseña.setText("Contraseña:");
-        pnlRegUsuIngresar.add(lblContraseña);
-        lblContraseña.setBounds(70, 300, 70, 30);
-        pnlRegUsuIngresar.add(txtContraseña);
-        txtContraseña.setBounds(140, 300, 180, 30);
+        gbcIngresar.gridx = 0;
+        gbcIngresar.gridy = 4;
+        pnlRegUsuIngresar.add(lblContraseña, gbcIngresar);
 
+        txtContraseña.setPreferredSize(new Dimension(190, 30));
+        gbcIngresar.gridx = 1;
+        pnlRegUsuIngresar.add(txtContraseña, gbcIngresar);
+
+        // Tipo Usuario
         lblTipoUsuario.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
         lblTipoUsuario.setText("Tipo Usuario:");
-        pnlRegUsuIngresar.add(lblTipoUsuario);
-        lblTipoUsuario.setBounds(330, 300, 80, 30);
+        gbcIngresar.gridx = 2;
+        pnlRegUsuIngresar.add(lblTipoUsuario, gbcIngresar);
 
         cbTipoUsuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "administrador", "empleado" }));
-        pnlRegUsuIngresar.add(cbTipoUsuario);
-        cbTipoUsuario.setBounds(410, 300, 170, 30);
+        cbTipoUsuario.setPreferredSize(new Dimension(190, 30));
+        gbcIngresar.gridx = 3;
+        pnlRegUsuIngresar.add(cbTipoUsuario, gbcIngresar);
 
-        btnGuardaryAgregarDatos.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
-        btnGuardaryAgregarDatos.setText("Guardar y Agregar Datos");
-        btnGuardaryAgregarDatos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardaryAgregarDatosActionPerformed(evt);
-            }
-        });
-        pnlRegUsuIngresar.add(btnGuardaryAgregarDatos);
-        btnGuardaryAgregarDatos.setBounds(320, 390, 300, 50);
+        // Radio Buttons (Estado)
+        javax.swing.JPanel pnlEstado = new javax.swing.JPanel();
+        pnlEstado.setLayout(new javax.swing.BoxLayout(pnlEstado, javax.swing.BoxLayout.Y_AXIS));
 
         rbtActivo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         rbtActivo.setForeground(new java.awt.Color(102, 153, 0));
@@ -910,8 +919,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
                 rbtActivoActionPerformed(evt);
             }
         });
-        pnlRegUsuIngresar.add(rbtActivo);
-        rbtActivo.setBounds(140, 390, 100, 20);
+        pnlEstado.add(rbtActivo);
 
         rbtInactivo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         rbtInactivo.setForeground(new java.awt.Color(204, 0, 0));
@@ -921,24 +929,179 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
                 rbtInactivoActionPerformed(evt);
             }
         });
-        pnlRegUsuIngresar.add(rbtInactivo);
-        rbtInactivo.setBounds(140, 420, 100, 20);
+        pnlEstado.add(rbtInactivo);
+
+        gbcIngresar.gridx = 1;
+        gbcIngresar.gridy = 5;
+        pnlRegUsuIngresar.add(pnlEstado, gbcIngresar);
+
+        // Boton Guardar
+        btnGuardaryAgregarDatos.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
+        btnGuardaryAgregarDatos.setText("Guardar y Agregar Datos");
+        btnGuardaryAgregarDatos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardaryAgregarDatosActionPerformed(evt);
+            }
+        });
+
+        gbcIngresar.gridx = 2;
+        gbcIngresar.gridwidth = 2;
+        gbcIngresar.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        pnlRegUsuIngresar.add(btnGuardaryAgregarDatos, gbcIngresar);
 
         tpnMostrar.addTab("pnlRegUsuIngresar", pnlRegUsuIngresar);
 
+        // --- pnl1Almacen ---
         pnl1Almacen.setBackground(new java.awt.Color(216, 252, 156));
-        pnl1Almacen.setLayout(null);
+        pnl1Almacen.setLayout(new java.awt.BorderLayout());
 
+        // Panel superior para Formulario y Botones
+        javax.swing.JPanel pnlAlmacenTop = new javax.swing.JPanel();
+        pnlAlmacenTop.setOpaque(false);
+        pnlAlmacenTop.setLayout(new java.awt.GridBagLayout());
+        java.awt.GridBagConstraints gbcAlm = new java.awt.GridBagConstraints();
+        gbcAlm.insets = new java.awt.Insets(5, 5, 5, 5);
+        gbcAlm.anchor = java.awt.GridBagConstraints.WEST;
+
+        // Subtitulo
         lblSubtema2.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         lblSubtema2.setText("REGISTRO DE PRODUCTOS");
-        pnl1Almacen.add(lblSubtema2);
-        lblSubtema2.setBounds(40, 40, 230, 20);
+        gbcAlm.gridx = 0;
+        gbcAlm.gridy = 0;
+        gbcAlm.gridwidth = 2;
+        pnlAlmacenTop.add(lblSubtema2, gbcAlm);
 
+        // --- Columna Izquierda (Campos) ---
+        // Producto
+        lblProducto.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        lblProducto.setText("Producto: ");
+        gbcAlm.gridx = 0;
+        gbcAlm.gridy = 1;
+        gbcAlm.gridwidth = 1;
+        pnlAlmacenTop.add(lblProducto, gbcAlm);
+
+        txtProducto.setPreferredSize(new Dimension(160, 30));
+        gbcAlm.gridx = 1;
+        pnlAlmacenTop.add(txtProducto, gbcAlm);
+
+        // Cantidad
+        lblCantidaddeProducto.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        lblCantidaddeProducto.setText("Cantidad de productos: ");
+        gbcAlm.gridx = 0;
+        gbcAlm.gridy = 2;
+        pnlAlmacenTop.add(lblCantidaddeProducto, gbcAlm);
+
+        txtCantidaddeProducto.setPreferredSize(new Dimension(160, 30));
+        gbcAlm.gridx = 1;
+        pnlAlmacenTop.add(txtCantidaddeProducto, gbcAlm);
+
+        // Precio
+        lblPreciodeProducto.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        lblPreciodeProducto.setText("Precio de compra:");
+        gbcAlm.gridx = 0;
+        gbcAlm.gridy = 3;
+        pnlAlmacenTop.add(lblPreciodeProducto, gbcAlm);
+
+        txtPreciodeCompra.setPreferredSize(new Dimension(160, 30));
+        gbcAlm.gridx = 1;
+        pnlAlmacenTop.add(txtPreciodeCompra, gbcAlm);
+
+        // Busqueda
+        javax.swing.JPanel pnlBusquedaAlm = new javax.swing.JPanel();
+        pnlBusquedaAlm.setOpaque(false);
+        pnlBusquedaAlm.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 0));
+
+        lblImagen1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Lupa.png")));
+        pnlBusquedaAlm.add(lblImagen1);
+
+        txtBuscar.setPreferredSize(new Dimension(160, 30));
+        pnlBusquedaAlm.add(txtBuscar);
+
+        btnBuscarAlmacen.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        btnBuscarAlmacen.setText("Buscar");
+        btnBuscarAlmacen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarAlmacenActionPerformed(evt);
+            }
+        });
+        pnlBusquedaAlm.add(btnBuscarAlmacen);
+
+        gbcAlm.gridx = 0;
+        gbcAlm.gridy = 4;
+        gbcAlm.gridwidth = 2;
+        pnlAlmacenTop.add(pnlBusquedaAlm, gbcAlm);
+
+        // --- Columna Derecha (Botones Acciones) ---
+        javax.swing.JPanel pnlAccionesAlm = new javax.swing.JPanel();
+        pnlAccionesAlm.setOpaque(false);
+        pnlAccionesAlm.setLayout(new java.awt.GridBagLayout());
+        java.awt.GridBagConstraints gbcAcc = new java.awt.GridBagConstraints();
+        gbcAcc.insets = new java.awt.Insets(5, 5, 5, 5);
+        gbcAcc.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gbcAcc.gridx = 0;
+
+        btnAgregarAlmacen.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        btnAgregarAlmacen.setText("Agregar");
+        btnAgregarAlmacen.setPreferredSize(new Dimension(120, 40));
+        btnAgregarAlmacen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarAlmacenActionPerformed(evt);
+            }
+        });
+        gbcAcc.gridy = 0;
+        pnlAccionesAlm.add(btnAgregarAlmacen, gbcAcc);
+
+        btnEliminarAlmacen.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        btnEliminarAlmacen.setText("Eliminar");
+        btnEliminarAlmacen.setPreferredSize(new Dimension(120, 40));
+        btnEliminarAlmacen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarAlmacenActionPerformed(evt);
+            }
+        });
+        gbcAcc.gridy = 1;
+        pnlAccionesAlm.add(btnEliminarAlmacen, gbcAcc);
+
+        btnEditarAlmacen.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        btnEditarAlmacen.setText("Editar");
+        btnEditarAlmacen.setPreferredSize(new Dimension(120, 40));
+        btnEditarAlmacen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarAlmacenActionPerformed(evt);
+            }
+        });
+        gbcAcc.gridy = 2;
+        pnlAccionesAlm.add(btnEditarAlmacen, gbcAcc);
+
+        // Filtro y Combo
+        javax.swing.JPanel pnlFiltro = new javax.swing.JPanel();
+        pnlFiltro.setOpaque(false);
         cbTipoStock.setFont(new java.awt.Font("Courier New", 0, 12)); // NOI18N
         cbTipoStock.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "• Sin Filtro", "• Sin Stock", "• Con stock" }));
-        pnl1Almacen.add(cbTipoStock);
-        cbTipoStock.setBounds(360, 230, 170, 30);
+        cbTipoStock.setPreferredSize(new Dimension(150, 30));
+        pnlFiltro.add(cbTipoStock);
 
+        btnFiltrarAlmacen.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        btnFiltrarAlmacen.setText("Filtrar");
+        btnFiltrarAlmacen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFiltrarAlmacenActionPerformed(evt);
+            }
+        });
+        pnlFiltro.add(btnFiltrarAlmacen);
+
+        gbcAcc.gridy = 3;
+        pnlAccionesAlm.add(pnlFiltro, gbcAcc);
+
+        gbcAlm.gridx = 2;
+        gbcAlm.gridy = 0;
+        gbcAlm.gridheight = 5;
+        gbcAlm.anchor = java.awt.GridBagConstraints.NORTH;
+        pnlAlmacenTop.add(pnlAccionesAlm, gbcAlm);
+
+        pnl1Almacen.add(pnlAlmacenTop, BorderLayout.NORTH);
+
+        // Tabla
         tblRegistroProductos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
@@ -953,147 +1116,114 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(tblRegistroProductos);
 
-        pnl1Almacen.add(jScrollPane2);
-        jScrollPane2.setBounds(30, 300, 630, 190);
+        javax.swing.JPanel pnlTablaAlm = new javax.swing.JPanel(new BorderLayout());
+        pnlTablaAlm.setOpaque(false);
+        pnlTablaAlm.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 20, 10, 20));
+        pnlTablaAlm.add(jScrollPane2, BorderLayout.CENTER);
 
-        lblPreciodeProducto.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
-        lblPreciodeProducto.setText("Precio de compra:");
-        pnl1Almacen.add(lblPreciodeProducto);
-        lblPreciodeProducto.setBounds(40, 170, 150, 20);
-
-        lblProducto.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
-        lblProducto.setText("Producto: ");
-        pnl1Almacen.add(lblProducto);
-        lblProducto.setBounds(40, 90, 90, 20);
-
-        lblCantidaddeProducto.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
-        lblCantidaddeProducto.setText("Cantidad de productos: ");
-        pnl1Almacen.add(lblCantidaddeProducto);
-        lblCantidaddeProducto.setBounds(40, 130, 210, 20);
-
-        btnBuscarAlmacen.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
-        btnBuscarAlmacen.setText("Buscar");
-        btnBuscarAlmacen.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarAlmacenActionPerformed(evt);
-            }
-        });
-        pnl1Almacen.add(btnBuscarAlmacen);
-        btnBuscarAlmacen.setBounds(240, 210, 100, 30);
-        pnl1Almacen.add(txtBuscar);
-        txtBuscar.setBounds(70, 210, 160, 30);
-
-        btnAgregarAlmacen.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
-        btnAgregarAlmacen.setText("Agregar");
-        btnAgregarAlmacen.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgregarAlmacenActionPerformed(evt);
-            }
-        });
-        pnl1Almacen.add(btnAgregarAlmacen);
-        btnAgregarAlmacen.setBounds(510, 40, 120, 40);
-
-        btnEliminarAlmacen.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
-        btnEliminarAlmacen.setText("Eliminar");
-        btnEliminarAlmacen.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEliminarAlmacenActionPerformed(evt);
-            }
-        });
-        pnl1Almacen.add(btnEliminarAlmacen);
-        btnEliminarAlmacen.setBounds(510, 100, 120, 40);
-
-        btnEditarAlmacen.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
-        btnEditarAlmacen.setText("Editar");
-        btnEditarAlmacen.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditarAlmacenActionPerformed(evt);
-            }
-        });
-        pnl1Almacen.add(btnEditarAlmacen);
-        btnEditarAlmacen.setBounds(510, 160, 120, 40);
-        pnl1Almacen.add(txtPreciodeCompra);
-        txtPreciodeCompra.setBounds(200, 160, 160, 30);
-        pnl1Almacen.add(txtProducto);
-        txtProducto.setBounds(130, 80, 160, 30);
-        pnl1Almacen.add(txtCantidaddeProducto);
-        txtCantidaddeProducto.setBounds(250, 120, 160, 30);
-
-        btnFiltrarAlmacen.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
-        btnFiltrarAlmacen.setText("Filtrar");
-        btnFiltrarAlmacen.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnFiltrarAlmacenActionPerformed(evt);
-            }
-        });
-        pnl1Almacen.add(btnFiltrarAlmacen);
-        btnFiltrarAlmacen.setBounds(540, 230, 100, 30);
-
-        lblImagen1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Lupa.png"))); // NOI18N
-        pnl1Almacen.add(lblImagen1);
-        lblImagen1.setBounds(40, 210, 30, 30);
+        pnl1Almacen.add(pnlTablaAlm, BorderLayout.CENTER);
 
         tpnMostrar.addTab("pnl1Almacen", pnl1Almacen);
 
+        // --- pnlRegComFactura ---
         pnlRegComFactura.setBackground(new java.awt.Color(216, 252, 156));
-        pnlRegComFactura.setLayout(null);
+        pnlRegComFactura.setLayout(new java.awt.BorderLayout());
 
+        // Panel Superior (Formulario Factura)
+        javax.swing.JPanel pnlFacturaTop = new javax.swing.JPanel();
+        pnlFacturaTop.setOpaque(false);
+        pnlFacturaTop.setLayout(new java.awt.GridBagLayout());
+        java.awt.GridBagConstraints gbcFact = new java.awt.GridBagConstraints();
+        gbcFact.insets = new java.awt.Insets(5, 5, 5, 5);
+        gbcFact.anchor = java.awt.GridBagConstraints.WEST;
+
+        // Titulo
         lblsubtemaFactura.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
         lblsubtemaFactura.setText("FACTURA");
-        pnlRegComFactura.add(lblsubtemaFactura);
-        lblsubtemaFactura.setBounds(60, 30, 110, 20);
+        gbcFact.gridx = 0;
+        gbcFact.gridy = 0;
+        gbcFact.gridwidth = 4;
+        pnlFacturaTop.add(lblsubtemaFactura, gbcFact);
 
+        // Fila 1: Serie, Numero, Moneda
         lblSerieFactura.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         lblSerieFactura.setText("Serie:");
-        pnlRegComFactura.add(lblSerieFactura);
-        lblSerieFactura.setBounds(60, 80, 90, 17);
-        pnlRegComFactura.add(txtSerieFactura);
-        txtSerieFactura.setBounds(130, 70, 71, 30);
+        gbcFact.gridy = 1;
+        gbcFact.gridwidth = 1;
+        gbcFact.gridx = 0;
+        pnlFacturaTop.add(lblSerieFactura, gbcFact);
+
+        txtSerieFactura.setPreferredSize(new Dimension(80, 30));
+        gbcFact.gridx = 1;
+        pnlFacturaTop.add(txtSerieFactura, gbcFact);
 
         lblNumeroFactura.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         lblNumeroFactura.setText("Número:");
-        pnlRegComFactura.add(lblNumeroFactura);
-        lblNumeroFactura.setBounds(230, 80, 70, 17);
-        pnlRegComFactura.add(txtFechaFactura);
-        txtFechaFactura.setBounds(500, 160, 110, 30);
+        gbcFact.gridx = 2;
+        pnlFacturaTop.add(lblNumeroFactura, gbcFact);
 
-        lblFechaFactura.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
-        lblFechaFactura.setText("Fecha:");
-        pnlRegComFactura.add(lblFechaFactura);
-        lblFechaFactura.setBounds(440, 170, 60, 17);
-        pnlRegComFactura.add(txtProveedorFactura);
-        txtProveedorFactura.setBounds(160, 110, 170, 30);
+        txtNumeroFactura.setPreferredSize(new Dimension(80, 30));
+        gbcFact.gridx = 3;
+        pnlFacturaTop.add(txtNumeroFactura, gbcFact);
 
+        // Fila 2: Proveedor, Moneda
         lblProveedorFactura.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         lblProveedorFactura.setText("Proveedor:");
-        pnlRegComFactura.add(lblProveedorFactura);
-        lblProveedorFactura.setBounds(60, 120, 100, 17);
+        gbcFact.gridy = 2;
+        gbcFact.gridx = 0;
+        pnlFacturaTop.add(lblProveedorFactura, gbcFact);
+
+        txtProveedorFactura.setPreferredSize(new Dimension(170, 30));
+        gbcFact.gridx = 1;
+        pnlFacturaTop.add(txtProveedorFactura, gbcFact);
 
         lblMonedaFactura.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         lblMonedaFactura.setText("Moneda:");
-        pnlRegComFactura.add(lblMonedaFactura);
-        lblMonedaFactura.setBounds(340, 120, 80, 17);
-
-        lblResponsableFactura.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
-        lblResponsableFactura.setText("Responsable:");
-        pnlRegComFactura.add(lblResponsableFactura);
-        lblResponsableFactura.setBounds(60, 170, 120, 17);
-        pnlRegComFactura.add(txtNumeroFactura);
-        txtNumeroFactura.setBounds(300, 70, 71, 30);
-
-        cbTipoDeLiderFactura.setFont(new java.awt.Font("Courier New", 0, 13)); // NOI18N
-        cbTipoDeLiderFactura.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Flor de Maria Huaman Alvarez", "Wilmer Pincos Huamani" }));
-        pnlRegComFactura.add(cbTipoDeLiderFactura);
-        cbTipoDeLiderFactura.setBounds(170, 160, 260, 30);
+        gbcFact.gridx = 2;
+        pnlFacturaTop.add(lblMonedaFactura, gbcFact);
 
         cbTipoDeDineroFactura.setFont(new java.awt.Font("Courier New", 0, 13)); // NOI18N
         cbTipoDeDineroFactura.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Soles", "Dólares" }));
-        pnlRegComFactura.add(cbTipoDeDineroFactura);
-        cbTipoDeDineroFactura.setBounds(420, 110, 120, 30);
+        cbTipoDeDineroFactura.setPreferredSize(new Dimension(120, 30));
+        gbcFact.gridx = 3;
+        pnlFacturaTop.add(cbTipoDeDineroFactura, gbcFact);
 
+        // Fila 3: Responsable, Fecha
+        lblResponsableFactura.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        lblResponsableFactura.setText("Responsable:");
+        gbcFact.gridy = 3;
+        gbcFact.gridx = 0;
+        pnlFacturaTop.add(lblResponsableFactura, gbcFact);
+
+        cbTipoDeLiderFactura.setFont(new java.awt.Font("Courier New", 0, 13)); // NOI18N
+        cbTipoDeLiderFactura.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Flor de Maria Huaman Alvarez", "Wilmer Pincos Huamani" }));
+        cbTipoDeLiderFactura.setPreferredSize(new Dimension(220, 30));
+        gbcFact.gridx = 1;
+        gbcFact.gridwidth = 1; // Ajuste
+        pnlFacturaTop.add(cbTipoDeLiderFactura, gbcFact);
+
+        lblFechaFactura.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        lblFechaFactura.setText("Fecha:");
+        gbcFact.gridx = 2;
+        pnlFacturaTop.add(lblFechaFactura, gbcFact);
+
+        txtFechaFactura.setPreferredSize(new Dimension(110, 30));
+        gbcFact.gridx = 3;
+        pnlFacturaTop.add(txtFechaFactura, gbcFact);
+
+        pnlRegComFactura.add(pnlFacturaTop, BorderLayout.NORTH);
+
+        // Panel Central (Tabla y Totales) - pnlInternRegComFactura
         pnlInternRegComFactura.setBackground(new java.awt.Color(255, 255, 255));
-        pnlInternRegComFactura.setLayout(null);
+        pnlInternRegComFactura.setLayout(new java.awt.BorderLayout());
+        pnlInternRegComFactura.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
+        // Decoración superior (Titulo tabla)
+        txtDecoracion1Factura.setEditable(false);
+        txtDecoracion1Factura.setBackground(new java.awt.Color(255, 255, 255));
+        pnlInternRegComFactura.add(txtDecoracion1Factura, BorderLayout.NORTH);
+
+        // Tabla
         tblRegistroFactura.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null},
@@ -1109,131 +1239,176 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
             }
         ));
         jScrollPane3.setViewportView(tblRegistroFactura);
+        pnlInternRegComFactura.add(jScrollPane3, BorderLayout.CENTER);
 
-        pnlInternRegComFactura.add(jScrollPane3);
-        jScrollPane3.setBounds(0, 30, 530, 170);
-
-        txtDecoracion1Factura.setEditable(false);
-        txtDecoracion1Factura.setBackground(new java.awt.Color(255, 255, 255));
-        pnlInternRegComFactura.add(txtDecoracion1Factura);
-        txtDecoracion1Factura.setBounds(0, 0, 90, 30);
+        // Panel Totales (Inferior de tabla)
+        javax.swing.JPanel pnlTotalesFactura = new javax.swing.JPanel();
+        pnlTotalesFactura.setOpaque(false);
+        pnlTotalesFactura.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
 
         txtDecoracion2Factura.setEditable(false);
         txtDecoracion2Factura.setBackground(new java.awt.Color(255, 255, 255));
         txtDecoracion2Factura.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         txtDecoracion2Factura.setForeground(new java.awt.Color(255, 51, 51));
         txtDecoracion2Factura.setText("TOTAL");
-        pnlInternRegComFactura.add(txtDecoracion2Factura);
-        txtDecoracion2Factura.setBounds(360, 210, 80, 30);
+        txtDecoracion2Factura.setPreferredSize(new Dimension(80, 30));
+        pnlTotalesFactura.add(txtDecoracion2Factura);
 
         txtTotalFactura.setEnabled(false);
-        pnlInternRegComFactura.add(txtTotalFactura);
-        txtTotalFactura.setBounds(440, 210, 80, 30);
+        txtTotalFactura.setPreferredSize(new Dimension(100, 30));
+        pnlTotalesFactura.add(txtTotalFactura);
 
-        pnlRegComFactura.add(pnlInternRegComFactura);
-        pnlInternRegComFactura.setBounds(60, 210, 530, 250);
+        pnlInternRegComFactura.add(pnlTotalesFactura, BorderLayout.SOUTH);
 
-        btnEditarRegComFactura.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
-        btnEditarRegComFactura.setText("Editar");
-        btnEditarRegComFactura.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditarRegComFacturaActionPerformed(evt);
-            }
-        });
-        pnlRegComFactura.add(btnEditarRegComFactura);
-        btnEditarRegComFactura.setBounds(420, 470, 100, 30);
+        pnlRegComFactura.add(pnlInternRegComFactura, BorderLayout.CENTER);
+
+        // Panel Inferior (Botones)
+        javax.swing.JPanel pnlBotonesFactura = new javax.swing.JPanel();
+        pnlBotonesFactura.setOpaque(false);
+        pnlBotonesFactura.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 20, 10));
 
         btnGuardarRegComFactura.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         btnGuardarRegComFactura.setText("Guardar");
+        btnGuardarRegComFactura.setPreferredSize(new Dimension(100, 30));
         btnGuardarRegComFactura.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGuardarRegComFacturaActionPerformed(evt);
             }
         });
-        pnlRegComFactura.add(btnGuardarRegComFactura);
-        btnGuardarRegComFactura.setBounds(60, 470, 100, 30);
+        pnlBotonesFactura.add(btnGuardarRegComFactura);
 
         btnAgregarRegComFactura.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         btnAgregarRegComFactura.setText("Agregar");
+        btnAgregarRegComFactura.setPreferredSize(new Dimension(100, 30));
         btnAgregarRegComFactura.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAgregarRegComFacturaActionPerformed(evt);
             }
         });
-        pnlRegComFactura.add(btnAgregarRegComFactura);
-        btnAgregarRegComFactura.setBounds(180, 470, 100, 30);
+        pnlBotonesFactura.add(btnAgregarRegComFactura);
 
         btnEliminarRegComFactura.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         btnEliminarRegComFactura.setText("Eliminar");
+        btnEliminarRegComFactura.setPreferredSize(new Dimension(110, 30));
         btnEliminarRegComFactura.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEliminarRegComFacturaActionPerformed(evt);
             }
         });
-        pnlRegComFactura.add(btnEliminarRegComFactura);
-        btnEliminarRegComFactura.setBounds(300, 470, 110, 30);
+        pnlBotonesFactura.add(btnEliminarRegComFactura);
+
+        btnEditarRegComFactura.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        btnEditarRegComFactura.setText("Editar");
+        btnEditarRegComFactura.setPreferredSize(new Dimension(100, 30));
+        btnEditarRegComFactura.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarRegComFacturaActionPerformed(evt);
+            }
+        });
+        pnlBotonesFactura.add(btnEditarRegComFactura);
+
+        pnlRegComFactura.add(pnlBotonesFactura, BorderLayout.SOUTH);
 
         tpnMostrar.addTab("pnlRegComFactura", pnlRegComFactura);
 
+        // --- pnlRegComBoleta ---
         pnlRegComBoleta.setBackground(new java.awt.Color(216, 252, 156));
-        pnlRegComBoleta.setLayout(null);
+        pnlRegComBoleta.setLayout(new java.awt.BorderLayout());
 
+        // Panel Superior (Formulario Boleta)
+        javax.swing.JPanel pnlBoletaTop = new javax.swing.JPanel();
+        pnlBoletaTop.setOpaque(false);
+        pnlBoletaTop.setLayout(new java.awt.GridBagLayout());
+        java.awt.GridBagConstraints gbcBol = new java.awt.GridBagConstraints();
+        gbcBol.insets = new java.awt.Insets(5, 5, 5, 5);
+        gbcBol.anchor = java.awt.GridBagConstraints.WEST;
+
+        // Titulo
         lblsubtemaBoleta.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
         lblsubtemaBoleta.setText("BOLETA");
-        pnlRegComBoleta.add(lblsubtemaBoleta);
-        lblsubtemaBoleta.setBounds(60, 30, 210, 20);
+        gbcBol.gridx = 0;
+        gbcBol.gridy = 0;
+        gbcBol.gridwidth = 4;
+        pnlBoletaTop.add(lblsubtemaBoleta, gbcBol);
 
+        // Fila 1: Serie, Numero
         lblSerieBoleta.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         lblSerieBoleta.setText("Serie:");
-        pnlRegComBoleta.add(lblSerieBoleta);
-        lblSerieBoleta.setBounds(60, 80, 70, 17);
-        pnlRegComBoleta.add(txtSerieBoleta);
-        txtSerieBoleta.setBounds(130, 70, 71, 30);
+        gbcBol.gridy = 1;
+        gbcBol.gridwidth = 1;
+        gbcBol.gridx = 0;
+        pnlBoletaTop.add(lblSerieBoleta, gbcBol);
+
+        txtSerieBoleta.setPreferredSize(new Dimension(80, 30));
+        gbcBol.gridx = 1;
+        pnlBoletaTop.add(txtSerieBoleta, gbcBol);
 
         lblNumeroBoleta.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         lblNumeroBoleta.setText("Número:");
-        pnlRegComBoleta.add(lblNumeroBoleta);
-        lblNumeroBoleta.setBounds(230, 80, 70, 17);
-        pnlRegComBoleta.add(txtFechaBoleta);
-        txtFechaBoleta.setBounds(500, 160, 110, 30);
+        gbcBol.gridx = 2;
+        pnlBoletaTop.add(lblNumeroBoleta, gbcBol);
 
-        lblFechaBoleta.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
-        lblFechaBoleta.setText("Fecha:");
-        pnlRegComBoleta.add(lblFechaBoleta);
-        lblFechaBoleta.setBounds(440, 170, 60, 17);
-        pnlRegComBoleta.add(txtProveedorBoleta);
-        txtProveedorBoleta.setBounds(160, 110, 170, 30);
+        txtNumeroBoleta.setPreferredSize(new Dimension(80, 30));
+        gbcBol.gridx = 3;
+        pnlBoletaTop.add(txtNumeroBoleta, gbcBol);
 
+        // Fila 2: Proveedor, Moneda
         lblProveedorBoleta.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         lblProveedorBoleta.setText("Proveedor:");
-        pnlRegComBoleta.add(lblProveedorBoleta);
-        lblProveedorBoleta.setBounds(60, 120, 100, 17);
+        gbcBol.gridy = 2;
+        gbcBol.gridx = 0;
+        pnlBoletaTop.add(lblProveedorBoleta, gbcBol);
+
+        txtProveedorBoleta.setPreferredSize(new Dimension(170, 30));
+        gbcBol.gridx = 1;
+        pnlBoletaTop.add(txtProveedorBoleta, gbcBol);
 
         lblMonedaBoleta.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         lblMonedaBoleta.setText("Moneda:");
-        pnlRegComBoleta.add(lblMonedaBoleta);
-        lblMonedaBoleta.setBounds(340, 120, 100, 17);
-
-        lblResponsableBoleta.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
-        lblResponsableBoleta.setText("Responsable:");
-        pnlRegComBoleta.add(lblResponsableBoleta);
-        lblResponsableBoleta.setBounds(60, 170, 120, 17);
-        pnlRegComBoleta.add(txtNumeroBoleta);
-        txtNumeroBoleta.setBounds(300, 70, 71, 30);
-
-        cbTipoDeLiderBoleta.setFont(new java.awt.Font("Courier New", 0, 13)); // NOI18N
-        cbTipoDeLiderBoleta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Flor de Maria Huaman Alvarez", "Wilmer Pincos Huamani" }));
-        pnlRegComBoleta.add(cbTipoDeLiderBoleta);
-        cbTipoDeLiderBoleta.setBounds(170, 160, 260, 30);
+        gbcBol.gridx = 2;
+        pnlBoletaTop.add(lblMonedaBoleta, gbcBol);
 
         cbTipoDeDineroBoleta.setFont(new java.awt.Font("Courier New", 0, 13)); // NOI18N
         cbTipoDeDineroBoleta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Soles", "Dólares" }));
-        pnlRegComBoleta.add(cbTipoDeDineroBoleta);
-        cbTipoDeDineroBoleta.setBounds(420, 110, 120, 30);
+        cbTipoDeDineroBoleta.setPreferredSize(new Dimension(120, 30));
+        gbcBol.gridx = 3;
+        pnlBoletaTop.add(cbTipoDeDineroBoleta, gbcBol);
 
+        // Fila 3: Responsable, Fecha
+        lblResponsableBoleta.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        lblResponsableBoleta.setText("Responsable:");
+        gbcBol.gridy = 3;
+        gbcBol.gridx = 0;
+        pnlBoletaTop.add(lblResponsableBoleta, gbcBol);
+
+        cbTipoDeLiderBoleta.setFont(new java.awt.Font("Courier New", 0, 13)); // NOI18N
+        cbTipoDeLiderBoleta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Flor de Maria Huaman Alvarez", "Wilmer Pincos Huamani" }));
+        cbTipoDeLiderBoleta.setPreferredSize(new Dimension(220, 30));
+        gbcBol.gridx = 1;
+        pnlBoletaTop.add(cbTipoDeLiderBoleta, gbcBol);
+
+        lblFechaBoleta.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        lblFechaBoleta.setText("Fecha:");
+        gbcBol.gridx = 2;
+        pnlBoletaTop.add(lblFechaBoleta, gbcBol);
+
+        txtFechaBoleta.setPreferredSize(new Dimension(110, 30));
+        gbcBol.gridx = 3;
+        pnlBoletaTop.add(txtFechaBoleta, gbcBol);
+
+        pnlRegComBoleta.add(pnlBoletaTop, BorderLayout.NORTH);
+
+        // Panel Central (Tabla y Totales)
         pnlInternoRegComBoleta.setBackground(new java.awt.Color(255, 255, 255));
-        pnlInternoRegComBoleta.setLayout(null);
+        pnlInternoRegComBoleta.setLayout(new java.awt.BorderLayout());
+        pnlInternoRegComBoleta.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
+        // Decoración superior (Titulo tabla)
+        txtDecoracion1Boleta.setEditable(false);
+        txtDecoracion1Boleta.setBackground(new java.awt.Color(255, 255, 255));
+        pnlInternoRegComBoleta.add(txtDecoracion1Boleta, BorderLayout.NORTH);
+
+        // Tabla
         tblRegistroBoleta.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null},
@@ -1249,115 +1424,162 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
             }
         ));
         jScrollPane4.setViewportView(tblRegistroBoleta);
+        pnlInternoRegComBoleta.add(jScrollPane4, BorderLayout.CENTER);
 
-        pnlInternoRegComBoleta.add(jScrollPane4);
-        jScrollPane4.setBounds(0, 30, 530, 170);
-
-        txtDecoracion1Boleta.setEditable(false);
-        txtDecoracion1Boleta.setBackground(new java.awt.Color(255, 255, 255));
-        pnlInternoRegComBoleta.add(txtDecoracion1Boleta);
-        txtDecoracion1Boleta.setBounds(0, 0, 90, 30);
-
-        txtTotalBoleta.setEnabled(false);
-        pnlInternoRegComBoleta.add(txtTotalBoleta);
-        txtTotalBoleta.setBounds(440, 210, 80, 30);
+        // Panel Totales
+        javax.swing.JPanel pnlTotalesBoleta = new javax.swing.JPanel();
+        pnlTotalesBoleta.setOpaque(false);
+        pnlTotalesBoleta.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
 
         txtDecoracion2Boleta.setEditable(false);
         txtDecoracion2Boleta.setBackground(new java.awt.Color(255, 255, 255));
         txtDecoracion2Boleta.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         txtDecoracion2Boleta.setForeground(new java.awt.Color(255, 51, 51));
         txtDecoracion2Boleta.setText("TOTAL");
-        pnlInternoRegComBoleta.add(txtDecoracion2Boleta);
-        txtDecoracion2Boleta.setBounds(360, 210, 80, 30);
+        txtDecoracion2Boleta.setPreferredSize(new Dimension(80, 30));
+        pnlTotalesBoleta.add(txtDecoracion2Boleta);
 
-        pnlRegComBoleta.add(pnlInternoRegComBoleta);
-        pnlInternoRegComBoleta.setBounds(60, 210, 530, 250);
+        txtTotalBoleta.setEnabled(false);
+        txtTotalBoleta.setPreferredSize(new Dimension(100, 30));
+        pnlTotalesBoleta.add(txtTotalBoleta);
 
-        btnEditarRegComBoleta.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
-        btnEditarRegComBoleta.setText("Editar");
-        btnEditarRegComBoleta.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditarRegComBoletaActionPerformed(evt);
-            }
-        });
-        pnlRegComBoleta.add(btnEditarRegComBoleta);
-        btnEditarRegComBoleta.setBounds(420, 470, 100, 30);
+        pnlInternoRegComBoleta.add(pnlTotalesBoleta, BorderLayout.SOUTH);
+
+        pnlRegComBoleta.add(pnlInternoRegComBoleta, BorderLayout.CENTER);
+
+        // Panel Inferior (Botones)
+        javax.swing.JPanel pnlBotonesBoleta = new javax.swing.JPanel();
+        pnlBotonesBoleta.setOpaque(false);
+        pnlBotonesBoleta.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 20, 10));
 
         btnGuardarRegComBoleta.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         btnGuardarRegComBoleta.setText("Guardar");
+        btnGuardarRegComBoleta.setPreferredSize(new Dimension(100, 30));
         btnGuardarRegComBoleta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGuardarRegComBoletaActionPerformed(evt);
             }
         });
-        pnlRegComBoleta.add(btnGuardarRegComBoleta);
-        btnGuardarRegComBoleta.setBounds(60, 470, 100, 30);
+        pnlBotonesBoleta.add(btnGuardarRegComBoleta);
 
         btnAgregarRegComBoleta.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         btnAgregarRegComBoleta.setText("Agregar");
+        btnAgregarRegComBoleta.setPreferredSize(new Dimension(100, 30));
         btnAgregarRegComBoleta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAgregarRegComBoletaActionPerformed(evt);
             }
         });
-        pnlRegComBoleta.add(btnAgregarRegComBoleta);
-        btnAgregarRegComBoleta.setBounds(180, 470, 100, 30);
+        pnlBotonesBoleta.add(btnAgregarRegComBoleta);
 
         btnEliminarRegComBoleta.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         btnEliminarRegComBoleta.setText("Eliminar");
+        btnEliminarRegComBoleta.setPreferredSize(new Dimension(110, 30));
         btnEliminarRegComBoleta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEliminarRegComBoletaActionPerformed(evt);
             }
         });
-        pnlRegComBoleta.add(btnEliminarRegComBoleta);
-        btnEliminarRegComBoleta.setBounds(300, 470, 110, 30);
+        pnlBotonesBoleta.add(btnEliminarRegComBoleta);
+
+        btnEditarRegComBoleta.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        btnEditarRegComBoleta.setText("Editar");
+        btnEditarRegComBoleta.setPreferredSize(new Dimension(100, 30));
+        btnEditarRegComBoleta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarRegComBoletaActionPerformed(evt);
+            }
+        });
+        pnlBotonesBoleta.add(btnEditarRegComBoleta);
+
+        pnlRegComBoleta.add(pnlBotonesBoleta, BorderLayout.SOUTH);
 
         tpnMostrar.addTab("pnlRegComBoleta", pnlRegComBoleta);
 
+        // --- pnlRegComProforma ---
         pnlRegComProforma.setBackground(new java.awt.Color(216, 252, 156));
-        pnlRegComProforma.setLayout(null);
+        pnlRegComProforma.setLayout(new java.awt.BorderLayout());
 
+        // Panel Superior (Formulario Proforma)
+        javax.swing.JPanel pnlProformaTop = new javax.swing.JPanel();
+        pnlProformaTop.setOpaque(false);
+        pnlProformaTop.setLayout(new java.awt.GridBagLayout());
+        java.awt.GridBagConstraints gbcProf = new java.awt.GridBagConstraints();
+        gbcProf.insets = new java.awt.Insets(5, 5, 5, 5);
+        gbcProf.anchor = java.awt.GridBagConstraints.WEST;
+
+        // Titulo
         lblsubtemaProforma.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
         lblsubtemaProforma.setText("PROFORMA");
-        pnlRegComProforma.add(lblsubtemaProforma);
-        lblsubtemaProforma.setBounds(60, 30, 360, 20);
-        pnlRegComProforma.add(txtFechaProforma);
-        txtFechaProforma.setBounds(360, 160, 110, 30);
+        gbcProf.gridx = 0;
+        gbcProf.gridy = 0;
+        gbcProf.gridwidth = 4;
+        pnlProformaTop.add(lblsubtemaProforma, gbcProf);
 
-        lblFechaProforma.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
-        lblFechaProforma.setText("Fecha:");
-        pnlRegComProforma.add(lblFechaProforma);
-        lblFechaProforma.setBounds(300, 170, 60, 17);
-
+        // Fila 1: Nombres
         lblNombresProforma.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         lblNombresProforma.setText("Nombres:");
-        pnlRegComProforma.add(lblNombresProforma);
-        lblNombresProforma.setBounds(60, 80, 80, 17);
+        gbcProf.gridy = 1;
+        gbcProf.gridwidth = 1;
+        gbcProf.gridx = 0;
+        pnlProformaTop.add(lblNombresProforma, gbcProf);
 
-        lblMonedaProforma.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
-        lblMonedaProforma.setText("Moneda:");
-        pnlRegComProforma.add(lblMonedaProforma);
-        lblMonedaProforma.setBounds(60, 170, 100, 17);
+        txtNombresProforma.setPreferredSize(new Dimension(300, 30));
+        gbcProf.gridx = 1;
+        gbcProf.gridwidth = 3;
+        pnlProformaTop.add(txtNombresProforma, gbcProf);
 
+        // Fila 2: Responsable
         lblResponsableProforma.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         lblResponsableProforma.setText("Responsable:");
-        pnlRegComProforma.add(lblResponsableProforma);
-        lblResponsableProforma.setBounds(60, 120, 120, 17);
+        gbcProf.gridy = 2;
+        gbcProf.gridx = 0;
+        gbcProf.gridwidth = 1;
+        pnlProformaTop.add(lblResponsableProforma, gbcProf);
 
         cbTipoDeLiderProforma.setFont(new java.awt.Font("Courier New", 0, 13)); // NOI18N
         cbTipoDeLiderProforma.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Flor de Maria Huaman Alvarez", "Wilmer Pincos Huamani" }));
-        pnlRegComProforma.add(cbTipoDeLiderProforma);
-        cbTipoDeLiderProforma.setBounds(170, 110, 260, 30);
+        cbTipoDeLiderProforma.setPreferredSize(new Dimension(220, 30));
+        gbcProf.gridx = 1;
+        gbcProf.gridwidth = 3;
+        pnlProformaTop.add(cbTipoDeLiderProforma, gbcProf);
+
+        // Fila 3: Moneda, Fecha
+        lblMonedaProforma.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        lblMonedaProforma.setText("Moneda:");
+        gbcProf.gridy = 3;
+        gbcProf.gridx = 0;
+        gbcProf.gridwidth = 1;
+        pnlProformaTop.add(lblMonedaProforma, gbcProf);
 
         cbTipoDeDineroProforma.setFont(new java.awt.Font("Courier New", 0, 13)); // NOI18N
         cbTipoDeDineroProforma.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Soles", "Dólares" }));
-        pnlRegComProforma.add(cbTipoDeDineroProforma);
-        cbTipoDeDineroProforma.setBounds(140, 160, 120, 30);
+        cbTipoDeDineroProforma.setPreferredSize(new Dimension(120, 30));
+        gbcProf.gridx = 1;
+        pnlProformaTop.add(cbTipoDeDineroProforma, gbcProf);
 
+        lblFechaProforma.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        lblFechaProforma.setText("Fecha:");
+        gbcProf.gridx = 2;
+        pnlProformaTop.add(lblFechaProforma, gbcProf);
+
+        txtFechaProforma.setPreferredSize(new Dimension(110, 30));
+        gbcProf.gridx = 3;
+        pnlProformaTop.add(txtFechaProforma, gbcProf);
+
+        pnlRegComProforma.add(pnlProformaTop, BorderLayout.NORTH);
+
+        // Panel Central (Tabla y Totales)
         pnlInternoRegComProforma.setBackground(new java.awt.Color(255, 255, 255));
-        pnlInternoRegComProforma.setLayout(null);
+        pnlInternoRegComProforma.setLayout(new java.awt.BorderLayout());
+        pnlInternoRegComProforma.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
+        // Decoración superior (Titulo tabla)
+        txtDecoracion1Proforma.setEditable(false);
+        txtDecoracion1Proforma.setBackground(new java.awt.Color(255, 255, 255));
+        pnlInternoRegComProforma.add(txtDecoracion1Proforma, BorderLayout.NORTH);
+
+        // Tabla
         tblRegistroProforma.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null},
@@ -1373,81 +1595,131 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
             }
         ));
         jScrollPane5.setViewportView(tblRegistroProforma);
+        pnlInternoRegComProforma.add(jScrollPane5, BorderLayout.CENTER);
 
-        pnlInternoRegComProforma.add(jScrollPane5);
-        jScrollPane5.setBounds(0, 30, 530, 170);
-
-        txtDecoracion1Proforma.setEditable(false);
-        txtDecoracion1Proforma.setBackground(new java.awt.Color(255, 255, 255));
-        pnlInternoRegComProforma.add(txtDecoracion1Proforma);
-        txtDecoracion1Proforma.setBounds(0, 0, 90, 30);
-
-        txtTotalProforma.setEnabled(false);
-        pnlInternoRegComProforma.add(txtTotalProforma);
-        txtTotalProforma.setBounds(440, 210, 80, 30);
+        // Panel Totales
+        javax.swing.JPanel pnlTotalesProforma = new javax.swing.JPanel();
+        pnlTotalesProforma.setOpaque(false);
+        pnlTotalesProforma.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
 
         txtDecoracion2Proforma.setEditable(false);
         txtDecoracion2Proforma.setBackground(new java.awt.Color(255, 255, 255));
         txtDecoracion2Proforma.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         txtDecoracion2Proforma.setForeground(new java.awt.Color(255, 51, 51));
         txtDecoracion2Proforma.setText("TOTAL");
-        pnlInternoRegComProforma.add(txtDecoracion2Proforma);
-        txtDecoracion2Proforma.setBounds(360, 210, 80, 30);
+        txtDecoracion2Proforma.setPreferredSize(new Dimension(80, 30));
+        pnlTotalesProforma.add(txtDecoracion2Proforma);
 
-        pnlRegComProforma.add(pnlInternoRegComProforma);
-        pnlInternoRegComProforma.setBounds(60, 210, 530, 250);
+        txtTotalProforma.setEnabled(false);
+        txtTotalProforma.setPreferredSize(new Dimension(100, 30));
+        pnlTotalesProforma.add(txtTotalProforma);
 
-        btnEditarRegComProforma.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
-        btnEditarRegComProforma.setText("Editar");
-        btnEditarRegComProforma.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditarRegComProformaActionPerformed(evt);
-            }
-        });
-        pnlRegComProforma.add(btnEditarRegComProforma);
-        btnEditarRegComProforma.setBounds(420, 470, 100, 30);
+        pnlInternoRegComProforma.add(pnlTotalesProforma, BorderLayout.SOUTH);
+
+        pnlRegComProforma.add(pnlInternoRegComProforma, BorderLayout.CENTER);
+
+        // Panel Inferior (Botones)
+        javax.swing.JPanel pnlBotonesProforma = new javax.swing.JPanel();
+        pnlBotonesProforma.setOpaque(false);
+        pnlBotonesProforma.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 20, 10));
 
         btnGuardarRegComProforma.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         btnGuardarRegComProforma.setText("Guardar");
+        btnGuardarRegComProforma.setPreferredSize(new Dimension(100, 30));
         btnGuardarRegComProforma.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGuardarRegComProformaActionPerformed(evt);
             }
         });
-        pnlRegComProforma.add(btnGuardarRegComProforma);
-        btnGuardarRegComProforma.setBounds(60, 470, 100, 30);
+        pnlBotonesProforma.add(btnGuardarRegComProforma);
 
         btnAgregarRegComProforma.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         btnAgregarRegComProforma.setText("Agregar");
+        btnAgregarRegComProforma.setPreferredSize(new Dimension(100, 30));
         btnAgregarRegComProforma.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAgregarRegComProformaActionPerformed(evt);
             }
         });
-        pnlRegComProforma.add(btnAgregarRegComProforma);
-        btnAgregarRegComProforma.setBounds(180, 470, 100, 30);
+        pnlBotonesProforma.add(btnAgregarRegComProforma);
 
         btnEliminarRegComProforma.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         btnEliminarRegComProforma.setText("Eliminar");
+        btnEliminarRegComProforma.setPreferredSize(new Dimension(110, 30));
         btnEliminarRegComProforma.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEliminarRegComProformaActionPerformed(evt);
             }
         });
-        pnlRegComProforma.add(btnEliminarRegComProforma);
-        btnEliminarRegComProforma.setBounds(300, 470, 110, 30);
-        pnlRegComProforma.add(txtNombresProforma);
-        txtNombresProforma.setBounds(140, 70, 390, 30);
+        pnlBotonesProforma.add(btnEliminarRegComProforma);
+
+        btnEditarRegComProforma.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        btnEditarRegComProforma.setText("Editar");
+        btnEditarRegComProforma.setPreferredSize(new Dimension(100, 30));
+        btnEditarRegComProforma.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarRegComProformaActionPerformed(evt);
+            }
+        });
+        pnlBotonesProforma.add(btnEditarRegComProforma);
+
+        pnlRegComProforma.add(pnlBotonesProforma, BorderLayout.SOUTH);
 
         tpnMostrar.addTab("pnlRegComProforma", pnlRegComProforma);
 
+        // --- pnlRegComCompromantesEmitidos ---
         pnlRegComCompromantesEmitidos.setBackground(new java.awt.Color(216, 252, 156));
-        pnlRegComCompromantesEmitidos.setLayout(null);
+        pnlRegComCompromantesEmitidos.setLayout(new java.awt.BorderLayout());
 
+        // Panel Superior (Titulo y Busqueda)
+        javax.swing.JPanel pnlComprobantesTop = new javax.swing.JPanel();
+        pnlComprobantesTop.setOpaque(false);
+        pnlComprobantesTop.setLayout(new java.awt.GridBagLayout());
+        java.awt.GridBagConstraints gbcComp = new java.awt.GridBagConstraints();
+        gbcComp.insets = new java.awt.Insets(5, 5, 5, 5);
+        gbcComp.anchor = java.awt.GridBagConstraints.WEST;
+
+        // Titulo
         lblSubtemaComprobantesEmitidos.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
         lblSubtemaComprobantesEmitidos.setText("COMPROBANTES EMITIDOS");
-        pnlRegComCompromantesEmitidos.add(lblSubtemaComprobantesEmitidos);
-        lblSubtemaComprobantesEmitidos.setBounds(40, 40, 350, 20);
+        gbcComp.gridx = 0;
+        gbcComp.gridy = 0;
+        gbcComp.gridwidth = 2;
+        pnlComprobantesTop.add(lblSubtemaComprobantesEmitidos, gbcComp);
+
+        // Buscador Panel
+        javax.swing.JPanel pnlBuscadorComp = new javax.swing.JPanel();
+        pnlBuscadorComp.setOpaque(false);
+        pnlBuscadorComp.setLayout(new java.awt.GridBagLayout());
+        java.awt.GridBagConstraints gbcBusq = new java.awt.GridBagConstraints();
+        gbcBusq.insets = new java.awt.Insets(0, 5, 5, 0);
+        gbcBusq.anchor = java.awt.GridBagConstraints.WEST;
+
+        lblimagen1ComprobantesEmitidos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Lupa.png")));
+        gbcBusq.gridx = 0;
+        gbcBusq.gridy = 0;
+        gbcBusq.gridheight = 2;
+        pnlBuscadorComp.add(lblimagen1ComprobantesEmitidos, gbcBusq);
+
+        txtBuscarComprobantesEmitidos.setPreferredSize(new Dimension(300, 30));
+        gbcBusq.gridx = 1;
+        gbcBusq.gridheight = 1;
+        pnlBuscadorComp.add(txtBuscarComprobantesEmitidos, gbcBusq);
+
+        cbTipodeBusquedaComprobantesEmitidos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "   Numero", "   Serie ", "   Proveedor" }));
+        cbTipodeBusquedaComprobantesEmitidos.setPreferredSize(new Dimension(300, 30));
+        gbcBusq.gridy = 1;
+        pnlBuscadorComp.add(cbTipodeBusquedaComprobantesEmitidos, gbcBusq);
+
+        gbcComp.gridx = 0;
+        gbcComp.gridy = 1;
+        gbcComp.gridwidth = 1;
+        pnlComprobantesTop.add(pnlBuscadorComp, gbcComp);
+
+        // Botones
+        javax.swing.JPanel pnlBotonesComp = new javax.swing.JPanel();
+        pnlBotonesComp.setOpaque(false);
+        pnlBotonesComp.setLayout(new java.awt.GridLayout(3, 1, 5, 5));
 
         btnBuscarComprobantesEmitidos.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         btnBuscarComprobantesEmitidos.setText("Buscar");
@@ -1456,8 +1728,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
                 btnBuscarComprobantesEmitidosActionPerformed(evt);
             }
         });
-        pnlRegComCompromantesEmitidos.add(btnBuscarComprobantesEmitidos);
-        btnBuscarComprobantesEmitidos.setBounds(570, 60, 100, 30);
+        pnlBotonesComp.add(btnBuscarComprobantesEmitidos);
 
         btnPDFComprobantesEmitidos.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         btnPDFComprobantesEmitidos.setText("PDF");
@@ -1466,8 +1737,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
                 btnPDFComprobantesEmitidosActionPerformed(evt);
             }
         });
-        pnlRegComCompromantesEmitidos.add(btnPDFComprobantesEmitidos);
-        btnPDFComprobantesEmitidos.setBounds(570, 100, 100, 30);
+        pnlBotonesComp.add(btnPDFComprobantesEmitidos);
 
         btnAnularComprobantesEmitidos.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         btnAnularComprobantesEmitidos.setText("Anular");
@@ -1476,9 +1746,16 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
                 btnAnularComprobantesEmitidosActionPerformed(evt);
             }
         });
-        pnlRegComCompromantesEmitidos.add(btnAnularComprobantesEmitidos);
-        btnAnularComprobantesEmitidos.setBounds(570, 140, 100, 30);
+        pnlBotonesComp.add(btnAnularComprobantesEmitidos);
 
+        gbcComp.gridx = 1;
+        gbcComp.gridy = 1;
+        gbcComp.anchor = java.awt.GridBagConstraints.EAST;
+        pnlComprobantesTop.add(pnlBotonesComp, gbcComp);
+
+        pnlRegComCompromantesEmitidos.add(pnlComprobantesTop, BorderLayout.NORTH);
+
+        // Tabla
         tblRegistrodeComprobantesEmitidos.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         tblRegistrodeComprobantesEmitidos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -1496,57 +1773,77 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         ));
         tblRegistrodeComprobantesEmitidos.setAutoscrolls(false);
         tblRegistrodeComprobantesEmitidos.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        tblRegistrodeComprobantesEmitidos.setPreferredSize(new java.awt.Dimension(890, 140));
+        // tblRegistrodeComprobantesEmitidos.setPreferredSize(new java.awt.Dimension(890, 140)); // Quitar setPreferredSize para que funcione el scroll
         jScrollPane6.setViewportView(tblRegistrodeComprobantesEmitidos);
 
-        pnlRegComCompromantesEmitidos.add(jScrollPane6);
-        jScrollPane6.setBounds(20, 180, 540, 300);
+        // Contenedor Tabla con margen
+        javax.swing.JPanel pnlTablaComp = new javax.swing.JPanel(new BorderLayout());
+        pnlTablaComp.setOpaque(false);
+        pnlTablaComp.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 20, 10, 20));
+        pnlTablaComp.add(jScrollPane6, BorderLayout.CENTER);
 
-        lblimagen1ComprobantesEmitidos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Lupa.png"))); // NOI18N
-        pnlRegComCompromantesEmitidos.add(lblimagen1ComprobantesEmitidos);
-        lblimagen1ComprobantesEmitidos.setBounds(40, 90, 40, 30);
-
-        cbTipodeBusquedaComprobantesEmitidos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "   Numero", "   Serie ", "   Proveedor" }));
-        pnlRegComCompromantesEmitidos.add(cbTipodeBusquedaComprobantesEmitidos);
-        cbTipodeBusquedaComprobantesEmitidos.setBounds(70, 120, 470, 30);
-        pnlRegComCompromantesEmitidos.add(txtBuscarComprobantesEmitidos);
-        txtBuscarComprobantesEmitidos.setBounds(70, 90, 470, 30);
+        pnlRegComCompromantesEmitidos.add(pnlTablaComp, BorderLayout.CENTER);
 
         tpnMostrar.addTab("pnlRegComCompromantesEmitidos", pnlRegComCompromantesEmitidos);
 
+        // --- pnlRegComAgregarProducto ---
         pnlRegComAgregarProducto.setBackground(new java.awt.Color(216, 252, 156));
-        pnlRegComAgregarProducto.setLayout(null);
+        pnlRegComAgregarProducto.setLayout(new java.awt.GridBagLayout());
+        java.awt.GridBagConstraints gbcAgrProd = new java.awt.GridBagConstraints();
+        gbcAgrProd.insets = new java.awt.Insets(10, 10, 10, 10);
+        gbcAgrProd.anchor = java.awt.GridBagConstraints.WEST;
 
+        // Titulo
         lblSubtemaAgregarProductoRegCom.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
         lblSubtemaAgregarProductoRegCom.setText("AGREGAR PRODUCTO");
-        pnlRegComAgregarProducto.add(lblSubtemaAgregarProductoRegCom);
-        lblSubtemaAgregarProductoRegCom.setBounds(50, 50, 230, 20);
+        gbcAgrProd.gridx = 0;
+        gbcAgrProd.gridy = 0;
+        gbcAgrProd.gridwidth = 2;
+        pnlRegComAgregarProducto.add(lblSubtemaAgregarProductoRegCom, gbcAgrProd);
 
+        // Subtitulo
         lblRegistrodeProductosRegCom.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lblRegistrodeProductosRegCom.setText("• Registro de los productos");
-        pnlRegComAgregarProducto.add(lblRegistrodeProductosRegCom);
-        lblRegistrodeProductosRegCom.setBounds(40, 100, 250, 17);
+        gbcAgrProd.gridy = 1;
+        pnlRegComAgregarProducto.add(lblRegistrodeProductosRegCom, gbcAgrProd);
 
+        // Producto
+        lblProductoRegCom.setFont(new java.awt.Font("Agency FB", 0, 18)); // NOI18N
+        lblProductoRegCom.setText("Producto");
+        gbcAgrProd.gridy = 2;
+        gbcAgrProd.gridwidth = 1;
+        pnlRegComAgregarProducto.add(lblProductoRegCom, gbcAgrProd);
+
+        txtProductoRegCom.setPreferredSize(new Dimension(170, 30));
+        gbcAgrProd.gridx = 1;
+        pnlRegComAgregarProducto.add(txtProductoRegCom, gbcAgrProd);
+
+        // Cantidad
+        lblCantidadRegCom.setFont(new java.awt.Font("Agency FB", 0, 18)); // NOI18N
+        lblCantidadRegCom.setText("Cantidad");
+        gbcAgrProd.gridx = 0;
+        gbcAgrProd.gridy = 3;
+        pnlRegComAgregarProducto.add(lblCantidadRegCom, gbcAgrProd);
+
+        txtCantidadRegCom.setPreferredSize(new Dimension(170, 30));
+        gbcAgrProd.gridx = 1;
+        pnlRegComAgregarProducto.add(txtCantidadRegCom, gbcAgrProd);
+
+        // Precio Unitario
         lblPreciioUnitarioRegCom.setFont(new java.awt.Font("Agency FB", 0, 18)); // NOI18N
         lblPreciioUnitarioRegCom.setText("Preciio Unitario:");
-        pnlRegComAgregarProducto.add(lblPreciioUnitarioRegCom);
-        lblPreciioUnitarioRegCom.setBounds(40, 260, 100, 18);
-        pnlRegComAgregarProducto.add(txtPreciioUnitarioRegCom);
-        txtPreciioUnitarioRegCom.setBounds(140, 250, 170, 30);
-        pnlRegComAgregarProducto.add(txtProductoRegCom);
-        txtProductoRegCom.setBounds(110, 150, 170, 30);
-        pnlRegComAgregarProducto.add(txtCantidadRegCom);
-        txtCantidadRegCom.setBounds(110, 200, 170, 30);
+        gbcAgrProd.gridx = 0;
+        gbcAgrProd.gridy = 4;
+        pnlRegComAgregarProducto.add(lblPreciioUnitarioRegCom, gbcAgrProd);
 
-        btnCancelarRegCom.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
-        btnCancelarRegCom.setText("Cancelar");
-        btnCancelarRegCom.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancelarRegComActionPerformed(evt);
-            }
-        });
-        pnlRegComAgregarProducto.add(btnCancelarRegCom);
-        btnCancelarRegCom.setBounds(430, 380, 130, 30);
+        txtPreciioUnitarioRegCom.setPreferredSize(new Dimension(170, 30));
+        gbcAgrProd.gridx = 1;
+        pnlRegComAgregarProducto.add(txtPreciioUnitarioRegCom, gbcAgrProd);
+
+        // Botones
+        javax.swing.JPanel pnlBotonesAgr = new javax.swing.JPanel();
+        pnlBotonesAgr.setOpaque(false);
+        pnlBotonesAgr.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 20, 0));
 
         btnAgregarProductoRegCom.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
         btnAgregarProductoRegCom.setText("Agregar producto");
@@ -1555,52 +1852,88 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
                 btnAgregarProductoRegComActionPerformed(evt);
             }
         });
-        pnlRegComAgregarProducto.add(btnAgregarProductoRegCom);
-        btnAgregarProductoRegCom.setBounds(60, 380, 220, 30);
+        pnlBotonesAgr.add(btnAgregarProductoRegCom);
 
-        lblProductoRegCom.setFont(new java.awt.Font("Agency FB", 0, 18)); // NOI18N
-        lblProductoRegCom.setText("Producto");
-        pnlRegComAgregarProducto.add(lblProductoRegCom);
-        lblProductoRegCom.setBounds(40, 160, 80, 22);
+        btnCancelarRegCom.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
+        btnCancelarRegCom.setText("Cancelar");
+        btnCancelarRegCom.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarRegComActionPerformed(evt);
+            }
+        });
+        pnlBotonesAgr.add(btnCancelarRegCom);
 
-        lblCantidadRegCom.setFont(new java.awt.Font("Agency FB", 0, 18)); // NOI18N
-        lblCantidadRegCom.setText("Cantidad");
-        pnlRegComAgregarProducto.add(lblCantidadRegCom);
-        lblCantidadRegCom.setBounds(40, 210, 80, 18);
+        gbcAgrProd.gridx = 0;
+        gbcAgrProd.gridy = 5;
+        gbcAgrProd.gridwidth = 2;
+        gbcAgrProd.anchor = java.awt.GridBagConstraints.CENTER;
+        pnlRegComAgregarProducto.add(pnlBotonesAgr, gbcAgrProd);
 
         tpnMostrar.addTab("pnlRegComAgregarProducto", pnlRegComAgregarProducto);
 
+        // --- pnlRegVenAgregarProducto ---
         pnlRegVenAgregarProducto.setBackground(new java.awt.Color(216, 252, 156));
-        pnlRegVenAgregarProducto.setLayout(null);
+        pnlRegVenAgregarProducto.setLayout(new java.awt.GridBagLayout());
+        java.awt.GridBagConstraints gbcAgrVen = new java.awt.GridBagConstraints();
+        gbcAgrVen.insets = new java.awt.Insets(10, 10, 10, 10);
+        gbcAgrVen.anchor = java.awt.GridBagConstraints.WEST;
 
+        // Titulo
         lblSubtemaAgregarProductoRegVen.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
         lblSubtemaAgregarProductoRegVen.setText("AGREGAR PRODUCTO");
-        pnlRegVenAgregarProducto.add(lblSubtemaAgregarProductoRegVen);
-        lblSubtemaAgregarProductoRegVen.setBounds(50, 50, 230, 20);
+        gbcAgrVen.gridx = 0;
+        gbcAgrVen.gridy = 0;
+        gbcAgrVen.gridwidth = 2;
+        pnlRegVenAgregarProducto.add(lblSubtemaAgregarProductoRegVen, gbcAgrVen);
 
+        // Subtitulo
         lblAgregamosProductosRegVen.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lblAgregamosProductosRegVen.setText("• Agregamos los productos");
-        pnlRegVenAgregarProducto.add(lblAgregamosProductosRegVen);
-        lblAgregamosProductosRegVen.setBounds(40, 100, 250, 17);
+        gbcAgrVen.gridy = 1;
+        pnlRegVenAgregarProducto.add(lblAgregamosProductosRegVen, gbcAgrVen);
 
-        lblPreciioUnitarioRegVen.setFont(new java.awt.Font("Agency FB", 0, 18)); // NOI18N
-        lblPreciioUnitarioRegVen.setText("Preciio Unitario:");
-        pnlRegVenAgregarProducto.add(lblPreciioUnitarioRegVen);
-        lblPreciioUnitarioRegVen.setBounds(40, 260, 100, 18);
-        pnlRegVenAgregarProducto.add(txtPreciioUnitarioRegVen);
-        txtPreciioUnitarioRegVen.setBounds(140, 250, 170, 30);
-        pnlRegVenAgregarProducto.add(txtCantidadRegVen);
-        txtCantidadRegVen.setBounds(110, 200, 170, 30);
+        // Producto (ComboBox)
+        lblProductoRegVen.setFont(new java.awt.Font("Agency FB", 0, 18)); // NOI18N
+        lblProductoRegVen.setText("Producto");
+        gbcAgrVen.gridy = 2;
+        gbcAgrVen.gridwidth = 1;
+        pnlRegVenAgregarProducto.add(lblProductoRegVen, gbcAgrVen);
 
-        btnCancelarRegVen.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
-        btnCancelarRegVen.setText("Cancelar");
-        btnCancelarRegVen.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancelarRegVenActionPerformed(evt);
+        cbTipoProductosRegVen.setPreferredSize(new Dimension(170, 30));
+        cbTipoProductosRegVen.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbTipoProductosRegVenItemStateChanged(evt);
             }
         });
-        pnlRegVenAgregarProducto.add(btnCancelarRegVen);
-        btnCancelarRegVen.setBounds(440, 380, 130, 30);
+        gbcAgrVen.gridx = 1;
+        pnlRegVenAgregarProducto.add(cbTipoProductosRegVen, gbcAgrVen);
+
+        // Cantidad
+        lblCantidadRegVen.setFont(new java.awt.Font("Agency FB", 0, 18)); // NOI18N
+        lblCantidadRegVen.setText("Cantidad");
+        gbcAgrVen.gridx = 0;
+        gbcAgrVen.gridy = 3;
+        pnlRegVenAgregarProducto.add(lblCantidadRegVen, gbcAgrVen);
+
+        txtCantidadRegVen.setPreferredSize(new Dimension(170, 30));
+        gbcAgrVen.gridx = 1;
+        pnlRegVenAgregarProducto.add(txtCantidadRegVen, gbcAgrVen);
+
+        // Precio Unitario
+        lblPreciioUnitarioRegVen.setFont(new java.awt.Font("Agency FB", 0, 18)); // NOI18N
+        lblPreciioUnitarioRegVen.setText("Preciio Unitario:");
+        gbcAgrVen.gridx = 0;
+        gbcAgrVen.gridy = 4;
+        pnlRegVenAgregarProducto.add(lblPreciioUnitarioRegVen, gbcAgrVen);
+
+        txtPreciioUnitarioRegVen.setPreferredSize(new Dimension(170, 30));
+        gbcAgrVen.gridx = 1;
+        pnlRegVenAgregarProducto.add(txtPreciioUnitarioRegVen, gbcAgrVen);
+
+        // Botones
+        javax.swing.JPanel pnlBotonesAgrVen = new javax.swing.JPanel();
+        pnlBotonesAgrVen.setOpaque(false);
+        pnlBotonesAgrVen.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 20, 0));
 
         btnAgregarProductoRegVen.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
         btnAgregarProductoRegVen.setText("Agregar producto");
@@ -1609,83 +1942,123 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
                 btnAgregarProductoRegVenActionPerformed(evt);
             }
         });
-        pnlRegVenAgregarProducto.add(btnAgregarProductoRegVen);
-        btnAgregarProductoRegVen.setBounds(60, 380, 220, 30);
+        pnlBotonesAgrVen.add(btnAgregarProductoRegVen);
 
-        lblProductoRegVen.setFont(new java.awt.Font("Agency FB", 0, 18)); // NOI18N
-        lblProductoRegVen.setText("Producto");
-        pnlRegVenAgregarProducto.add(lblProductoRegVen);
-        lblProductoRegVen.setBounds(40, 160, 80, 22);
-
-        lblCantidadRegVen.setFont(new java.awt.Font("Agency FB", 0, 18)); // NOI18N
-        lblCantidadRegVen.setText("Cantidad");
-        pnlRegVenAgregarProducto.add(lblCantidadRegVen);
-        lblCantidadRegVen.setBounds(40, 210, 80, 18);
-
-        cbTipoProductosRegVen.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                cbTipoProductosRegVenItemStateChanged(evt);
+        btnCancelarRegVen.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
+        btnCancelarRegVen.setText("Cancelar");
+        btnCancelarRegVen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarRegVenActionPerformed(evt);
             }
         });
-        pnlRegVenAgregarProducto.add(cbTipoProductosRegVen);
-        cbTipoProductosRegVen.setBounds(110, 150, 170, 30);
+        pnlBotonesAgrVen.add(btnCancelarRegVen);
+
+        gbcAgrVen.gridx = 0;
+        gbcAgrVen.gridy = 5;
+        gbcAgrVen.gridwidth = 2;
+        gbcAgrVen.anchor = java.awt.GridBagConstraints.CENTER;
+        pnlRegVenAgregarProducto.add(pnlBotonesAgrVen, gbcAgrVen);
 
         tpnMostrar.addTab("pnlRegVenAgregarProducto", pnlRegVenAgregarProducto);
 
+        // --- pnlRegVenFactura ---
         pnlRegVenFactura.setBackground(new java.awt.Color(216, 252, 156));
-        pnlRegVenFactura.setLayout(null);
+        pnlRegVenFactura.setLayout(new java.awt.BorderLayout());
 
+        // Panel Superior (Formulario Factura)
+        javax.swing.JPanel pnlFacturaVenTop = new javax.swing.JPanel();
+        pnlFacturaVenTop.setOpaque(false);
+        pnlFacturaVenTop.setLayout(new java.awt.GridBagLayout());
+        java.awt.GridBagConstraints gbcFacVen = new java.awt.GridBagConstraints();
+        gbcFacVen.insets = new java.awt.Insets(5, 5, 5, 5);
+        gbcFacVen.anchor = java.awt.GridBagConstraints.WEST;
+
+        // Titulo
         lblsubtemaFacturaRegVen.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
         lblsubtemaFacturaRegVen.setText("FACTURA");
-        pnlRegVenFactura.add(lblsubtemaFacturaRegVen);
-        lblsubtemaFacturaRegVen.setBounds(60, 30, 110, 20);
+        gbcFacVen.gridx = 0;
+        gbcFacVen.gridy = 0;
+        gbcFacVen.gridwidth = 4;
+        pnlFacturaVenTop.add(lblsubtemaFacturaRegVen, gbcFacVen);
 
-        lblRucFacturaRegVen.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
-        lblRucFacturaRegVen.setText("Ruc:");
-        pnlRegVenFactura.add(lblRucFacturaRegVen);
-        lblRucFacturaRegVen.setBounds(60, 80, 60, 17);
-        pnlRegVenFactura.add(txtRucFacturaRegVen);
-        txtRucFacturaRegVen.setBounds(110, 70, 180, 30);
-
+        // Fila 1: Serie, Numero, Iconos
         lblSerieFacturaRegVen.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         lblSerieFacturaRegVen.setText("Serie:");
-        pnlRegVenFactura.add(lblSerieFacturaRegVen);
-        lblSerieFacturaRegVen.setBounds(310, 60, 70, 17);
-        pnlRegVenFactura.add(txtFechaFacturaRegVen);
-        txtFechaFacturaRegVen.setBounds(120, 150, 140, 30);
+        gbcFacVen.gridy = 1;
+        gbcFacVen.gridwidth = 1;
+        gbcFacVen.gridx = 0;
+        pnlFacturaVenTop.add(lblSerieFacturaRegVen, gbcFacVen);
 
-        lblFechaFacturaRegVen.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
-        lblFechaFacturaRegVen.setText("Fecha:");
-        pnlRegVenFactura.add(lblFechaFacturaRegVen);
-        lblFechaFacturaRegVen.setBounds(60, 160, 60, 17);
-        pnlRegVenFactura.add(txtClienteFacturaRegVen);
-        txtClienteFacturaRegVen.setBounds(160, 110, 190, 30);
-
-        lblClienteFacturaRegVen.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
-        lblClienteFacturaRegVen.setText("Cliente:");
-        pnlRegVenFactura.add(lblClienteFacturaRegVen);
-        lblClienteFacturaRegVen.setBounds(60, 120, 100, 17);
+        txtSerieFacturaRegVen.setPreferredSize(new Dimension(80, 30));
+        gbcFacVen.gridx = 1;
+        pnlFacturaVenTop.add(txtSerieFacturaRegVen, gbcFacVen);
 
         lblNumeroFacturaRegVen.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         lblNumeroFacturaRegVen.setText("Numero:");
-        pnlRegVenFactura.add(lblNumeroFacturaRegVen);
-        lblNumeroFacturaRegVen.setBounds(490, 60, 70, 17);
+        gbcFacVen.gridx = 2;
+        pnlFacturaVenTop.add(lblNumeroFacturaRegVen, gbcFacVen);
+
+        txtNumeroFacturaRegVen.setPreferredSize(new Dimension(80, 30));
+        gbcFacVen.gridx = 3;
+        pnlFacturaVenTop.add(txtNumeroFacturaRegVen, gbcFacVen);
+
+        // Fila 2: Ruc, Moneda
+        lblRucFacturaRegVen.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        lblRucFacturaRegVen.setText("Ruc:");
+        gbcFacVen.gridy = 2;
+        gbcFacVen.gridx = 0;
+        pnlFacturaVenTop.add(lblRucFacturaRegVen, gbcFacVen);
+
+        txtRucFacturaRegVen.setPreferredSize(new Dimension(180, 30));
+        gbcFacVen.gridx = 1;
+        pnlFacturaVenTop.add(txtRucFacturaRegVen, gbcFacVen);
 
         lblMonedaFacturaRegVen.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         lblMonedaFacturaRegVen.setText("Moneda:");
-        pnlRegVenFactura.add(lblMonedaFacturaRegVen);
-        lblMonedaFacturaRegVen.setBounds(370, 120, 110, 17);
-        pnlRegVenFactura.add(txtNumeroFacturaRegVen);
-        txtNumeroFacturaRegVen.setBounds(560, 50, 60, 30);
+        gbcFacVen.gridx = 2;
+        pnlFacturaVenTop.add(lblMonedaFacturaRegVen, gbcFacVen);
 
         cbTipoDeDineroFacturaRegVen.setFont(new java.awt.Font("Courier New", 0, 13)); // NOI18N
         cbTipoDeDineroFacturaRegVen.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Soles", "Dolares", " " }));
-        pnlRegVenFactura.add(cbTipoDeDineroFacturaRegVen);
-        cbTipoDeDineroFacturaRegVen.setBounds(450, 110, 110, 30);
+        cbTipoDeDineroFacturaRegVen.setPreferredSize(new Dimension(120, 30));
+        gbcFacVen.gridx = 3;
+        pnlFacturaVenTop.add(cbTipoDeDineroFacturaRegVen, gbcFacVen);
 
+        // Fila 3: Cliente, Fecha
+        lblClienteFacturaRegVen.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        lblClienteFacturaRegVen.setText("Cliente:");
+        gbcFacVen.gridy = 3;
+        gbcFacVen.gridx = 0;
+        pnlFacturaVenTop.add(lblClienteFacturaRegVen, gbcFacVen);
+
+        txtClienteFacturaRegVen.setPreferredSize(new Dimension(190, 30));
+        gbcFacVen.gridx = 1;
+        pnlFacturaVenTop.add(txtClienteFacturaRegVen, gbcFacVen);
+
+        lblFechaFacturaRegVen.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        lblFechaFacturaRegVen.setText("Fecha:");
+        gbcFacVen.gridx = 2;
+        pnlFacturaVenTop.add(lblFechaFacturaRegVen, gbcFacVen);
+
+        txtFechaFacturaRegVen.setPreferredSize(new Dimension(140, 30));
+        gbcFacVen.gridx = 3;
+        pnlFacturaVenTop.add(txtFechaFacturaRegVen, gbcFacVen);
+
+        pnlRegVenFactura.add(pnlFacturaVenTop, BorderLayout.NORTH);
+
+        // Panel Central (Tabla y Totales)
         pnlInternRegComFacturaRegVen.setBackground(new java.awt.Color(255, 255, 255));
-        pnlInternRegComFacturaRegVen.setLayout(null);
+        pnlInternRegComFacturaRegVen.setLayout(new java.awt.BorderLayout());
+        pnlInternRegComFacturaRegVen.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
+        // Decoracion superior
+        txtDecoracion1FacturaRegVen.setEditable(false);
+        txtDecoracion1FacturaRegVen.setBackground(new java.awt.Color(255, 255, 255));
+        txtDecoracion1FacturaRegVen.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        txtDecoracion1FacturaRegVen.setText("DETALLE DE VENTA:");
+        pnlInternRegComFacturaRegVen.add(txtDecoracion1FacturaRegVen, BorderLayout.NORTH);
+
+        // Tabla
         tblRegistroFacturaRegVen.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null},
@@ -1701,89 +2074,75 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
             }
         ));
         jScrollPane7.setViewportView(tblRegistroFacturaRegVen);
+        pnlInternRegComFacturaRegVen.add(jScrollPane7, BorderLayout.CENTER);
 
-        pnlInternRegComFacturaRegVen.add(jScrollPane7);
-        jScrollPane7.setBounds(0, 30, 530, 170);
-
-        txtDecoracion1FacturaRegVen.setEditable(false);
-        txtDecoracion1FacturaRegVen.setBackground(new java.awt.Color(255, 255, 255));
-        txtDecoracion1FacturaRegVen.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        txtDecoracion1FacturaRegVen.setText("DETALLE DE VENTA:");
-        pnlInternRegComFacturaRegVen.add(txtDecoracion1FacturaRegVen);
-        txtDecoracion1FacturaRegVen.setBounds(0, 0, 130, 30);
+        // Totales
+        javax.swing.JPanel pnlTotalesFactVen = new javax.swing.JPanel();
+        pnlTotalesFactVen.setOpaque(false);
+        pnlTotalesFactVen.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
 
         txtDecoracion2FacturaRegVen.setEditable(false);
         txtDecoracion2FacturaRegVen.setBackground(new java.awt.Color(255, 255, 255));
         txtDecoracion2FacturaRegVen.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         txtDecoracion2FacturaRegVen.setForeground(new java.awt.Color(255, 51, 51));
         txtDecoracion2FacturaRegVen.setText("TOTAL");
-        pnlInternRegComFacturaRegVen.add(txtDecoracion2FacturaRegVen);
-        txtDecoracion2FacturaRegVen.setBounds(360, 210, 80, 30);
+        txtDecoracion2FacturaRegVen.setPreferredSize(new Dimension(80, 30));
+        pnlTotalesFactVen.add(txtDecoracion2FacturaRegVen);
 
         txtTotalFacturaRegVen.setEnabled(false);
-        pnlInternRegComFacturaRegVen.add(txtTotalFacturaRegVen);
-        txtTotalFacturaRegVen.setBounds(440, 210, 80, 30);
+        txtTotalFacturaRegVen.setPreferredSize(new Dimension(80, 30));
+        pnlTotalesFactVen.add(txtTotalFacturaRegVen);
 
-        pnlRegVenFactura.add(pnlInternRegComFacturaRegVen);
-        pnlInternRegComFacturaRegVen.setBounds(60, 210, 530, 250);
+        pnlInternRegComFacturaRegVen.add(pnlTotalesFactVen, BorderLayout.SOUTH);
 
-        btnEditarRegComFacturaRegVen.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
-        btnEditarRegComFacturaRegVen.setText("Editar");
-        btnEditarRegComFacturaRegVen.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditarRegComFacturaRegVenActionPerformed(evt);
-            }
-        });
-        pnlRegVenFactura.add(btnEditarRegComFacturaRegVen);
-        btnEditarRegComFacturaRegVen.setBounds(420, 470, 100, 30);
+        pnlRegVenFactura.add(pnlInternRegComFacturaRegVen, BorderLayout.CENTER);
+
+        // Botones
+        javax.swing.JPanel pnlBotonesFactVen = new javax.swing.JPanel();
+        pnlBotonesFactVen.setOpaque(false);
+        pnlBotonesFactVen.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 20, 10));
 
         btnGuardarRegComFacturaRegVen.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         btnGuardarRegComFacturaRegVen.setText("Guardar");
+        btnGuardarRegComFacturaRegVen.setPreferredSize(new Dimension(100, 30));
         btnGuardarRegComFacturaRegVen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGuardarRegComFacturaRegVenActionPerformed(evt);
             }
         });
-        pnlRegVenFactura.add(btnGuardarRegComFacturaRegVen);
-        btnGuardarRegComFacturaRegVen.setBounds(60, 470, 100, 30);
+        pnlBotonesFactVen.add(btnGuardarRegComFacturaRegVen);
 
         btnAgregarRegComFacturaRegVen.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         btnAgregarRegComFacturaRegVen.setText("Agregar");
+        btnAgregarRegComFacturaRegVen.setPreferredSize(new Dimension(100, 30));
         btnAgregarRegComFacturaRegVen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAgregarRegComFacturaRegVenActionPerformed(evt);
             }
         });
-        pnlRegVenFactura.add(btnAgregarRegComFacturaRegVen);
-        btnAgregarRegComFacturaRegVen.setBounds(180, 470, 100, 30);
+        pnlBotonesFactVen.add(btnAgregarRegComFacturaRegVen);
 
         btnEliminarRegComFacturaRegVen.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         btnEliminarRegComFacturaRegVen.setText("Eliminar");
+        btnEliminarRegComFacturaRegVen.setPreferredSize(new Dimension(110, 30));
         btnEliminarRegComFacturaRegVen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEliminarRegComFacturaRegVenActionPerformed(evt);
             }
         });
-        pnlRegVenFactura.add(btnEliminarRegComFacturaRegVen);
-        btnEliminarRegComFacturaRegVen.setBounds(300, 470, 110, 30);
-        pnlRegVenFactura.add(txtSerieFacturaRegVen);
-        txtSerieFacturaRegVen.setBounds(370, 50, 70, 30);
+        pnlBotonesFactVen.add(btnEliminarRegComFacturaRegVen);
 
-        lblImagen2FacturaRegVen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Etiqueta.png"))); // NOI18N
-        pnlRegVenFactura.add(lblImagen2FacturaRegVen);
-        lblImagen2FacturaRegVen.setBounds(630, 50, 31, 30);
+        btnEditarRegComFacturaRegVen.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        btnEditarRegComFacturaRegVen.setText("Editar");
+        btnEditarRegComFacturaRegVen.setPreferredSize(new Dimension(100, 30));
+        btnEditarRegComFacturaRegVen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarRegComFacturaRegVenActionPerformed(evt);
+            }
+        });
+        pnlBotonesFactVen.add(btnEditarRegComFacturaRegVen);
 
-        lblImagen1FacturaRegVen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Etiqueta.png"))); // NOI18N
-        pnlRegVenFactura.add(lblImagen1FacturaRegVen);
-        lblImagen1FacturaRegVen.setBounds(450, 50, 31, 30);
-
-        lblimagen2factura.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Etiqueta.png"))); // NOI18N
-        pnlRegVenFactura.add(lblimagen2factura);
-        lblimagen2factura.setBounds(630, 50, 31, 30);
-
-        lblimagen1factura.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Etiqueta.png"))); // NOI18N
-        pnlRegVenFactura.add(lblimagen1factura);
-        lblimagen1factura.setBounds(450, 50, 31, 30);
+        pnlRegVenFactura.add(pnlBotonesFactVen, BorderLayout.SOUTH);
 
         tpnMostrar.addTab("pnlRegVenFactura", pnlRegVenFactura);
 
@@ -1960,58 +2319,105 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
 
         tpnMostrar.addTab("pnlCaja", pnlCaja);
 
+        // --- pnlRegVenBoleta ---
         pnlRegVenBoleta.setBackground(new java.awt.Color(216, 252, 156));
-        pnlRegVenBoleta.setLayout(null);
+        pnlRegVenBoleta.setLayout(new java.awt.BorderLayout());
 
+        // Panel Superior (Formulario Boleta)
+        javax.swing.JPanel pnlBoletaVenTop = new javax.swing.JPanel();
+        pnlBoletaVenTop.setOpaque(false);
+        pnlBoletaVenTop.setLayout(new java.awt.GridBagLayout());
+        java.awt.GridBagConstraints gbcBolVen = new java.awt.GridBagConstraints();
+        gbcBolVen.insets = new java.awt.Insets(5, 5, 5, 5);
+        gbcBolVen.anchor = java.awt.GridBagConstraints.WEST;
+
+        // Titulo
         lblsubtemaBoletaRegVen.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
         lblsubtemaBoletaRegVen.setText("BOLETA");
-        pnlRegVenBoleta.add(lblsubtemaBoletaRegVen);
-        lblsubtemaBoletaRegVen.setBounds(60, 30, 160, 20);
+        gbcBolVen.gridx = 0;
+        gbcBolVen.gridy = 0;
+        gbcBolVen.gridwidth = 4;
+        pnlBoletaVenTop.add(lblsubtemaBoletaRegVen, gbcBolVen);
 
-        lblOPBoletaRegVen.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
-        lblOPBoletaRegVen.setText("OP:");
-        pnlRegVenBoleta.add(lblOPBoletaRegVen);
-        lblOPBoletaRegVen.setBounds(60, 80, 60, 17);
-
+        // Fila 1: Serie, Numero
         lblSerieBoletaRegVen.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         lblSerieBoletaRegVen.setText("Serie:");
-        pnlRegVenBoleta.add(lblSerieBoletaRegVen);
-        lblSerieBoletaRegVen.setBounds(310, 60, 70, 17);
-        pnlRegVenBoleta.add(txtFechaBoletaRegVen);
-        txtFechaBoletaRegVen.setBounds(120, 150, 140, 30);
+        gbcBolVen.gridy = 1;
+        gbcBolVen.gridwidth = 1;
+        gbcBolVen.gridx = 0;
+        pnlBoletaVenTop.add(lblSerieBoletaRegVen, gbcBolVen);
 
-        lblFechaBoletaRegVen.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
-        lblFechaBoletaRegVen.setText("Fecha:");
-        pnlRegVenBoleta.add(lblFechaBoletaRegVen);
-        lblFechaBoletaRegVen.setBounds(60, 160, 60, 17);
-        pnlRegVenBoleta.add(txtClienteBoletaRegVen);
-        txtClienteBoletaRegVen.setBounds(160, 110, 190, 30);
-
-        lblClienteBoletaRegVen.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
-        lblClienteBoletaRegVen.setText("Cliente:");
-        pnlRegVenBoleta.add(lblClienteBoletaRegVen);
-        lblClienteBoletaRegVen.setBounds(60, 120, 100, 17);
+        txtSerieBoletaRegVen.setPreferredSize(new Dimension(80, 30));
+        gbcBolVen.gridx = 1;
+        pnlBoletaVenTop.add(txtSerieBoletaRegVen, gbcBolVen);
 
         lblNumeroBoletaRegVen.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         lblNumeroBoletaRegVen.setText("Numero:");
-        pnlRegVenBoleta.add(lblNumeroBoletaRegVen);
-        lblNumeroBoletaRegVen.setBounds(490, 60, 70, 17);
+        gbcBolVen.gridx = 2;
+        pnlBoletaVenTop.add(lblNumeroBoletaRegVen, gbcBolVen);
+
+        txtNumeroBoletaRegVen.setPreferredSize(new Dimension(80, 30));
+        gbcBolVen.gridx = 3;
+        pnlBoletaVenTop.add(txtNumeroBoletaRegVen, gbcBolVen);
+
+        // Fila 2: OP (Tipo Documento), Moneda
+        lblOPBoletaRegVen.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        lblOPBoletaRegVen.setText("OP:");
+        gbcBolVen.gridy = 2;
+        gbcBolVen.gridx = 0;
+        pnlBoletaVenTop.add(lblOPBoletaRegVen, gbcBolVen);
+
+        cbTipoOPBoletaRegVen.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sin documento", "DNI", "Ruc" }));
+        cbTipoOPBoletaRegVen.setPreferredSize(new Dimension(190, 30));
+        gbcBolVen.gridx = 1;
+        pnlBoletaVenTop.add(cbTipoOPBoletaRegVen, gbcBolVen);
 
         lblMonedaBoletaRegVen.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         lblMonedaBoletaRegVen.setText("Moneda:");
-        pnlRegVenBoleta.add(lblMonedaBoletaRegVen);
-        lblMonedaBoletaRegVen.setBounds(370, 120, 110, 17);
-        pnlRegVenBoleta.add(txtNumeroBoletaRegVen);
-        txtNumeroBoletaRegVen.setBounds(560, 50, 60, 30);
+        gbcBolVen.gridx = 2;
+        pnlBoletaVenTop.add(lblMonedaBoletaRegVen, gbcBolVen);
 
         cbTipoDeDineroBoletaRegVen.setFont(new java.awt.Font("Courier New", 0, 13)); // NOI18N
         cbTipoDeDineroBoletaRegVen.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Soles", "Dolares", " " }));
-        pnlRegVenBoleta.add(cbTipoDeDineroBoletaRegVen);
-        cbTipoDeDineroBoletaRegVen.setBounds(450, 110, 110, 30);
+        cbTipoDeDineroBoletaRegVen.setPreferredSize(new Dimension(120, 30));
+        gbcBolVen.gridx = 3;
+        pnlBoletaVenTop.add(cbTipoDeDineroBoletaRegVen, gbcBolVen);
 
+        // Fila 3: Cliente, Fecha
+        lblClienteBoletaRegVen.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        lblClienteBoletaRegVen.setText("Cliente:");
+        gbcBolVen.gridy = 3;
+        gbcBolVen.gridx = 0;
+        pnlBoletaVenTop.add(lblClienteBoletaRegVen, gbcBolVen);
+
+        txtClienteBoletaRegVen.setPreferredSize(new Dimension(190, 30));
+        gbcBolVen.gridx = 1;
+        pnlBoletaVenTop.add(txtClienteBoletaRegVen, gbcBolVen);
+
+        lblFechaBoletaRegVen.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        lblFechaBoletaRegVen.setText("Fecha:");
+        gbcBolVen.gridx = 2;
+        pnlBoletaVenTop.add(lblFechaBoletaRegVen, gbcBolVen);
+
+        txtFechaBoletaRegVen.setPreferredSize(new Dimension(140, 30));
+        gbcBolVen.gridx = 3;
+        pnlBoletaVenTop.add(txtFechaBoletaRegVen, gbcBolVen);
+
+        pnlRegVenBoleta.add(pnlBoletaVenTop, BorderLayout.NORTH);
+
+        // Panel Central (Tabla y Totales)
         pnlInternoBoletaRegVen.setBackground(new java.awt.Color(255, 255, 255));
-        pnlInternoBoletaRegVen.setLayout(null);
+        pnlInternoBoletaRegVen.setLayout(new java.awt.BorderLayout());
+        pnlInternoBoletaRegVen.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
+        // Decoracion Superior
+        txtDecoracion1BoletaRegVen.setEditable(false);
+        txtDecoracion1BoletaRegVen.setBackground(new java.awt.Color(255, 255, 255));
+        txtDecoracion1BoletaRegVen.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        txtDecoracion1BoletaRegVen.setText("DETALLE DE VENTA:");
+        pnlInternoBoletaRegVen.add(txtDecoracion1BoletaRegVen, BorderLayout.NORTH);
+
+        // Tabla
         tblRegistroBoletaRegVen.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null},
@@ -2027,93 +2433,75 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
             }
         ));
         jScrollPane10.setViewportView(tblRegistroBoletaRegVen);
+        pnlInternoBoletaRegVen.add(jScrollPane10, BorderLayout.CENTER);
 
-        pnlInternoBoletaRegVen.add(jScrollPane10);
-        jScrollPane10.setBounds(0, 30, 530, 170);
-
-        txtDecoracion1BoletaRegVen.setEditable(false);
-        txtDecoracion1BoletaRegVen.setBackground(new java.awt.Color(255, 255, 255));
-        txtDecoracion1BoletaRegVen.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        txtDecoracion1BoletaRegVen.setText("DETALLE DE VENTA:");
-        pnlInternoBoletaRegVen.add(txtDecoracion1BoletaRegVen);
-        txtDecoracion1BoletaRegVen.setBounds(0, 0, 130, 30);
+        // Totales
+        javax.swing.JPanel pnlTotalesBoletaVen = new javax.swing.JPanel();
+        pnlTotalesBoletaVen.setOpaque(false);
+        pnlTotalesBoletaVen.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
 
         txtDecoracion2BoletaRegVen.setEditable(false);
         txtDecoracion2BoletaRegVen.setBackground(new java.awt.Color(255, 255, 255));
         txtDecoracion2BoletaRegVen.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         txtDecoracion2BoletaRegVen.setForeground(new java.awt.Color(255, 51, 51));
         txtDecoracion2BoletaRegVen.setText("TOTAL");
-        pnlInternoBoletaRegVen.add(txtDecoracion2BoletaRegVen);
-        txtDecoracion2BoletaRegVen.setBounds(360, 210, 80, 30);
+        txtDecoracion2BoletaRegVen.setPreferredSize(new Dimension(80, 30));
+        pnlTotalesBoletaVen.add(txtDecoracion2BoletaRegVen);
 
         txtTotalBoletaRegVen.setEnabled(false);
-        pnlInternoBoletaRegVen.add(txtTotalBoletaRegVen);
-        txtTotalBoletaRegVen.setBounds(440, 210, 80, 30);
+        txtTotalBoletaRegVen.setPreferredSize(new Dimension(80, 30));
+        pnlTotalesBoletaVen.add(txtTotalBoletaRegVen);
 
-        pnlRegVenBoleta.add(pnlInternoBoletaRegVen);
-        pnlInternoBoletaRegVen.setBounds(60, 210, 530, 250);
+        pnlInternoBoletaRegVen.add(pnlTotalesBoletaVen, BorderLayout.SOUTH);
 
-        btnEditarBoletaRegVen.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
-        btnEditarBoletaRegVen.setText("Editar");
-        btnEditarBoletaRegVen.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditarBoletaRegVenActionPerformed(evt);
-            }
-        });
-        pnlRegVenBoleta.add(btnEditarBoletaRegVen);
-        btnEditarBoletaRegVen.setBounds(420, 470, 100, 30);
+        pnlRegVenBoleta.add(pnlInternoBoletaRegVen, BorderLayout.CENTER);
+
+        // Botones
+        javax.swing.JPanel pnlBotonesBolVen = new javax.swing.JPanel();
+        pnlBotonesBolVen.setOpaque(false);
+        pnlBotonesBolVen.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 20, 10));
 
         btnGuardarBoletaRegVen.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         btnGuardarBoletaRegVen.setText("Guardar");
+        btnGuardarBoletaRegVen.setPreferredSize(new Dimension(100, 30));
         btnGuardarBoletaRegVen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGuardarBoletaRegVenActionPerformed(evt);
             }
         });
-        pnlRegVenBoleta.add(btnGuardarBoletaRegVen);
-        btnGuardarBoletaRegVen.setBounds(60, 470, 100, 30);
+        pnlBotonesBolVen.add(btnGuardarBoletaRegVen);
 
         btnAgregarBoletaRegVen.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         btnAgregarBoletaRegVen.setText("Agregar");
+        btnAgregarBoletaRegVen.setPreferredSize(new Dimension(100, 30));
         btnAgregarBoletaRegVen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAgregarBoletaRegVenActionPerformed(evt);
             }
         });
-        pnlRegVenBoleta.add(btnAgregarBoletaRegVen);
-        btnAgregarBoletaRegVen.setBounds(180, 470, 100, 30);
+        pnlBotonesBolVen.add(btnAgregarBoletaRegVen);
 
         btnEliminarBoletaRegVen.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         btnEliminarBoletaRegVen.setText("Eliminar");
+        btnEliminarBoletaRegVen.setPreferredSize(new Dimension(110, 30));
         btnEliminarBoletaRegVen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEliminarBoletaRegVenActionPerformed(evt);
             }
         });
-        pnlRegVenBoleta.add(btnEliminarBoletaRegVen);
-        btnEliminarBoletaRegVen.setBounds(300, 470, 110, 30);
-        pnlRegVenBoleta.add(txtSerieBoletaRegVen);
-        txtSerieBoletaRegVen.setBounds(370, 50, 70, 30);
+        pnlBotonesBolVen.add(btnEliminarBoletaRegVen);
 
-        lblImagen2BoletaRegVen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Etiqueta.png"))); // NOI18N
-        pnlRegVenBoleta.add(lblImagen2BoletaRegVen);
-        lblImagen2BoletaRegVen.setBounds(630, 50, 31, 30);
+        btnEditarBoletaRegVen.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        btnEditarBoletaRegVen.setText("Editar");
+        btnEditarBoletaRegVen.setPreferredSize(new Dimension(100, 30));
+        btnEditarBoletaRegVen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarBoletaRegVenActionPerformed(evt);
+            }
+        });
+        pnlBotonesBolVen.add(btnEditarBoletaRegVen);
 
-        lblImagen1BoletaRegVen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Etiqueta.png"))); // NOI18N
-        pnlRegVenBoleta.add(lblImagen1BoletaRegVen);
-        lblImagen1BoletaRegVen.setBounds(450, 50, 31, 30);
-
-        lblimagen2factura1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Etiqueta.png"))); // NOI18N
-        pnlRegVenBoleta.add(lblimagen2factura1);
-        lblimagen2factura1.setBounds(630, 50, 31, 30);
-
-        lblimagen1factura1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Etiqueta.png"))); // NOI18N
-        pnlRegVenBoleta.add(lblimagen1factura1);
-        lblimagen1factura1.setBounds(450, 50, 31, 30);
-
-        cbTipoOPBoletaRegVen.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sin documento", "DNI", "Ruc" }));
-        pnlRegVenBoleta.add(cbTipoOPBoletaRegVen);
-        cbTipoOPBoletaRegVen.setBounds(100, 70, 190, 30);
+        pnlRegVenBoleta.add(pnlBotonesBolVen, BorderLayout.SOUTH);
 
         tpnMostrar.addTab("pnlRegVenBoleta", pnlRegVenBoleta);
 
@@ -2252,39 +2640,77 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
 
         tpnMostrar.addTab("pnlAjustes", pnlAjustes);
 
+        // --- pnlRegVenProform ---
         pnlRegVenProform.setBackground(new java.awt.Color(211, 251, 155));
-        pnlRegVenProform.setLayout(null);
+        pnlRegVenProform.setLayout(new java.awt.BorderLayout());
 
+        // Panel Superior
+        javax.swing.JPanel pnlProformaVenTop = new javax.swing.JPanel();
+        pnlProformaVenTop.setOpaque(false);
+        pnlProformaVenTop.setLayout(new java.awt.GridBagLayout());
+        java.awt.GridBagConstraints gbcProfVen = new java.awt.GridBagConstraints();
+        gbcProfVen.insets = new java.awt.Insets(5, 5, 5, 5);
+        gbcProfVen.anchor = java.awt.GridBagConstraints.WEST;
+
+        // Titulo
         lblsubtemaProformaRegVen.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
         lblsubtemaProformaRegVen.setText("PROFORMA");
-        pnlRegVenProform.add(lblsubtemaProformaRegVen);
-        lblsubtemaProformaRegVen.setBounds(60, 30, 360, 20);
-        pnlRegVenProform.add(txtFechaProformaRegVen);
-        txtFechaProformaRegVen.setBounds(360, 130, 110, 30);
+        gbcProfVen.gridx = 0;
+        gbcProfVen.gridy = 0;
+        gbcProfVen.gridwidth = 4;
+        pnlProformaVenTop.add(lblsubtemaProformaRegVen, gbcProfVen);
 
-        lblFechaProformaRegVen.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
-        lblFechaProformaRegVen.setText("Fecha:");
-        pnlRegVenProform.add(lblFechaProformaRegVen);
-        lblFechaProformaRegVen.setBounds(300, 140, 60, 17);
-
+        // Fila 1: Nombres
         lblNombresProformaRegVen.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         lblNombresProformaRegVen.setText("Nombres:");
-        pnlRegVenProform.add(lblNombresProformaRegVen);
-        lblNombresProformaRegVen.setBounds(60, 90, 80, 17);
+        gbcProfVen.gridy = 1;
+        gbcProfVen.gridwidth = 1;
+        gbcProfVen.gridx = 0;
+        pnlProformaVenTop.add(lblNombresProformaRegVen, gbcProfVen);
 
+        txtNombresProformaRegVen.setPreferredSize(new Dimension(300, 30));
+        gbcProfVen.gridx = 1;
+        gbcProfVen.gridwidth = 3;
+        pnlProformaVenTop.add(txtNombresProformaRegVen, gbcProfVen);
+
+        // Fila 2: Moneda, Fecha
         lblMonedaProformaRegVen.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         lblMonedaProformaRegVen.setText("Moneda:");
-        pnlRegVenProform.add(lblMonedaProformaRegVen);
-        lblMonedaProformaRegVen.setBounds(60, 140, 100, 17);
+        gbcProfVen.gridy = 2;
+        gbcProfVen.gridx = 0;
+        gbcProfVen.gridwidth = 1;
+        pnlProformaVenTop.add(lblMonedaProformaRegVen, gbcProfVen);
 
         cbTipoDeDineroProformaRegVen.setFont(new java.awt.Font("Courier New", 0, 13)); // NOI18N
         cbTipoDeDineroProformaRegVen.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Soles", "Dólares" }));
-        pnlRegVenProform.add(cbTipoDeDineroProformaRegVen);
-        cbTipoDeDineroProformaRegVen.setBounds(140, 130, 120, 30);
+        cbTipoDeDineroProformaRegVen.setPreferredSize(new Dimension(120, 30));
+        gbcProfVen.gridx = 1;
+        pnlProformaVenTop.add(cbTipoDeDineroProformaRegVen, gbcProfVen);
 
+        lblFechaProformaRegVen.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        lblFechaProformaRegVen.setText("Fecha:");
+        gbcProfVen.gridx = 2;
+        pnlProformaVenTop.add(lblFechaProformaRegVen, gbcProfVen);
+
+        txtFechaProformaRegVen.setPreferredSize(new Dimension(110, 30));
+        gbcProfVen.gridx = 3;
+        pnlProformaVenTop.add(txtFechaProformaRegVen, gbcProfVen);
+
+        pnlRegVenProform.add(pnlProformaVenTop, BorderLayout.NORTH);
+
+        // Panel Central
         pnlInternoRegVenProforma.setBackground(new java.awt.Color(255, 255, 255));
-        pnlInternoRegVenProforma.setLayout(null);
+        pnlInternoRegVenProforma.setLayout(new java.awt.BorderLayout());
+        pnlInternoRegVenProforma.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
+        // Decoracion Superior
+        txtDetalledeVentasRegVen.setEditable(false);
+        txtDetalledeVentasRegVen.setBackground(new java.awt.Color(255, 255, 255));
+        txtDetalledeVentasRegVen.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        txtDetalledeVentasRegVen.setText("DETALLE DE VENTA:");
+        pnlInternoRegVenProforma.add(txtDetalledeVentasRegVen, BorderLayout.NORTH);
+
+        // Tabla
         tblRegistroProformaRegVen.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null},
@@ -2300,73 +2726,75 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
             }
         ));
         jScrollPane11.setViewportView(tblRegistroProformaRegVen);
+        pnlInternoRegVenProforma.add(jScrollPane11, BorderLayout.CENTER);
 
-        pnlInternoRegVenProforma.add(jScrollPane11);
-        jScrollPane11.setBounds(0, 30, 530, 170);
-
-        txtDetalledeVentasRegVen.setEditable(false);
-        txtDetalledeVentasRegVen.setBackground(new java.awt.Color(255, 255, 255));
-        txtDetalledeVentasRegVen.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        txtDetalledeVentasRegVen.setText("DETALLE DE VENTA:");
-        pnlInternoRegVenProforma.add(txtDetalledeVentasRegVen);
-        txtDetalledeVentasRegVen.setBounds(0, 0, 140, 30);
-
-        txtTotalProformaRegVen.setEnabled(false);
-        pnlInternoRegVenProforma.add(txtTotalProformaRegVen);
-        txtTotalProformaRegVen.setBounds(440, 210, 80, 30);
+        // Totales
+        javax.swing.JPanel pnlTotalesProfVen = new javax.swing.JPanel();
+        pnlTotalesProfVen.setOpaque(false);
+        pnlTotalesProfVen.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
 
         txtDecoracion1ProformaRegVen.setEditable(false);
         txtDecoracion1ProformaRegVen.setBackground(new java.awt.Color(255, 255, 255));
         txtDecoracion1ProformaRegVen.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         txtDecoracion1ProformaRegVen.setForeground(new java.awt.Color(255, 51, 51));
         txtDecoracion1ProformaRegVen.setText("TOTAL");
-        pnlInternoRegVenProforma.add(txtDecoracion1ProformaRegVen);
-        txtDecoracion1ProformaRegVen.setBounds(360, 210, 80, 30);
+        txtDecoracion1ProformaRegVen.setPreferredSize(new Dimension(80, 30));
+        pnlTotalesProfVen.add(txtDecoracion1ProformaRegVen);
 
-        pnlRegVenProform.add(pnlInternoRegVenProforma);
-        pnlInternoRegVenProforma.setBounds(60, 190, 530, 250);
+        txtTotalProformaRegVen.setEnabled(false);
+        txtTotalProformaRegVen.setPreferredSize(new Dimension(80, 30));
+        pnlTotalesProfVen.add(txtTotalProformaRegVen);
 
-        btnEditarRegVenProforma.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
-        btnEditarRegVenProforma.setText("Editar");
-        btnEditarRegVenProforma.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditarRegVenProformaActionPerformed(evt);
-            }
-        });
-        pnlRegVenProform.add(btnEditarRegVenProforma);
-        btnEditarRegVenProforma.setBounds(420, 450, 100, 30);
+        pnlInternoRegVenProforma.add(pnlTotalesProfVen, BorderLayout.SOUTH);
+
+        pnlRegVenProform.add(pnlInternoRegVenProforma, BorderLayout.CENTER);
+
+        // Botones
+        javax.swing.JPanel pnlBotonesProfVen = new javax.swing.JPanel();
+        pnlBotonesProfVen.setOpaque(false);
+        pnlBotonesProfVen.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 20, 10));
 
         btnGuardarRegVenProforma.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         btnGuardarRegVenProforma.setText("Guardar");
+        btnGuardarRegVenProforma.setPreferredSize(new Dimension(100, 30));
         btnGuardarRegVenProforma.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGuardarRegVenProformaActionPerformed(evt);
             }
         });
-        pnlRegVenProform.add(btnGuardarRegVenProforma);
-        btnGuardarRegVenProforma.setBounds(60, 450, 100, 30);
+        pnlBotonesProfVen.add(btnGuardarRegVenProforma);
 
         btnAgregarRegVenProforma.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         btnAgregarRegVenProforma.setText("Agregar");
+        btnAgregarRegVenProforma.setPreferredSize(new Dimension(100, 30));
         btnAgregarRegVenProforma.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAgregarRegVenProformaActionPerformed(evt);
             }
         });
-        pnlRegVenProform.add(btnAgregarRegVenProforma);
-        btnAgregarRegVenProforma.setBounds(180, 450, 100, 30);
+        pnlBotonesProfVen.add(btnAgregarRegVenProforma);
 
         btnEliminarRegVenProforma.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         btnEliminarRegVenProforma.setText("Eliminar");
+        btnEliminarRegVenProforma.setPreferredSize(new Dimension(110, 30));
         btnEliminarRegVenProforma.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEliminarRegVenProformaActionPerformed(evt);
             }
         });
-        pnlRegVenProform.add(btnEliminarRegVenProforma);
-        btnEliminarRegVenProforma.setBounds(300, 450, 110, 30);
-        pnlRegVenProform.add(txtNombresProformaRegVen);
-        txtNombresProformaRegVen.setBounds(140, 80, 390, 30);
+        pnlBotonesProfVen.add(btnEliminarRegVenProforma);
+
+        btnEditarRegVenProforma.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        btnEditarRegVenProforma.setText("Editar");
+        btnEditarRegVenProforma.setPreferredSize(new Dimension(100, 30));
+        btnEditarRegVenProforma.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarRegVenProformaActionPerformed(evt);
+            }
+        });
+        pnlBotonesProfVen.add(btnEditarRegVenProforma);
+
+        pnlRegVenProform.add(pnlBotonesProfVen, BorderLayout.SOUTH);
 
         tpnMostrar.addTab("pnlRegVenProforma", pnlRegVenProform);
 
