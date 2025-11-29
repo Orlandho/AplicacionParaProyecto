@@ -153,13 +153,44 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         btnregistrodeventas = new javax.swing.JLabel();
         btncerrarsesion = new javax.swing.JLabel();
         lblRegCompras = new javax.swing.JLabel();
+        lblRegCompras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/signoMas.png")));
+        lblRegCompras.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblRegCompras.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                RegistroDeCompra.show(lblRegCompras, 0, lblRegCompras.getHeight());
+            }
+        });
+
         lblRegVentas = new javax.swing.JLabel();
+        lblRegVentas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/signoMas.png")));
+        lblRegVentas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblRegVentas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                RegistroDeVenta.show(lblRegVentas, 0, lblRegVentas.getHeight());
+            }
+        });
+
         jpanelsuperior = new javax.swing.JPanel();
+
         lblinventario = new javax.swing.JLabel();
+        lblinventario.setFont(new java.awt.Font("Segoe UI", 1, 36));
+        lblinventario.setForeground(new java.awt.Color(255, 255, 255));
+        lblinventario.setText("SISTEMA DE INVENTARIO");
+
         lblimagen1 = new javax.swing.JLabel();
+        lblimagen1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/LogoEmpresa removebg.png")));
+
         lblimagen2 = new javax.swing.JLabel();
+        lblimagen2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/usuariovl2.png")));
+
         lblRUC = new javax.swing.JLabel();
+        lblRUC.setFont(new java.awt.Font("Segoe UI", 1, 14));
+        lblRUC.setForeground(new java.awt.Color(255, 255, 255));
+        lblRUC.setText("RUC: 20602598745");
+
         lblRol = new javax.swing.JLabel();
+        lblRol.setFont(new java.awt.Font("Segoe UI", 1, 14));
+        lblRol.setForeground(new java.awt.Color(255, 255, 255));
         tpnMostrar = new javax.swing.JTabbedPane();
         pnl1Inicio = new javax.swing.JPanel();
         lblSubTitulo = new javax.swing.JLabel();
@@ -2887,7 +2918,7 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         getContentPane().add(tpnMostrar);
         tpnMostrar.setBounds(190, 80, 690, 610);
 
-        setMinimumSize(new java.awt.Dimension(900, 700)); // Establecer tamaño minimo para evitar colapso
+        setMinimumSize(new java.awt.Dimension(850, 600)); // Establecer tamaño minimo para evitar colapso
         pack(); // Ajustar tamaño de ventana al contenido
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
