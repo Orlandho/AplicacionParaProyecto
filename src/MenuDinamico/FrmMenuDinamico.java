@@ -531,14 +531,58 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         jpanelgeneral.setPreferredSize(new Dimension(200, 0));
         jpanelgeneral.setLayout(new javax.swing.BoxLayout(jpanelgeneral, javax.swing.BoxLayout.Y_AXIS));
 
-        // Botones del menú
+        // Botones del menú - Inicialización y Estilos
+        btninicio.setFont(new java.awt.Font("DialogInput", 0, 18));
+        btninicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/casa.png")));
+        btninicio.setText("INICIO");
         btninicio.setAlignmentX(Component.CENTER_ALIGNMENT);
-        btnAlmacen.setAlignmentX(Component.CENTER_ALIGNMENT);
-        btnregistrodecompras.setAlignmentX(Component.CENTER_ALIGNMENT);
-        btnregistrodeventas.setAlignmentX(Component.CENTER_ALIGNMENT);
-        btncerrarsesion.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btninicio.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btninicioMouseClicked(evt);
+            }
+        });
 
-        // Espaciado
+        btnAlmacen.setFont(new java.awt.Font("DialogInput", 0, 18));
+        btnAlmacen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/caja.png")));
+        btnAlmacen.setText("ALMACEN");
+        btnAlmacen.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btnAlmacen.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnAlmacenMouseClicked(evt);
+            }
+        });
+
+        btnregistrodecompras.setFont(new java.awt.Font("DialogInput", 0, 18));
+        btnregistrodecompras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/camion.png")));
+        btnregistrodecompras.setText("<html>REGISTRO<br>DE COMPRAS</html>");
+        btnregistrodecompras.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btnregistrodecompras.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnregistrodecomprasMouseClicked(evt);
+            }
+        });
+
+        btnregistrodeventas.setFont(new java.awt.Font("DialogInput", 0, 18));
+        btnregistrodeventas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/tienda.png")));
+        btnregistrodeventas.setText("<html>REGISTRO<br>DE VENTAS</html>");
+        btnregistrodeventas.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btnregistrodeventas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnregistrodeventasMouseClicked(evt);
+            }
+        });
+
+        btncerrarsesion.setFont(new java.awt.Font("DialogInput", 0, 18));
+        btncerrarsesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/puerta.png")));
+        btncerrarsesion.setText("<html>CERRAR<br>SESION</html>");
+        btncerrarsesion.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btncerrarsesion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btncerrarsesionMouseClicked(evt);
+            }
+        });
+
+        // Espaciado y Agregado al Panel
         jpanelgeneral.add(javax.swing.Box.createVerticalStrut(20));
         jpanelgeneral.add(btninicio);
         jpanelgeneral.add(javax.swing.Box.createVerticalStrut(10));
@@ -569,10 +613,46 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         jpaneladmin.setBackground(new java.awt.Color(0, 153, 153));
         jpaneladmin.setLayout(new javax.swing.BoxLayout(jpaneladmin, javax.swing.BoxLayout.Y_AXIS));
 
+        // Inicialización de botones de admin
+        btncaja.setFont(new java.awt.Font("DialogInput", 0, 18));
+        btncaja.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/dinero.png")));
+        btncaja.setText("CAJA");
         btncaja.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btncaja.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btncajaMouseClicked(evt);
+            }
+        });
+
+        btnregistrodeusuario.setFont(new java.awt.Font("DialogInput", 0, 18));
+        btnregistrodeusuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/personas.png")));
+        btnregistrodeusuario.setText("<html>REGISTRO<br>DE USUARIOS</html>");
         btnregistrodeusuario.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btnregistrodeusuario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnregistrodeusuarioMouseClicked(evt);
+            }
+        });
+
+        btnreportes.setFont(new java.awt.Font("DialogInput", 0, 18));
+        btnreportes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/documento.png")));
+        btnreportes.setText("REPORTES");
         btnreportes.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btnreportes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnreportesMouseClicked(evt);
+            }
+        });
+
+        btnajustes.setFont(new java.awt.Font("DialogInput", 0, 18));
+        btnajustes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/tuercas.png")));
+        btnajustes.setText("AJUSTES");
         btnajustes.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btnajustes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnajustesMouseClicked(evt);
+            }
+        });
 
         jpaneladmin.add(javax.swing.Box.createVerticalStrut(10));
         jpaneladmin.add(btncaja);
@@ -630,7 +710,13 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         getContentPane().add(jpanelgeneral, BorderLayout.WEST);
         getContentPane().add(tpnMostrar, BorderLayout.CENTER);
 
-        tpnMostrar.setTabPlacement(javax.swing.JTabbedPane.BOTTOM);
+        // Ocultar las pestañas pero mantener la funcionalidad
+        tpnMostrar.setUI(new javax.swing.plaf.basic.BasicTabbedPaneUI() {
+            @Override
+            protected int calculateTabAreaHeight(int tabPlacement, int horizRunCount, int maxTabHeight) {
+                return 0;
+            }
+        });
 
         // --- pnl1Inicio ---
         // Usaremos GridBagLayout para centrar los paneles de resumen
@@ -2801,7 +2887,8 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         getContentPane().add(tpnMostrar);
         tpnMostrar.setBounds(190, 80, 690, 610);
 
-        setSize(new java.awt.Dimension(894, 644));
+        setMinimumSize(new java.awt.Dimension(900, 700)); // Establecer tamaño minimo para evitar colapso
+        pack(); // Ajustar tamaño de ventana al contenido
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
