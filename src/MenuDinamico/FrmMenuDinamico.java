@@ -175,7 +175,8 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         lblinventario = new javax.swing.JLabel();
         lblinventario.setFont(new java.awt.Font("Segoe UI", 1, 36));
         lblinventario.setForeground(new java.awt.Color(255, 255, 255));
-        lblinventario.setText("SISTEMA DE INVENTARIO");
+        lblinventario.setText("INVENTARIO");
+        lblinventario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/carretilla.png")));
 
         lblimagen1 = new javax.swing.JLabel();
         lblimagen1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/LogoEmpresa removebg.png")));
@@ -184,13 +185,11 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         lblimagen2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/usuariovl2.png")));
 
         lblRUC = new javax.swing.JLabel();
-        lblRUC.setFont(new java.awt.Font("Segoe UI", 1, 14));
-        lblRUC.setForeground(new java.awt.Color(255, 255, 255));
-        lblRUC.setText("RUC: 20602598745");
 
         lblRol = new javax.swing.JLabel();
-        lblRol.setFont(new java.awt.Font("Segoe UI", 1, 14));
+        lblRol.setFont(new java.awt.Font("Segoe UI", 1, 18));
         lblRol.setForeground(new java.awt.Color(255, 255, 255));
+        lblRol.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         tpnMostrar = new javax.swing.JTabbedPane();
         pnl1Inicio = new javax.swing.JPanel();
         lblSubTitulo = new javax.swing.JLabel();
@@ -621,22 +620,22 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         jpanelgeneral.add(javax.swing.Box.createVerticalStrut(10));
 
         // Panel contenedor para Compras
-        javax.swing.JPanel pnlCompras = new javax.swing.JPanel();
+        javax.swing.JPanel pnlCompras = new javax.swing.JPanel(new BorderLayout());
         pnlCompras.setOpaque(false);
-        pnlCompras.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 5, 0));
-        pnlCompras.add(btnregistrodecompras);
-        pnlCompras.add(lblRegCompras);
+        pnlCompras.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 10, 0, 10)); // Margen
+        pnlCompras.add(btnregistrodecompras, BorderLayout.CENTER);
+        pnlCompras.add(lblRegCompras, BorderLayout.EAST);
         pnlCompras.setMaximumSize(new Dimension(200, 60));
         jpanelgeneral.add(pnlCompras);
 
         jpanelgeneral.add(javax.swing.Box.createVerticalStrut(10));
 
         // Panel contenedor para Ventas
-        javax.swing.JPanel pnlVentas = new javax.swing.JPanel();
+        javax.swing.JPanel pnlVentas = new javax.swing.JPanel(new BorderLayout());
         pnlVentas.setOpaque(false);
-        pnlVentas.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 5, 0));
-        pnlVentas.add(btnregistrodeventas);
-        pnlVentas.add(lblRegVentas);
+        pnlVentas.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 10, 0, 10)); // Margen
+        pnlVentas.add(btnregistrodeventas, BorderLayout.CENTER);
+        pnlVentas.add(lblRegVentas, BorderLayout.EAST);
         pnlVentas.setMaximumSize(new Dimension(200, 60));
         jpanelgeneral.add(pnlVentas);
 
@@ -702,37 +701,38 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         // jpanelsuperior (Encabezado)
         jpanelsuperior.setBackground(new java.awt.Color(0, 153, 153));
         jpanelsuperior.setPreferredSize(new Dimension(0, 80));
-        jpanelsuperior.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 20, 10));
+        jpanelsuperior.setLayout(new BorderLayout());
 
-        jpanelsuperior.add(lblinventario);
-        jpanelsuperior.add(lblimagen1);
-        // Separador flexible simulado con glue si fuera Box, pero FlowLayout es simple.
-        // Usaremos un panel derecho para alinear a la derecha la info de usuario
-        javax.swing.JPanel pnlInfoUsuario = new javax.swing.JPanel();
-        pnlInfoUsuario.setOpaque(false);
-        pnlInfoUsuario.setLayout(new java.awt.GridLayout(2, 1));
-        pnlInfoUsuario.add(lblRUC);
-        pnlInfoUsuario.add(lblRol);
-
-        javax.swing.JPanel pnlHeaderRight = new javax.swing.JPanel();
-        pnlHeaderRight.setOpaque(false);
-        pnlHeaderRight.add(pnlInfoUsuario);
-        pnlHeaderRight.add(lblimagen2);
-
-        // Contenedor principal del header para usar BorderLayout y separar titulo de usuario
+        // Contenedor principal del header
         javax.swing.JPanel pnlHeaderContainer = new javax.swing.JPanel(new BorderLayout());
         pnlHeaderContainer.setOpaque(false);
 
-        javax.swing.JPanel pnlHeaderLeft = new javax.swing.JPanel(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
+        // Left: INVENTARIO + Icon
+        javax.swing.JPanel pnlHeaderLeft = new javax.swing.JPanel(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 20, 10));
         pnlHeaderLeft.setOpaque(false);
         pnlHeaderLeft.add(lblinventario);
-        pnlHeaderLeft.add(lblimagen1);
+
+        // Right: Logo + Rol + UserIcon
+        javax.swing.JPanel pnlHeaderRight = new javax.swing.JPanel(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 10, 5));
+        pnlHeaderRight.setOpaque(false);
+
+        // Info Panel (Logo + Rol stacked)
+        javax.swing.JPanel pnlInfoUsuario = new javax.swing.JPanel();
+        pnlInfoUsuario.setOpaque(false);
+        pnlInfoUsuario.setLayout(new javax.swing.BoxLayout(pnlInfoUsuario, javax.swing.BoxLayout.Y_AXIS));
+
+        lblimagen1.setAlignmentX(Component.CENTER_ALIGNMENT);
+        lblRol.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        pnlInfoUsuario.add(lblimagen1);
+        pnlInfoUsuario.add(lblRol);
+
+        pnlHeaderRight.add(pnlInfoUsuario);
+        pnlHeaderRight.add(lblimagen2);
 
         pnlHeaderContainer.add(pnlHeaderLeft, BorderLayout.WEST);
         pnlHeaderContainer.add(pnlHeaderRight, BorderLayout.EAST);
 
-        // Reemplazamos el layout manager de jpanelsuperior por BorderLayout
-        jpanelsuperior.setLayout(new BorderLayout());
         jpanelsuperior.add(pnlHeaderContainer, BorderLayout.CENTER);
 
 
