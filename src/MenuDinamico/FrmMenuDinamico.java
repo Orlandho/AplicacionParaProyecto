@@ -711,24 +711,33 @@ public class FrmMenuDinamico extends javax.swing.JFrame {
         javax.swing.JPanel pnlHeaderLeft = new javax.swing.JPanel(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 20, 10));
         pnlHeaderLeft.setOpaque(false);
         pnlHeaderLeft.add(lblinventario);
+        pnlHeaderLeft.add(lblimagen1);
 
         // Right: Logo + Rol + UserIcon
-        javax.swing.JPanel pnlHeaderRight = new javax.swing.JPanel(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 10, 5));
+        javax.swing.JPanel pnlHeaderRight = new javax.swing.JPanel(new java.awt.GridBagLayout());
         pnlHeaderRight.setOpaque(false);
+        java.awt.GridBagConstraints gbcHeaderRight = new java.awt.GridBagConstraints();
 
         // Info Panel (Logo + Rol stacked)
         javax.swing.JPanel pnlInfoUsuario = new javax.swing.JPanel();
         pnlInfoUsuario.setOpaque(false);
         pnlInfoUsuario.setLayout(new javax.swing.BoxLayout(pnlInfoUsuario, javax.swing.BoxLayout.Y_AXIS));
 
-        lblimagen1.setAlignmentX(Component.CENTER_ALIGNMENT);
+        lblRUC.setAlignmentX(Component.CENTER_ALIGNMENT);
         lblRol.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        pnlInfoUsuario.add(lblimagen1);
+        pnlInfoUsuario.add(lblRUC);
         pnlInfoUsuario.add(lblRol);
 
-        pnlHeaderRight.add(pnlInfoUsuario);
-        pnlHeaderRight.add(lblimagen2);
+        gbcHeaderRight.gridx = 0;
+        gbcHeaderRight.gridy = 0;
+        gbcHeaderRight.anchor = java.awt.GridBagConstraints.CENTER;
+        pnlHeaderRight.add(pnlInfoUsuario, gbcHeaderRight);
+
+        gbcHeaderRight.gridx = 1;
+        gbcHeaderRight.insets = new java.awt.Insets(0, 10, 0, 0); // Espacio entre info y usuario
+        gbcHeaderRight.anchor = java.awt.GridBagConstraints.NORTH;
+        pnlHeaderRight.add(lblimagen2, gbcHeaderRight);
 
         pnlHeaderContainer.add(pnlHeaderLeft, BorderLayout.WEST);
         pnlHeaderContainer.add(pnlHeaderRight, BorderLayout.EAST);
